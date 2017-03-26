@@ -66,4 +66,18 @@ public class Character extends Entity {
 
         availableRelationships.get(relationshipIndex).addEntity(ent);
     }
+
+    public Relationship getRelationship(int index)
+    {
+        if (index < 0 || index > availableRelationships.size())
+        {
+            return null;
+        }
+        return availableRelationships.get(index);
+    }
+
+    public ArrayList<Relationship> getAvailableRelationships()
+    {
+        return availableRelationships;
+    }
 }

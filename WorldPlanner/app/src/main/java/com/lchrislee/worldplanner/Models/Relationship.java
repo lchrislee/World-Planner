@@ -25,4 +25,18 @@ public class Relationship extends WorldPlannerBaseModel {
     {
         relevantEntitites.remove(ent);
     }
+
+    public @NonNull ArrayList<Entity> getRelevantEntities()
+    {
+        return relevantEntitites;
+    }
+
+    public Entity getEntity(int index)
+    {
+        if (index < 0 || index >= relevantEntitites.size())
+        {
+            return null;
+        }
+        return relevantEntitites.get(index);
+    }
 }
