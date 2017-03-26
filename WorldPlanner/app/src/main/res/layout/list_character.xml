@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="4dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/list_character_image"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="140dp"
+            android:layout_height="108dp"
+            android:layout_margin="4dp"
+            />
+
+        <TextView
+            android:id="@+id/list_character_name"
+            tools:text="Spiderman (Peter Parker)"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:gravity="center_vertical"
+            android:layout_toEndOf="@+id/list_character_image"
+            android:layout_toRightOf="@+id/list_character_image"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            />
+
+        <TextView
+            android:id="@+id/list_character_age_gender"
+            tools:text="Age 20, Male"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/list_character_name"
+            android:layout_toEndOf="@+id/list_character_image"
+            android:layout_toRightOf="@+id/list_character_image"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            />
+
+        <TextView
+            android:id="@+id/list_character_occupation"
+            tools:text="Superhero"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/list_character_age_gender"
+            android:layout_toEndOf="@+id/list_character_image"
+            android:layout_toRightOf="@+id/list_character_image"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            />
+
+        <TextView
+            android:id="@+id/list_character_description"
+            tools:text="Main Protagonist"
+            android:maxLines="2"
+            android:layout_below="@+id/list_character_occupation"
+            android:layout_toEndOf="@+id/list_character_image"
+            android:layout_toRightOf="@+id/list_character_image"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/list_character_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

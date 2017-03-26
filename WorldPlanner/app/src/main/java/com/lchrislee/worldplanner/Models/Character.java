@@ -12,6 +12,7 @@ public class Character extends Entity {
     private ArrayList<Relationship> availableRelationships;
     private String nickname;
     private String gender;
+    private String occupation;
     private int age;
 
     public Character(@NonNull String title, @NonNull String description) {
@@ -23,7 +24,7 @@ public class Character extends Entity {
         return nickname;
     }
 
-    public void setNickname(@NonNull String nickname) {
+    public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
@@ -33,6 +34,14 @@ public class Character extends Entity {
 
     public void setGender(@NonNull String gender) {
         this.gender = gender;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(@NonNull String occupation) {
+        this.occupation = occupation;
     }
 
     public int getAge() {
