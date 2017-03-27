@@ -10,10 +10,11 @@ import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
 
-public class EntityListFragment extends Fragment {
+public class EntityListFragment extends WorldPlannerBaseFragment {
 
 
     public EntityListFragment() {
+        super();
         // Required empty public constructor
     }
 

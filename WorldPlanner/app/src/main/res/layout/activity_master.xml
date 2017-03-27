@@ -18,6 +18,7 @@
         app:tabMode="fixed"
         app:tabGravity="center"
         app:tabTextColor="@android:color/white"
+        app:tabSelectedTextColor="?attr/colorAccent"
         android:background="?attr/colorPrimary"
         android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"

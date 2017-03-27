@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import com.lchrislee.worldplanner.Adapters.EntityFragmentPagerAdapter;
 import com.lchrislee.worldplanner.R;
 
+import timber.log.Timber;
+
 public class MasterActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -50,6 +52,7 @@ public class MasterActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Timber.tag("Menu Click").d("title: %s on %s", item.getTitle(), MasterActivity.class.getSimpleName());
         switch(item.getItemId())
         {
             case R.id.menu_main_change:
