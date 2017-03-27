@@ -18,10 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activities.WorldDetailActivity"
-            android:parentActivityName=".Activities.MasterActivity" />
-        <activity android:name=".Activities.EntityDetailActivity"
+        <activity android:name=".Activities.ModelDetailActivity"
             android:parentActivityName=".Activities.MasterActivity"></activity>
     </application>
 

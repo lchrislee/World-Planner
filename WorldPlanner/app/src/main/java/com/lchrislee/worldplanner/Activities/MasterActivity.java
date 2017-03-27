@@ -7,14 +7,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 import com.lchrislee.worldplanner.Adapters.EntityFragmentPagerAdapter;
 import com.lchrislee.worldplanner.Models.Entity;
 import com.lchrislee.worldplanner.R;
@@ -24,24 +21,20 @@ import timber.log.Timber;
 public class MasterActivity extends AppCompatActivity {
 
     private static final int WORLD_DETAIL_CODE = 100;
-
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private FloatingActionButton character;
-    private FloatingActionButton location;
-    private FloatingActionButton item;
-    private FloatingActionButton plot;
+    private static final int CHARACTER_DETAIL_CODE = 100;
+    private static final int LOCATION_DETAIL_CODE = 100;
+    private static final int ITEM_DETAIL_CODE = 100;
+    private static final int PLOT_DETAIL_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
         {
             actionBar.setTitle("World Planner");
@@ -51,10 +44,10 @@ public class MasterActivity extends AppCompatActivity {
             actionBar.setDisplayShowHomeEnabled(false);
         }
 
-        viewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
         viewPager.setAdapter(new EntityFragmentPagerAdapter(getSupportFragmentManager()));
 
-        tabLayout = (TabLayout) findViewById(R.id.activity_main_tablayout);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_main_tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
         // TODO: Replace this implementaion of FAB menu with custom one.
@@ -63,33 +56,42 @@ public class MasterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Timber.tag("Main FAB").d(((FloatingActionButton) v).getLabelText());
-                Intent i = new Intent(getApplicationContext(), EntityDetailActivity.class);
+                Intent i = new Intent(getApplicationContext(), ModelDetailActivity.class);
+                i.putExtra(ModelDetailActivity.NEW, true);
+                int requestCode;
                 switch(v.getId())
                 {
                     case R.id.activity_main_fab_character:
-                        i.putExtra(EntityDetailActivity.TYPE, Entity.EntityType.Character);
+                        i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.Character);
+                        requestCode = CHARACTER_DETAIL_CODE;
                         break;
                     case R.id.activity_main_fab_location:
-                        i.putExtra(EntityDetailActivity.TYPE, Entity.EntityType.Location);
+                        i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.Location);
+                        requestCode = LOCATION_DETAIL_CODE;
                         break;
                     case R.id.activity_main_fab_item:
-                        i.putExtra(EntityDetailActivity.TYPE, Entity.EntityType.Item);
+                        i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.Item);
+                        requestCode = ITEM_DETAIL_CODE;
                         break;
                     case R.id.activity_main_fab_plot:
-                        i.putExtra(EntityDetailActivity.TYPE, Entity.EntityType.Plot);
+                        i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.Plot);
+                        requestCode = PLOT_DETAIL_CODE;
                         break;
+                    default:
+                        i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.None);
+                        requestCode = WORLD_DETAIL_CODE;
                 }
-                startActivity(i);
+                startActivityForResult(i, requestCode);
             }
         };
 
-        character = (FloatingActionButton) findViewById(R.id.activity_main_fab_character);
+        final FloatingActionButton character = (FloatingActionButton) findViewById(R.id.activity_main_fab_character);
         character.setOnClickListener(toDetail);
-        location = (FloatingActionButton) findViewById(R.id.activity_main_fab_location);
+        final FloatingActionButton location = (FloatingActionButton) findViewById(R.id.activity_main_fab_location);
         location.setOnClickListener(toDetail);
-        item = (FloatingActionButton) findViewById(R.id.activity_main_fab_item);
+        final FloatingActionButton item = (FloatingActionButton) findViewById(R.id.activity_main_fab_item);
         item.setOnClickListener(toDetail);
-        plot = (FloatingActionButton) findViewById(R.id.activity_main_fab_plot);
+        final FloatingActionButton plot = (FloatingActionButton) findViewById(R.id.activity_main_fab_plot);
         plot.setOnClickListener(toDetail);
     }
 
@@ -105,7 +107,8 @@ public class MasterActivity extends AppCompatActivity {
         switch(item.getItemId())
         {
             case R.id.menu_main_world:
-                Intent i = new Intent(getApplicationContext(), WorldDetailActivity.class);
+                Intent i = new Intent(getApplicationContext(), ModelDetailActivity.class);
+                i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.None);
                 startActivityForResult(i, WORLD_DETAIL_CODE);
                 break;
             case R.id.menu_main_search:
@@ -121,9 +124,8 @@ public class MasterActivity extends AppCompatActivity {
         switch(requestCode)
         {
             case WORLD_DETAIL_CODE:
-                if (resultCode == WorldDetailActivity.DELETE)
+                if (resultCode == ModelDetailActivity.DELETE)
                 {
-                    // TODO: Modify the activity because everything got wiped!
                     Timber.tag("CRUD").d("Deleted current world.");
                 }
                 break;
