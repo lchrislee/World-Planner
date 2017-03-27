@@ -1,6 +1,5 @@
 package com.lchrislee.worldplanner.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -44,7 +43,7 @@ public class WorldDetailActivity extends WorldPlannerBaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detail_world, menu);
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -52,11 +51,11 @@ public class WorldDetailActivity extends WorldPlannerBaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId())
         {
-            case R.id.menu_detail_world_edit:
+            case R.id.menu_detail_edit:
                 break;
-            case R.id.menu_detail_world_share:
+            case R.id.menu_detail_share:
                 break;
-            case R.id.menu_detail_world_delete:
+            case R.id.menu_detail_delete:
                 setResult(DELETE);
                 finish();
                 break;

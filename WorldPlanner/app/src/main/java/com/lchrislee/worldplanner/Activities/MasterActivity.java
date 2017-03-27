@@ -7,9 +7,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.lchrislee.worldplanner.Adapters.EntityFragmentPagerAdapter;
 import com.lchrislee.worldplanner.R;
 
@@ -22,6 +27,10 @@ public class MasterActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private FloatingActionButton character;
+    private FloatingActionButton location;
+    private FloatingActionButton item;
+    private FloatingActionButton plot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +54,35 @@ public class MasterActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.activity_main_tablayout);
         tabLayout.setupWithViewPager(viewPager);
+
+        // TODO: Replace this implementaion of FAB menu with custom one.
+        // This is super deprecated and hard to use.
+        View.OnClickListener toDetail = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Timber.tag("Main FAB").d(((FloatingActionButton) v).getLabelText());
+                switch(v.getId())
+                {
+                    case R.id.activity_main_fab_character:
+                        break;
+                    case R.id.activity_main_fab_location:
+                        break;
+                    case R.id.activity_main_fab_item:
+                        break;
+                    case R.id.activity_main_fab_plot:
+                        break;
+                }
+            }
+        };
+
+        character = (FloatingActionButton) findViewById(R.id.activity_main_fab_character);
+        character.setOnClickListener(toDetail);
+        location = (FloatingActionButton) findViewById(R.id.activity_main_fab_location);
+        location.setOnClickListener(toDetail);
+        item = (FloatingActionButton) findViewById(R.id.activity_main_fab_item);
+        item.setOnClickListener(toDetail);
+        plot = (FloatingActionButton) findViewById(R.id.activity_main_fab_plot);
+        plot.setOnClickListener(toDetail);
     }
 
     @Override
