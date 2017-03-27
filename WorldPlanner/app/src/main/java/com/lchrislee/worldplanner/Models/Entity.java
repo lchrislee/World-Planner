@@ -26,6 +26,8 @@ public class Entity extends WorldPlannerBaseModel {
                 return "Location";
             case Item:
                 return "Item";
+            case Plot:
+                return "Plot";
             default:
                 return null;
         }
