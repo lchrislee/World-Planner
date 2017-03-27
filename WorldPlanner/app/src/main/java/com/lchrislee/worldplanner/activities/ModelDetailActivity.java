@@ -43,6 +43,8 @@ public class ModelDetailActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("Details");
+            actionBar.setDisplayShowTitleEnabled(true);
         }
 
         fragment = PlannerObjectDetailFragment.newInstance(typeToDisplay, isNewModel);

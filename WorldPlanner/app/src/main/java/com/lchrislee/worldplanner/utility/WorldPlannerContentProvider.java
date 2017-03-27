@@ -7,6 +7,16 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 public class WorldPlannerContentProvider extends ContentProvider {
+    public static final String CONTENT_AUTHORITY = "com.lchrislee.worldplanner.provider";
+
+    private static final Uri BASE_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+
+    public static final String PATH_WORLD = "world";
+    public static final String PATH_CHARACTER = "character";
+    public static final String PATH_LOCATION = "location";
+    public static final String PATH_ITEM = "item";
+    public static final String PATH_PLOT = "plot";
+
     public WorldPlannerContentProvider() {
     }
 
