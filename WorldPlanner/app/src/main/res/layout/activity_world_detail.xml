@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lchrislee.worldplanner.Activities.WorldDetailActivity">
+
+    <include
+        layout="@layout/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <ImageView
+        android:id="@+id/activity_world_detail_image"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <TextView
+        android:id="@+id/activity_world_detail_description"
+        tools:text="This is a giant world of danger and wonder. It is amazing how the only known intelligent life forms are also the worst organisms around."
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_below="@id/activity_world_detail_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+</RelativeLayout>

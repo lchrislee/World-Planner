@@ -1,5 +1,6 @@
 package com.lchrislee.worldplanner.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,8 @@ import com.lchrislee.worldplanner.R;
 import timber.log.Timber;
 
 public class MasterActivity extends AppCompatActivity {
+
+    private static final int WORLD_DETAIL_CODE = 100;
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -55,11 +58,29 @@ public class MasterActivity extends AppCompatActivity {
         Timber.tag("Menu Click").d("title: %s on %s", item.getTitle(), MasterActivity.class.getSimpleName());
         switch(item.getItemId())
         {
-            case R.id.menu_main_change:
+            case R.id.menu_main_world:
+                Intent i = new Intent(getApplicationContext(), WorldDetailActivity.class);
+                startActivityForResult(i, WORLD_DETAIL_CODE);
                 break;
             case R.id.menu_main_search:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch(requestCode)
+        {
+            case WORLD_DETAIL_CODE:
+                if (resultCode == WorldDetailActivity.DELETE)
+                {
+                    // TODO: Modify the activity because everything got wiped!
+                    Timber.tag("CRUD").d("Deleted current world.");
+                }
+                break;
+        }
     }
 }
