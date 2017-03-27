@@ -10,11 +10,15 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 
+import timber.log.Timber;
+
 public class WorldPlannerBaseFragment extends Fragment {
 
 
     public WorldPlannerBaseFragment() {
         // Required empty public constructor
+        Timber.tag("Lifecycle");
+        Timber.d("Base Fragment created");
     }
 
 }
