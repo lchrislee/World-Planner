@@ -1,6 +1,7 @@
 package com.lchrislee.worldplanner.Models;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * Created by chrisl on 3/26/17.
  */
 
-public class Character extends Entity {
+public class Character extends WorldPlannerBaseModel implements Relationship.Relationable {
     private ArrayList<Relationship> availableRelationships;
     private String nickname;
     private String gender;
@@ -16,11 +17,11 @@ public class Character extends Entity {
     private int age;
 
     public Character(@NonNull String title, @NonNull String description) {
-        super(title, description, EntityType.Character);
+        super(title, description);
         availableRelationships = new ArrayList<>();
     }
 
-    public String getNickname() {
+    public @Nullable String getNickname() {
         return nickname;
     }
 
@@ -28,7 +29,7 @@ public class Character extends Entity {
         this.nickname = nickname;
     }
 
-    public String getGender() {
+    public @Nullable String getGender() {
         return gender;
     }
 
@@ -36,7 +37,7 @@ public class Character extends Entity {
         this.gender = gender;
     }
 
-    public String getOccupation() {
+    public @Nullable String getOccupation() {
         return occupation;
     }
 
@@ -57,17 +58,19 @@ public class Character extends Entity {
         availableRelationships.add(newRel);
     }
 
-    public void addEntityToRelationship(int relationshipIndex, @NonNull Entity ent)
+    public void addObjectToRelationship(int relationshipIndex, @NonNull WorldPlannerBaseModel obj)
     {
         if (relationshipIndex < 0 || relationshipIndex >= availableRelationships.size())
         {
             return;
         }
 
-        availableRelationships.get(relationshipIndex).addEntity(ent);
+        if (obj instanceof Relationship.Relationable) {
+            availableRelationships.get(relationshipIndex).addRelevantObject((Relationship.Relationable) obj);
+        }
     }
 
-    public Relationship getRelationship(int index)
+    public @Nullable Relationship getRelationship(int index)
     {
         if (index < 0 || index > availableRelationships.size())
         {
@@ -76,8 +79,20 @@ public class Character extends Entity {
         return availableRelationships.get(index);
     }
 
-    public ArrayList<Relationship> getAvailableRelationships()
+    public @NonNull ArrayList<Relationship> getAvailableRelationships()
     {
         return availableRelationships;
+    }
+
+    @NonNull
+    @Override
+    public Relationship.RelationableType getRelationableType() {
+        return Relationship.RelationableType.Character;
+    }
+
+    @NonNull
+    @Override
+    public String getRelationableString() {
+        return "Character";
     }
 }

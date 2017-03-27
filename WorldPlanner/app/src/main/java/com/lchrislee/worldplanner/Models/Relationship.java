@@ -1,6 +1,7 @@
 package com.lchrislee.worldplanner.Models;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -9,34 +10,51 @@ import java.util.ArrayList;
  */
 
 public class Relationship extends WorldPlannerBaseModel {
-    private ArrayList<Entity> relevantEntitites;
+    private ArrayList<Relationable> relevantObjects;
 
     public Relationship(@NonNull String title, @NonNull String description) {
         super(title, description);
-        relevantEntitites = new ArrayList<>();
+        relevantObjects = new ArrayList<>();
     }
 
-    public void addEntity(@NonNull Entity ent)
+    public void addRelevantObject(@NonNull Relationable obj)
     {
-        relevantEntitites.add(ent);
+        relevantObjects.add(obj);
     }
 
-    public void removeEntity(@NonNull Entity ent)
+    public void removeRelevantObject(@NonNull Relationable obj)
     {
-        relevantEntitites.remove(ent);
+        relevantObjects.remove(obj);
     }
 
-    public @NonNull ArrayList<Entity> getRelevantEntities()
+    public @NonNull ArrayList<Relationable> getRelevantObjects()
     {
-        return relevantEntitites;
+        return relevantObjects;
     }
 
-    public Entity getEntity(int index)
+    public @Nullable Relationable getRelevantObject(int index)
     {
-        if (index < 0 || index >= relevantEntitites.size())
+        if (index < 0 || index >= relevantObjects.size())
         {
             return null;
         }
-        return relevantEntitites.get(index);
+        return relevantObjects.get(index);
+    }
+
+    public static int RELATIONABLE_TYPE_COUNT = 4;
+
+    public interface Relationable
+    {
+        @NonNull RelationableType getRelationableType();
+        @NonNull String getRelationableString();
+    }
+
+    public enum RelationableType
+    {
+        Character,
+        Location,
+        Item,
+        Plot,
+        None
     }
 }

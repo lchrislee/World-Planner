@@ -9,10 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.Models.Character;
-import com.lchrislee.worldplanner.Models.Entity;
 import com.lchrislee.worldplanner.Models.Item;
 import com.lchrislee.worldplanner.Models.Location;
 import com.lchrislee.worldplanner.Models.Plot;
+import com.lchrislee.worldplanner.Models.Relationship;
+import com.lchrislee.worldplanner.Models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  * Created by chrisl on 3/27/17.
  */
 
-public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.EntityListViewHolder> {
+public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterPlannerObjectListAdapter.EntityListViewHolder> {
 
     class EntityListViewHolder extends RecyclerView.ViewHolder
     {
@@ -42,13 +43,13 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
         }
     }
 
-    ArrayList<Entity> data;
+    ArrayList<WorldPlannerBaseModel> data;
 
     private Context context;
 
-    private Entity.EntityType typeDisplaying;
+    private Relationship.RelationableType typeDisplaying;
 
-    public EntityListAdapter(Entity.EntityType type, Context c) {
+    public MasterPlannerObjectListAdapter(Relationship.RelationableType type, Context c) {
         typeDisplaying = type;
         context = c;
         data = new ArrayList<>();
@@ -104,14 +105,14 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
 
     @Override
     public void onBindViewHolder(EntityListViewHolder holder, int position) {
-        Entity ent = data.get(position);
+        WorldPlannerBaseModel ent = data.get(position);
 
         if (holder.description != null)
         {
             holder.description.setText(ent.getDescription());
         }
 
-        if (typeDisplaying == Entity.EntityType.Character)
+        if (typeDisplaying == Relationship.RelationableType.Character)
         {
             Character proper = (Character) ent;
             holder.name.setText(proper.getNickname() + " (" + proper.getName() + ")");

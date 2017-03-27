@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by chrisl on 3/26/17.
  */
 
-public class WorldPlannerBaseModel implements Serializable{
+public abstract class WorldPlannerBaseModel implements Serializable{
 
     private String name;
     private String description;

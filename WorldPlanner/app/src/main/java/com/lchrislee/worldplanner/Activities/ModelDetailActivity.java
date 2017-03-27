@@ -7,14 +7,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.lchrislee.worldplanner.Fragments.EntityDetailFragment;
-import com.lchrislee.worldplanner.Models.Entity;
+import com.lchrislee.worldplanner.Fragments.PlannerObjectDetailFragment;
+import com.lchrislee.worldplanner.Models.Relationship;
 import com.lchrislee.worldplanner.Models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
-
-import timber.log.Timber;
 
 public class ModelDetailActivity extends AppCompatActivity {
 
@@ -22,9 +19,9 @@ public class ModelDetailActivity extends AppCompatActivity {
     public static String TYPE = "MODEL_DETAIL_ACTIVITY_TYPE";
     public static int DELETE = 404;
 
-    EntityDetailFragment fragment;
+    PlannerObjectDetailFragment fragment;
 
-    private Entity.EntityType typeToDisplay = Entity.EntityType.None;
+    private Relationship.RelationableType typeToDisplay = Relationship.RelationableType.None;
     private WorldPlannerBaseModel modelToDisplay = null;
     private boolean isNewModel;
 
@@ -34,7 +31,7 @@ public class ModelDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_model_detail);
 
         Intent i = getIntent();
-        typeToDisplay = (Entity.EntityType) i.getSerializableExtra(TYPE);
+        typeToDisplay = (Relationship.RelationableType) i.getSerializableExtra(TYPE);
         isNewModel = i.getBooleanExtra(NEW, false);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -48,14 +45,14 @@ public class ModelDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        fragment = EntityDetailFragment.newInstance(typeToDisplay, isNewModel);
+        fragment = PlannerObjectDetailFragment.newInstance(typeToDisplay, isNewModel);
         getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, fragment).commit();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail, menu);
-        menu.findItem(R.id.menu_detail_character_add).setVisible(typeToDisplay == Entity.EntityType.Character);
+        menu.findItem(R.id.menu_detail_character_add).setVisible(typeToDisplay == Relationship.RelationableType.Character);
         if (isNewModel)
         {
             menu.findItem(R.id.menu_detail_edit).setIcon(android.R.drawable.ic_menu_save);
@@ -65,7 +62,6 @@ public class ModelDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Timber.tag("Model Detail").d(Entity.getTypeString(typeToDisplay) + " - Clicked: " + item.getTitle());
         switch(item.getItemId())
         {
             case R.id.menu_detail_character_add:

@@ -12,8 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.clans.fab.FloatingActionButton;
-import com.lchrislee.worldplanner.Adapters.EntityFragmentPagerAdapter;
-import com.lchrislee.worldplanner.Models.Entity;
+import com.lchrislee.worldplanner.Adapters.MasterFragmentPagerAdapter;
+import com.lchrislee.worldplanner.Models.Relationship;
 import com.lchrislee.worldplanner.R;
 
 import timber.log.Timber;
@@ -45,7 +45,7 @@ public class MasterActivity extends AppCompatActivity {
         }
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
-        viewPager.setAdapter(new EntityFragmentPagerAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(new MasterFragmentPagerAdapter(getSupportFragmentManager()));
 
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_main_tablayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -62,23 +62,23 @@ public class MasterActivity extends AppCompatActivity {
                 switch(v.getId())
                 {
                     case R.id.activity_main_fab_character:
-                        i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.Character);
+                        i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Character);
                         requestCode = CHARACTER_DETAIL_CODE;
                         break;
                     case R.id.activity_main_fab_location:
-                        i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.Location);
+                        i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Location);
                         requestCode = LOCATION_DETAIL_CODE;
                         break;
                     case R.id.activity_main_fab_item:
-                        i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.Item);
+                        i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Item);
                         requestCode = ITEM_DETAIL_CODE;
                         break;
                     case R.id.activity_main_fab_plot:
-                        i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.Plot);
+                        i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Plot);
                         requestCode = PLOT_DETAIL_CODE;
                         break;
                     default:
-                        i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.None);
+                        i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.None);
                         requestCode = WORLD_DETAIL_CODE;
                 }
                 startActivityForResult(i, requestCode);
@@ -108,7 +108,7 @@ public class MasterActivity extends AppCompatActivity {
         {
             case R.id.menu_main_world:
                 Intent i = new Intent(getApplicationContext(), ModelDetailActivity.class);
-                i.putExtra(ModelDetailActivity.TYPE, Entity.EntityType.None);
+                i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.None);
                 startActivityForResult(i, WORLD_DETAIL_CODE);
                 break;
             case R.id.menu_main_search:

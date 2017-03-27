@@ -10,14 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.lchrislee.worldplanner.Models.Entity;
+import com.lchrislee.worldplanner.Models.Relationship;
 import com.lchrislee.worldplanner.R;
 
-import timber.log.Timber;
+public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
 
-public class EntityDetailFragment extends WorldPlannerBaseFragment {
-
-    private static final String ENTITY_TYPE = "ENTITY_LIST_FRAGMENT_ENTITY_TYPE";
+    private static final String RELATION_TYPE = "ENTITY_LIST_FRAGMENT_RELATION_TYPE";
     private static final String EDIT = "ENTITY_LIST_FRAGMENT_EDIT";
 
     private EditText name;
@@ -26,18 +24,18 @@ public class EntityDetailFragment extends WorldPlannerBaseFragment {
     private EditText gender;
     private EditText age;
 
-    private Entity.EntityType typeToDisplay;
+    private Relationship.RelationableType typeToDisplay;
     private boolean isEditing;
 
-    public EntityDetailFragment() {
+    public PlannerObjectDetailFragment() {
         super();
         // Required empty public constructor
     }
 
-    public static EntityDetailFragment newInstance(Entity.EntityType type, boolean edit) {
-        EntityDetailFragment fragment = new EntityDetailFragment();
+    public static PlannerObjectDetailFragment newInstance(Relationship.RelationableType type, boolean edit) {
+        PlannerObjectDetailFragment fragment = new PlannerObjectDetailFragment();
         Bundle b = new Bundle();
-        b.putSerializable(ENTITY_TYPE, type);
+        b.putSerializable(RELATION_TYPE, type);
         b.putBoolean(EDIT, edit);
         fragment.setArguments(b);
         return fragment;
@@ -48,14 +46,13 @@ public class EntityDetailFragment extends WorldPlannerBaseFragment {
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
-        typeToDisplay = (Entity.EntityType) arguments.getSerializable(ENTITY_TYPE);
+        typeToDisplay = (Relationship.RelationableType) arguments.getSerializable(RELATION_TYPE);
         isEditing = arguments.getBoolean(EDIT);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Timber.tag("EntityDetailFragment").d("Displaying type: " + Entity.getTypeString(typeToDisplay));
         View mainView;
         switch (typeToDisplay)
         {
@@ -97,7 +94,7 @@ public class EntityDetailFragment extends WorldPlannerBaseFragment {
             name.setBackground(editBackground);
             description.setBackground(editBackground);
 
-            if (typeToDisplay == Entity.EntityType.Character) {
+            if (typeToDisplay == Relationship.RelationableType.Character) {
                 nickname.setBackground(editBackground);
                 gender.setBackground(editBackground);
                 age.setBackground(editBackground);
@@ -110,7 +107,7 @@ public class EntityDetailFragment extends WorldPlannerBaseFragment {
             name.setBackground(background);
             description.setBackground(background);
 
-            if (typeToDisplay == Entity.EntityType.Character) {
+            if (typeToDisplay == Relationship.RelationableType.Character) {
                 nickname.setBackground(background);
                 gender.setBackground(background);
                 age.setBackground(background);
@@ -130,7 +127,7 @@ public class EntityDetailFragment extends WorldPlannerBaseFragment {
         description.invalidate();
         description.requestLayout();
 
-        if (typeToDisplay == Entity.EntityType.Character)
+        if (typeToDisplay == Relationship.RelationableType.Character)
         {
             nickname.setFocusable(isEditing);
             nickname.setClickable(isEditing);

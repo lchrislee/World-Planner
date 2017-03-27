@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
  * Created by chrisl on 3/26/17.
  */
 
-public class World extends WorldPlannerBaseModel {
+public class World extends WorldPlannerBaseModel implements Relationship.Relationable{
 
     private Relationship protagonists;
     private Relationship antagonists;
@@ -17,13 +17,26 @@ public class World extends WorldPlannerBaseModel {
 
     public void addProtagonist(@NonNull Character pro) {
         if (protagonists != null) {
-            protagonists.addEntity(pro);
+            protagonists.addRelevantObject(pro);
         }
     }
 
     public void addAntagonist(@NonNull Character ant) {
         if (antagonists != null) {
-            antagonists.addEntity(ant);
+            antagonists.addRelevantObject(ant);
         }
+    }
+
+
+    @NonNull
+    @Override
+    public Relationship.RelationableType getRelationableType() {
+        return Relationship.RelationableType.None;
+    }
+
+    @NonNull
+    @Override
+    public String getRelationableString() {
+        return "World";
     }
 }
