@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
  */
 
 public class Entity extends WorldPlannerBaseModel {
+    public static int MAX_COUNT = 4;
+
     public Entity(@NonNull String title, @NonNull String description) {
         super(title, description);
     }
