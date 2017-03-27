@@ -110,7 +110,7 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
                 i.putExtra(ModelDetailActivity.TYPE, typeDisplaying);
 
                 if (context instanceof MasterActivity) {
-                    ((MasterActivity) context).startActivityForResult(i, MasterActivity.RELATIONABLE_DETAIL_CODE);
+                    ((MasterActivity) context).startActivityForResult(i, ModelDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL);
                 }
                 else
                 {

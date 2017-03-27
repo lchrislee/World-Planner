@@ -14,10 +14,13 @@ import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
 
 public class ModelDetailActivity extends AppCompatActivity {
+    public static final int REQUEST_CODE_WORLD_DETAIL = 100;
+    public static final int REQUEST_CODE_RELATIONABLE_DETAIL = 200;
+
+    public static final int RESPONSE_CODE_DELETE = 404;
 
     public static final String NEW = "MODEL_DETAIL_ACTIVITY_NEW";
     public static final String TYPE = "MODEL_DETAIL_ACTIVITY_TYPE";
-    public static final int DELETE = 404;
 
     private PlannerObjectDetailFragment fragment;
 
@@ -83,7 +86,7 @@ public class ModelDetailActivity extends AppCompatActivity {
             case R.id.menu_detail_share:
                 break;
             case R.id.menu_detail_delete:
-                setResult(DELETE);
+                setResult(RESPONSE_CODE_DELETE);
                 finish();
                 break;
         }

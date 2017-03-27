@@ -1,18 +1,15 @@
 package com.lchrislee.worldplanner.activities;
 
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.github.clans.fab.FloatingActionButton;
-import com.lchrislee.worldplanner.adapters.MasterFragmentPagerAdapter;
+import com.lchrislee.worldplanner.fragments.MasterTabFragment;
+import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.models.Relationship;
 import com.lchrislee.worldplanner.R;
 
@@ -20,8 +17,7 @@ import timber.log.Timber;
 
 public class MasterActivity extends AppCompatActivity {
 
-    private static final int WORLD_DETAIL_CODE = 100;
-    public static final int RELATIONABLE_DETAIL_CODE = 200;
+    private WorldPlannerBaseFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,55 +37,8 @@ public class MasterActivity extends AppCompatActivity {
             actionBar.setDisplayShowHomeEnabled(false);
         }
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
-        viewPager.setAdapter(new MasterFragmentPagerAdapter(getSupportFragmentManager()));
-
-        final TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_main_tablayout);
-        tabLayout.setupWithViewPager(viewPager);
-
-        // TODO: Replace this implementaion of FAB menu with custom one.
-        // This is super deprecated and hard to use.
-        View.OnClickListener toDetail = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Timber.tag("Main FAB").d(((FloatingActionButton) v).getLabelText());
-                Intent i = new Intent(getApplicationContext(), ModelDetailActivity.class);
-                i.putExtra(ModelDetailActivity.NEW, true);
-                int requestCode;
-                switch(v.getId())
-                {
-                    case R.id.activity_main_fab_character:
-                        i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Character);
-                        requestCode = RELATIONABLE_DETAIL_CODE;
-                        break;
-                    case R.id.activity_main_fab_location:
-                        i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Location);
-                        requestCode = RELATIONABLE_DETAIL_CODE;
-                        break;
-                    case R.id.activity_main_fab_item:
-                        i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Item);
-                        requestCode = RELATIONABLE_DETAIL_CODE;
-                        break;
-                    case R.id.activity_main_fab_plot:
-                        i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Plot);
-                        requestCode = RELATIONABLE_DETAIL_CODE;
-                        break;
-                    default:
-                        i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.None);
-                        requestCode = WORLD_DETAIL_CODE;
-                }
-                startActivityForResult(i, requestCode);
-            }
-        };
-
-        final FloatingActionButton character = (FloatingActionButton) findViewById(R.id.activity_main_fab_character);
-        character.setOnClickListener(toDetail);
-        final FloatingActionButton location = (FloatingActionButton) findViewById(R.id.activity_main_fab_location);
-        location.setOnClickListener(toDetail);
-        final FloatingActionButton item = (FloatingActionButton) findViewById(R.id.activity_main_fab_item);
-        item.setOnClickListener(toDetail);
-        final FloatingActionButton plot = (FloatingActionButton) findViewById(R.id.activity_main_fab_plot);
-        plot.setOnClickListener(toDetail);
+        fragment = new MasterTabFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.activity_master_frame, fragment).commit();
     }
 
     @Override
@@ -106,7 +55,7 @@ public class MasterActivity extends AppCompatActivity {
             case R.id.menu_main_world:
                 Intent i = new Intent(getApplicationContext(), ModelDetailActivity.class);
                 i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.None);
-                startActivityForResult(i, WORLD_DETAIL_CODE);
+                startActivityForResult(i, ModelDetailActivity.REQUEST_CODE_WORLD_DETAIL);
                 break;
             case R.id.menu_main_search:
                 break;
@@ -120,8 +69,8 @@ public class MasterActivity extends AppCompatActivity {
 
         switch(requestCode)
         {
-            case WORLD_DETAIL_CODE:
-                if (resultCode == ModelDetailActivity.DELETE)
+            case ModelDetailActivity.REQUEST_CODE_WORLD_DETAIL:
+                if (resultCode == ModelDetailActivity.RESPONSE_CODE_DELETE)
                 {
                     Timber.tag("CRUD").d("Deleted current world.");
                 }
