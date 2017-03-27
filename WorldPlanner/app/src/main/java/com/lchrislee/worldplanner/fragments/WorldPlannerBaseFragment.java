@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.Fragments;
+package com.lchrislee.worldplanner.fragments;
 
 
 import android.support.v4.app.Fragment;

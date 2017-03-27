@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.Adapters;
+package com.lchrislee.worldplanner.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lchrislee.worldplanner.Activities.MasterActivity;
-import com.lchrislee.worldplanner.Activities.ModelDetailActivity;
-import com.lchrislee.worldplanner.Models.Character;
-import com.lchrislee.worldplanner.Models.Item;
-import com.lchrislee.worldplanner.Models.Location;
-import com.lchrislee.worldplanner.Models.Plot;
-import com.lchrislee.worldplanner.Models.Relationship;
-import com.lchrislee.worldplanner.Models.WorldPlannerBaseModel;
+import com.lchrislee.worldplanner.activities.MasterActivity;
+import com.lchrislee.worldplanner.activities.ModelDetailActivity;
+import com.lchrislee.worldplanner.models.Character;
+import com.lchrislee.worldplanner.models.Item;
+import com.lchrislee.worldplanner.models.Location;
+import com.lchrislee.worldplanner.models.Plot;
+import com.lchrislee.worldplanner.models.Relationship;
+import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
 
 import java.util.ArrayList;
@@ -29,12 +29,12 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
 
     class EntityListViewHolder extends RecyclerView.ViewHolder
     {
-        public TextView name;
-        public TextView description;
-        public ImageView image;
+        final TextView name;
+        final TextView description;
+        final ImageView image;
 
-        public TextView gender_age;
-        public TextView occupation;
+        final TextView gender_age;
+        final TextView occupation;
 
         EntityListViewHolder(View itemView) {
             super(itemView);
@@ -46,11 +46,11 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
         }
     }
 
-    ArrayList<WorldPlannerBaseModel> data;
+    private ArrayList<WorldPlannerBaseModel> data;
 
-    private Context context;
+    private final Context context;
 
-    private Relationship.RelationableType typeDisplaying;
+    private final Relationship.RelationableType typeDisplaying;
 
     public MasterPlannerObjectListAdapter(Relationship.RelationableType type, Context c) {
         typeDisplaying = type;
@@ -108,7 +108,7 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
             public void onClick(View v) {
                 Intent i = new Intent(context, ModelDetailActivity.class);
                 i.putExtra(ModelDetailActivity.TYPE, typeDisplaying);
-                
+
                 if (context instanceof MasterActivity) {
                     ((MasterActivity) context).startActivityForResult(i, MasterActivity.RELATIONABLE_DETAIL_CODE);
                 }

@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.Models;
+package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,7 +41,7 @@ public class Relationship extends WorldPlannerBaseModel {
         return relevantObjects.get(index);
     }
 
-    public static int RELATIONABLE_TYPE_COUNT = 4;
+    public static final int RELATIONABLE_TYPE_COUNT = 4;
 
     public interface Relationable
     {

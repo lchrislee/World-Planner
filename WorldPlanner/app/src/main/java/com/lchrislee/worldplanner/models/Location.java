@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.Models;
+package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
 

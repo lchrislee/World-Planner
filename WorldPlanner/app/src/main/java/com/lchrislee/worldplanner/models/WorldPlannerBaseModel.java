@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.Models;
+package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
 
@@ -13,7 +13,7 @@ public abstract class WorldPlannerBaseModel implements Serializable{
     private String name;
     private String description;
 
-    public WorldPlannerBaseModel(@NonNull String name, @NonNull String description) {
+    WorldPlannerBaseModel(@NonNull String name, @NonNull String description) {
         this.name = name;
         this.description = description;
     }

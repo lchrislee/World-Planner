@@ -6,7 +6,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lchrislee.worldplanner.Activities.MasterActivity">
+    tools:context="com.lchrislee.worldplanner.activities.MasterActivity">
 
     <include
         layout="@layout/toolbar_main"
@@ -24,7 +24,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        tools:ignore="UnknownIdInLayout" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/activity_main_viewpager"

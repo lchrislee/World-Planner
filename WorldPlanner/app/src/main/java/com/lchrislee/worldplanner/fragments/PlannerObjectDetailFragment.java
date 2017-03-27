@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.Fragments;
+package com.lchrislee.worldplanner.fragments;
 
 
 import android.graphics.drawable.ColorDrawable;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.lchrislee.worldplanner.Models.Relationship;
+import com.lchrislee.worldplanner.models.Relationship;
 import com.lchrislee.worldplanner.R;
 
 public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
@@ -86,7 +86,7 @@ public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
         return mainView;
     }
 
-    public void swapEdit()
+    private void swapEdit()
     {
         if (isEditing)
         {

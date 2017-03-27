@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.Activities;
+package com.lchrislee.worldplanner.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

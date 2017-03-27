@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.Fragments;
+package com.lchrislee.worldplanner.fragments;
 
 
 import android.os.Bundle;
@@ -8,17 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lchrislee.worldplanner.Adapters.MasterPlannerObjectListAdapter;
-import com.lchrislee.worldplanner.Models.Relationship;
+import com.lchrislee.worldplanner.adapters.MasterPlannerObjectListAdapter;
+import com.lchrislee.worldplanner.models.Relationship;
 import com.lchrislee.worldplanner.R;
 
 public class PlannerObjectListFragment extends WorldPlannerBaseFragment {
     private static final String TYPE_TO_DISPLAY = "ENTITY_LIST_FRAGMENT_TYPE_TO_DISPLAY";
 
-    private RecyclerView list;
     private MasterPlannerObjectListAdapter adapter;
-
-    private Relationship.RelationableType typeToDisplay;
 
     public PlannerObjectListFragment() {
         // Required empty public constructor
@@ -36,7 +33,7 @@ public class PlannerObjectListFragment extends WorldPlannerBaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        typeToDisplay = (Relationship.RelationableType) arguments.getSerializable(TYPE_TO_DISPLAY);
+        Relationship.RelationableType typeToDisplay = (Relationship.RelationableType) arguments.getSerializable(TYPE_TO_DISPLAY);
         adapter = new MasterPlannerObjectListAdapter(typeToDisplay, getContext());
     }
 
@@ -45,7 +42,7 @@ public class PlannerObjectListFragment extends WorldPlannerBaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_entity_list, container, false);
-        list = (RecyclerView) v.findViewById(R.id.fragment_entity_list_data);
+        final RecyclerView list = (RecyclerView) v.findViewById(R.id.fragment_entity_list_data);
         list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         list.setAdapter(adapter);
 

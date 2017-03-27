@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.Activities;
+package com.lchrislee.worldplanner.activities;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -12,15 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.clans.fab.FloatingActionButton;
-import com.lchrislee.worldplanner.Adapters.MasterFragmentPagerAdapter;
-import com.lchrislee.worldplanner.Models.Relationship;
+import com.lchrislee.worldplanner.adapters.MasterFragmentPagerAdapter;
+import com.lchrislee.worldplanner.models.Relationship;
 import com.lchrislee.worldplanner.R;
 
 import timber.log.Timber;
 
 public class MasterActivity extends AppCompatActivity {
 
-    public static final int WORLD_DETAIL_CODE = 100;
+    private static final int WORLD_DETAIL_CODE = 100;
     public static final int RELATIONABLE_DETAIL_CODE = 200;
 
     @Override

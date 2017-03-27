@@ -1,19 +1,19 @@
-package com.lchrislee.worldplanner.Adapters;
+package com.lchrislee.worldplanner.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.lchrislee.worldplanner.Fragments.PlannerObjectListFragment;
-import com.lchrislee.worldplanner.Models.Relationship;
+import com.lchrislee.worldplanner.fragments.PlannerObjectListFragment;
+import com.lchrislee.worldplanner.models.Relationship;
 
 /**
  * Created by chrisl on 3/26/17.
  */
 
 public class MasterFragmentPagerAdapter extends FragmentPagerAdapter {
-    private PlannerObjectListFragment fragments[];
-    private String titles[];
+    private final PlannerObjectListFragment fragments[];
+    private final String[] titles;
 
     public MasterFragmentPagerAdapter(FragmentManager fm) {
         super(fm);

@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.Activities;
+package com.lchrislee.worldplanner.activities;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -8,18 +8,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.lchrislee.worldplanner.Fragments.PlannerObjectDetailFragment;
-import com.lchrislee.worldplanner.Models.Relationship;
-import com.lchrislee.worldplanner.Models.WorldPlannerBaseModel;
+import com.lchrislee.worldplanner.fragments.PlannerObjectDetailFragment;
+import com.lchrislee.worldplanner.models.Relationship;
+import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
 
 public class ModelDetailActivity extends AppCompatActivity {
 
-    public static String NEW = "MODEL_DETAIL_ACTIVITY_NEW";
-    public static String TYPE = "MODEL_DETAIL_ACTIVITY_TYPE";
-    public static int DELETE = 404;
+    public static final String NEW = "MODEL_DETAIL_ACTIVITY_NEW";
+    public static final String TYPE = "MODEL_DETAIL_ACTIVITY_TYPE";
+    public static final int DELETE = 404;
 
-    PlannerObjectDetailFragment fragment;
+    private PlannerObjectDetailFragment fragment;
 
     private Relationship.RelationableType typeToDisplay = Relationship.RelationableType.None;
     private WorldPlannerBaseModel modelToDisplay = null;
