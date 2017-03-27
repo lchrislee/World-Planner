@@ -46,8 +46,9 @@ public class PlannerObjectListFragment extends WorldPlannerBaseFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_entity_list, container, false);
         list = (RecyclerView) v.findViewById(R.id.fragment_entity_list_data);
-        list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         list.setAdapter(adapter);
+
         return v;
     }
 

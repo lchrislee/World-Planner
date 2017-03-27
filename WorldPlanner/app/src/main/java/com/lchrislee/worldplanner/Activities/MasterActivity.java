@@ -20,11 +20,8 @@ import timber.log.Timber;
 
 public class MasterActivity extends AppCompatActivity {
 
-    private static final int WORLD_DETAIL_CODE = 100;
-    private static final int CHARACTER_DETAIL_CODE = 100;
-    private static final int LOCATION_DETAIL_CODE = 100;
-    private static final int ITEM_DETAIL_CODE = 100;
-    private static final int PLOT_DETAIL_CODE = 100;
+    public static final int WORLD_DETAIL_CODE = 100;
+    public static final int RELATIONABLE_DETAIL_CODE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,19 +60,19 @@ public class MasterActivity extends AppCompatActivity {
                 {
                     case R.id.activity_main_fab_character:
                         i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Character);
-                        requestCode = CHARACTER_DETAIL_CODE;
+                        requestCode = RELATIONABLE_DETAIL_CODE;
                         break;
                     case R.id.activity_main_fab_location:
                         i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Location);
-                        requestCode = LOCATION_DETAIL_CODE;
+                        requestCode = RELATIONABLE_DETAIL_CODE;
                         break;
                     case R.id.activity_main_fab_item:
                         i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Item);
-                        requestCode = ITEM_DETAIL_CODE;
+                        requestCode = RELATIONABLE_DETAIL_CODE;
                         break;
                     case R.id.activity_main_fab_plot:
                         i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.Plot);
-                        requestCode = PLOT_DETAIL_CODE;
+                        requestCode = RELATIONABLE_DETAIL_CODE;
                         break;
                     default:
                         i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.None);

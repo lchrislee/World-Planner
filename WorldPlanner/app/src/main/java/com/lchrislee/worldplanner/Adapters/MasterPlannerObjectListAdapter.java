@@ -1,6 +1,7 @@
 package com.lchrislee.worldplanner.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lchrislee.worldplanner.Activities.MasterActivity;
+import com.lchrislee.worldplanner.Activities.ModelDetailActivity;
 import com.lchrislee.worldplanner.Models.Character;
 import com.lchrislee.worldplanner.Models.Item;
 import com.lchrislee.worldplanner.Models.Location;
@@ -100,28 +103,44 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
         }
 
         View v = LayoutInflater.from(context).inflate(layout, parent, false);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, ModelDetailActivity.class);
+                i.putExtra(ModelDetailActivity.TYPE, typeDisplaying);
+                
+                if (context instanceof MasterActivity) {
+                    ((MasterActivity) context).startActivityForResult(i, MasterActivity.RELATIONABLE_DETAIL_CODE);
+                }
+                else
+                {
+                    context.startActivity(i);
+                }
+            }
+        });
         return new EntityListViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(EntityListViewHolder holder, int position) {
-        WorldPlannerBaseModel ent = data.get(position);
+        WorldPlannerBaseModel obj = data.get(position);
 
+        holder.itemView.setTag(obj);
         if (holder.description != null)
         {
-            holder.description.setText(ent.getDescription());
+            holder.description.setText(obj.getDescription());
         }
 
         if (typeDisplaying == Relationship.RelationableType.Character)
         {
-            Character proper = (Character) ent;
+            Character proper = (Character) obj;
             holder.name.setText(proper.getNickname() + " (" + proper.getName() + ")");
             holder.gender_age.setText("Age " + proper.getAge() + ", " + proper.getGender());
             holder.occupation.setText(proper.getOccupation());
         }
         else
         {
-            holder.name.setText(ent.getName());
+            holder.name.setText(obj.getName());
         }
     }
 
