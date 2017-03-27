@@ -1,26 +1,32 @@
 package com.lchrislee.worldplanner.Activities;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.lchrislee.worldplanner.Models.World;
+import com.lchrislee.worldplanner.Models.Entity;
 import com.lchrislee.worldplanner.R;
 
-public class WorldDetailActivity extends WorldPlannerBaseActivity {
+public class EntityDetailActivity extends AppCompatActivity {
 
-    public static int DELETE = 404;
+    public static String TYPE = "ENTITY_DETAIL_ACTIVITY_TYPE";
 
     private Toolbar toolbar;
 
-    private World world;
+    private Entity.EntityType typeToDisplay = Entity.EntityType.None;
+    private Entity entityToDisplay = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_world_detail);
+        setContentView(R.layout.activity_entity_detail);
+
+        Intent i = getIntent();
+        typeToDisplay = (Entity.EntityType) i.getSerializableExtra(TYPE);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -28,24 +34,29 @@ public class WorldDetailActivity extends WorldPlannerBaseActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
         {
-            if (world != null) {
-                actionBar.setTitle(world.getName());
+            if (entityToDisplay != null)
+            {
+                actionBar.setTitle(entityToDisplay.getName());
             }
             else
             {
-                actionBar.setTitle("No world");
+                String title = "Untitled " + Entity.getTypeString(typeToDisplay);
+                actionBar.setTitle(title);
             }
             actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
-        menu.findItem(R.id.menu_detail_character_add).setVisible(false);
+        if (typeToDisplay != Entity.EntityType.None)
+        {
+            getMenuInflater().inflate(R.menu.menu_detail, menu);
+            menu.findItem(R.id.menu_detail_character_add).setVisible(typeToDisplay == Entity.EntityType.Character);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -53,13 +64,13 @@ public class WorldDetailActivity extends WorldPlannerBaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId())
         {
+            case R.id.menu_detail_character_add:
+                break;
             case R.id.menu_detail_edit:
                 break;
             case R.id.menu_detail_share:
                 break;
             case R.id.menu_detail_delete:
-                setResult(DELETE);
-                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -8,6 +8,6 @@ import android.support.annotation.NonNull;
 
 public class Item extends Entity {
     public Item(@NonNull String title, @NonNull String description) {
-        super(title, description);
+        super(title, description, EntityType.Item);
     }
 }

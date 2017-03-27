@@ -8,6 +8,6 @@ import android.support.annotation.NonNull;
 
 public class Location extends Entity {
     public Location(@NonNull String title, @NonNull String description) {
-        super(title, description);
+        super(title, description, EntityType.Location);
     }
 }

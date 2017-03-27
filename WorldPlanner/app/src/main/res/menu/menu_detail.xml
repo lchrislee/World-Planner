@@ -4,18 +4,24 @@
     <item
         android:id="@+id/menu_detail_edit"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="Edit"
+        android:name="Edit"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_detail_character_add"
+        android:icon="@android:drawable/ic_menu_add"
+        android:name="Add Relationship"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_detail_share"
         android:icon="@android:drawable/ic_menu_share"
-        android:title="Share"
-        app:showAsAction="always" />
+        android:name="Share"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_detail_delete"
         android:icon="@android:drawable/ic_menu_delete"
-        android:title="Delete"
+        android:name="Delete"
         app:showAsAction="ifRoom" />
 </menu>

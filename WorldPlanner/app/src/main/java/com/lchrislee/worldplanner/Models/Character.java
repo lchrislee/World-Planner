@@ -16,7 +16,7 @@ public class Character extends Entity {
     private int age;
 
     public Character(@NonNull String title, @NonNull String description) {
-        super(title, description);
+        super(title, description, EntityType.Character);
         availableRelationships = new ArrayList<>();
     }
 

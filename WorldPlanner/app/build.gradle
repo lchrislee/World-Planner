@@ -26,6 +26,7 @@ dependencies {
     })
 
 
+
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support:support-core-ui:25.3.0'
     compile 'com.android.support:support-fragment:25.3.0'
@@ -36,6 +37,5 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'com.github.clans:fab:1.6.4'
-
     testCompile 'junit:junit:4.12'
 }

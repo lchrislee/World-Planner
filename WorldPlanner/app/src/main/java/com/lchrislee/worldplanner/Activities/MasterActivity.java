@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.lchrislee.worldplanner.Adapters.EntityFragmentPagerAdapter;
+import com.lchrislee.worldplanner.Models.Entity;
 import com.lchrislee.worldplanner.R;
 
 import timber.log.Timber;
@@ -47,6 +48,7 @@ public class MasterActivity extends AppCompatActivity {
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setHomeButtonEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowHomeEnabled(false);
         }
 
         viewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
@@ -61,17 +63,23 @@ public class MasterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Timber.tag("Main FAB").d(((FloatingActionButton) v).getLabelText());
+                Intent i = new Intent(getApplicationContext(), EntityDetailActivity.class);
                 switch(v.getId())
                 {
                     case R.id.activity_main_fab_character:
+                        i.putExtra(EntityDetailActivity.TYPE, Entity.EntityType.Character);
                         break;
                     case R.id.activity_main_fab_location:
+                        i.putExtra(EntityDetailActivity.TYPE, Entity.EntityType.Location);
                         break;
                     case R.id.activity_main_fab_item:
+                        i.putExtra(EntityDetailActivity.TYPE, Entity.EntityType.Item);
                         break;
                     case R.id.activity_main_fab_plot:
+                        i.putExtra(EntityDetailActivity.TYPE, Entity.EntityType.Plot);
                         break;
                 }
+                startActivity(i);
             }
         };
 

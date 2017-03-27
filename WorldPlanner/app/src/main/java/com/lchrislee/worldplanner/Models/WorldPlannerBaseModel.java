@@ -8,20 +8,20 @@ import android.support.annotation.NonNull;
 
 public class WorldPlannerBaseModel {
 
-    private String title;
+    private String name;
     private String description;
 
-    public WorldPlannerBaseModel(@NonNull String title, @NonNull String description) {
-        this.title = title;
+    public WorldPlannerBaseModel(@NonNull String name, @NonNull String description) {
+        this.name = name;
         this.description = description;
     }
 
-    public @NonNull String getTitle() {
-        return title;
+    public @NonNull String getName() {
+        return name;
     }
 
-    public void setTitle(@NonNull String title) {
-        this.title = title;
+    public void setName(@NonNull String name) {
+        this.name = name;
     }
 
     public @NonNull String getDescription() {
