@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.ModelDetailActivity"
-            android:parentActivityName=".Activities.MasterActivity"></activity>
+            android:parentActivityName=".Activities.MasterActivity" />
     </application>
 
 </manifest>

@@ -20,11 +20,10 @@ public class ModelDetailActivity extends AppCompatActivity {
     public static String TYPE = "MODEL_DETAIL_ACTIVITY_TYPE";
     public static int DELETE = 404;
 
-    private Toolbar toolbar;
-
     private Entity.EntityType typeToDisplay = Entity.EntityType.None;
     private WorldPlannerBaseModel modelToDisplay = null;
     private boolean isNewModel;
+    private boolean isInEditMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +33,12 @@ public class ModelDetailActivity extends AppCompatActivity {
         Intent i = getIntent();
         typeToDisplay = (Entity.EntityType) i.getSerializableExtra(TYPE);
         isNewModel = i.getBooleanExtra(NEW, false);
+        isInEditMode = isNewModel;
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
         {
             if (modelToDisplay != null)
@@ -66,6 +66,10 @@ public class ModelDetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail, menu);
         menu.findItem(R.id.menu_detail_character_add).setVisible(typeToDisplay == Entity.EntityType.Character);
+        if (isNewModel)
+        {
+            menu.findItem(R.id.menu_detail_edit).setIcon(android.R.drawable.ic_menu_save);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -77,6 +81,15 @@ public class ModelDetailActivity extends AppCompatActivity {
             case R.id.menu_detail_character_add:
                 break;
             case R.id.menu_detail_edit:
+                if (isInEditMode)
+                {
+                    item.setIcon(android.R.drawable.ic_menu_save);
+                }
+                else
+                {
+                    item.setIcon(android.R.drawable.ic_menu_edit);
+                }
+                supportInvalidateOptionsMenu();
                 break;
             case R.id.menu_detail_share:
                 break;

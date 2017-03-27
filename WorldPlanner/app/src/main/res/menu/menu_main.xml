@@ -5,10 +5,14 @@
         android:id="@+id/menu_main_world"
         android:icon="@android:drawable/ic_menu_rotate"
         android:name="View World"
-        app:showAsAction="ifRoom" />
+        android:title="View World"
+        app:showAsAction="ifRoom"
+        />
     <item
         android:id="@+id/menu_main_search"
         android:icon="@android:drawable/ic_menu_search"
         android:name="Search"
-        app:showAsAction="ifRoom" />
+        android:title="Search"
+        app:showAsAction="ifRoom"
+        />
 </menu>

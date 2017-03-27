@@ -5,23 +5,31 @@
         android:id="@+id/menu_detail_edit"
         android:icon="@android:drawable/ic_menu_edit"
         android:name="Edit"
-        app:showAsAction="always" />
+        android:title="Edit"
+        app:showAsAction="always"
+        />
 
     <item
         android:id="@+id/menu_detail_character_add"
         android:icon="@android:drawable/ic_menu_add"
         android:name="Add Relationship"
-        app:showAsAction="ifRoom" />
+        android:title="Add Relationship"
+        app:showAsAction="ifRoom"
+        />
 
     <item
         android:id="@+id/menu_detail_share"
         android:icon="@android:drawable/ic_menu_share"
         android:name="Share"
-        app:showAsAction="ifRoom" />
+        android:title="Share"
+        app:showAsAction="ifRoom"
+        />
 
     <item
         android:id="@+id/menu_detail_delete"
         android:icon="@android:drawable/ic_menu_delete"
         android:name="Delete"
-        app:showAsAction="ifRoom" />
+        android:title="Delete"
+        app:showAsAction="ifRoom"
+        />
 </menu>
