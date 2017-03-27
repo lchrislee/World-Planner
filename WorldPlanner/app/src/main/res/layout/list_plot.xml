@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/list_plot_title"
+            android:id="@+id/list_entity_name"
             tools:text="Uncle Ben's Death"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_weight="1"
@@ -21,7 +21,7 @@
             />
 
         <TextView
-            android:id="@+id/list_plot_description"
+            android:id="@+id/list_entity_description"
             tools:text="Peter learns the true meaning of Uncle Ben's message about responsibility."
             android:maxLines="2"
             android:layout_weight="1"

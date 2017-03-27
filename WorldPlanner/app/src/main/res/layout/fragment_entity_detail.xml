@@ -16,7 +16,7 @@
             android:id="@+id/fragment_entity_detail_image"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="232dp"
             android:layout_marginBottom="8dp"
             />
 

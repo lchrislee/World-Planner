@@ -2,11 +2,13 @@ package com.lchrislee.worldplanner.Models;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * Created by chrisl on 3/26/17.
  */
 
-public class WorldPlannerBaseModel {
+public class WorldPlannerBaseModel implements Serializable{
 
     private String name;
     private String description;

@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="4dp"
     >
 
     <RelativeLayout
@@ -13,42 +12,53 @@
         >
 
         <ImageView
-            android:id="@+id/list_character_image"
+            android:id="@+id/list_entity_image"
+            android:background="@color/colorAccent"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_width="140dp"
+            android:layout_width="120dp"
             android:layout_height="108dp"
-            android:layout_margin="4dp"
             />
 
         <TextView
-            android:id="@+id/list_character_name"
+            android:id="@+id/list_entity_name"
             tools:text="Spiderman (Peter Parker)"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:maxLines="1"
             android:gravity="center_vertical"
-            android:layout_toEndOf="@+id/list_character_image"
-            android:layout_toRightOf="@+id/list_character_image"
+            android:layout_toEndOf="@+id/list_entity_image"
+            android:layout_toRightOf="@+id/list_entity_image"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="2dp"
             />
 
         <TextView
             android:id="@+id/list_character_age_gender"
             tools:text="Age 20, Male"
             android:gravity="center_vertical"
-            android:layout_below="@+id/list_character_name"
-            android:layout_toEndOf="@+id/list_character_image"
-            android:layout_toRightOf="@+id/list_character_image"
+            android:layout_below="@+id/list_entity_name"
+            android:layout_toEndOf="@+id/list_entity_image"
+            android:layout_toRightOf="@+id/list_entity_image"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             />
 
         <TextView
@@ -56,28 +66,37 @@
             tools:text="Superhero"
             android:gravity="center_vertical"
             android:layout_below="@+id/list_character_age_gender"
-            android:layout_toEndOf="@+id/list_character_image"
-            android:layout_toRightOf="@+id/list_character_image"
+            android:layout_toEndOf="@+id/list_entity_image"
+            android:layout_toRightOf="@+id/list_entity_image"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             />
 
         <TextView
-            android:id="@+id/list_character_description"
+            android:id="@+id/list_entity_description"
             tools:text="Main Protagonist"
-            android:maxLines="2"
+            android:maxLines="1"
             android:layout_below="@+id/list_character_occupation"
-            android:layout_toEndOf="@+id/list_character_image"
-            android:layout_toRightOf="@+id/list_character_image"
+            android:layout_toEndOf="@+id/list_entity_image"
+            android:layout_toRightOf="@+id/list_entity_image"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignBottom="@id/list_character_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
             />
     </RelativeLayout>
 

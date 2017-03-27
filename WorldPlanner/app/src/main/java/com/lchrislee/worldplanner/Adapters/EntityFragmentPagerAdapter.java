@@ -19,10 +19,10 @@ public class EntityFragmentPagerAdapter extends FragmentPagerAdapter {
     public EntityFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         fragments = new EntityListFragment[Entity.MAX_COUNT];
-        for (int i = 0; i < Entity.MAX_COUNT; ++i)
-        {
-            fragments[i] = EntityListFragment.newInstance();
-        }
+        fragments[0] = EntityListFragment.newInstance(Entity.EntityType.Character);
+        fragments[1] = EntityListFragment.newInstance(Entity.EntityType.Location);
+        fragments[2] = EntityListFragment.newInstance(Entity.EntityType.Item);
+        fragments[3] = EntityListFragment.newInstance(Entity.EntityType.Plot);
 
         titles = new String[Entity.MAX_COUNT];
         titles[0] = "Characters";
