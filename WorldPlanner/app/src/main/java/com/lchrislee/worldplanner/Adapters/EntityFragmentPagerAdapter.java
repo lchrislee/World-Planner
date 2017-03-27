@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.lchrislee.worldplanner.Fragments.EntityDetailFragment;
 import com.lchrislee.worldplanner.Fragments.EntityListFragment;
 import com.lchrislee.worldplanner.Models.Entity;
 
@@ -22,6 +23,7 @@ public class EntityFragmentPagerAdapter extends FragmentPagerAdapter {
         {
             fragments[i] = EntityListFragment.newInstance();
         }
+
         titles = new String[Entity.MAX_COUNT];
         titles[0] = "Characters";
         titles[1] = "Locations";

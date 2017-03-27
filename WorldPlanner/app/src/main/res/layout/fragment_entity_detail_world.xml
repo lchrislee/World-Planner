@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lchrislee.worldplanner.Fragments.EntityDetailFragment"
+    >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/fragment_entity_detail_world_image"
+            android:background="@color/colorAccent"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginBottom="8dp"
+            />
+
+        <EditText
+            android:id="@+id/fragment_entity_detail_world_name"
+            tools:text="Earth - 616"
+            android:hint="Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            />
+
+        <EditText
+            android:id="@+id/fragment_entity_detail_world_description"
+            tools:text="The main Earth in the Marvel universe. This world is home to mutants, technological geniuses, and even alien lifeforms. No two days are the same for true believers."
+            android:hint="Description"
+            android:inputType="textMultiLine"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            />
+
+    </LinearLayout>
+</ScrollView>

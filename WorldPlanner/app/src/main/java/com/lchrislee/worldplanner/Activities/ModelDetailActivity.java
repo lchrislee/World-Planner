@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.lchrislee.worldplanner.Fragments.EntityDetailFragment;
 import com.lchrislee.worldplanner.Models.Entity;
 import com.lchrislee.worldplanner.Models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
@@ -20,10 +22,11 @@ public class ModelDetailActivity extends AppCompatActivity {
     public static String TYPE = "MODEL_DETAIL_ACTIVITY_TYPE";
     public static int DELETE = 404;
 
+    EntityDetailFragment fragment;
+
     private Entity.EntityType typeToDisplay = Entity.EntityType.None;
     private WorldPlannerBaseModel modelToDisplay = null;
     private boolean isNewModel;
-    private boolean isInEditMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,6 @@ public class ModelDetailActivity extends AppCompatActivity {
         Intent i = getIntent();
         typeToDisplay = (Entity.EntityType) i.getSerializableExtra(TYPE);
         isNewModel = i.getBooleanExtra(NEW, false);
-        isInEditMode = isNewModel;
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -41,25 +43,13 @@ public class ModelDetailActivity extends AppCompatActivity {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
         {
-            if (modelToDisplay != null)
-            {
-                actionBar.setTitle(modelToDisplay.getName());
-            }
-            else
-            {
-                String title = "Untitled ";
-                String additional = Entity.getTypeString(typeToDisplay);
-                if (additional == null)
-                {
-                    additional = "World";
-                }
-                actionBar.setTitle(title + additional);
-            }
-            actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        fragment = EntityDetailFragment.newInstance(typeToDisplay, isNewModel);
+        getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, fragment).commit();
     }
 
     @Override
@@ -75,13 +65,13 @@ public class ModelDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Timber.tag("Model Detail - " + Entity.getTypeString(typeToDisplay)).d("Clicked: " + item.getTitle());
+        Timber.tag("Model Detail").d(Entity.getTypeString(typeToDisplay) + " - Clicked: " + item.getTitle());
         switch(item.getItemId())
         {
             case R.id.menu_detail_character_add:
                 break;
             case R.id.menu_detail_edit:
-                if (isInEditMode)
+                if (fragment.isEditing())
                 {
                     item.setIcon(android.R.drawable.ic_menu_save);
                 }
@@ -90,6 +80,7 @@ public class ModelDetailActivity extends AppCompatActivity {
                     item.setIcon(android.R.drawable.ic_menu_edit);
                 }
                 supportInvalidateOptionsMenu();
+                fragment.iconAction();
                 break;
             case R.id.menu_detail_share:
                 break;
