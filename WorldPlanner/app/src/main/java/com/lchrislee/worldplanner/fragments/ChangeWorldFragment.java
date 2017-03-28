@@ -11,7 +11,14 @@ import android.view.ViewGroup;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.adapters.WorldListAdapter;
 
-public class ChangeWorldFragment extends WorldPlannerBaseFragment {
+public class ChangeWorldFragment extends WorldPlannerBaseFragment implements WorldListAdapter.WorldSwitch {
+
+    public interface FragmentSwap
+    {
+        void onWorldSwitch(int position);
+    }
+
+    private FragmentSwap listener;
 
     public ChangeWorldFragment() {
         // Required empty public constructor
@@ -23,7 +30,7 @@ public class ChangeWorldFragment extends WorldPlannerBaseFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_change_world, container, false);
 
-        WorldListAdapter adapter = new WorldListAdapter(getContext());
+        WorldListAdapter adapter = new WorldListAdapter(getContext(), this);
         final RecyclerView list = (RecyclerView) v.findViewById(R.id.fragment_world_list);
         list.setAdapter(adapter);
         list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -31,4 +38,12 @@ public class ChangeWorldFragment extends WorldPlannerBaseFragment {
         return v;
     }
 
+    public void setListener(FragmentSwap listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onWorldSwitch(int position) {
+        listener.onWorldSwitch(position);
+    }
 }

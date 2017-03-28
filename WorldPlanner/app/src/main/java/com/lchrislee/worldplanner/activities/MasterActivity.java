@@ -24,7 +24,7 @@ import com.lchrislee.worldplanner.R;
 
 import timber.log.Timber;
 
-public class MasterActivity extends AppCompatActivity {
+public class MasterActivity extends AppCompatActivity implements ChangeWorldFragment.FragmentSwap {
 
     private MasterTabFragment masterTabFragment;
     private ChangeWorldFragment changeWorldFragment;
@@ -132,6 +132,7 @@ public class MasterActivity extends AppCompatActivity {
                 if (changeWorldFragment == null)
                 {
                     changeWorldFragment = new ChangeWorldFragment();
+                    changeWorldFragment.setListener(this);
                 }
                 fragToShow = changeWorldFragment;
                 break;
@@ -157,4 +158,11 @@ public class MasterActivity extends AppCompatActivity {
         drawerLayout.closeDrawers();
     }
 
+    @Override
+    public void onWorldSwitch(int position) {
+        // TODO: Update world displaying.
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.activity_master_frame, masterTabFragment)
+                .commit();
+    }
 }

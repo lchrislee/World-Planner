@@ -20,6 +20,10 @@ import java.util.ArrayList;
 
 public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.WorldViewHolder> {
 
+    public interface WorldSwitch{
+        void onWorldSwitch(int position);
+    }
+
     class WorldViewHolder extends RecyclerView.ViewHolder
     {
         ImageView image;
@@ -36,17 +40,19 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
             change.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: Change fragments somehow?
+                    listener.onWorldSwitch((Integer)v.getTag());
                 }
             });
         }
     }
 
     private Context context;
-    ArrayList<World> worlds;
+    private WorldSwitch listener;
+    private ArrayList<World> worlds;
 
-    public WorldListAdapter(Context context) {
+    public WorldListAdapter(Context context, WorldSwitch l) {
         this.context = context;
+        listener = l;
         worlds = new ArrayList<>();
         int randomAmount = (int)(Math.random() * 10) + 2;
         for (int i = 0; i < randomAmount; ++i)
@@ -66,6 +72,7 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
 
         holder.name.setText(w.getName());
         holder.description.setText(w.getDescription());
+        holder.change.setTag(position);
     }
 
     @Override
