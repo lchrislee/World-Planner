@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lchrislee.worldplanner.fragments.AccountFragment;
 import com.lchrislee.worldplanner.fragments.ChangeWorldFragment;
@@ -29,6 +32,9 @@ public class MasterActivity extends AppCompatActivity implements ChangeWorldFrag
     private MasterTabFragment masterTabFragment;
     private ChangeWorldFragment changeWorldFragment;
     private AccountFragment accountFragment;
+    private ImageView headerWorldImage;
+    private TextView headerWorldName;
+    private NavigationView navigationView;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -54,7 +60,12 @@ public class MasterActivity extends AppCompatActivity implements ChangeWorldFrag
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_master_drawerlayout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
 
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.activity_master_navigationview);
+        navigationView = (NavigationView) findViewById(R.id.activity_master_navigationview);
+
+        View header = navigationView.inflateHeaderView(R.layout.layout_navigation_master_header);
+        headerWorldImage = (ImageView) header.findViewById(R.id.layout_navigation_master_image);
+        headerWorldName = (TextView) header.findViewById(R.id.layout_navigation_master_name);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -101,8 +112,6 @@ public class MasterActivity extends AppCompatActivity implements ChangeWorldFrag
                 i.putExtra(ModelDetailActivity.TYPE, ImportanceRelation.ImportantType.None);
                 startActivityForResult(i, ModelDetailActivity.REQUEST_CODE_WORLD_DETAIL);
                 break;
-            case R.id.menu_master_tab_search:
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -135,6 +144,7 @@ public class MasterActivity extends AppCompatActivity implements ChangeWorldFrag
                     changeWorldFragment.setListener(this);
                 }
                 fragToShow = changeWorldFragment;
+
                 break;
             case R.id.menu_navigation_misc_account:
                 if (accountFragment == null)
@@ -164,5 +174,6 @@ public class MasterActivity extends AppCompatActivity implements ChangeWorldFrag
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_master_frame, masterTabFragment)
                 .commit();
+        navigationView.setCheckedItem(R.id.menu_navigation_world_current);
     }
 }

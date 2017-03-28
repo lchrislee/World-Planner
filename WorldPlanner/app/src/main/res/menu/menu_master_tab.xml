@@ -8,11 +8,4 @@
         android:title="View World"
         app:showAsAction="ifRoom"
         />
-    <item
-        android:id="@+id/menu_master_tab_search"
-        android:icon="@android:drawable/ic_menu_search"
-        android:name="Search"
-        android:title="Search"
-        app:showAsAction="ifRoom"
-        />
 </menu>

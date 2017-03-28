@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.activities.ModelDetailActivity;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 
 public class CharacterDetailFragment extends WorldPlannerBaseFragment implements EditableFragment {

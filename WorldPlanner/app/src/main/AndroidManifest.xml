@@ -37,7 +37,7 @@
             android:name="io.fabric.ApiKey"
             android:value="c30a7a54a2ff15981fe537e9bbe190f123393b76" />
 
-        <activity android:name=".activities.RelationDetailActivity"></activity>
+        <activity android:name=".activities.RelationDetailActivity" />
     </application>
 
 </manifest>

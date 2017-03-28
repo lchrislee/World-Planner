@@ -27,7 +27,6 @@ public class ModelDetailActivity extends AppCompatActivity {
 
     private EditableFragment fragment;
 
-    private ImportanceRelation.ImportantType typeToDisplay = ImportanceRelation.ImportantType.None;
     private WorldPlannerBaseModel modelToDisplay = null;
     private boolean isNewModel;
 
@@ -37,8 +36,23 @@ public class ModelDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_model_detail);
 
         Intent i = getIntent();
-        typeToDisplay = (ImportanceRelation.ImportantType) i.getSerializableExtra(TYPE);
+        ImportanceRelation.ImportantType typeToDisplay = (ImportanceRelation.ImportantType) i.getSerializableExtra(TYPE);
+        if (typeToDisplay == null)
+        {
+            typeToDisplay = ImportanceRelation.ImportantType.None;
+        }
         isNewModel = i.getBooleanExtra(NEW, false);
+
+        if (typeToDisplay == ImportanceRelation.ImportantType.Character)
+        {
+            fragment = new CharacterDetailFragment();
+        }
+        else
+        {
+            fragment = PlannerObjectDetailFragment.newInstance(typeToDisplay, isNewModel);
+        }
+
+        getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment).commit();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,16 +66,6 @@ public class ModelDetailActivity extends AppCompatActivity {
             actionBar.setTitle("Details");
             actionBar.setDisplayShowTitleEnabled(true);
         }
-
-        if (typeToDisplay == ImportanceRelation.ImportantType.Character)
-        {
-            fragment = new CharacterDetailFragment();
-        }
-        else
-        {
-            fragment = PlannerObjectDetailFragment.newInstance(typeToDisplay, isNewModel);
-        }
-        getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment).commit();
     }
 
     @Override

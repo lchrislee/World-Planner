@@ -3,8 +3,6 @@ package com.lchrislee.worldplanner.models;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
-
 /**
  * Created by chrisl on 3/26/17.
  */

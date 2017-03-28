@@ -15,8 +15,6 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
     public static final int REQUEST_CODE_NEW = 100;
     public static final String RELATIONSHIP = "RELATIONDETAILACTIVITY_RELATIONSHIP";
 
-    private RelationDetailFragment fragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +22,7 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
 
         Intent i = getIntent();
         Relationship relationship = (Relationship) i.getSerializableExtra(RELATIONSHIP);
-        fragment = RelationDetailFragment.newInstance(relationship);
+        RelationDetailFragment fragment = RelationDetailFragment.newInstance(relationship);
         getSupportFragmentManager().beginTransaction().add(R.id.activity_relation_detail_frame, fragment).commit();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
