@@ -1,6 +1,7 @@
 package com.lchrislee.worldplanner.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +11,10 @@ import android.view.ViewGroup;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.activities.RelationDetailActivity;
 import com.lchrislee.worldplanner.adapters.CharacterRelationListAdapter;
-import com.lchrislee.worldplanner.models.Relationship;
-import com.lchrislee.worldplanner.views.CharacterRelationDialog;
 
-public class CharacterRelationListFragment extends WorldPlannerBaseFragment implements CharacterRelationDialog.CharacterRelationDialogListener
-{
+public class CharacterRelationListFragment extends WorldPlannerBaseFragment {
 
     CharacterRelationListAdapter adapter;
 
@@ -37,22 +36,11 @@ public class CharacterRelationListFragment extends WorldPlannerBaseFragment impl
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CharacterRelationDialog dialog = CharacterRelationDialog.newInstance(null);
-                dialog.setCharacterRelationDialogListener(CharacterRelationListFragment.this);
-                dialog.show(getChildFragmentManager(), "CharacterRelationDialog");
+                Intent i = new Intent(getContext(), RelationDetailActivity.class);
+                startActivityForResult(i, RelationDetailActivity.REQUEST_CODE_NEW);
             }
         });
         return v;
-    }
-
-    @Override
-    public void onDialogPositiveClick(Relationship relationship) {
-        //TODO: User clicked create.
-    }
-
-    @Override
-    public void onDialogPositiveClick(Relationship relationship, int index) {
-        //TODO: Edited a relationship.
     }
 
 }

@@ -37,16 +37,28 @@
             android:id="@+id/list_entity_description"
             tools:text="Some lengthy description of something or other that I honestly don't know anything about because it is too much of a hassle to come up with something long enough to extend past this stupid bare minimum barrier."
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:maxLines="4"
+            android:maxLines="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             />
+
+        <Button
+            android:id="@+id/list_world_change"
+            android:text="Swap"
+            android:layout_gravity="end"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"/>
 
     </LinearLayout>
 

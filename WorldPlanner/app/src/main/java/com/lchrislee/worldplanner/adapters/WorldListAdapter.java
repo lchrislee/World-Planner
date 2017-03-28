@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,12 +25,20 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
         ImageView image;
         TextView name;
         TextView description;
+        Button change;
 
         WorldViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.list_entity_image);
             name = (TextView) itemView.findViewById(R.id.list_entity_name);
             description = (TextView) itemView.findViewById(R.id.list_entity_description);
+            change = (Button) itemView.findViewById(R.id.list_world_change);
+            change.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: Change fragments somehow?
+                }
+            });
         }
     }
 

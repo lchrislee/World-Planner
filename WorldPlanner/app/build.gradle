@@ -52,6 +52,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
         transitive = true;
     }
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-core-ui:25.3.1'
     compile 'com.android.support:support-fragment:25.3.1'
@@ -63,6 +64,5 @@ dependencies {
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'com.github.clans:fab:1.6.4'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-
     testCompile 'junit:junit:4.12'
 }

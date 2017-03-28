@@ -15,12 +15,12 @@ public class Plot extends WorldPlannerBaseModel implements ImportanceRelation.Im
         importantCharacters = new ImportanceRelation();
     }
 
-    public void addCharacter(@NonNull Character c)
+    public void addCharacter(@NonNull StoryCharacter c)
     {
         importantCharacters.addObject(c);
     }
 
-    public void removeCharacter(@NonNull Character c)
+    public void removeCharacter(@NonNull StoryCharacter c)
     {
         importantCharacters.removeObject(c);
     }

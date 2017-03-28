@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by chrisl on 3/26/17.
  */
 
-public class Character extends WorldPlannerBaseModel implements ImportanceRelation.Important {
+public class StoryCharacter extends WorldPlannerBaseModel implements ImportanceRelation.Important {
     private ImportanceRelation importantItems;
     private ImportanceRelation importantLocations;
     private ImportanceRelation importantPlots;
@@ -19,7 +19,7 @@ public class Character extends WorldPlannerBaseModel implements ImportanceRelati
     private String occupation;
     private int age;
 
-    public Character(@NonNull String title, @NonNull String description) {
+    public StoryCharacter(@NonNull String title, @NonNull String description) {
         super(title, description);
     }
 
@@ -106,6 +106,6 @@ public class Character extends WorldPlannerBaseModel implements ImportanceRelati
     @NonNull
     @Override
     public String getImportantTypeString() {
-        return "Character";
+        return "StoryCharacter";
     }
 }

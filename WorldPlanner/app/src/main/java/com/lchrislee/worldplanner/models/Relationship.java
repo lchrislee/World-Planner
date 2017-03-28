@@ -7,28 +7,28 @@ import android.support.annotation.NonNull;
  */
 
 public class Relationship extends WorldPlannerBaseModel {
-    private Character firstCharacter;
-    private Character secondCharacter;
+    private StoryCharacter firstStoryCharacter;
+    private StoryCharacter secondStoryCharacter;
 
-    public Relationship(@NonNull String description, @NonNull Character first, @NonNull Character second) {
+    public Relationship(@NonNull String description, @NonNull StoryCharacter first, @NonNull StoryCharacter second) {
         super("Relationship", description);
-        firstCharacter = first;
-        secondCharacter = second;
+        firstStoryCharacter = first;
+        secondStoryCharacter = second;
     }
 
-    public Character getFirstCharacter() {
-        return firstCharacter;
+    public StoryCharacter getFirstStoryCharacter() {
+        return firstStoryCharacter;
     }
 
-    public void setFirstCharacter(Character firstCharacter) {
-        this.firstCharacter = firstCharacter;
+    public void setFirstStoryCharacter(StoryCharacter firstStoryCharacter) {
+        this.firstStoryCharacter = firstStoryCharacter;
     }
 
-    public Character getSecondCharacter() {
-        return secondCharacter;
+    public StoryCharacter getSecondStoryCharacter() {
+        return secondStoryCharacter;
     }
 
-    public void setSecondCharacter(Character secondCharacter) {
-        this.secondCharacter = secondCharacter;
+    public void setSecondStoryCharacter(StoryCharacter secondStoryCharacter) {
+        this.secondStoryCharacter = secondStoryCharacter;
     }
 }

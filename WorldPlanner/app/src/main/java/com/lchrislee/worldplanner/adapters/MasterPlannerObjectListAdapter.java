@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.activities.MasterActivity;
 import com.lchrislee.worldplanner.activities.ModelDetailActivity;
-import com.lchrislee.worldplanner.models.Character;
+import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.Item;
 import com.lchrislee.worldplanner.models.Location;
 import com.lchrislee.worldplanner.models.Plot;
@@ -65,12 +65,12 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
             switch(typeDisplaying)
             {
                 case Character:
-                    Character character = new Character("Peter Parker", "Just a poor boy from a poor family");
-                    character.setAge(20);
-                    character.setGender("Male");
-                    character.setNickname("Spiderman");
-                    character.setOccupation("Superhero");
-                    data.add(character);
+                    StoryCharacter storyCharacter = new StoryCharacter("Peter Parker", "Just a poor boy from a poor family");
+                    storyCharacter.setAge(20);
+                    storyCharacter.setGender("Male");
+                    storyCharacter.setNickname("Spiderman");
+                    storyCharacter.setOccupation("Superhero");
+                    data.add(storyCharacter);
                     break;
                 case Location:
                     Location loc = new Location("Parker Household", "You won't see this, probably");
@@ -145,7 +145,7 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
 
         if (typeDisplaying == ImportanceRelation.ImportantType.Character)
         {
-            Character proper = (Character) obj;
+            StoryCharacter proper = (StoryCharacter) obj;
             holder.name.setText(proper.getNickname() + " (" + proper.getName() + ")");
             holder.gender_age.setText("Age " + proper.getAge() + ", " + proper.getGender());
             holder.occupation.setText(proper.getOccupation());
