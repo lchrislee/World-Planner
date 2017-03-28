@@ -1,7 +1,14 @@
 package com.lchrislee.worldplanner.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +24,10 @@ import timber.log.Timber;
 
 public class MasterActivity extends AppCompatActivity {
 
-    private WorldPlannerBaseFragment fragment;
+    private WorldPlannerBaseFragment masterTabFragment;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,32 +42,62 @@ public class MasterActivity extends AppCompatActivity {
         {
             actionBar.setTitle("World Planner");
             actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setHomeButtonEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowHomeEnabled(false);
         }
 
-        fragment = new MasterTabFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.activity_master_frame, fragment).commit();
+        masterTabFragment = new MasterTabFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.activity_master_frame, masterTabFragment).commit();
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.activity_master_drawerlayout);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+
+        navigationView = (NavigationView) findViewById(R.id.activity_master_navigationview);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                selectDrawerItem(item);
+                return true;
+            }
+        });
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_master_tab, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Timber.tag("Menu Click").d("title: %s on %s", item.getTitle(), MasterActivity.class.getSimpleName());
+
+        if (drawerToggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+
         switch(item.getItemId())
         {
-            case R.id.menu_main_world:
+            case R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            case R.id.menu_master_tab_world:
                 Intent i = new Intent(getApplicationContext(), ModelDetailActivity.class);
                 i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.None);
                 startActivityForResult(i, ModelDetailActivity.REQUEST_CODE_WORLD_DETAIL);
                 break;
-            case R.id.menu_main_search:
+            case R.id.menu_master_tab_search:
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -77,4 +117,20 @@ public class MasterActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    private void selectDrawerItem(MenuItem item)
+    {
+        Timber.tag("Drawer").d("Selected item: " + item.getTitle());
+        switch(item.getItemId())
+        {
+            case R.id.menu_navigation_world_current:
+                drawerLayout.closeDrawers();
+                break;
+            case R.id.menu_navigation_world_change:
+                break;
+            case R.id.menu_navigation_misc_account:
+                break;
+        }
+    }
+
 }
