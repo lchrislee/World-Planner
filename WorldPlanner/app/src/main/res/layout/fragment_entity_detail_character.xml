@@ -17,7 +17,7 @@
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="232dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             />
 
         <EditText
@@ -30,6 +30,7 @@
             android:layout_below="@+id/fragment_entity_detail_character_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
@@ -89,12 +90,10 @@
             android:inputType="number"
             android:gravity="center_horizontal"
             android:layout_below="@+id/fragment_entity_detail_character_nickname"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignEnd="@+id/fragment_entity_detail_character_nickname"
+            android:layout_alignRight="@+id/fragment_entity_detail_character_nickname"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             />
