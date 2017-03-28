@@ -1,60 +1,34 @@
 package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import java.util.ArrayList;
 
 /**
- * Created by chrisl on 3/26/17.
+ * Created by chrisl on 3/27/17.
  */
 
 public class Relationship extends WorldPlannerBaseModel {
-    private ArrayList<Relationable> relevantObjects;
+    private Character firstCharacter;
+    private Character secondCharacter;
 
-    public Relationship(@NonNull String title, @NonNull String description) {
-        super(title, description);
-        relevantObjects = new ArrayList<>();
+    public Relationship(@NonNull String description, @NonNull Character first, @NonNull Character second) {
+        super("Relationship", description);
+        firstCharacter = first;
+        secondCharacter = second;
     }
 
-    public void addRelevantObject(@NonNull Relationable obj)
-    {
-        relevantObjects.add(obj);
+    public Character getFirstCharacter() {
+        return firstCharacter;
     }
 
-    public void removeRelevantObject(@NonNull Relationable obj)
-    {
-        relevantObjects.remove(obj);
+    public void setFirstCharacter(Character firstCharacter) {
+        this.firstCharacter = firstCharacter;
     }
 
-    public @NonNull ArrayList<Relationable> getRelevantObjects()
-    {
-        return relevantObjects;
+    public Character getSecondCharacter() {
+        return secondCharacter;
     }
 
-    public @Nullable Relationable getRelevantObject(int index)
-    {
-        if (index < 0 || index >= relevantObjects.size())
-        {
-            return null;
-        }
-        return relevantObjects.get(index);
-    }
-
-    public static final int RELATIONABLE_TYPE_COUNT = 4;
-
-    public interface Relationable
-    {
-        @NonNull RelationableType getRelationableType();
-        @NonNull String getRelationableString();
-    }
-
-    public enum RelationableType
-    {
-        Character,
-        Location,
-        Item,
-        Plot,
-        None
+    public void setSecondCharacter(Character secondCharacter) {
+        this.secondCharacter = secondCharacter;
     }
 }

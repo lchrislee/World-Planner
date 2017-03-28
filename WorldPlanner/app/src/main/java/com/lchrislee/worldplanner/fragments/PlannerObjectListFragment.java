@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.adapters.MasterPlannerObjectListAdapter;
-import com.lchrislee.worldplanner.models.Relationship;
+import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.R;
 
 public class PlannerObjectListFragment extends WorldPlannerBaseFragment {
@@ -21,7 +21,7 @@ public class PlannerObjectListFragment extends WorldPlannerBaseFragment {
         // Required empty public constructor
     }
 
-    public static PlannerObjectListFragment newInstance(Relationship.RelationableType type) {
+    public static PlannerObjectListFragment newInstance(ImportanceRelation.ImportantType type) {
         PlannerObjectListFragment fragment = new PlannerObjectListFragment();
         Bundle args = new Bundle();
         args.putSerializable(TYPE_TO_DISPLAY, type);
@@ -33,7 +33,7 @@ public class PlannerObjectListFragment extends WorldPlannerBaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        Relationship.RelationableType typeToDisplay = (Relationship.RelationableType) arguments.getSerializable(TYPE_TO_DISPLAY);
+        ImportanceRelation.ImportantType typeToDisplay = (ImportanceRelation.ImportantType) arguments.getSerializable(TYPE_TO_DISPLAY);
         adapter = new MasterPlannerObjectListAdapter(typeToDisplay, getContext());
     }
 
@@ -41,8 +41,8 @@ public class PlannerObjectListFragment extends WorldPlannerBaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_entity_list, container, false);
-        final RecyclerView list = (RecyclerView) v.findViewById(R.id.fragment_entity_list_data);
+        View v = inflater.inflate(R.layout.fragment_list_default, container, false);
+        final RecyclerView list = (RecyclerView) v.findViewById(R.id.fragment_list_data);
         list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         list.setAdapter(adapter);
 

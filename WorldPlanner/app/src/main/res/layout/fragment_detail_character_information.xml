@@ -12,7 +12,7 @@
         >
 
         <ImageView
-            android:id="@+id/fragment_entity_detail_character_image"
+            android:id="@+id/fragment_detail_character_image"
             android:background="@color/colorAccent"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
@@ -21,13 +21,13 @@
             />
 
         <EditText
-            android:id="@+id/fragment_entity_detail_character_name"
+            android:id="@+id/fragment_detail_character_name"
             tools:text="Peter Parker"
             android:hint="Name"
             android:inputType="textPersonName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"
-            android:layout_below="@+id/fragment_entity_detail_character_image"
+            android:layout_below="@+id/fragment_detail_character_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -38,12 +38,12 @@
             />
 
         <EditText
-            android:id="@+id/fragment_entity_detail_character_nickname"
+            android:id="@+id/fragment_detail_character_nickname"
             tools:text="Spiderman"
             android:hint="Nickname"
             android:inputType="textPersonName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:layout_below="@+id/fragment_entity_detail_character_name"
+            android:layout_below="@+id/fragment_detail_character_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -53,11 +53,11 @@
             />
 
         <EditText
-            android:id="@+id/fragment_entity_detail_character_gender"
+            android:id="@+id/fragment_detail_character_gender"
             tools:text="Male"
             android:hint="Gender"
             android:inputType="textNoSuggestions"
-            android:layout_below="@+id/fragment_entity_detail_character_nickname"
+            android:layout_below="@+id/fragment_detail_character_nickname"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -70,12 +70,12 @@
             android:text="Age:"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:gravity="end|center_vertical"
-            android:layout_toEndOf="@+id/fragment_entity_detail_character_gender"
-            android:layout_toRightOf="@+id/fragment_entity_detail_character_gender"
-            android:layout_toStartOf="@+id/fragment_entity_detail_character_age"
-            android:layout_toLeftOf="@+id/fragment_entity_detail_character_age"
-            android:layout_alignTop="@+id/fragment_entity_detail_character_gender"
-            android:layout_alignBottom="@+id/fragment_entity_detail_character_gender"
+            android:layout_toEndOf="@+id/fragment_detail_character_gender"
+            android:layout_toRightOf="@+id/fragment_detail_character_gender"
+            android:layout_toStartOf="@+id/fragment_detail_character_age"
+            android:layout_toLeftOf="@+id/fragment_detail_character_age"
+            android:layout_alignTop="@+id/fragment_detail_character_gender"
+            android:layout_alignBottom="@+id/fragment_detail_character_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
@@ -85,13 +85,13 @@
             />
 
         <EditText
-            android:id="@+id/fragment_entity_detail_character_age"
+            android:id="@+id/fragment_detail_character_age"
             tools:text="20"
             android:inputType="number"
             android:gravity="center_horizontal"
-            android:layout_below="@+id/fragment_entity_detail_character_nickname"
-            android:layout_alignEnd="@+id/fragment_entity_detail_character_nickname"
-            android:layout_alignRight="@+id/fragment_entity_detail_character_nickname"
+            android:layout_below="@+id/fragment_detail_character_nickname"
+            android:layout_alignEnd="@+id/fragment_detail_character_nickname"
+            android:layout_alignRight="@+id/fragment_detail_character_nickname"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -99,14 +99,14 @@
             />
 
         <EditText
-            android:id="@+id/fragment_entity_detail_character_description"
+            android:id="@+id/fragment_detail_character_description"
             tools:text="Main Protagonist"
             android:hint="Roles or description"
             android:inputType="textMultiLine"
             android:gravity="top"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:maxLines="4"
-            android:layout_below="@+id/fragment_entity_detail_character_gender"
+            android:layout_below="@+id/fragment_detail_character_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"

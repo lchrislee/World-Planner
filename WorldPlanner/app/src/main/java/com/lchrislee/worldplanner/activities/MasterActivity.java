@@ -19,7 +19,7 @@ import com.lchrislee.worldplanner.fragments.AccountFragment;
 import com.lchrislee.worldplanner.fragments.ChangeWorldFragment;
 import com.lchrislee.worldplanner.fragments.MasterTabFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
-import com.lchrislee.worldplanner.models.Relationship;
+import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.R;
 
 import timber.log.Timber;
@@ -98,7 +98,7 @@ public class MasterActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_master_tab_world:
                 Intent i = new Intent(getApplicationContext(), ModelDetailActivity.class);
-                i.putExtra(ModelDetailActivity.TYPE, Relationship.RelationableType.None);
+                i.putExtra(ModelDetailActivity.TYPE, ImportanceRelation.ImportantType.None);
                 startActivityForResult(i, ModelDetailActivity.REQUEST_CODE_WORLD_DETAIL);
                 break;
             case R.id.menu_master_tab_search:

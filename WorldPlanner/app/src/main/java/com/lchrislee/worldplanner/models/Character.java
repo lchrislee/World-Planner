@@ -9,8 +9,11 @@ import java.util.ArrayList;
  * Created by chrisl on 3/26/17.
  */
 
-public class Character extends WorldPlannerBaseModel implements Relationship.Relationable {
-    private ArrayList<Relationship> availableRelationships;
+public class Character extends WorldPlannerBaseModel implements ImportanceRelation.Important {
+    private ImportanceRelation importantItems;
+    private ImportanceRelation importantLocations;
+    private ImportanceRelation importantPlots;
+
     private String nickname;
     private String gender;
     private String occupation;
@@ -18,7 +21,6 @@ public class Character extends WorldPlannerBaseModel implements Relationship.Rel
 
     public Character(@NonNull String title, @NonNull String description) {
         super(title, description);
-        availableRelationships = new ArrayList<>();
     }
 
     public @Nullable String getNickname() {
@@ -53,46 +55,57 @@ public class Character extends WorldPlannerBaseModel implements Relationship.Rel
         this.age = age;
     }
 
-    public void addRelationship(@NonNull Relationship newRel)
+    public void addItem(@NonNull Item i)
     {
-        availableRelationships.add(newRel);
+        importantItems.addObject(i);
     }
 
-    public void addObjectToRelationship(int relationshipIndex, @NonNull WorldPlannerBaseModel obj)
+    public void removeItem(@NonNull Item i)
     {
-        if (relationshipIndex < 0 || relationshipIndex >= availableRelationships.size())
-        {
-            return;
-        }
-
-        if (obj instanceof Relationship.Relationable) {
-            availableRelationships.get(relationshipIndex).addRelevantObject((Relationship.Relationable) obj);
-        }
+        importantItems.removeObject(i);
     }
 
-    public @Nullable Relationship getRelationship(int index)
+    public void addLocation(@NonNull Location l)
     {
-        if (index < 0 || index > availableRelationships.size())
-        {
-            return null;
-        }
-        return availableRelationships.get(index);
+        importantLocations.addObject(l);
+    }
+    public void removeLocation(@NonNull Location l)
+    {
+        importantLocations.removeObject(l);
     }
 
-    public @NonNull ArrayList<Relationship> getAvailableRelationships()
+
+    public void addPlot(@NonNull Plot p)
     {
-        return availableRelationships;
+        importantPlots.addObject(p);
+    }
+
+    public void removePlot(@NonNull Plot p)
+    {
+        importantPlots.removeObject(p);
+    }
+
+    public @NonNull ImportanceRelation getImportantItems() {
+        return importantItems;
+    }
+
+    public @NonNull ImportanceRelation getImportantLocations() {
+        return importantLocations;
+    }
+
+    public @NonNull ImportanceRelation getImportantPlots() {
+        return importantPlots;
     }
 
     @NonNull
     @Override
-    public Relationship.RelationableType getRelationableType() {
-        return Relationship.RelationableType.Character;
+    public ImportanceRelation.ImportantType getImportanceType() {
+        return ImportanceRelation.ImportantType.Character;
     }
 
     @NonNull
     @Override
-    public String getRelationableString() {
+    public String getImportantTypeString() {
         return "Character";
     }
 }

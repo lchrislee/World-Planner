@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.lchrislee.worldplanner.models.Relationship;
+import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.R;
 
-public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
+public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment implements EditableFragment{
 
     private static final String RELATION_TYPE = "ENTITY_LIST_FRAGMENT_RELATION_TYPE";
     private static final String EDIT = "ENTITY_LIST_FRAGMENT_EDIT";
@@ -24,7 +24,7 @@ public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
     private EditText gender;
     private EditText age;
 
-    private Relationship.RelationableType typeToDisplay;
+    private ImportanceRelation.ImportantType typeToDisplay;
     private boolean isEditing;
 
     public PlannerObjectDetailFragment() {
@@ -32,7 +32,7 @@ public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
         // Required empty public constructor
     }
 
-    public static PlannerObjectDetailFragment newInstance(Relationship.RelationableType type, boolean edit) {
+    public static PlannerObjectDetailFragment newInstance(ImportanceRelation.ImportantType type, boolean edit) {
         PlannerObjectDetailFragment fragment = new PlannerObjectDetailFragment();
         Bundle b = new Bundle();
         b.putSerializable(RELATION_TYPE, type);
@@ -46,7 +46,7 @@ public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
-        typeToDisplay = (Relationship.RelationableType) arguments.getSerializable(RELATION_TYPE);
+        typeToDisplay = (ImportanceRelation.ImportantType) arguments.getSerializable(RELATION_TYPE);
         isEditing = arguments.getBoolean(EDIT);
     }
 
@@ -57,28 +57,28 @@ public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
         switch (typeToDisplay)
         {
             case Character:
-                mainView = inflater.inflate(R.layout.fragment_entity_detail_character, container, false);
-                name = (EditText) mainView.findViewById(R.id.fragment_entity_detail_character_name);
-                description = (EditText) mainView.findViewById(R.id.fragment_entity_detail_character_description);
-                nickname = (EditText) mainView.findViewById(R.id.fragment_entity_detail_character_nickname);
-                gender = (EditText) mainView.findViewById(R.id.fragment_entity_detail_character_gender);
-                age = (EditText) mainView.findViewById(R.id.fragment_entity_detail_character_age);
+                mainView = inflater.inflate(R.layout.fragment_detail_character_information, container, false);
+                name = (EditText) mainView.findViewById(R.id.fragment_detail_character_name);
+                description = (EditText) mainView.findViewById(R.id.fragment_detail_character_description);
+                nickname = (EditText) mainView.findViewById(R.id.fragment_detail_character_nickname);
+                gender = (EditText) mainView.findViewById(R.id.fragment_detail_character_gender);
+                age = (EditText) mainView.findViewById(R.id.fragment_detail_character_age);
                 break;
             case Location:
             case Item:
-                mainView = inflater.inflate(R.layout.fragment_entity_detail, container, false);
-                name = (EditText) mainView.findViewById(R.id.fragment_entity_detail_name);
-                description = (EditText) mainView.findViewById(R.id.fragment_entity_detail_description);
+                mainView = inflater.inflate(R.layout.fragment_detail_default, container, false);
+                name = (EditText) mainView.findViewById(R.id.fragment_detail_name);
+                description = (EditText) mainView.findViewById(R.id.fragment_detail_description);
                 break;
             case Plot:
-                mainView = inflater.inflate(R.layout.fragment_entity_detail_plot, container, false);
-                name = (EditText) mainView.findViewById(R.id.fragment_entity_detail_plot_name);
-                description = (EditText) mainView.findViewById(R.id.fragment_entity_detail_plot_description);
+                mainView = inflater.inflate(R.layout.fragment_detail_plot, container, false);
+                name = (EditText) mainView.findViewById(R.id.fragment_detail_plot_name);
+                description = (EditText) mainView.findViewById(R.id.fragment_detail_plot_description);
                 break;
             default:
-                mainView = inflater.inflate(R.layout.fragment_entity_detail_world, container, false);
-                name = (EditText) mainView.findViewById(R.id.fragment_entity_detail_world_name);
-                description = (EditText) mainView.findViewById(R.id.fragment_entity_detail_world_description);
+                mainView = inflater.inflate(R.layout.fragment_detail_world, container, false);
+                name = (EditText) mainView.findViewById(R.id.fragment_detail_world_name);
+                description = (EditText) mainView.findViewById(R.id.fragment_detail_world_description);
                 break;
         }
 
@@ -94,7 +94,7 @@ public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
             name.setBackground(editBackground);
             description.setBackground(editBackground);
 
-            if (typeToDisplay == Relationship.RelationableType.Character) {
+            if (typeToDisplay == ImportanceRelation.ImportantType.Character) {
                 nickname.setBackground(editBackground);
                 gender.setBackground(editBackground);
                 age.setBackground(editBackground);
@@ -107,7 +107,7 @@ public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
             name.setBackground(background);
             description.setBackground(background);
 
-            if (typeToDisplay == Relationship.RelationableType.Character) {
+            if (typeToDisplay == ImportanceRelation.ImportantType.Character) {
                 nickname.setBackground(background);
                 gender.setBackground(background);
                 age.setBackground(background);
@@ -127,7 +127,7 @@ public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment {
         description.invalidate();
         description.requestLayout();
 
-        if (typeToDisplay == Relationship.RelationableType.Character)
+        if (typeToDisplay == ImportanceRelation.ImportantType.Character)
         {
             nickname.setFocusable(isEditing);
             nickname.setClickable(isEditing);

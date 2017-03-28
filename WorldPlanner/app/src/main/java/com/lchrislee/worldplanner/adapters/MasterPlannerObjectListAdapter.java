@@ -15,9 +15,10 @@ import com.lchrislee.worldplanner.models.Character;
 import com.lchrislee.worldplanner.models.Item;
 import com.lchrislee.worldplanner.models.Location;
 import com.lchrislee.worldplanner.models.Plot;
-import com.lchrislee.worldplanner.models.Relationship;
+import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.views.SimpleDetailView;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
 
         final TextView gender_age;
         final TextView occupation;
+        final SimpleDetailView details;
 
         EntityListViewHolder(View itemView) {
             super(itemView);
@@ -43,6 +45,7 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
             image = (ImageView) itemView.findViewById(R.id.list_entity_image);
             gender_age = (TextView) itemView.findViewById(R.id.list_character_age_gender);
             occupation = (TextView) itemView.findViewById(R.id.list_character_occupation);
+            details = (SimpleDetailView) itemView.findViewById(R.id.list_item_simple);
         }
     }
 
@@ -50,9 +53,9 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
 
     private final Context context;
 
-    private final Relationship.RelationableType typeDisplaying;
+    private final ImportanceRelation.ImportantType typeDisplaying;
 
-    public MasterPlannerObjectListAdapter(Relationship.RelationableType type, Context c) {
+    public MasterPlannerObjectListAdapter(ImportanceRelation.ImportantType type, Context c) {
         typeDisplaying = type;
         context = c;
         data = new ArrayList<>();
@@ -127,12 +130,20 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
         WorldPlannerBaseModel obj = data.get(position);
 
         holder.itemView.setTag(obj);
+
+        if (typeDisplaying == ImportanceRelation.ImportantType.Item)
+        {
+            holder.details.setName(obj.getName());
+            holder.details.setDescription(obj.getDescription());
+            return;
+        }
+
         if (holder.description != null)
         {
             holder.description.setText(obj.getDescription());
         }
 
-        if (typeDisplaying == Relationship.RelationableType.Character)
+        if (typeDisplaying == ImportanceRelation.ImportantType.Character)
         {
             Character proper = (Character) obj;
             holder.name.setText(proper.getNickname() + " (" + proper.getName() + ")");

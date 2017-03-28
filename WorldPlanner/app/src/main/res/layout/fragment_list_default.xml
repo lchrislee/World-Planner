@@ -5,9 +5,9 @@
     tools:context="com.lchrislee.worldplanner.fragments.PlannerObjectListFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_entity_list_data"
-        tools:listitem="@layout/list_character"
+        android:id="@+id/fragment_list_data"
         android:clipToPadding="false"
+        tools:listitem="@layout/list_character"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"

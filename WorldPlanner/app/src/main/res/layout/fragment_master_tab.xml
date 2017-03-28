@@ -36,8 +36,8 @@
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fragment_master_fab_plot"
-            app:fab_colorNormal="?attr/colorPrimary"
-            app:fab_label="Plot Point"
+            fab:fab_colorNormal="?attr/colorPrimary"
+            fab:fab_label="Plot Point"
             fab:fab_size="mini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -45,7 +45,7 @@
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fragment_master_fab_item"
             fab:fab_colorNormal="?attr/colorPrimary"
-            app:fab_label="Item"
+            fab:fab_label="Item"
             fab:fab_size="mini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fragment_master_fab_location"
             fab:fab_colorNormal="?attr/colorPrimary"
-            app:fab_label="Location"
+            fab:fab_label="Location"
             fab:fab_size="mini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fragment_master_fab_character"
             fab:fab_colorNormal="?attr/colorPrimary"
-            app:fab_label="Character"
+            fab:fab_label="Character"
             fab:fab_size="mini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
