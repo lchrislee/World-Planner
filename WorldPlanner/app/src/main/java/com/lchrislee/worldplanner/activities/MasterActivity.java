@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.lchrislee.worldplanner.fragments.AccountFragment;
+import com.lchrislee.worldplanner.fragments.ChangeWorldFragment;
 import com.lchrislee.worldplanner.fragments.MasterTabFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.models.Relationship;
@@ -24,9 +26,11 @@ import timber.log.Timber;
 
 public class MasterActivity extends AppCompatActivity {
 
-    private WorldPlannerBaseFragment masterTabFragment;
+    private MasterTabFragment masterTabFragment;
+    private ChangeWorldFragment changeWorldFragment;
+    private AccountFragment accountFragment;
+
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
 
     @Override
@@ -45,12 +49,12 @@ public class MasterActivity extends AppCompatActivity {
         }
 
         masterTabFragment = new MasterTabFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.activity_master_frame, masterTabFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.activity_master_frame, masterTabFragment).addToBackStack(MasterTabFragment.class.getSimpleName()).commit();
 
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_master_drawerlayout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
 
-        navigationView = (NavigationView) findViewById(R.id.activity_master_navigationview);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.activity_master_navigationview);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -118,19 +122,39 @@ public class MasterActivity extends AppCompatActivity {
         }
     }
 
-    private void selectDrawerItem(MenuItem item)
+    private void selectDrawerItem(@NonNull MenuItem item)
     {
         Timber.tag("Drawer").d("Selected item: " + item.getTitle());
+        WorldPlannerBaseFragment fragToShow;
         switch(item.getItemId())
         {
-            case R.id.menu_navigation_world_current:
-                drawerLayout.closeDrawers();
-                break;
             case R.id.menu_navigation_world_change:
+                if (changeWorldFragment == null)
+                {
+                    changeWorldFragment = new ChangeWorldFragment();
+                }
+                fragToShow = changeWorldFragment;
                 break;
             case R.id.menu_navigation_misc_account:
+                if (accountFragment == null)
+                {
+                    accountFragment = new AccountFragment();
+                }
+                fragToShow = accountFragment;
+                break;
+            default:
+                if (masterTabFragment == null)
+                {
+                    masterTabFragment = new MasterTabFragment();
+                }
+                fragToShow = masterTabFragment;
                 break;
         }
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.activity_master_frame, fragToShow)
+                .commit();
+        drawerLayout.closeDrawers();
     }
 
 }

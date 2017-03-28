@@ -56,7 +56,8 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
         typeDisplaying = type;
         context = c;
         data = new ArrayList<>();
-        for (int i = 0; i < Math.random() * 10 + 2; ++i)
+        int randomAmount = (int)(Math.random() * 10) + 2;
+        for (int i = 0; i < randomAmount; ++i)
         {
             switch(typeDisplaying)
             {
