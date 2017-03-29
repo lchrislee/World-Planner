@@ -6,12 +6,14 @@ import android.support.annotation.NonNull;
  * Created by chrisl on 3/26/17.
  */
 
-public class StoryPlot extends WorldPlannerBaseModel implements ImportanceRelation.Important {
+public class StoryPlot extends StoryElement implements ImportanceRelation.Important {
 
     ImportanceRelation importantCharacters;
 
-    public StoryPlot(@NonNull String title, @NonNull String description) {
-        super(title, description);
+    public StoryPlot(@NonNull String title,
+                     @NonNull String description,
+                     @NonNull StoryWorld world) {
+        super(title, description, world);
         importantCharacters = new ImportanceRelation();
     }
 

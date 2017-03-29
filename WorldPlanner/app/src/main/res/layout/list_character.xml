@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/list_entity_name"
-            tools:text="Spiderman (Peter Parker)"
+            tools:text="Spiderman"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:maxLines="1"
             android:gravity="center_vertical"
@@ -47,8 +47,8 @@
             />
 
         <TextView
-            android:id="@+id/list_character_age_gender"
-            tools:text="Age 20, Male"
+            android:id="@+id/list_character_true_name"
+            tools:text="Peter Parker"
             android:gravity="center_vertical"
             android:layout_below="@+id/list_entity_name"
             android:layout_toEndOf="@+id/list_entity_image"
@@ -66,10 +66,10 @@
             />
 
         <TextView
-            android:id="@+id/list_character_occupation"
-            tools:text="Superhero"
+            android:id="@+id/list_character_age_gender"
+            tools:text="Age 20, Male"
             android:gravity="center_vertical"
-            android:layout_below="@+id/list_character_age_gender"
+            android:layout_below="@+id/list_character_true_name"
             android:layout_toEndOf="@+id/list_entity_image"
             android:layout_toRightOf="@+id/list_entity_image"
             android:layout_alignParentEnd="true"
@@ -88,7 +88,7 @@
             android:id="@+id/list_entity_description"
             tools:text="Main Protagonist"
             android:maxLines="1"
-            android:layout_below="@+id/list_character_occupation"
+            android:layout_below="@+id/list_character_age_gender"
             android:layout_toEndOf="@+id/list_entity_image"
             android:layout_toRightOf="@+id/list_entity_image"
             android:layout_alignParentEnd="true"

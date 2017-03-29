@@ -7,7 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.fragments.DetailFragment;
+import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
+
+import timber.log.Timber;
 
 public class WorldDetailFragment extends DetailFragment {
 
@@ -20,6 +23,7 @@ public class WorldDetailFragment extends DetailFragment {
         Bundle args = new Bundle();
         args.putSerializable(DetailFragment.RELATION_TYPE, ImportanceRelation.ImportantType.None);
         args.putBoolean(DetailFragment.EDIT, false);
+        args.putInt(DetailFragment.INDEX, DataManager.getInstance().getCurrentWorldIndex()); // TODO: This may need revising.
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,5 +44,11 @@ public class WorldDetailFragment extends DetailFragment {
     protected void swapEdit() {
         // TODO: If some custom feature is not null: do not try to edit their appearance
         super.swapEdit();
+    }
+
+    @Override
+    public void editAction() {
+        Timber.tag(getClass().getSimpleName()).d("editAction");
+        super.editAction();
     }
 }

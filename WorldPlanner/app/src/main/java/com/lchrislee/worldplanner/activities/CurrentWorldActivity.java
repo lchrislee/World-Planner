@@ -1,6 +1,5 @@
 package com.lchrislee.worldplanner.activities;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -106,7 +105,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Timber.tag("Menu Click").d("title: %s on %s", item.getTitle(), CurrentWorldActivity.class.getSimpleName());
+        Timber.tag(CurrentWorldActivity.class.getSimpleName()).d("Menu click - %s", item.getTitle());
 
         if (drawerToggle.onOptionsItemSelected(item))
         {
@@ -121,6 +120,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
             case R.id.menu_edit:
                 previousState = toolbarState;
                 toolbarState = ToolbarState.Save;
+                Timber.d("currentWorldFragment is not null: " + (currentWorldFragment == null));
                 if (currentWorldFragment != null) {
                     currentWorldFragment.iconAction();
                 }
@@ -138,21 +138,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         }
         invalidateOptionsMenu();
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch(requestCode)
-        {
-            case EntityDetailActivity.REQUEST_CODE_WORLD_DETAIL:
-                if (resultCode == EntityDetailActivity.RESPONSE_CODE_DELETE)
-                {
-                    Timber.tag("CRUD").d("Deleted current world.");
-                }
-                break;
-        }
     }
 
     private void selectDrawerItem(@NonNull MenuItem item)
@@ -201,6 +186,10 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
     @Override
     public void onWorldSwitch(int position) {
         // TODO: Update world displaying.
+        if (currentWorldFragment == null)
+        {
+            currentWorldFragment = new CurrentWorldFragment();
+        }
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_world_current_frame, currentWorldFragment)
                 .addToBackStack(currentWorldFragment.getClass().getSimpleName())

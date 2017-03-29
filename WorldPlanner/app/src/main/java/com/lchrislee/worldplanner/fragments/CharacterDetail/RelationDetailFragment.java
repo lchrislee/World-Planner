@@ -21,7 +21,7 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.adapters.RelationCharacterListAdapter;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
-import com.lchrislee.worldplanner.models.Relationship;
+import com.lchrislee.worldplanner.models.StoryRelationship;
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 
 /**
@@ -40,14 +40,14 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
     private TextView name;
     private Button swap;
 
-    private Relationship existingRelationship;
+    private StoryRelationship existingStoryRelationship;
     private RelationCharacterListAdapter adapter;
 
     private boolean isEditing;
     private int index;
 
     public static @NonNull
-    RelationDetailFragment newInstance(@Nullable Relationship r)
+    RelationDetailFragment newInstance(@Nullable StoryRelationship r)
     {
         RelationDetailFragment dialog = new RelationDetailFragment();
         Bundle bundle = new Bundle();
@@ -60,9 +60,9 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        existingRelationship = (Relationship) arguments.getSerializable(RELATIONSHIP);
+        existingStoryRelationship = (StoryRelationship) arguments.getSerializable(RELATIONSHIP);
         index = arguments.getInt(INDEX);
-        isEditing = existingRelationship == null;
+        isEditing = existingStoryRelationship == null;
     }
 
     @Nullable
@@ -136,6 +136,6 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
     @NonNull
     @Override
     public WorldPlannerBaseModel getModel() {
-        return existingRelationship;
+        return existingStoryRelationship;
     }
 }

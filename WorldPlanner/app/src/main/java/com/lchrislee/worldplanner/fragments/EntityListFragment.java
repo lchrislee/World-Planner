@@ -48,4 +48,9 @@ public class EntityListFragment extends WorldPlannerBaseFragment {
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 }

@@ -12,6 +12,7 @@ import com.lchrislee.worldplanner.fragments.CharacterDetail.CharacterTabFragment
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
+import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
@@ -24,54 +25,58 @@ import com.lchrislee.worldplanner.utility.ToolbarState;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 public class EntityDetailActivity extends WorldPlannerBaseActivity implements CharacterTabFragment.CharacterDetailTabChange{
-    public static final int REQUEST_CODE_WORLD_DETAIL = 100;
-    public static final int REQUEST_CODE_RELATIONABLE_DETAIL = 200;
+    public static final int REQUEST_CODE_WORLD = 100;
+    public static final int REQUEST_CODE_CHARACTER = 200;
+    public static final int REQUEST_CODE_LOCATION = 300;
+    public static final int REQUEST_CODE_ITEM = 400;
+    public static final int REQUEST_CODE_PLOT = 500;
 
-    public static final int RESPONSE_CODE_DELETE = 404;
-
-    public static final String TYPE = "MODEL_DETAIL_ACTIVITY_TYPE";
-    public static final String DATA = "MODEL_DETAIL_ACTIVITY_DATA";
+    public static final String INDEX = EntityDetailActivity.class.getSimpleName() + "_INDEX";
+    public static final String TYPE = EntityDetailActivity.class.getSimpleName() + "_TYPE";
 
     private ToolbarSupportingFragment fragment;
 
-    private WorldPlannerBaseModel modelToDisplay = null;
-
     private ToolbarState toolbarState;
     private ToolbarState previousState;
+
+    private int index;
+    private int requestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entity_detail);
 
+        ImportanceRelation.ImportantType typeToDisplay;
+
         Intent i = getIntent();
-        ImportanceRelation.ImportantType typeToDisplay = (ImportanceRelation.ImportantType) i.getSerializableExtra(TYPE);
-        if (typeToDisplay == null)
+        index = i.getIntExtra(INDEX, -1);
+        requestCode = i.getIntExtra(TYPE, 100);
+        Timber.d("index - " + index);
+        Timber.tag(getClass().getSimpleName()).d("request code - " + requestCode);
+        switch(requestCode)
         {
-            typeToDisplay = ImportanceRelation.ImportantType.None;
+            case REQUEST_CODE_CHARACTER:
+                typeToDisplay = ImportanceRelation.ImportantType.Character;
+                break;
+            case REQUEST_CODE_LOCATION:
+                typeToDisplay = ImportanceRelation.ImportantType.Location;
+                break;
+            case REQUEST_CODE_ITEM:
+                typeToDisplay = ImportanceRelation.ImportantType.Item;
+                break;
+            case REQUEST_CODE_PLOT:
+                typeToDisplay = ImportanceRelation.ImportantType.Plot;
+                break;
+            default:
+                typeToDisplay = ImportanceRelation.ImportantType.None;
+                break;
         }
 
-        switch(typeToDisplay)
-        {
-            case Character:
-                modelToDisplay = (StoryCharacter) i.getSerializableExtra(DATA);
-                break;
-            case Location:
-                modelToDisplay = (StoryLocation) i.getSerializableExtra(DATA);
-                break;
-            case Item:
-                modelToDisplay = (StoryItem) i.getSerializableExtra(DATA);
-                break;
-            case Plot:
-                modelToDisplay = (StoryPlot) i.getSerializableExtra(DATA);
-                break;
-            case None:
-                modelToDisplay = (StoryWorld) i.getSerializableExtra(DATA);
-                break;
-        }
-
-        boolean isNewModel = modelToDisplay == null;
+        boolean isNewModel = index == -1;
         toolbarState = isNewModel ? ToolbarState.Save : ToolbarState.Edit_Share_Delete;
         previousState = toolbarState;
 
@@ -79,16 +84,16 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         {
             if (isNewModel)
             {
-                fragment = CharacterDetailFragment.newInstance(true);
+                fragment = CharacterDetailFragment.newInstance(true, index);
             }
             else {
-                fragment = new CharacterTabFragment();
+                fragment = CharacterTabFragment.newInstance(index);
                 ((CharacterTabFragment) fragment).setListener(this);
             }
         }
         else
         {
-            fragment = DetailFragment.newInstance(typeToDisplay, isNewModel);
+            fragment = DetailFragment.newInstance(typeToDisplay, isNewModel, index);
         }
 
         getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment).commit();
@@ -129,7 +134,13 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 toolbarState = ToolbarState.Save;
                 break;
             case R.id.menu_save:
+                Timber.tag(getClass().getSimpleName()).d("onOptionsItemSelected save");
                 fragment.editAction();
+                if (index == -1)
+                {
+                    finish();
+                    return true;
+                }
                 toolbarState = previousState;
                 break;
             case R.id.menu_share:

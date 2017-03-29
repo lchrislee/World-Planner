@@ -14,7 +14,6 @@ public class StoryCharacter extends WorldPlannerBaseModel implements ImportanceR
 
     private String nickname;
     private String gender;
-    private String occupation;
     private int age;
 
     public StoryCharacter(@NonNull String title, @NonNull String description) {
@@ -38,11 +37,11 @@ public class StoryCharacter extends WorldPlannerBaseModel implements ImportanceR
     }
 
     public @Nullable String getOccupation() {
-        return occupation;
+        return getDescription();
     }
 
     public void setOccupation(@NonNull String occupation) {
-        this.occupation = occupation;
+        setDescription(occupation);
     }
 
     public int getAge() {

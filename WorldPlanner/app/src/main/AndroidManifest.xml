@@ -23,9 +23,15 @@
         <activity
             android:name=".activities.EntityDetailActivity"
             android:parentActivityName=".activities.CurrentWorldActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="adjustPan"
             >
         </activity>
+
+        <activity
+            android:name=".activities.RelationDetailActivity"
+            android:parentActivityName=".activities.CurrentWorldActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
 
         <provider
             android:name=".utility.WorldPlannerContentProvider"
@@ -37,11 +43,6 @@
             android:name="io.fabric.ApiKey"
             android:value="c30a7a54a2ff15981fe537e9bbe190f123393b76" />
 
-        <activity
-            android:name=".activities.RelationDetailActivity"
-            android:parentActivityName=".activities.CurrentWorldActivity"
-            android:windowSoftInputMode="adjustResize"
-            />
     </application>
 
 </manifest>

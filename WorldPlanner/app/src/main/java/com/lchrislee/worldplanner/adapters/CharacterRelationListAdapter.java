@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.RelationDetailActivity;
 import com.lchrislee.worldplanner.models.StoryCharacter;
-import com.lchrislee.worldplanner.models.Relationship;
+import com.lchrislee.worldplanner.models.StoryRelationship;
 import com.lchrislee.worldplanner.views.SimpleDetailView;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), RelationDetailActivity.class);
-                    i.putExtra(RelationDetailActivity.RELATIONSHIP, relationships.get((Integer) v.getTag()));
+                    i.putExtra(RelationDetailActivity.RELATIONSHIP, storyRelationships.get((Integer) v.getTag()));
                     v.getContext().startActivity(i);
                 }
             });
@@ -44,17 +44,17 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
 
     private Context context;
 
-    private ArrayList<Relationship> relationships;
+    private ArrayList<StoryRelationship> storyRelationships;
 
     public CharacterRelationListAdapter(Context context) {
         this.context = context;
-        relationships = new ArrayList<>();
+        storyRelationships = new ArrayList<>();
         int randomNum = (int)(Math.random() * 10) + 2;
         for (int i = 0; i < randomNum; ++i)
         {
             StoryCharacter c = new StoryCharacter("1C" + i, "");
             StoryCharacter d = new StoryCharacter("2C" + i, "");
-            relationships.add(new Relationship("Relationship between " + c.getName() + " and " + d.getName(), c, d));
+            storyRelationships.add(new StoryRelationship("StoryRelationship between " + c.getName() + " and " + d.getName(), c, d));
         }
     }
 
@@ -65,7 +65,7 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
 
     @Override
     public void onBindViewHolder(CharacterRelationViewHolder holder, int position) {
-        Relationship r = relationships.get(position);
+        StoryRelationship r = storyRelationships.get(position);
         holder.details.setName(r.getSecondStoryCharacter().getName());
         holder.details.setDescription(r.getDescription());
         holder.edit.setTag(position);
@@ -73,7 +73,7 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
 
     @Override
     public int getItemCount() {
-        return relationships.size();
+        return storyRelationships.size();
     }
 
 }

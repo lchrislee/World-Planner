@@ -19,9 +19,8 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
         void onWorldTabChanged();
     }
 
-    private CurrentWorldTabFragment tabFragment;
     private WorldDetailFragment worldFragment;
-
+    private CurrentWorldTabFragment tabFragment;
     private WorldTabChange tabChangeListener;
 
     private boolean isShowingWorld;

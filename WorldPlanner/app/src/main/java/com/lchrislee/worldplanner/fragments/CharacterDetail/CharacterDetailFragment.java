@@ -15,8 +15,7 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
-
-import timber.log.Timber;
+import com.lchrislee.worldplanner.models.StoryCharacter;
 
 public class CharacterDetailFragment extends DetailFragment implements ToolbarSupportingFragment{
 
@@ -24,16 +23,19 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
     private EditText gender;
     private EditText age;
 
+    StoryCharacter trueModel;
+
     public CharacterDetailFragment() {
         // Required empty public constructor
     }
 
-    public static @NonNull CharacterDetailFragment newInstance(boolean edit)
+    public static @NonNull CharacterDetailFragment newInstance(boolean edit, int charIndex)
     {
         CharacterDetailFragment fragment = new CharacterDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putBoolean(DetailFragment.EDIT, edit);
         bundle.putSerializable(DetailFragment.RELATION_TYPE, ImportanceRelation.ImportantType.Character);
+        bundle.putInt(INDEX, charIndex);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -47,6 +49,22 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
             nickname = (EditText) mainView.findViewById(R.id.fragment_detail_character_nickname);
             gender = (EditText) mainView.findViewById(R.id.fragment_detail_character_gender);
             age = (EditText) mainView.findViewById(R.id.fragment_detail_character_age);
+            if (model != null)
+            {
+                trueModel = (StoryCharacter) model;
+                String textNickName= trueModel.getNickname();
+                if (textNickName != null)
+                {
+                    nickname.setText(textNickName);
+                }
+                String textGender = trueModel.getGender();
+                if (textGender != null)
+                {
+                    gender.setText(textGender);
+                }
+
+                age.setText(String.valueOf(trueModel.getAge()));
+            }
             swapEdit();
         }
         return mainView;
@@ -81,6 +99,11 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
             age.setClickable(isEditing);
             age.setFocusableInTouchMode(isEditing);
             age.setLongClickable(isEditing);
+
+            trueModel.setAge(Integer.parseInt(age.getText().toString()));
+            trueModel.setNickname(nickname.getText().toString());
+            trueModel.setGender(gender.getText().toString());
+
             super.swapEdit();
         }
     }

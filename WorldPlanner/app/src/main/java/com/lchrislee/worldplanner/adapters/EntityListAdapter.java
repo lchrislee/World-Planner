@@ -11,16 +11,14 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.activities.CurrentWorldActivity;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
+import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
-import com.lchrislee.worldplanner.models.StoryItem;
-import com.lchrislee.worldplanner.models.StoryLocation;
-import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.views.SimpleDetailView;
 
-import java.util.ArrayList;
+import timber.log.Timber;
 
 /**
  * Created by chrisl on 3/27/17.
@@ -34,8 +32,8 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
         final TextView description;
         final ImageView image;
 
+        final TextView trueName;
         final TextView gender_age;
-        final TextView occupation;
         final SimpleDetailView details;
 
         EntityListViewHolder(View itemView) {
@@ -44,48 +42,19 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
             description = (TextView) itemView.findViewById(R.id.list_entity_description);
             image = (ImageView) itemView.findViewById(R.id.list_entity_image);
             gender_age = (TextView) itemView.findViewById(R.id.list_character_age_gender);
-            occupation = (TextView) itemView.findViewById(R.id.list_character_occupation);
+            trueName = (TextView) itemView.findViewById(R.id.list_character_true_name);
             details = (SimpleDetailView) itemView.findViewById(R.id.list_item_simple);
         }
     }
 
-    private ArrayList<WorldPlannerBaseModel> data;
-
     private final Context context;
 
+    private int REQUEST_CODE_TO_SEND;
     private final ImportanceRelation.ImportantType typeDisplaying;
 
     public EntityListAdapter(ImportanceRelation.ImportantType type, Context c) {
         typeDisplaying = type;
         context = c;
-        data = new ArrayList<>();
-        int randomAmount = (int)(Math.random() * 10) + 2;
-        for (int i = 0; i < randomAmount; ++i)
-        {
-            switch(typeDisplaying)
-            {
-                case Character:
-                    StoryCharacter storyCharacter = new StoryCharacter("Peter Parker", "Just a poor boy from a poor family");
-                    storyCharacter.setAge(20);
-                    storyCharacter.setGender("Male");
-                    storyCharacter.setNickname("Spiderman");
-                    storyCharacter.setOccupation("Superhero");
-                    data.add(storyCharacter);
-                    break;
-                case Location:
-                    StoryLocation loc = new StoryLocation("Parker Household", "You won't see this, probably");
-                    data.add(loc);
-                    break;
-                case Item:
-                    StoryItem storyItem = new StoryItem("Web Canister", "Peter Parker's Source of webbing, easily swappable.");
-                    data.add(storyItem);
-                    break;
-                default:
-                    StoryPlot plot = new StoryPlot("Uncle Ben Dies", "Peter learns the meaning of Uncle Ben's message on responsibility");
-                    data.add(plot);
-                    break;
-            }
-        }
     }
 
     @Override
@@ -95,15 +64,20 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
         {
             case Character:
                 layout = R.layout.list_character;
+                REQUEST_CODE_TO_SEND = EntityDetailActivity.REQUEST_CODE_CHARACTER;
                 break;
             case Location:
                 layout = R.layout.list_location;
+                REQUEST_CODE_TO_SEND = EntityDetailActivity.REQUEST_CODE_LOCATION;
                 break;
             case Item:
                 layout = R.layout.list_item;
+                REQUEST_CODE_TO_SEND = EntityDetailActivity.REQUEST_CODE_ITEM;
                 break;
             default: // StoryPlot
                 layout = R.layout.list_plot;
+                REQUEST_CODE_TO_SEND = EntityDetailActivity.REQUEST_CODE_PLOT;
+                break;
         }
 
         View v = LayoutInflater.from(context).inflate(layout, parent, false);
@@ -111,16 +85,10 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, EntityDetailActivity.class);
-                i.putExtra(EntityDetailActivity.TYPE, typeDisplaying);
-                i.putExtra(EntityDetailActivity.DATA, (WorldPlannerBaseModel) v.getTag());
+                i.putExtra(EntityDetailActivity.TYPE, REQUEST_CODE_TO_SEND);
+                i.putExtra(EntityDetailActivity.INDEX, (Integer) v.getTag());
 
-                if (context instanceof CurrentWorldActivity) {
-                    ((CurrentWorldActivity) context).startActivityForResult(i, EntityDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL);
-                }
-                else
-                {
-                    context.startActivity(i);
-                }
+                ((CurrentWorldActivity) context).startActivityForResult(i, REQUEST_CODE_TO_SEND);
             }
         });
         return new EntityListViewHolder(v);
@@ -128,30 +96,37 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
 
     @Override
     public void onBindViewHolder(EntityListViewHolder holder, int position) {
-        WorldPlannerBaseModel obj = data.get(position);
+        WorldPlannerBaseModel obj;
 
-        holder.itemView.setTag(obj);
+        final DataManager manager = DataManager.getInstance();
+        obj = manager.getAtIndexWithType(position, typeDisplaying);
 
-        if (typeDisplaying == ImportanceRelation.ImportantType.Item)
+        holder.itemView.setTag(position);
+
+        if (typeDisplaying == ImportanceRelation.ImportantType.Item && obj != null)
         {
             holder.details.setName(obj.getName());
             holder.details.setDescription(obj.getDescription());
             return;
         }
 
-        if (holder.description != null)
+        if (holder.description != null && obj != null)
         {
             holder.description.setText(obj.getDescription());
         }
 
-        if (typeDisplaying == ImportanceRelation.ImportantType.Character)
+        if (typeDisplaying == ImportanceRelation.ImportantType.Character && obj != null)
         {
             StoryCharacter proper = (StoryCharacter) obj;
-            holder.name.setText(proper.getNickname() + " (" + proper.getName() + ")");
+            holder.name.setText(proper.getNickname());
+            holder.trueName.setText(proper.getName());
             holder.gender_age.setText("Age " + proper.getAge() + ", " + proper.getGender());
-            holder.occupation.setText(proper.getOccupation());
+            if (holder.description != null) {
+                String occupation = proper.getOccupation();
+                holder.description.setText(occupation == null ? "" : occupation);
+            }
         }
-        else
+        else if (obj != null)
         {
             holder.name.setText(obj.getName());
         }
@@ -159,7 +134,9 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
 
     @Override
     public int getItemCount() {
-        return data.size();
+        int size = DataManager.getInstance().getCountForType(typeDisplaying);
+        Timber.tag(getClass().getSimpleName()).d("size is: " + size + " for type - " + typeDisplaying.name());
+        return size;
     }
 
 }

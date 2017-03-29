@@ -44,4 +44,5 @@ public class CurrentWorldEntityPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return ImportanceRelation.IMPORTANT_TYPE_COUNT;
     }
+
 }

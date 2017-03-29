@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.models.Relationship;
+import com.lchrislee.worldplanner.models.StoryRelationship;
 import com.lchrislee.worldplanner.fragments.CharacterDetail.RelationDetailFragment;
 import com.lchrislee.worldplanner.utility.ToolbarState;
 
@@ -28,11 +28,11 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
         setContentView(R.layout.activity_edit_relation);
 
         Intent i = getIntent();
-        Relationship relationship = (Relationship) i.getSerializableExtra(RELATIONSHIP);
+        StoryRelationship storyRelationship = (StoryRelationship) i.getSerializableExtra(RELATIONSHIP);
 
-        toolbarState = relationship == null ? ToolbarState.Save : ToolbarState.Edit_Delete;
+        toolbarState = storyRelationship == null ? ToolbarState.Save : ToolbarState.Edit_Delete;
 
-        fragment = RelationDetailFragment.newInstance(relationship);
+        fragment = RelationDetailFragment.newInstance(storyRelationship);
         getSupportFragmentManager().beginTransaction().add(R.id.activity_relation_detail_frame, fragment).commit();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -41,7 +41,7 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
         {
-            actionBar.setTitle("Relationship");
+            actionBar.setTitle("StoryRelationship");
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
