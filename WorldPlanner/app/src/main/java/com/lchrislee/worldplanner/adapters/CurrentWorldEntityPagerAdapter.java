@@ -27,7 +27,7 @@ public class CurrentWorldEntityPagerAdapter extends FragmentPagerAdapter {
         titles[0] = "Characters";
         titles[1] = "Locations";
         titles[2] = "Objects";
-        titles[3] = "Plot Points";
+        titles[3] = "StoryPlot Points";
     }
 
     @Override

@@ -6,14 +6,14 @@ import android.support.annotation.NonNull;
  * Created by chrisl on 3/26/17.
  */
 
-public class World extends WorldPlannerBaseModel implements ImportanceRelation.Important {
+public class StoryWorld extends WorldPlannerBaseModel implements ImportanceRelation.Important {
 
     private ImportanceRelation importantCharacters;
     private ImportanceRelation importantLocations;
     private ImportanceRelation importantItems;
     private ImportanceRelation importantPlots;
 
-    public World(@NonNull String title, @NonNull String description) {
+    public StoryWorld(@NonNull String title, @NonNull String description) {
         super(title, description);
         importantCharacters = new ImportanceRelation();
         importantLocations = new ImportanceRelation();
@@ -31,33 +31,33 @@ public class World extends WorldPlannerBaseModel implements ImportanceRelation.I
     }
 
 
-    public void addItem(@NonNull Item i)
+    public void addItem(@NonNull StoryItem i)
     {
         importantItems.addObject(i);
     }
 
-    public void removeItem(@NonNull Item i)
+    public void removeItem(@NonNull StoryItem i)
     {
         importantItems.removeObject(i);
     }
 
-    public void addLocation(@NonNull Location l)
+    public void addLocation(@NonNull StoryLocation l)
     {
         importantLocations.addObject(l);
     }
 
-    public void removeLocation(@NonNull Location l)
+    public void removeLocation(@NonNull StoryLocation l)
     {
         importantLocations.removeObject(l);
     }
 
 
-    public void addPlot(@NonNull Plot p)
+    public void addPlot(@NonNull StoryPlot p)
     {
         importantPlots.addObject(p);
     }
 
-    public void removePlot(@NonNull Plot p)
+    public void removePlot(@NonNull StoryPlot p)
     {
         importantPlots.removeObject(p);
     }

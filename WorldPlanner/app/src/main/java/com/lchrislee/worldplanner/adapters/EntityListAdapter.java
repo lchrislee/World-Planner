@@ -12,9 +12,9 @@ import android.widget.TextView;
 import com.lchrislee.worldplanner.activities.CurrentWorldActivity;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.models.StoryCharacter;
-import com.lchrislee.worldplanner.models.Item;
-import com.lchrislee.worldplanner.models.Location;
-import com.lchrislee.worldplanner.models.Plot;
+import com.lchrislee.worldplanner.models.StoryItem;
+import com.lchrislee.worldplanner.models.StoryLocation;
+import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
@@ -73,15 +73,15 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
                     data.add(storyCharacter);
                     break;
                 case Location:
-                    Location loc = new Location("Parker Household", "You won't see this, probably");
+                    StoryLocation loc = new StoryLocation("Parker Household", "You won't see this, probably");
                     data.add(loc);
                     break;
                 case Item:
-                    Item item = new Item("Web Canister", "Peter Parker's Source of webbing, easily swappable.");
-                    data.add(item);
+                    StoryItem storyItem = new StoryItem("Web Canister", "Peter Parker's Source of webbing, easily swappable.");
+                    data.add(storyItem);
                     break;
                 default:
-                    Plot plot = new Plot("Uncle Ben Dies", "Peter learns the meaning of Uncle Ben's message on responsibility");
+                    StoryPlot plot = new StoryPlot("Uncle Ben Dies", "Peter learns the meaning of Uncle Ben's message on responsibility");
                     data.add(plot);
                     break;
             }
@@ -102,7 +102,7 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
             case Item:
                 layout = R.layout.list_item;
                 break;
-            default: // Plot
+            default: // StoryPlot
                 layout = R.layout.list_plot;
         }
 
@@ -112,6 +112,7 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
             public void onClick(View v) {
                 Intent i = new Intent(context, EntityDetailActivity.class);
                 i.putExtra(EntityDetailActivity.TYPE, typeDisplaying);
+                i.putExtra(EntityDetailActivity.DATA, (WorldPlannerBaseModel) v.getTag());
 
                 if (context instanceof CurrentWorldActivity) {
                     ((CurrentWorldActivity) context).startActivityForResult(i, EntityDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL);

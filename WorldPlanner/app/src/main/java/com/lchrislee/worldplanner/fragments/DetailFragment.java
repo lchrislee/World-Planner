@@ -17,6 +17,8 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 
+import timber.log.Timber;
+
 public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
 
     protected static final String RELATION_TYPE = "DETAIL_FRAGMENT_RELATION_TYPE";
@@ -50,13 +52,15 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
 
         Bundle arguments = getArguments();
         typeToDisplay = (ImportanceRelation.ImportantType) arguments.getSerializable(RELATION_TYPE);
-        isEditing = arguments.getBoolean(EDIT);
+        isEditing = arguments.getBoolean(EDIT, false);
+        Timber.tag("DetailFragment").d("onCreate: " + typeToDisplay.name());
+        Timber.d("OnCreate: isEditing - " + isEditing);
     }
 
-    @NonNull
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Timber.tag("DetailFragment").d("onCreateView start");
         switch (typeToDisplay)
         {
             case Character: // Propogate to CharacterDetailFragment.
@@ -79,11 +83,13 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         description = (EditText) mainView.findViewById(R.id.fragment_detail_description);
 
         swapEdit();
+        Timber.tag("DetailFragment").d("onCreateView end");
         return mainView;
     }
 
     protected void swapEdit()
     {
+        Timber.tag("DetailFragment").d("swapEdit start");
         if (isEditing)
         {
             Drawable editBackground = ContextCompat.getDrawable(getContext(), android.R.drawable.edit_text);

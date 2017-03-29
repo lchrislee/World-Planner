@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 
@@ -30,7 +29,16 @@ public class WorldDetailFragment extends DetailFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View mainView = super.onCreateView(inflater, container, savedInstanceState);
+        if (mainView != null)
+        {
+            swapEdit();
+        }
         return mainView;
     }
 
+    @Override
+    protected void swapEdit() {
+        // TODO: If some custom feature is not null: do not try to edit their appearance
+        super.swapEdit();
+    }
 }

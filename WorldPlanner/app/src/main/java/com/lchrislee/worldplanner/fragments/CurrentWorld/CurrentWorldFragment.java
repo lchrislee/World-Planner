@@ -43,14 +43,6 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                 WorldPlannerBaseFragment frag = null;
                 switch(item.getItemId())
                 {
-                    case R.id.menu_navigation_world_current_information:
-                        if (tabFragment == null)
-                        {
-                            tabFragment = new CurrentWorldTabFragment();
-                        }
-                        frag = tabFragment;
-                        isShowingWorld = false;
-                        break;
                     case R.id.menu_navigation_world_current_world:
                         if (worldFragment == null)
                         {
@@ -59,10 +51,21 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                         frag = worldFragment;
                         isShowingWorld = true;
                         break;
+                    case R.id.menu_navigation_world_current_information:
+                        if (tabFragment == null)
+                        {
+                            tabFragment = new CurrentWorldTabFragment();
+                        }
+                        frag = tabFragment;
+                        isShowingWorld = false;
+                        break;
                 }
 
                 if (frag != null) {
-                    getChildFragmentManager().beginTransaction().replace(R.id.fragment_world_current_frame, frag).commit();
+                    getChildFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_world_current_frame, frag)
+                            .addToBackStack(frag.getClass().getSimpleName())
+                            .commit();
                 }
 
                 if (tabChangeListener != null)

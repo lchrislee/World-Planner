@@ -7,11 +7,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.lchrislee.worldplanner.fragments.CharacterDetail.CharacterDetailFragment;
 import com.lchrislee.worldplanner.fragments.CharacterDetail.CharacterTabFragment;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
+import com.lchrislee.worldplanner.models.StoryItem;
+import com.lchrislee.worldplanner.models.StoryLocation;
+import com.lchrislee.worldplanner.models.StoryPlot;
+import com.lchrislee.worldplanner.models.StoryCharacter;
+import com.lchrislee.worldplanner.models.StoryWorld;
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.utility.ToolbarState;
@@ -24,8 +30,8 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
 
     public static final int RESPONSE_CODE_DELETE = 404;
 
-    public static final String NEW = "MODEL_DETAIL_ACTIVITY_NEW";
     public static final String TYPE = "MODEL_DETAIL_ACTIVITY_TYPE";
+    public static final String DATA = "MODEL_DETAIL_ACTIVITY_DATA";
 
     private ToolbarSupportingFragment fragment;
 
@@ -45,13 +51,40 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         {
             typeToDisplay = ImportanceRelation.ImportantType.None;
         }
-        boolean isNewModel = i.getBooleanExtra(NEW, false);
+
+        switch(typeToDisplay)
+        {
+            case Character:
+                modelToDisplay = (StoryCharacter) i.getSerializableExtra(DATA);
+                break;
+            case Location:
+                modelToDisplay = (StoryLocation) i.getSerializableExtra(DATA);
+                break;
+            case Item:
+                modelToDisplay = (StoryItem) i.getSerializableExtra(DATA);
+                break;
+            case Plot:
+                modelToDisplay = (StoryPlot) i.getSerializableExtra(DATA);
+                break;
+            case None:
+                modelToDisplay = (StoryWorld) i.getSerializableExtra(DATA);
+                break;
+        }
+
+        boolean isNewModel = modelToDisplay == null;
         toolbarState = isNewModel ? ToolbarState.Save : ToolbarState.Edit_Share_Delete;
+        previousState = toolbarState;
 
         if (typeToDisplay == ImportanceRelation.ImportantType.Character)
         {
-            fragment = new CharacterTabFragment();
-            ((CharacterTabFragment) fragment).setListener(this);
+            if (isNewModel)
+            {
+                fragment = CharacterDetailFragment.newInstance(true);
+            }
+            else {
+                fragment = new CharacterTabFragment();
+                ((CharacterTabFragment) fragment).setListener(this);
+            }
         }
         else
         {

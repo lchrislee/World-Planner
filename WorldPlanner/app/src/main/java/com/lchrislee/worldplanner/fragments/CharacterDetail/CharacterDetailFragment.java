@@ -13,9 +13,12 @@ import android.widget.EditText;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
+import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 
-public class CharacterDetailFragment extends DetailFragment {
+import timber.log.Timber;
+
+public class CharacterDetailFragment extends DetailFragment implements ToolbarSupportingFragment{
 
     private EditText nickname;
     private EditText gender;
@@ -35,23 +38,24 @@ public class CharacterDetailFragment extends DetailFragment {
         return fragment;
     }
 
-    @NonNull
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View mainView = super.onCreateView(inflater, container, savedInstanceState);
-        nickname = (EditText) mainView.findViewById(R.id.fragment_detail_character_nickname);
-        gender = (EditText) mainView.findViewById(R.id.fragment_detail_character_gender);
-        age = (EditText) mainView.findViewById(R.id.fragment_detail_character_age);
-        swapEdit();
+        if (mainView != null) {
+            nickname = (EditText) mainView.findViewById(R.id.fragment_detail_character_nickname);
+            gender = (EditText) mainView.findViewById(R.id.fragment_detail_character_gender);
+            age = (EditText) mainView.findViewById(R.id.fragment_detail_character_age);
+            swapEdit();
+        }
         return mainView;
     }
 
     @Override
     protected void swapEdit()
     {
-        if (isInLayout()) {
+        if (nickname != null) {
             Drawable editBackground = ContextCompat.getDrawable(getContext(), android.R.drawable.edit_text);
             if (isEditing) {
                 nickname.setBackground(editBackground);
@@ -77,9 +81,8 @@ public class CharacterDetailFragment extends DetailFragment {
             age.setClickable(isEditing);
             age.setFocusableInTouchMode(isEditing);
             age.setLongClickable(isEditing);
+            super.swapEdit();
         }
-
-        super.swapEdit();
     }
 
 }

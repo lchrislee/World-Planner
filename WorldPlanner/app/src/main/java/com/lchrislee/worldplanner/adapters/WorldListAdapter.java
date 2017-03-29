@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.models.World;
+import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.util.ArrayList;
 
@@ -48,16 +48,16 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
 
     private Context context;
     private WorldSwitch listener;
-    private ArrayList<World> worlds;
+    private ArrayList<StoryWorld> storyWorlds;
 
     public WorldListAdapter(Context context, WorldSwitch l) {
         this.context = context;
         listener = l;
-        worlds = new ArrayList<>();
+        storyWorlds = new ArrayList<>();
         int randomAmount = (int)(Math.random() * 10) + 2;
         for (int i = 0; i < randomAmount; ++i)
         {
-            worlds.add(new World("Earth 616", "Some lengthy description of something or other that I honestly don't know anything about because it is too much of a hassle to come up with something long enough to extend past this stupid bare minimum barrier."));
+            storyWorlds.add(new StoryWorld("Earth 616", "Some lengthy description of something or other that I honestly don't know anything about because it is too much of a hassle to come up with something long enough to extend past this stupid bare minimum barrier."));
         }
     }
 
@@ -68,7 +68,7 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
 
     @Override
     public void onBindViewHolder(WorldViewHolder holder, int position) {
-        World w = worlds.get(position);
+        StoryWorld w = storyWorlds.get(position);
 
         holder.name.setText(w.getName());
         holder.description.setText(w.getDescription());
@@ -77,6 +77,6 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
 
     @Override
     public int getItemCount() {
-        return worlds.size();
+        return storyWorlds.size();
     }
 }

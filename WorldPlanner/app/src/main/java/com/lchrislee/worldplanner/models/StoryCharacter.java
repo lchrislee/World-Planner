@@ -53,32 +53,32 @@ public class StoryCharacter extends WorldPlannerBaseModel implements ImportanceR
         this.age = age;
     }
 
-    public void addItem(@NonNull Item i)
+    public void addItem(@NonNull StoryItem i)
     {
         importantItems.addObject(i);
     }
 
-    public void removeItem(@NonNull Item i)
+    public void removeItem(@NonNull StoryItem i)
     {
         importantItems.removeObject(i);
     }
 
-    public void addLocation(@NonNull Location l)
+    public void addLocation(@NonNull StoryLocation l)
     {
         importantLocations.addObject(l);
     }
-    public void removeLocation(@NonNull Location l)
+    public void removeLocation(@NonNull StoryLocation l)
     {
         importantLocations.removeObject(l);
     }
 
 
-    public void addPlot(@NonNull Plot p)
+    public void addPlot(@NonNull StoryPlot p)
     {
         importantPlots.addObject(p);
     }
 
-    public void removePlot(@NonNull Plot p)
+    public void removePlot(@NonNull StoryPlot p)
     {
         importantPlots.removeObject(p);
     }

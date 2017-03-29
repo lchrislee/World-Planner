@@ -56,11 +56,11 @@ public class ImportanceRelation extends WorldPlannerBaseModel {
             case Character:
                 return "Character";
             case Location:
-                return "Location";
+                return "StoryLocation";
             case Item:
-                return "Item";
+                return "StoryItem";
             case Plot:
-                return "Plot";
+                return "StoryPlot";
             default:
                 return null;
         }

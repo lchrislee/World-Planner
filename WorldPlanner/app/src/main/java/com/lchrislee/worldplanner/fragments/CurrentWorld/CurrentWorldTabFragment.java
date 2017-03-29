@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.adapters.CurrentWorldEntityPagerAdapter;
@@ -24,6 +25,7 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
         // Required empty public constructor
     }
 
+    private FloatingActionMenu floatingActionMenu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +39,8 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
         final TabLayout tabLayout = (TabLayout) v.findViewById(R.id.fragment_master_tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
+        floatingActionMenu = (FloatingActionMenu) v.findViewById(R.id.fragment_master_fab_menu);
+
         // TODO: Replace this implementaion of FAB menu with custom one.
         // This is super deprecated and hard to use.
         View.OnClickListener toDetail = new View.OnClickListener() {
@@ -44,7 +48,7 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
             public void onClick(View v) {
                 Timber.tag("Main FAB").d(((FloatingActionButton) v).getLabelText());
                 Intent i = new Intent(getContext(), EntityDetailActivity.class);
-                i.putExtra(EntityDetailActivity.NEW, true);
+
                 int requestCode;
                 switch(v.getId())
                 {
@@ -68,6 +72,7 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
                         i.putExtra(EntityDetailActivity.TYPE, ImportanceRelation.ImportantType.None);
                         requestCode = EntityDetailActivity.REQUEST_CODE_WORLD_DETAIL;
                 }
+                floatingActionMenu.close(true);
                 startActivityForResult(i, requestCode);
             }
         };

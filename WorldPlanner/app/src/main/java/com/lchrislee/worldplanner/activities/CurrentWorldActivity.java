@@ -55,7 +55,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
         {
-            actionBar.setTitle("World Planner");
+            actionBar.setTitle("StoryWorld Planner");
             actionBar.setDisplayShowTitleEnabled(true);
         }
 
@@ -206,6 +206,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                 .addToBackStack(currentWorldFragment.getClass().getSimpleName())
                 .commit();
         navigationView.setCheckedItem(R.id.menu_navigation_world_current);
+        toolbarState = ToolbarState.Edit;
         supportInvalidateOptionsMenu();
     }
 
