@@ -7,21 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lchrislee.worldplanner.adapters.CurrentWorldEntityListAdapter;
+import com.lchrislee.worldplanner.adapters.EntityListAdapter;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.R;
 
-public class CurrentWorldEntityListFragment extends WorldPlannerBaseFragment {
+public class EntityListFragment extends WorldPlannerBaseFragment {
     private static final String TYPE_TO_DISPLAY = "ENTITY_LIST_FRAGMENT_TYPE_TO_DISPLAY";
 
-    private CurrentWorldEntityListAdapter adapter;
+    private EntityListAdapter adapter;
 
-    public CurrentWorldEntityListFragment() {
+    public EntityListFragment() {
         // Required empty public constructor
     }
 
-    public static CurrentWorldEntityListFragment newInstance(ImportanceRelation.ImportantType type) {
-        CurrentWorldEntityListFragment fragment = new CurrentWorldEntityListFragment();
+    public static EntityListFragment newInstance(ImportanceRelation.ImportantType type) {
+        EntityListFragment fragment = new EntityListFragment();
         Bundle args = new Bundle();
         args.putSerializable(TYPE_TO_DISPLAY, type);
         fragment.setArguments(args);
@@ -33,7 +33,7 @@ public class CurrentWorldEntityListFragment extends WorldPlannerBaseFragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         ImportanceRelation.ImportantType typeToDisplay = (ImportanceRelation.ImportantType) arguments.getSerializable(TYPE_TO_DISPLAY);
-        adapter = new CurrentWorldEntityListAdapter(typeToDisplay, getContext());
+        adapter = new EntityListAdapter(typeToDisplay, getContext());
     }
 
     @Override

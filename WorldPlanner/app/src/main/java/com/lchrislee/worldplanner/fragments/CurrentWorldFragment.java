@@ -14,11 +14,21 @@ import com.lchrislee.worldplanner.models.ImportanceRelation;
 
 public class CurrentWorldFragment extends WorldPlannerBaseFragment {
 
+    public interface WorldTabChange
+    {
+        void onWorldTabChanged();
+    }
+
     private CurrentWorldTabFragment tabFragment;
     private DetailFragment worldFragment;
 
+    private WorldTabChange tabChangeListener;
+
+    private boolean isShowingWorld;
+
     public CurrentWorldFragment() {
         // Required empty public constructor
+        isShowingWorld = true;
     }
 
     @Override
@@ -39,6 +49,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                             tabFragment = new CurrentWorldTabFragment();
                         }
                         frag = tabFragment;
+                        isShowingWorld = false;
                         break;
                     case R.id.menu_navigation_world_current_world:
                         if (worldFragment == null)
@@ -46,20 +57,38 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                             worldFragment = DetailFragment.newInstance(ImportanceRelation.ImportantType.None);
                         }
                         frag = worldFragment;
+                        isShowingWorld = true;
                         break;
                 }
 
                 if (frag != null) {
                     getChildFragmentManager().beginTransaction().replace(R.id.fragment_world_current_frame, frag).commit();
                 }
+
+                if (tabChangeListener != null)
+                {
+                    tabChangeListener.onWorldTabChanged();
+                }
                 return true;
             }
         });
 
-        tabFragment = new CurrentWorldTabFragment();
-        getChildFragmentManager().beginTransaction().replace(R.id.fragment_world_current_frame, tabFragment).commit();
+        worldFragment = DetailFragment.newInstance(ImportanceRelation.ImportantType.None);
+        getChildFragmentManager().beginTransaction().replace(R.id.fragment_world_current_frame, worldFragment).commit();
 
         return v;
     }
 
+    public boolean isShowingWorld() {
+        return isShowingWorld;
+    }
+
+    public void setTabChangeListener(WorldTabChange tabChangeListener) {
+        this.tabChangeListener = tabChangeListener;
+    }
+
+    public void iconAction()
+    {
+        worldFragment.iconAction();
+    }
 }

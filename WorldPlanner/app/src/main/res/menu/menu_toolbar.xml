@@ -2,15 +2,23 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_detail_edit"
+        android:id="@+id/menu_edit"
         android:icon="@android:drawable/ic_menu_edit"
         android:name="Edit"
         android:title="Edit"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         />
 
     <item
-        android:id="@+id/menu_detail_share"
+        android:id="@+id/menu_save"
+        android:icon="@android:drawable/ic_menu_save"
+        android:name="Save"
+        android:title="Save"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/menu_share"
         android:icon="@android:drawable/ic_menu_share"
         android:name="Share"
         android:title="Share"
@@ -18,7 +26,7 @@
         />
 
     <item
-        android:id="@+id/menu_detail_delete"
+        android:id="@+id/menu_delete"
         android:icon="@android:drawable/ic_menu_delete"
         android:name="Delete"
         android:title="Delete"

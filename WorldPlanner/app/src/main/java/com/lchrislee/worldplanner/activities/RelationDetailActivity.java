@@ -41,9 +41,9 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
-        menu.findItem(R.id.menu_detail_share).setVisible(false);
-        menu.findItem(R.id.menu_detail_edit).setIcon(android.R.drawable.ic_menu_save);
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        menu.findItem(R.id.menu_share).setVisible(false);
+        menu.findItem(R.id.menu_edit).setIcon(android.R.drawable.ic_menu_save);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -51,9 +51,9 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId())
         {
-            case R.id.menu_detail_edit:
+            case R.id.menu_edit:
                 break;
-            case R.id.menu_detail_delete:
+            case R.id.menu_delete:
                 break;
         }
         finish();

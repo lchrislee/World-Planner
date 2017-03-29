@@ -2,21 +2,21 @@ package com.lchrislee.worldplanner.activities;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.lchrislee.worldplanner.fragments.CharacterDetailFragment;
+import com.lchrislee.worldplanner.fragments.CharacterTabFragment;
 import com.lchrislee.worldplanner.fragments.EditableFragment;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.utility.ToolbarState;
 
-public class EntityDetailActivity extends AppCompatActivity {
+public class EntityDetailActivity extends WorldPlannerBaseActivity {
     public static final int REQUEST_CODE_WORLD_DETAIL = 100;
     public static final int REQUEST_CODE_RELATIONABLE_DETAIL = 200;
 
@@ -28,7 +28,8 @@ public class EntityDetailActivity extends AppCompatActivity {
     private EditableFragment fragment;
 
     private WorldPlannerBaseModel modelToDisplay = null;
-    private boolean isNewModel;
+
+    private ToolbarState toolbarState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +42,12 @@ public class EntityDetailActivity extends AppCompatActivity {
         {
             typeToDisplay = ImportanceRelation.ImportantType.None;
         }
-        isNewModel = i.getBooleanExtra(NEW, false);
+        boolean isNewModel = i.getBooleanExtra(NEW, false);
+        toolbarState = isNewModel ? ToolbarState.Save : ToolbarState.Edit_Share_Delete;
 
         if (typeToDisplay == ImportanceRelation.ImportantType.Character)
         {
-            fragment = new CharacterDetailFragment();
+            fragment = new CharacterTabFragment();
         }
         else
         {
@@ -75,10 +77,19 @@ public class EntityDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
-        if (isNewModel)
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        switch(toolbarState)
         {
-            menu.findItem(R.id.menu_detail_edit).setIcon(android.R.drawable.ic_menu_save);
+            case Edit:
+                break;
+            case Edit_Delete:
+                break;
+            case Save:
+                break;
+            case Empty:
+                break;
+            case Edit_Share_Delete:
+                break;
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -87,25 +98,19 @@ public class EntityDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId())
         {
-            case R.id.menu_detail_edit:
-                if (fragment.isEditing())
-                {
-                    item.setIcon(android.R.drawable.ic_menu_save);
-                }
-                else
-                {
-                    item.setIcon(android.R.drawable.ic_menu_edit);
-                }
-                supportInvalidateOptionsMenu();
+            case R.id.menu_edit:
                 fragment.iconAction();
                 break;
-            case R.id.menu_detail_share:
+            case R.id.menu_save:
                 break;
-            case R.id.menu_detail_delete:
+            case R.id.menu_share:
+                break;
+            case R.id.menu_delete:
                 setResult(RESPONSE_CODE_DELETE);
                 finish();
                 break;
         }
+        supportInvalidateOptionsMenu();
         return super.onOptionsItemSelected(item);
     }
 }

@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,10 +24,13 @@ import com.lchrislee.worldplanner.fragments.CurrentWorldFragment;
 import com.lchrislee.worldplanner.fragments.CurrentWorldTabFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.utility.ToolbarState;
+
+import java.util.ArrayList;
 
 import timber.log.Timber;
 
-public class CurrentWorldActivity extends AppCompatActivity implements ChangeWorldFragment.FragmentSwap {
+public class CurrentWorldActivity extends WorldPlannerBaseActivity implements ChangeWorldFragment.FragmentSwap, CurrentWorldFragment.WorldTabChange {
 
     private CurrentWorldFragment currentWorldFragment;
     private ChangeWorldFragment changeWorldFragment;
@@ -37,6 +41,9 @@ public class CurrentWorldActivity extends AppCompatActivity implements ChangeWor
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+
+    private ToolbarState toolbarState = ToolbarState.Edit;
+    private ToolbarState previousState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,7 @@ public class CurrentWorldActivity extends AppCompatActivity implements ChangeWor
         }
 
         currentWorldFragment = new CurrentWorldFragment();
+        currentWorldFragment.setTabChangeListener(this);
         getSupportFragmentManager().beginTransaction().add(R.id.activity_world_current_frame, currentWorldFragment).addToBackStack(CurrentWorldTabFragment.class.getSimpleName()).commit();
 
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_world_current_drawerlayout);
@@ -87,6 +95,17 @@ public class CurrentWorldActivity extends AppCompatActivity implements ChangeWor
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        ArrayList<Integer> itemsToHide = toolbarState.getHiddenIds(toolbarState);
+        for (int hide : itemsToHide)
+        {
+            menu.findItem(hide).setVisible(false);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Timber.tag("Menu Click").d("title: %s on %s", item.getTitle(), CurrentWorldActivity.class.getSimpleName());
 
@@ -100,7 +119,25 @@ public class CurrentWorldActivity extends AppCompatActivity implements ChangeWor
             case R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.menu_edit:
+                previousState = toolbarState;
+                toolbarState = ToolbarState.Save;
+                if (currentWorldFragment != null) {
+                    currentWorldFragment.iconAction();
+                }
+                break;
+            case R.id.menu_save:
+                toolbarState = previousState;
+                if (currentWorldFragment != null) {
+                    currentWorldFragment.iconAction();
+                }
+                break;
+            case R.id.menu_share: // Will not happen.
+                break;
+            case R.id.menu_delete: // Will not happen.
+                break;
         }
+        invalidateOptionsMenu();
         return super.onOptionsItemSelected(item);
     }
 
@@ -132,7 +169,8 @@ public class CurrentWorldActivity extends AppCompatActivity implements ChangeWor
                     changeWorldFragment.setListener(this);
                 }
                 fragToShow = changeWorldFragment;
-
+                toolbarState = ToolbarState.Empty;
+                navigationView.setCheckedItem(R.id.menu_navigation_world_change);
                 break;
             case R.id.menu_navigation_misc_account:
                 if (accountFragment == null)
@@ -140,20 +178,28 @@ public class CurrentWorldActivity extends AppCompatActivity implements ChangeWor
                     accountFragment = new AccountFragment();
                 }
                 fragToShow = accountFragment;
+                toolbarState = ToolbarState.Empty;
+                navigationView.setCheckedItem(R.id.menu_navigation_misc_account);
                 break;
             default:
+                toolbarState = ToolbarState.Edit;
                 if (currentWorldFragment == null)
                 {
                     currentWorldFragment = new CurrentWorldFragment();
+                    currentWorldFragment.setTabChangeListener(this);
                 }
+
                 fragToShow = currentWorldFragment;
+                navigationView.setCheckedItem(R.id.menu_navigation_world_current);
                 break;
         }
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_world_current_frame, fragToShow)
+                .addToBackStack(fragToShow.getClass().getSimpleName())
                 .commit();
         drawerLayout.closeDrawers();
+        supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -161,7 +207,15 @@ public class CurrentWorldActivity extends AppCompatActivity implements ChangeWor
         // TODO: Update world displaying.
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_world_current_frame, currentWorldFragment)
+                .addToBackStack(currentWorldFragment.getClass().getSimpleName())
                 .commit();
         navigationView.setCheckedItem(R.id.menu_navigation_world_current);
+        supportInvalidateOptionsMenu();
+    }
+
+    @Override
+    public void onWorldTabChanged() {
+        toolbarState = currentWorldFragment.isShowingWorld() ? ToolbarState.Edit : ToolbarState.Empty;
+        supportInvalidateOptionsMenu();
     }
 }

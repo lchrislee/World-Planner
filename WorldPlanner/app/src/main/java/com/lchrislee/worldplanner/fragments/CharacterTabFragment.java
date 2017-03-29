@@ -12,12 +12,12 @@ import android.view.ViewGroup;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 
-public class CharacterDetailFragment extends WorldPlannerBaseFragment implements EditableFragment {
+public class CharacterTabFragment extends WorldPlannerBaseFragment implements EditableFragment {
 
     DetailFragment informationFragment;
     CharacterRelationListFragment relationFragment;
 
-    public CharacterDetailFragment() {
+    public CharacterTabFragment() {
         // Required empty public constructor
     }
 

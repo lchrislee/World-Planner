@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * Created by chrisl on 3/27/17.
  */
 
-public class CurrentWorldEntityListAdapter extends RecyclerView.Adapter<CurrentWorldEntityListAdapter.EntityListViewHolder> {
+public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.EntityListViewHolder> {
 
     class EntityListViewHolder extends RecyclerView.ViewHolder
     {
@@ -55,7 +55,7 @@ public class CurrentWorldEntityListAdapter extends RecyclerView.Adapter<CurrentW
 
     private final ImportanceRelation.ImportantType typeDisplaying;
 
-    public CurrentWorldEntityListAdapter(ImportanceRelation.ImportantType type, Context c) {
+    public EntityListAdapter(ImportanceRelation.ImportantType type, Context c) {
         typeDisplaying = type;
         context = c;
         data = new ArrayList<>();
