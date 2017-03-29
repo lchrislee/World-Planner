@@ -13,7 +13,7 @@
 
         <ImageView
             android:background="@color/colorAccent"
-            android:id="@+id/fragment_entity_detail_image"
+            android:id="@+id/fragment_detail_image"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="232dp"

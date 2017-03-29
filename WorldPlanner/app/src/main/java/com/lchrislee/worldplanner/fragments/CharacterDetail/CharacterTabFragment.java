@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments;
+package com.lchrislee.worldplanner.fragments.CharacterDetail;
 
 
 import android.os.Bundle;
@@ -10,11 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.fragments.DetailFragment;
+import com.lchrislee.worldplanner.fragments.EditableFragment;
+import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 
 public class CharacterTabFragment extends WorldPlannerBaseFragment implements EditableFragment {
 
-    DetailFragment informationFragment;
+    CharacterDetailFragment informationFragment;
     CharacterRelationListFragment relationFragment;
 
     public CharacterTabFragment() {
@@ -25,9 +28,9 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements Ed
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_detail_character, container, false);
+        View v = inflater.inflate(R.layout.fragment_tab_character, container, false);
 
-        final BottomNavigationView bottomNavigationView = (BottomNavigationView) v.findViewById(R.id.fragment_detail_character_bottomnav);
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView) v.findViewById(R.id.fragment_tab_character_bottomnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -36,23 +39,23 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements Ed
                     case R.id.menu_detail_character_information:
                         if (informationFragment == null)
                         {
-                            informationFragment = DetailFragment.newInstance(ImportanceRelation.ImportantType.Character, false);
+                            informationFragment = CharacterDetailFragment.newInstance(false);
                         }
-                        getChildFragmentManager().beginTransaction().replace(R.id.fragment_detail_character_frame, informationFragment).commit();
+                        getChildFragmentManager().beginTransaction().replace(R.id.fragment_tab_character_frame, informationFragment).commit();
                         break;
                     case R.id.menu_detail_character_relationship:
                         if (relationFragment == null) {
                             relationFragment = new CharacterRelationListFragment();
                         }
-                        getChildFragmentManager().beginTransaction().replace(R.id.fragment_detail_character_frame, relationFragment).commit();
+                        getChildFragmentManager().beginTransaction().replace(R.id.fragment_tab_character_frame, relationFragment).commit();
                         break;
                 }
                 return true;
             }
         });
 
-        informationFragment = DetailFragment.newInstance(ImportanceRelation.ImportantType.Character, false);
-        getChildFragmentManager().beginTransaction().replace(R.id.fragment_detail_character_frame, informationFragment).commit();
+        informationFragment = CharacterDetailFragment.newInstance(false);
+        getChildFragmentManager().beginTransaction().replace(R.id.fragment_tab_character_frame, informationFragment).commit();
 
         return v;
     }

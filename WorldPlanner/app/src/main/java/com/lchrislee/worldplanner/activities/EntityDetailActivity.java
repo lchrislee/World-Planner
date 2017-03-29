@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.lchrislee.worldplanner.fragments.CharacterTabFragment;
+import com.lchrislee.worldplanner.fragments.CharacterDetail.CharacterTabFragment;
 import com.lchrislee.worldplanner.fragments.EditableFragment;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;

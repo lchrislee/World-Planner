@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.Relationship;
-import com.lchrislee.worldplanner.fragments.RelationDetailFragment;
+import com.lchrislee.worldplanner.fragments.CharacterDetail.RelationDetailFragment;
 
 public class RelationDetailActivity extends WorldPlannerBaseActivity {
     public static final int REQUEST_CODE_NEW = 100;

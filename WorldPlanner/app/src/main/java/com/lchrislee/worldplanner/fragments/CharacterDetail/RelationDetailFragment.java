@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments;
+package com.lchrislee.worldplanner.fragments.CharacterDetail;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.adapters.RelationCharacterListAdapter;
+import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.models.Relationship;
 
 /**

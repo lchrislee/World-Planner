@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments;
+package com.lchrislee.worldplanner.fragments.CurrentWorld;
 
 
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.adapters.WorldListAdapter;
+import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 
 public class ChangeWorldFragment extends WorldPlannerBaseFragment implements WorldListAdapter.WorldSwitch {
 

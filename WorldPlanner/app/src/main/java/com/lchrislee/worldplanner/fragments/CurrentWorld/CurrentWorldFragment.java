@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments;
+package com.lchrislee.worldplanner.fragments.CurrentWorld;
 
 
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.fragments.DetailFragment;
+import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 
 public class CurrentWorldFragment extends WorldPlannerBaseFragment {

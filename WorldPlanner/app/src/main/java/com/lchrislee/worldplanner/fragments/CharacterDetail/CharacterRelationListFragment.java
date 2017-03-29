@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments;
+package com.lchrislee.worldplanner.fragments.CharacterDetail;
 
 
 import android.content.Intent;
@@ -13,6 +13,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.RelationDetailActivity;
 import com.lchrislee.worldplanner.adapters.CharacterRelationListAdapter;
+import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 
 public class CharacterRelationListFragment extends WorldPlannerBaseFragment {
 

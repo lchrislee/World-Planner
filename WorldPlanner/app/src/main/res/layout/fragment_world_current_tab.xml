@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
-    tools:context="com.lchrislee.worldplanner.fragments.CurrentWorldTabFragment">
+    tools:context="com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldTabFragment">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/fragment_master_tablayout"
