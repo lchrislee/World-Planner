@@ -16,10 +16,10 @@ public enum ToolbarState
     Empty,
     Edit_Share_Delete;
 
-    public ArrayList<Integer> getHiddenIds(ToolbarState state)
+    public ArrayList<Integer> getHiddenIds()
     {
         ArrayList<Integer> itemsToHide = new ArrayList<>();
-        switch(state)
+        switch(this)
         {
             case Edit:
                 itemsToHide.add(R.id.menu_save);

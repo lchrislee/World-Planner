@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
 
 public class CurrentWorldFragment extends WorldPlannerBaseFragment {
 
@@ -22,7 +20,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
     }
 
     private CurrentWorldTabFragment tabFragment;
-    private DetailFragment worldFragment;
+    private WorldDetailFragment worldFragment;
 
     private WorldTabChange tabChangeListener;
 
@@ -56,7 +54,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                     case R.id.menu_navigation_world_current_world:
                         if (worldFragment == null)
                         {
-                            worldFragment = DetailFragment.newInstance(ImportanceRelation.ImportantType.None);
+                            worldFragment = WorldDetailFragment.newInstance();
                         }
                         frag = worldFragment;
                         isShowingWorld = true;
@@ -75,7 +73,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
             }
         });
 
-        worldFragment = DetailFragment.newInstance(ImportanceRelation.ImportantType.None);
+        worldFragment = WorldDetailFragment.newInstance();
         getChildFragmentManager().beginTransaction().replace(R.id.fragment_world_current_frame, worldFragment).commit();
 
         return v;
@@ -91,6 +89,6 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
 
     public void iconAction()
     {
-        worldFragment.iconAction();
+        worldFragment.editAction();
     }
 }

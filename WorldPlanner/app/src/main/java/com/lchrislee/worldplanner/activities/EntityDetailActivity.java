@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.fragments.CharacterDetail.CharacterTabFragment;
-import com.lchrislee.worldplanner.fragments.EditableFragment;
+import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
@@ -16,7 +16,9 @@ import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.utility.ToolbarState;
 
-public class EntityDetailActivity extends WorldPlannerBaseActivity {
+import java.util.ArrayList;
+
+public class EntityDetailActivity extends WorldPlannerBaseActivity implements CharacterTabFragment.CharacterDetailTabChange{
     public static final int REQUEST_CODE_WORLD_DETAIL = 100;
     public static final int REQUEST_CODE_RELATIONABLE_DETAIL = 200;
 
@@ -25,11 +27,12 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity {
     public static final String NEW = "MODEL_DETAIL_ACTIVITY_NEW";
     public static final String TYPE = "MODEL_DETAIL_ACTIVITY_TYPE";
 
-    private EditableFragment fragment;
+    private ToolbarSupportingFragment fragment;
 
     private WorldPlannerBaseModel modelToDisplay = null;
 
     private ToolbarState toolbarState;
+    private ToolbarState previousState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity {
         if (typeToDisplay == ImportanceRelation.ImportantType.Character)
         {
             fragment = new CharacterTabFragment();
+            ((CharacterTabFragment) fragment).setListener(this);
         }
         else
         {
@@ -66,11 +70,7 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity {
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
-            String title = ImportanceRelation.getImportantTypeString(typeToDisplay);
-            if (title == null)
-            {
-                title = "World";
-            }
+            String title = ImportanceRelation.getImportantTypeString(typeToDisplay) + " Details";
             actionBar.setTitle(title);
         }
     }
@@ -78,18 +78,10 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        switch(toolbarState)
+        ArrayList<Integer> hiddenIds = toolbarState.getHiddenIds();
+        for (int hideID : hiddenIds)
         {
-            case Edit:
-                break;
-            case Edit_Delete:
-                break;
-            case Save:
-                break;
-            case Empty:
-                break;
-            case Edit_Share_Delete:
-                break;
+            menu.findItem(hideID).setVisible(false);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -99,18 +91,31 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity {
         switch(item.getItemId())
         {
             case R.id.menu_edit:
-                fragment.iconAction();
+                fragment.editAction();
+                previousState = toolbarState;
+                toolbarState = ToolbarState.Save;
                 break;
             case R.id.menu_save:
+                fragment.editAction();
+                toolbarState = previousState;
                 break;
             case R.id.menu_share:
+                // TODO: Implement share by pulling from the Fragment.
+                WorldPlannerBaseModel modelToShare = fragment.getModel();
                 break;
             case R.id.menu_delete:
-                setResult(RESPONSE_CODE_DELETE);
+                // TODO: Implement deletion.
+                WorldPlannerBaseModel modelToDelete = fragment.getModel();
                 finish();
                 break;
         }
         supportInvalidateOptionsMenu();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCharacterTabSwitch() {
+        toolbarState = ((CharacterTabFragment) fragment).isShowingDetails() ? ToolbarState.Edit_Share_Delete : ToolbarState.Empty;
+        supportInvalidateOptionsMenu();
     }
 }

@@ -13,16 +13,13 @@ import android.widget.EditText;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
-import com.lchrislee.worldplanner.fragments.EditableFragment;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 
-public class CharacterDetailFragment extends DetailFragment implements EditableFragment{
+public class CharacterDetailFragment extends DetailFragment {
 
     private EditText nickname;
     private EditText gender;
     private EditText age;
-
-    boolean isEditing;
 
     public CharacterDetailFragment() {
         // Required empty public constructor
@@ -51,6 +48,7 @@ public class CharacterDetailFragment extends DetailFragment implements EditableF
         return mainView;
     }
 
+    @Override
     protected void swapEdit()
     {
         if (isInLayout()) {
@@ -84,14 +82,4 @@ public class CharacterDetailFragment extends DetailFragment implements EditableF
         super.swapEdit();
     }
 
-    public boolean isEditing() {
-        return isEditing;
-    }
-
-    @Override
-    public void iconAction()
-    {
-        isEditing = !isEditing;
-        this.swapEdit();
-    }
 }

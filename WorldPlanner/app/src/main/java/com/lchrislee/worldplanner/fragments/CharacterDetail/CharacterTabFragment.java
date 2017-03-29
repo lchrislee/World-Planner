@@ -10,18 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.fragments.DetailFragment;
-import com.lchrislee.worldplanner.fragments.EditableFragment;
+import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
+import com.lchrislee.worldplanner.models.StoryCharacter;
+import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 
-public class CharacterTabFragment extends WorldPlannerBaseFragment implements EditableFragment {
+public class CharacterTabFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
+
+    public interface CharacterDetailTabChange
+    {
+        void onCharacterTabSwitch();
+    }
 
     CharacterDetailFragment informationFragment;
     CharacterRelationListFragment relationFragment;
 
+    private CharacterDetailTabChange listener;
+    private boolean isShowingDetails;
+
     public CharacterTabFragment() {
-        // Required empty public constructor
+        isShowingDetails = true;
     }
 
     @Override
@@ -41,14 +49,26 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements Ed
                         {
                             informationFragment = CharacterDetailFragment.newInstance(false);
                         }
-                        getChildFragmentManager().beginTransaction().replace(R.id.fragment_tab_character_frame, informationFragment).commit();
+                        getChildFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_tab_character_frame, informationFragment)
+                                .addToBackStack(informationFragment.getClass().getSimpleName())
+                                .commit();
+                        isShowingDetails = true;
                         break;
                     case R.id.menu_detail_character_relationship:
                         if (relationFragment == null) {
                             relationFragment = new CharacterRelationListFragment();
                         }
-                        getChildFragmentManager().beginTransaction().replace(R.id.fragment_tab_character_frame, relationFragment).commit();
+                        getChildFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_tab_character_frame, relationFragment)
+                                .addToBackStack(relationFragment.getClass().getSimpleName())
+                                .commit();
+                        isShowingDetails = false;
                         break;
+                }
+                if (listener != null)
+                {
+                    listener.onCharacterTabSwitch();
                 }
                 return true;
             }
@@ -56,17 +76,25 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements Ed
 
         informationFragment = CharacterDetailFragment.newInstance(false);
         getChildFragmentManager().beginTransaction().replace(R.id.fragment_tab_character_frame, informationFragment).commit();
-
         return v;
     }
 
-    @Override
-    public boolean isEditing() {
-        return informationFragment.isEditing();
+    public boolean isShowingDetails() {
+        return isShowingDetails;
+    }
+
+    public void setListener(CharacterDetailTabChange listener) {
+        this.listener = listener;
     }
 
     @Override
-    public void iconAction() {
-        informationFragment.iconAction();
+    public void editAction() {
+        informationFragment.editAction();
+    }
+
+    @NonNull
+    @Override
+    public WorldPlannerBaseModel getModel() {
+        return new StoryCharacter("Character to Share", "Just a placeholder until data and model implemented.");
     }
 }

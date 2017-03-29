@@ -10,10 +10,17 @@ import android.view.MenuItem;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.Relationship;
 import com.lchrislee.worldplanner.fragments.CharacterDetail.RelationDetailFragment;
+import com.lchrislee.worldplanner.utility.ToolbarState;
+
+import java.util.ArrayList;
 
 public class RelationDetailActivity extends WorldPlannerBaseActivity {
     public static final int REQUEST_CODE_NEW = 100;
     public static final String RELATIONSHIP = "RELATIONDETAILACTIVITY_RELATIONSHIP";
+
+    private RelationDetailFragment fragment;
+
+    private ToolbarState toolbarState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +29,10 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
 
         Intent i = getIntent();
         Relationship relationship = (Relationship) i.getSerializableExtra(RELATIONSHIP);
-        RelationDetailFragment fragment = RelationDetailFragment.newInstance(relationship);
+
+        toolbarState = relationship == null ? ToolbarState.Save : ToolbarState.Edit_Delete;
+
+        fragment = RelationDetailFragment.newInstance(relationship);
         getSupportFragmentManager().beginTransaction().add(R.id.activity_relation_detail_frame, fragment).commit();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -42,8 +52,11 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        menu.findItem(R.id.menu_share).setVisible(false);
-        menu.findItem(R.id.menu_edit).setIcon(android.R.drawable.ic_menu_save);
+        ArrayList<Integer> hiddenIds = toolbarState.getHiddenIds();
+        for (int id : hiddenIds)
+        {
+            menu.findItem(id).setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -52,11 +65,20 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
         switch(item.getItemId())
         {
             case R.id.menu_edit:
+                toolbarState = ToolbarState.Save;
+                fragment.editAction();
+                break;
+            case R.id.menu_save:
+                toolbarState = ToolbarState.Edit_Delete;
+                fragment.editAction();
+                break;
+            case R.id.menu_share: // Will not happen.
                 break;
             case R.id.menu_delete:
+                // TODO: Delete relation.
                 break;
         }
-        finish();
+        supportInvalidateOptionsMenu();
         return super.onOptionsItemSelected(item);
     }
 }

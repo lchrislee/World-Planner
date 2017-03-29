@@ -14,8 +14,10 @@ import android.widget.ImageView;
 
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.models.StoryCharacter;
+import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 
-public class DetailFragment extends WorldPlannerBaseFragment implements EditableFragment{
+public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
 
     protected static final String RELATION_TYPE = "DETAIL_FRAGMENT_RELATION_TYPE";
     protected static final String EDIT = "DETAIL_FRAGMENT_FRAGMENT_EDIT";
@@ -31,11 +33,6 @@ public class DetailFragment extends WorldPlannerBaseFragment implements Editable
     public DetailFragment() {
         super();
         // Required empty public constructor
-    }
-
-    public static DetailFragment newInstance(ImportanceRelation.ImportantType type)
-    {
-        return newInstance(type, false);
     }
 
     public static DetailFragment newInstance(ImportanceRelation.ImportantType type, boolean edit) {
@@ -68,6 +65,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements Editable
                 break;
             case Location:
             case Item:
+                mainView = inflater.inflate(R.layout.fragment_detail_default, container, false);
                 image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
                 break;
             case Plot:
@@ -113,15 +111,16 @@ public class DetailFragment extends WorldPlannerBaseFragment implements Editable
     }
 
     @Override
-    public boolean isEditing() {
-        return isEditing;
-    }
-
-    @Override
-    public void iconAction()
+    public void editAction()
     {
         isEditing = !isEditing;
         swapEdit();
+    }
+
+    @NonNull
+    @Override
+    public WorldPlannerBaseModel getModel() {
+        return new StoryCharacter("Blank", "FIX ME");
     }
 
 }

@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.fragments.AccountFragment;
-import com.lchrislee.worldplanner.fragments.CurrentWorld.ChangeWorldFragment;
+import com.lchrislee.worldplanner.fragments.ChangeWorldFragment;
 import com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldFragment;
 import com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldTabFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
@@ -96,7 +96,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        ArrayList<Integer> itemsToHide = toolbarState.getHiddenIds(toolbarState);
+        ArrayList<Integer> itemsToHide = toolbarState.getHiddenIds();
         for (int hide : itemsToHide)
         {
             menu.findItem(hide).setVisible(false);
@@ -169,7 +169,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                 }
                 fragToShow = changeWorldFragment;
                 toolbarState = ToolbarState.Empty;
-                navigationView.setCheckedItem(R.id.menu_navigation_world_change);
                 break;
             case R.id.menu_navigation_misc_account:
                 if (accountFragment == null)
@@ -178,7 +177,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                 }
                 fragToShow = accountFragment;
                 toolbarState = ToolbarState.Empty;
-                navigationView.setCheckedItem(R.id.menu_navigation_misc_account);
                 break;
             default:
                 toolbarState = ToolbarState.Edit;
@@ -189,7 +187,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                 }
 
                 fragToShow = currentWorldFragment;
-                navigationView.setCheckedItem(R.id.menu_navigation_world_current);
                 break;
         }
 

@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments.CurrentWorld;
+package com.lchrislee.worldplanner.fragments;
 
 
 import android.os.Bundle;

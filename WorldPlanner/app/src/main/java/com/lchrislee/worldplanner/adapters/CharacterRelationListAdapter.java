@@ -30,7 +30,7 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
         CharacterRelationViewHolder(View itemView) {
             super(itemView);
             details = (SimpleDetailView) itemView.findViewById(R.id.list_character_relation_simpledetailview);
-            edit = (Button) itemView.findViewById(R.id.list_character_relation_edit);
+            edit = (Button) itemView.findViewById(R.id.list_character_relation_more);
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

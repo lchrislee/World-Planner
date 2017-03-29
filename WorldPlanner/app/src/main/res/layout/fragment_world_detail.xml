@@ -2,14 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lchrislee.worldplanner.fragments.ChangeWorldFragment">
+    tools:context="com.lchrislee.worldplanner.fragments.CurrentWorld.WorldDetailFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_world_list"
-        tools:listitem="@layout/list_world"
-        android:layout_marginTop="8dp"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>
