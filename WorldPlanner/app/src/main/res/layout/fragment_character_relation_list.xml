@@ -6,7 +6,7 @@
     tools:context="com.lchrislee.worldplanner.fragments.CharacterRelationListFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_character_relation_recyclerview"
+        android:id="@+id/fragment_character_relation_list"
         tools:listitem="@layout/list_character_relation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

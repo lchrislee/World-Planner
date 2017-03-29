@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lchrislee.worldplanner.activities.MasterActivity;
-import com.lchrislee.worldplanner.activities.ModelDetailActivity;
+import com.lchrislee.worldplanner.activities.CurrentWorldActivity;
+import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.Item;
 import com.lchrislee.worldplanner.models.Location;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * Created by chrisl on 3/27/17.
  */
 
-public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterPlannerObjectListAdapter.EntityListViewHolder> {
+public class CurrentWorldEntityListAdapter extends RecyclerView.Adapter<CurrentWorldEntityListAdapter.EntityListViewHolder> {
 
     class EntityListViewHolder extends RecyclerView.ViewHolder
     {
@@ -55,7 +55,7 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
 
     private final ImportanceRelation.ImportantType typeDisplaying;
 
-    public MasterPlannerObjectListAdapter(ImportanceRelation.ImportantType type, Context c) {
+    public CurrentWorldEntityListAdapter(ImportanceRelation.ImportantType type, Context c) {
         typeDisplaying = type;
         context = c;
         data = new ArrayList<>();
@@ -110,11 +110,11 @@ public class MasterPlannerObjectListAdapter extends RecyclerView.Adapter<MasterP
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, ModelDetailActivity.class);
-                i.putExtra(ModelDetailActivity.TYPE, typeDisplaying);
+                Intent i = new Intent(context, EntityDetailActivity.class);
+                i.putExtra(EntityDetailActivity.TYPE, typeDisplaying);
 
-                if (context instanceof MasterActivity) {
-                    ((MasterActivity) context).startActivityForResult(i, ModelDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL);
+                if (context instanceof CurrentWorldActivity) {
+                    ((CurrentWorldActivity) context).startActivityForResult(i, EntityDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL);
                 }
                 else
                 {

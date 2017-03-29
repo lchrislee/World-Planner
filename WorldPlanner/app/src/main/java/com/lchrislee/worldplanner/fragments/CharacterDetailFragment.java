@@ -14,7 +14,7 @@ import com.lchrislee.worldplanner.models.ImportanceRelation;
 
 public class CharacterDetailFragment extends WorldPlannerBaseFragment implements EditableFragment {
 
-    PlannerObjectDetailFragment informationFragment;
+    DetailFragment informationFragment;
     CharacterRelationListFragment relationFragment;
 
     public CharacterDetailFragment() {
@@ -25,9 +25,9 @@ public class CharacterDetailFragment extends WorldPlannerBaseFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_detail_character_master, container, false);
+        View v = inflater.inflate(R.layout.fragment_detail_character, container, false);
 
-        final BottomNavigationView bottomNavigationView = (BottomNavigationView) v.findViewById(R.id.fragment_detail_master_bottomnav);
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView) v.findViewById(R.id.fragment_detail_character_bottomnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -36,23 +36,23 @@ public class CharacterDetailFragment extends WorldPlannerBaseFragment implements
                     case R.id.menu_detail_character_information:
                         if (informationFragment == null)
                         {
-                            informationFragment = PlannerObjectDetailFragment.newInstance(ImportanceRelation.ImportantType.Character, false);
+                            informationFragment = DetailFragment.newInstance(ImportanceRelation.ImportantType.Character, false);
                         }
-                        getChildFragmentManager().beginTransaction().replace(R.id.fragment_detail_master_frame, informationFragment).commit();
+                        getChildFragmentManager().beginTransaction().replace(R.id.fragment_detail_character_frame, informationFragment).commit();
                         break;
                     case R.id.menu_detail_character_relationship:
                         if (relationFragment == null) {
                             relationFragment = new CharacterRelationListFragment();
                         }
-                        getChildFragmentManager().beginTransaction().replace(R.id.fragment_detail_master_frame, relationFragment).commit();
+                        getChildFragmentManager().beginTransaction().replace(R.id.fragment_detail_character_frame, relationFragment).commit();
                         break;
                 }
                 return true;
             }
         });
 
-        informationFragment = PlannerObjectDetailFragment.newInstance(ImportanceRelation.ImportantType.Character, false);
-        getChildFragmentManager().beginTransaction().replace(R.id.fragment_detail_master_frame, informationFragment).commit();
+        informationFragment = DetailFragment.newInstance(ImportanceRelation.ImportantType.Character, false);
+        getChildFragmentManager().beginTransaction().replace(R.id.fragment_detail_character_frame, informationFragment).commit();
 
         return v;
     }

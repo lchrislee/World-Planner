@@ -16,10 +16,4 @@ public class Location extends WorldPlannerBaseModel implements ImportanceRelatio
     public ImportanceRelation.ImportantType getImportanceType() {
         return ImportanceRelation.ImportantType.Location;
     }
-
-    @NonNull
-    @Override
-    public String getImportantTypeString() {
-        return "Location";
-    }
 }

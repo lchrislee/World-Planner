@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Created by chrisl on 3/28/17.
  */
 
-public class DefaultPlannerObjectListAdapter extends RecyclerView.Adapter<DefaultPlannerObjectListAdapter.DefaultPlannerObjectViewHolder> {
+public class RelationCharacterListAdapter extends RecyclerView.Adapter<RelationCharacterListAdapter.DefaultPlannerObjectViewHolder> {
 
     public interface DefaultPlannerObjectSelected{
         void onItemSelected(int position);
@@ -47,7 +47,7 @@ public class DefaultPlannerObjectListAdapter extends RecyclerView.Adapter<Defaul
 
     private DefaultPlannerObjectSelected listener;
 
-    public DefaultPlannerObjectListAdapter(Context context, DefaultPlannerObjectSelected l) {
+    public RelationCharacterListAdapter(Context context, DefaultPlannerObjectSelected l) {
         this.context = context;
         listener = l;
         characters = new ArrayList<>();

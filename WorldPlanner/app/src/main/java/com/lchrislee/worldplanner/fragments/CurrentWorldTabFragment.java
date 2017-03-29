@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.activities.ModelDetailActivity;
-import com.lchrislee.worldplanner.adapters.MasterPagerAdapter;
+import com.lchrislee.worldplanner.activities.EntityDetailActivity;
+import com.lchrislee.worldplanner.adapters.CurrentWorldEntityPagerAdapter;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 
 import timber.log.Timber;
 
-public class MasterTabFragment extends WorldPlannerBaseFragment {
+public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
 
-    public MasterTabFragment() {
+    public CurrentWorldTabFragment() {
         // Required empty public constructor
     }
 
@@ -28,10 +28,10 @@ public class MasterTabFragment extends WorldPlannerBaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_master_tab, container, false);
+        View v = inflater.inflate(R.layout.fragment_world_current_tab, container, false);
 
         final ViewPager viewPager = (ViewPager) v.findViewById(R.id.fragment_master_viewpager);
-        viewPager.setAdapter(new MasterPagerAdapter(getChildFragmentManager()));
+        viewPager.setAdapter(new CurrentWorldEntityPagerAdapter(getChildFragmentManager()));
 
         final TabLayout tabLayout = (TabLayout) v.findViewById(R.id.fragment_master_tablayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -42,30 +42,30 @@ public class MasterTabFragment extends WorldPlannerBaseFragment {
             @Override
             public void onClick(View v) {
                 Timber.tag("Main FAB").d(((FloatingActionButton) v).getLabelText());
-                Intent i = new Intent(getContext(), ModelDetailActivity.class);
-                i.putExtra(ModelDetailActivity.NEW, true);
+                Intent i = new Intent(getContext(), EntityDetailActivity.class);
+                i.putExtra(EntityDetailActivity.NEW, true);
                 int requestCode;
                 switch(v.getId())
                 {
                     case R.id.fragment_master_fab_character:
-                        i.putExtra(ModelDetailActivity.TYPE, ImportanceRelation.ImportantType.Character);
-                        requestCode = ModelDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL;
+                        i.putExtra(EntityDetailActivity.TYPE, ImportanceRelation.ImportantType.Character);
+                        requestCode = EntityDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL;
                         break;
                     case R.id.fragment_master_fab_location:
-                        i.putExtra(ModelDetailActivity.TYPE, ImportanceRelation.ImportantType.Location);
-                        requestCode = ModelDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL;
+                        i.putExtra(EntityDetailActivity.TYPE, ImportanceRelation.ImportantType.Location);
+                        requestCode = EntityDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL;
                         break;
                     case R.id.fragment_master_fab_item:
-                        i.putExtra(ModelDetailActivity.TYPE, ImportanceRelation.ImportantType.Item);
-                        requestCode = ModelDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL;
+                        i.putExtra(EntityDetailActivity.TYPE, ImportanceRelation.ImportantType.Item);
+                        requestCode = EntityDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL;
                         break;
                     case R.id.fragment_master_fab_plot:
-                        i.putExtra(ModelDetailActivity.TYPE, ImportanceRelation.ImportantType.Plot);
-                        requestCode = ModelDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL;
+                        i.putExtra(EntityDetailActivity.TYPE, ImportanceRelation.ImportantType.Plot);
+                        requestCode = EntityDetailActivity.REQUEST_CODE_RELATIONABLE_DETAIL;
                         break;
                     default:
-                        i.putExtra(ModelDetailActivity.TYPE, ImportanceRelation.ImportantType.None);
-                        requestCode = ModelDetailActivity.REQUEST_CODE_WORLD_DETAIL;
+                        i.putExtra(EntityDetailActivity.TYPE, ImportanceRelation.ImportantType.None);
+                        requestCode = EntityDetailActivity.REQUEST_CODE_WORLD_DETAIL;
                 }
                 startActivityForResult(i, requestCode);
             }

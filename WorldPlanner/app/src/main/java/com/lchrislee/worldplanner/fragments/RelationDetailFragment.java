@@ -17,14 +17,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.adapters.DefaultPlannerObjectListAdapter;
+import com.lchrislee.worldplanner.adapters.RelationCharacterListAdapter;
 import com.lchrislee.worldplanner.models.Relationship;
 
 /**
  * Created by chrisl on 3/28/17.
  */
 
-public class RelationDetailFragment extends WorldPlannerBaseFragment implements DefaultPlannerObjectListAdapter.DefaultPlannerObjectSelected{
+public class RelationDetailFragment extends WorldPlannerBaseFragment implements RelationCharacterListAdapter.DefaultPlannerObjectSelected{
     private static final String RELATIONSHIP = "RELATIONDETAILFRAGMENT_RELATIONSHIP";
     private static final String INDEX = "RELATIONDETAILFRAGMENT_INDEX";
 
@@ -36,7 +36,7 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
     private Button swap;
 
     private Relationship existingRelationship;
-    private DefaultPlannerObjectListAdapter adapter;
+    private RelationCharacterListAdapter adapter;
 
     private int index;
 
@@ -69,7 +69,7 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
         description.invalidate();
         description.requestLayout();
 
-        adapter = new DefaultPlannerObjectListAdapter(getContext(), this);
+        adapter = new RelationCharacterListAdapter(getContext(), this);
         list = (RecyclerView) v.findViewById(R.id.fragment_relation_character_list);
         list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         list.setAdapter(adapter);

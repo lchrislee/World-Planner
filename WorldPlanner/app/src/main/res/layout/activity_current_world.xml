@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout android:id="@+id/activity_master_drawerlayout"
+<android.support.v4.widget.DrawerLayout android:id="@+id/activity_world_current_drawerlayout"
     android:fitsSystemWindows="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lchrislee.worldplanner.activities.MasterActivity"
+    tools:context="com.lchrislee.worldplanner.activities.CurrentWorldActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:orientation="vertical"
@@ -20,7 +20,7 @@
             />
 
         <FrameLayout
-            android:id="@+id/activity_master_frame"
+            android:id="@+id/activity_world_current_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:ignore="UnknownIdInLayout"
@@ -29,8 +29,8 @@
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/activity_master_navigationview"
-        app:menu="@menu/menu_navigation_world"
+        android:id="@+id/activity_world_current_navigationview"
+        app:menu="@menu/menu_navigation_world_current"
         android:background="?attr/colorPrimary"
         android:layout_gravity="start"
         android:layout_width="wrap_content"

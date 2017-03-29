@@ -85,9 +85,4 @@ public class World extends WorldPlannerBaseModel implements ImportanceRelation.I
         return ImportanceRelation.ImportantType.None;
     }
 
-    @NonNull
-    @Override
-    public String getImportantTypeString() {
-        return "World";
-    }
 }

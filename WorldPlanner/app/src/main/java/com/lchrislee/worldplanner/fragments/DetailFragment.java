@@ -13,7 +13,7 @@ import android.widget.EditText;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.R;
 
-public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment implements EditableFragment{
+public class DetailFragment extends WorldPlannerBaseFragment implements EditableFragment{
 
     private static final String RELATION_TYPE = "ENTITY_LIST_FRAGMENT_RELATION_TYPE";
     private static final String EDIT = "ENTITY_LIST_FRAGMENT_EDIT";
@@ -27,13 +27,18 @@ public class PlannerObjectDetailFragment extends WorldPlannerBaseFragment implem
     private ImportanceRelation.ImportantType typeToDisplay;
     private boolean isEditing;
 
-    public PlannerObjectDetailFragment() {
+    public DetailFragment() {
         super();
         // Required empty public constructor
     }
 
-    public static PlannerObjectDetailFragment newInstance(ImportanceRelation.ImportantType type, boolean edit) {
-        PlannerObjectDetailFragment fragment = new PlannerObjectDetailFragment();
+    public static DetailFragment newInstance(ImportanceRelation.ImportantType type)
+    {
+        return newInstance(type, false);
+    }
+
+    public static DetailFragment newInstance(ImportanceRelation.ImportantType type, boolean edit) {
+        DetailFragment fragment = new DetailFragment();
         Bundle b = new Bundle();
         b.putSerializable(RELATION_TYPE, type);
         b.putBoolean(EDIT, edit);

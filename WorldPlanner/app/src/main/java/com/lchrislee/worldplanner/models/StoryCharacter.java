@@ -100,10 +100,4 @@ public class StoryCharacter extends WorldPlannerBaseModel implements ImportanceR
     public ImportanceRelation.ImportantType getImportanceType() {
         return ImportanceRelation.ImportantType.Character;
     }
-
-    @NonNull
-    @Override
-    public String getImportantTypeString() {
-        return "StoryCharacter";
-    }
 }

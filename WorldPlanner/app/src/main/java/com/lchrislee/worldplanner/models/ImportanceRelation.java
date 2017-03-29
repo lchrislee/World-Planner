@@ -1,6 +1,7 @@
 package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -37,7 +38,6 @@ public class ImportanceRelation extends WorldPlannerBaseModel {
     {
         @NonNull
         ImportantType getImportanceType();
-        @NonNull String getImportantTypeString();
     }
 
     public enum ImportantType
@@ -47,5 +47,22 @@ public class ImportanceRelation extends WorldPlannerBaseModel {
         Item,
         Plot,
         None
+    }
+
+    public static @Nullable String getImportantTypeString(@NonNull ImportantType type)
+    {
+        switch(type)
+        {
+            case Character:
+                return "Character";
+            case Location:
+                return "Location";
+            case Item:
+                return "Item";
+            case Plot:
+                return "Plot";
+            default:
+                return null;
+        }
     }
 }

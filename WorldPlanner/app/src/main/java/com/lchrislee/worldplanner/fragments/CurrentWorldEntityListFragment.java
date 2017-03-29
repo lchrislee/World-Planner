@@ -1,6 +1,5 @@
 package com.lchrislee.worldplanner.fragments;
 
-
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,21 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lchrislee.worldplanner.adapters.MasterPlannerObjectListAdapter;
+import com.lchrislee.worldplanner.adapters.CurrentWorldEntityListAdapter;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.R;
 
-public class PlannerObjectListFragment extends WorldPlannerBaseFragment {
+public class CurrentWorldEntityListFragment extends WorldPlannerBaseFragment {
     private static final String TYPE_TO_DISPLAY = "ENTITY_LIST_FRAGMENT_TYPE_TO_DISPLAY";
 
-    private MasterPlannerObjectListAdapter adapter;
+    private CurrentWorldEntityListAdapter adapter;
 
-    public PlannerObjectListFragment() {
+    public CurrentWorldEntityListFragment() {
         // Required empty public constructor
     }
 
-    public static PlannerObjectListFragment newInstance(ImportanceRelation.ImportantType type) {
-        PlannerObjectListFragment fragment = new PlannerObjectListFragment();
+    public static CurrentWorldEntityListFragment newInstance(ImportanceRelation.ImportantType type) {
+        CurrentWorldEntityListFragment fragment = new CurrentWorldEntityListFragment();
         Bundle args = new Bundle();
         args.putSerializable(TYPE_TO_DISPLAY, type);
         fragment.setArguments(args);
@@ -34,7 +33,7 @@ public class PlannerObjectListFragment extends WorldPlannerBaseFragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         ImportanceRelation.ImportantType typeToDisplay = (ImportanceRelation.ImportantType) arguments.getSerializable(TYPE_TO_DISPLAY);
-        adapter = new MasterPlannerObjectListAdapter(typeToDisplay, getContext());
+        adapter = new CurrentWorldEntityListAdapter(typeToDisplay, getContext());
     }
 
     @Override

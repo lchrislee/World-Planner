@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lchrislee.worldplanner.fragments.PlannerObjectListFragment">
+    tools:context="com.lchrislee.worldplanner.fragments.CurrentWorldEntityListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_list_data"
@@ -10,7 +10,7 @@
         tools:listitem="@layout/list_character"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
         />
 
 </FrameLayout>

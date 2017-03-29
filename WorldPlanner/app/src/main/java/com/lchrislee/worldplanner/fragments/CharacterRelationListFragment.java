@@ -27,7 +27,7 @@ public class CharacterRelationListFragment extends WorldPlannerBaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_character_relation_list, container, false);
-        final RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.fragment_character_relation_recyclerview);
+        final RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.fragment_character_relation_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new CharacterRelationListAdapter(getContext());
         recyclerView.setAdapter(adapter);

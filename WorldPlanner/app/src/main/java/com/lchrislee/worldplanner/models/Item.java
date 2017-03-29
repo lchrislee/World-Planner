@@ -17,9 +17,4 @@ public class Item extends WorldPlannerBaseModel implements ImportanceRelation.Im
         return ImportanceRelation.ImportantType.Item;
     }
 
-    @NonNull
-    @Override
-    public String getImportantTypeString() {
-        return "Item";
-    }
 }

@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.WorldPlannerBaseActivity" />
-        <activity android:name=".activities.MasterActivity">
+        <activity android:name=".activities.CurrentWorldActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,8 +21,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ModelDetailActivity"
-            android:parentActivityName=".activities.MasterActivity"
+            android:name=".activities.EntityDetailActivity"
+            android:parentActivityName=".activities.CurrentWorldActivity"
             android:windowSoftInputMode="adjustResize"
             >
         </activity>
@@ -37,7 +37,11 @@
             android:name="io.fabric.ApiKey"
             android:value="c30a7a54a2ff15981fe537e9bbe190f123393b76" />
 
-        <activity android:name=".activities.RelationDetailActivity" />
+        <activity
+            android:name=".activities.RelationDetailActivity"
+            android:parentActivityName=".activities.CurrentWorldActivity"
+            android:windowSoftInputMode="adjustResize"
+            />
     </application>
 
 </manifest>

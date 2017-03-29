@@ -34,10 +34,4 @@ public class Plot extends WorldPlannerBaseModel implements ImportanceRelation.Im
     public ImportanceRelation.ImportantType getImportanceType() {
         return ImportanceRelation.ImportantType.Plot;
     }
-
-    @NonNull
-    @Override
-    public String getImportantTypeString() {
-        return "Plot";
-    }
 }

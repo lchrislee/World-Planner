@@ -10,13 +10,13 @@ import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.fragments.CharacterDetailFragment;
 import com.lchrislee.worldplanner.fragments.EditableFragment;
-import com.lchrislee.worldplanner.fragments.PlannerObjectDetailFragment;
+import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
 
-public class ModelDetailActivity extends AppCompatActivity {
+public class EntityDetailActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_WORLD_DETAIL = 100;
     public static final int REQUEST_CODE_RELATIONABLE_DETAIL = 200;
 
@@ -33,7 +33,7 @@ public class ModelDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_model_detail);
+        setContentView(R.layout.activity_entity_detail);
 
         Intent i = getIntent();
         ImportanceRelation.ImportantType typeToDisplay = (ImportanceRelation.ImportantType) i.getSerializableExtra(TYPE);
@@ -49,7 +49,7 @@ public class ModelDetailActivity extends AppCompatActivity {
         }
         else
         {
-            fragment = PlannerObjectDetailFragment.newInstance(typeToDisplay, isNewModel);
+            fragment = DetailFragment.newInstance(typeToDisplay, isNewModel);
         }
 
         getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment).commit();
@@ -63,8 +63,13 @@ public class ModelDetailActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Details");
             actionBar.setDisplayShowTitleEnabled(true);
+            String title = ImportanceRelation.getImportantTypeString(typeToDisplay);
+            if (title == null)
+            {
+                title = "World";
+            }
+            actionBar.setTitle(title);
         }
     }
 
