@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.WorldPlannerBaseActivity" />
-        <activity android:name=".activities.CurrentWorldActivity">
+        <activity android:name=".activities.CurrentWorldActivity"
+            android:windowSoftInputMode="adjustPan"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

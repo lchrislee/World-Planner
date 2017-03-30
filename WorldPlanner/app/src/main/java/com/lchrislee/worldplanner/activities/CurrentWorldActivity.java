@@ -56,7 +56,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
         {
-            actionBar.setTitle("StoryWorld Planner");
+            actionBar.setTitle("World Planner");
             actionBar.setDisplayShowTitleEnabled(true);
         }
 
@@ -72,7 +72,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         View header = navigationView.inflateHeaderView(R.layout.layout_navigation_world_current_header);
         headerWorldImage = (ImageView) header.findViewById(R.id.layout_navigation_world_current_image);
         headerWorldName = (TextView) header.findViewById(R.id.layout_navigation_world_current_name);
-        headerWorldName.setText(DataManager.getInstance().getCurrentWorld().getName());
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -118,6 +117,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         switch(item.getItemId())
         {
             case R.id.home:
+                headerWorldName.setText(DataManager.getInstance().getCurrentWorld().getName());
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.menu_edit:
@@ -133,6 +133,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                 if (currentWorldFragment != null) {
                     currentWorldFragment.iconAction();
                 }
+                headerWorldName.setText(DataManager.getInstance().getCurrentWorld().getName());
                 break;
             case R.id.menu_share: // Will not happen.
                 break;

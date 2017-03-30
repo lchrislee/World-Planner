@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/list_entity_name"
-            tools:text="Undefined Character, Location, or Item"
+            android:hint="Untitled World"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@android:color/primary_text_light"
             android:layout_above="@id/list_entity_description"
@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/list_entity_description"
-            tools:text="Some lengthy description of something or other that I honestly don't know anything about because it is too much of a hassle to come up with something long enough to extend past this stupid bare minimum barrier."
+            android:hint="Fill this in to get started."
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/primary_text_light"
             android:maxLines="2"

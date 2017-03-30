@@ -6,7 +6,7 @@
     android:layout_marginBottom="4dp"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -15,17 +15,17 @@
             android:id="@+id/list_entity_image"
             android:background="@color/colorAccent"
             android:layout_width="match_parent"
-            android:layout_height="108dp"
-            android:layout_marginBottom="4dp"
+            android:layout_height="160dp"
             android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/list_entity_name"
             tools:text="Undefined Character, Location, or Item"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_alignBottom="@+id/list_entity_image"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -33,6 +33,6 @@
             android:layout_marginRight="8dp"
             />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
