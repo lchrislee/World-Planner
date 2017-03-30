@@ -49,7 +49,7 @@
 
     <EditText
         android:id="@+id/fragment_relation_description"
-        android:hint="Description of the storyRelationship."
+        android:hint="Description of the relationship."
         android:inputType="textMultiLine"
         android:gravity="top"
         android:layout_alignParentBottom="true"

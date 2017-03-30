@@ -155,6 +155,98 @@ public class StoryWorld extends WorldPlannerBaseModel implements ImportanceRelat
         return null;
     }
 
+    private ArrayList<StoryRelationship> relationshipsForLastCharacter = new ArrayList<>();
+    private int lastCharacterIndex = -1;
+
+    private void getRelationshipsForCharacter(int characterIndex)
+    {
+        relationshipsForLastCharacter.clear();
+
+        StoryCharacter character = allCharacters.get(characterIndex);
+        for (StoryRelationship rel : allRelationships)
+        {
+            if (rel.getSecondStoryCharacter() == character
+                    || rel.getFirstStoryCharacter() == character)
+            {
+                relationshipsForLastCharacter.add(rel);
+            }
+        }
+    }
+
+    @Nullable
+    public StoryRelationship getRelationshipForCharacterAtIndex(int characterIndex, int relationshipIndex)
+    {
+        if (characterIndex >= allCharacters.size() || relationshipIndex >= allRelationships.size())
+        {
+            return null;
+        }
+
+        if (lastCharacterIndex != characterIndex)
+        {
+            getRelationshipsForCharacter(characterIndex);
+        }
+
+        return relationshipsForLastCharacter.get(relationshipIndex);
+    }
+
+    public int getRelationshipCountForCharacter(int characterIndex)
+    {
+        if (characterIndex >= allCharacters.size())
+        {
+            return 0;
+        }
+
+        if (lastCharacterIndex != characterIndex)
+        {
+            getRelationshipsForCharacter(characterIndex);
+        }
+
+        return relationshipsForLastCharacter.size();
+    }
+
+    public int addRelationship(@NonNull StoryRelationship relationship)
+    {
+        allRelationships.add(relationship);
+        relationshipsForLastCharacter.add(relationship);
+        return relationshipsForLastCharacter.size() - 1;
+    }
+
+    public void setRelationship(int characterIndex, int relationIndex, @NonNull StoryRelationship relationship)
+    {
+        lastCharacterIndex = -1;
+        int count = 0;
+        StoryCharacter character = getCharacterAtIndex(characterIndex);
+        for (int i = 0; i < allRelationships.size(); ++i)
+        {
+            StoryRelationship rel = allRelationships.get(i);
+            if (rel.getFirstStoryCharacter() == character
+                || rel.getSecondStoryCharacter() == character)
+            {
+                if (count == relationIndex)
+                {
+                    allRelationships.set(i, relationship);
+                    break;
+                }
+                ++count;
+            }
+        }
+    }
+
+    @NonNull
+    public ArrayList<StoryCharacter> getCharactersExcept(int index)
+    {
+        ArrayList<StoryCharacter> returnList = new ArrayList<>();
+        for (int i = 0; i < allCharacters.size(); ++i)
+        {
+            if (index == i)
+            {
+                continue;
+            }
+            returnList.add(allCharacters.get(i));
+        }
+        return returnList;
+    }
+
     public void addImportantCharacter(@NonNull StoryCharacter c) {
         importantCharacters.addObject(c);
     }

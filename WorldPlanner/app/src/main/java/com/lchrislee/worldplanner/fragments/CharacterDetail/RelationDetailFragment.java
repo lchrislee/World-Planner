@@ -18,19 +18,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.adapters.RelationCharacterListAdapter;
+import com.lchrislee.worldplanner.adapters.RelationshipPickCharacterListAdapter;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
+import com.lchrislee.worldplanner.managers.DataManager;
+import com.lchrislee.worldplanner.models.ImportanceRelation;
+import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryRelationship;
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
+
+import java.util.ArrayList;
 
 /**
  * Created by chrisl on 3/28/17.
  */
 
-public class RelationDetailFragment extends WorldPlannerBaseFragment implements RelationCharacterListAdapter.DefaultPlannerObjectSelected, ToolbarSupportingFragment{
-    private static final String RELATIONSHIP = "RELATIONDETAILFRAGMENT_RELATIONSHIP";
-    private static final String INDEX = "RELATIONDETAILFRAGMENT_INDEX";
+public class RelationDetailFragment extends WorldPlannerBaseFragment implements RelationshipPickCharacterListAdapter.DefaultPlannerObjectSelected, ToolbarSupportingFragment{
+    private static final String RELATIONSHIP_INDEX = "RELATIONDETAILFRAGMENT_REL_INDEX";
+    private static final String OWNER_INDEX = "RELATIONDETAILFRAGMENT_CHAR_INDEX";
 
     private View mainView;
     private CardView card;
@@ -41,17 +46,22 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
     private Button swap;
 
     private StoryRelationship existingStoryRelationship;
-    private RelationCharacterListAdapter adapter;
+    private RelationshipPickCharacterListAdapter adapter;
+    private StoryCharacter owner;
+    private StoryCharacter otherCharacter;
 
     private boolean isEditing;
-    private int index;
+    private int relationshipIndex;
+    private int ownerIndex;
+    private ArrayList<StoryCharacter> charactersToList;
 
     public static @NonNull
-    RelationDetailFragment newInstance(@Nullable StoryRelationship r)
+    RelationDetailFragment newInstance(int rel, int character)
     {
         RelationDetailFragment dialog = new RelationDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(RELATIONSHIP, r);
+        bundle.putInt(RELATIONSHIP_INDEX, rel);
+        bundle.putInt(OWNER_INDEX, character);
         dialog.setArguments(bundle);
         return dialog;
     }
@@ -60,9 +70,31 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        existingStoryRelationship = (StoryRelationship) arguments.getSerializable(RELATIONSHIP);
-        index = arguments.getInt(INDEX);
-        isEditing = existingStoryRelationship == null;
+        relationshipIndex = arguments.getInt(RELATIONSHIP_INDEX);
+        ownerIndex = arguments.getInt(OWNER_INDEX);
+        isEditing = relationshipIndex == -1;
+        existingStoryRelationship = DataManager.getInstance().getRelationshipForCharacterAtIndex(ownerIndex, relationshipIndex);
+        if (existingStoryRelationship == null)
+        {
+            owner = (StoryCharacter) DataManager.getInstance().getAtIndexWithType(ownerIndex, ImportanceRelation.ImportantType.Character);
+            if (owner != null)
+            {
+                existingStoryRelationship = new StoryRelationship("", owner, null);
+            }
+        }
+        else
+        {
+            owner = (StoryCharacter) DataManager.getInstance().getAtIndexWithType(ownerIndex, ImportanceRelation.ImportantType.Character);
+            if (existingStoryRelationship.getFirstStoryCharacter() == owner)
+            {
+                otherCharacter = existingStoryRelationship.getSecondStoryCharacter();
+            }
+            else
+            {
+                otherCharacter = existingStoryRelationship.getFirstStoryCharacter();
+            }
+        }
+        charactersToList = DataManager.getInstance().getCharactersExcept(ownerIndex);
     }
 
     @Nullable
@@ -73,13 +105,29 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
         card = (CardView) mainView.findViewById(R.id.list_default_card);
         description = (EditText) mainView.findViewById(R.id.fragment_relation_description);
 
-        adapter = new RelationCharacterListAdapter(getContext(), this);
+        description.setText(existingStoryRelationship.getDescription());
+
+        adapter = new RelationshipPickCharacterListAdapter(getContext(), this, charactersToList);
         list = (RecyclerView) mainView.findViewById(R.id.fragment_relation_character_list);
         list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         list.setAdapter(adapter);
 
         image = (ImageView) mainView.findViewById(R.id.list_entity_image);
         name = (TextView) mainView.findViewById(R.id.list_entity_name);
+
+        if (existingStoryRelationship.getFirstStoryCharacter() == owner)
+        {
+            StoryCharacter other = existingStoryRelationship.getSecondStoryCharacter();
+            if (other != null)
+            {
+                name.setText(other.getName());
+            }
+        }
+        else
+        {
+            name.setText(existingStoryRelationship.getFirstStoryCharacter().getName());
+        }
+
         swap = (Button) mainView.findViewById(R.id.list_default_change);
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +148,7 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
         list.setVisibility(View.INVISIBLE);
         card.setVisibility(View.VISIBLE);
         swap.setVisibility(View.VISIBLE);
+        name.setText(charactersToList.get(position).getName());
     }
 
     private void swapEdit()
@@ -123,12 +172,23 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
         description.setFocusableInTouchMode(isEditing);
         description.setLongClickable(isEditing);
 
+        existingStoryRelationship.setDescription(description.getText().toString());
+        if (relationshipIndex == -1 || existingStoryRelationship.getFirstStoryCharacter() == owner)
+        {
+            existingStoryRelationship.setSecondStoryCharacter(otherCharacter);
+            relationshipIndex = DataManager.getInstance().addRelationship(existingStoryRelationship);
+        }
+        else
+        {
+            existingStoryRelationship.setFirstStoryCharacter(otherCharacter);
+            DataManager.getInstance().updateRelationship(ownerIndex, relationshipIndex, existingStoryRelationship);
+        }
+
         mainView.requestLayout();
     }
 
     @Override
     public void editAction() {
-        // TODO Fill Edit Action.
         isEditing = !isEditing;
         swapEdit();
     }

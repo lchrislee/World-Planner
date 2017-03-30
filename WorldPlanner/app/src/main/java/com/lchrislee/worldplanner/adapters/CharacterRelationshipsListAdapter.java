@@ -11,17 +11,14 @@ import android.widget.Button;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.RelationDetailActivity;
 import com.lchrislee.worldplanner.managers.DataManager;
-import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryRelationship;
 import com.lchrislee.worldplanner.views.SimpleDetailView;
-
-import java.util.ArrayList;
 
 /**
  * Created by chrisl on 3/27/17.
  */
 
-public class CharacterRelationListAdapter extends RecyclerView.Adapter<CharacterRelationListAdapter.CharacterRelationViewHolder> {
+public class CharacterRelationshipsListAdapter extends RecyclerView.Adapter<CharacterRelationshipsListAdapter.CharacterRelationViewHolder> {
 
     class CharacterRelationViewHolder extends RecyclerView.ViewHolder
     {
@@ -36,7 +33,8 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), RelationDetailActivity.class);
-                    i.putExtra(RelationDetailActivity.RELATIONSHIP, 0); // TODO: // FIXME: 3/29/17
+                    i.putExtra(RelationDetailActivity.REL_INDEX, (Integer) v.getTag());
+                    i.putExtra(RelationDetailActivity.OWNER_INDEX, characterIndex);
                     v.getContext().startActivity(i);
                 }
             });
@@ -44,9 +42,11 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
     }
 
     private Context context;
+    private int characterIndex;
 
-    public CharacterRelationListAdapter(Context context) {
+    public CharacterRelationshipsListAdapter(Context context, int index) {
         this.context = context;
+        characterIndex = index;
     }
 
     @Override
@@ -56,17 +56,17 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
 
     @Override
     public void onBindViewHolder(CharacterRelationViewHolder holder, int position) {
-        // TODO: // FIXME: 3/29/17 
-//        StoryRelationship r = DataManager.getInstance().getR.get(position);
-//        holder.details.setName(r.getSecondStoryCharacter().getName());
-//        holder.details.setDescription(r.getDescription());
-//        holder.edit.setTag(position);
+        StoryRelationship relationship = DataManager.getInstance().getRelationshipForCharacterAtIndex(characterIndex, position);
+        if (relationship != null) {
+            holder.details.setName(relationship.getSecondStoryCharacter().getName());
+            holder.details.setDescription(relationship.getDescription());
+            holder.edit.setTag(position);
+        }
     }
 
     @Override
     public int getItemCount() {
-        // TODO // FIXME: 3/29/17
-        return 0;
+        return DataManager.getInstance().getRelationshipCountForCharacter(characterIndex);
     }
 
 }

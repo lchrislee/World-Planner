@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.models.StoryRelationship;
 import com.lchrislee.worldplanner.fragments.CharacterDetail.RelationDetailFragment;
 import com.lchrislee.worldplanner.utility.ToolbarState;
 
@@ -16,9 +15,13 @@ import java.util.ArrayList;
 
 public class RelationDetailActivity extends WorldPlannerBaseActivity {
     public static final int REQUEST_CODE_NEW = 100;
-    public static final String RELATIONSHIP = "RELATIONDETAILACTIVITY_RELATIONSHIP";
+    public static final String REL_INDEX = "RELATIONDETAILACTIVITY_REL_ INDEX";
+    public static final String OWNER_INDEX = "RELATIONDETAILACTIVITY_CHAR_INDEX";
 
     private RelationDetailFragment fragment;
+
+    private int relationshipIndex;
+    private int ownerIndex;
 
     private ToolbarState toolbarState;
 
@@ -28,11 +31,12 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
         setContentView(R.layout.activity_edit_relation);
 
         Intent i = getIntent();
-        StoryRelationship storyRelationship = (StoryRelationship) i.getSerializableExtra(RELATIONSHIP);
+        relationshipIndex = i.getIntExtra(REL_INDEX, -1);
+        ownerIndex = i.getIntExtra(OWNER_INDEX, -1);
 
-        toolbarState = storyRelationship == null ? ToolbarState.Save : ToolbarState.Edit_Delete;
+        toolbarState = relationshipIndex == -1 ? ToolbarState.Save : ToolbarState.Edit_Delete;
 
-        fragment = RelationDetailFragment.newInstance(storyRelationship);
+        fragment = RelationDetailFragment.newInstance(relationshipIndex, ownerIndex);
         getSupportFragmentManager().beginTransaction().add(R.id.activity_relation_detail_frame, fragment).commit();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -71,6 +75,7 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
             case R.id.menu_save:
                 toolbarState = ToolbarState.Edit_Delete;
                 fragment.editAction();
+                finish();
                 break;
             case R.id.menu_share: // Will not happen.
                 break;

@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.managers.DataManager;
+import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
  * Created by chrisl on 3/28/17.
  */
 
-public class RelationCharacterListAdapter extends RecyclerView.Adapter<RelationCharacterListAdapter.DefaultPlannerObjectViewHolder> {
+public class RelationshipPickCharacterListAdapter extends RecyclerView.Adapter<RelationshipPickCharacterListAdapter.DefaultPlannerObjectViewHolder> {
 
     public interface DefaultPlannerObjectSelected{
         void onItemSelected(int position);
@@ -28,7 +30,7 @@ public class RelationCharacterListAdapter extends RecyclerView.Adapter<RelationC
         ImageView image;
         TextView name;
 
-        public DefaultPlannerObjectViewHolder(View itemView) {
+        DefaultPlannerObjectViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.list_entity_image);
             name = (TextView) itemView.findViewById(R.id.list_entity_name);
@@ -44,10 +46,12 @@ public class RelationCharacterListAdapter extends RecyclerView.Adapter<RelationC
     private Context context;
 
     private DefaultPlannerObjectSelected listener;
+    private ArrayList<StoryCharacter> charactersToShow;
 
-    public RelationCharacterListAdapter(Context context, DefaultPlannerObjectSelected l) {
+    public RelationshipPickCharacterListAdapter(Context context, DefaultPlannerObjectSelected l, ArrayList<StoryCharacter> show) {
         this.context = context;
         listener = l;
+        charactersToShow = show;
     }
 
     @Override
@@ -57,12 +61,13 @@ public class RelationCharacterListAdapter extends RecyclerView.Adapter<RelationC
 
     @Override
     public void onBindViewHolder(DefaultPlannerObjectViewHolder holder, int position) {
-        holder.name.setText("");
+        StoryCharacter character = charactersToShow.get(position);
+        holder.name.setText(character.getName());
         holder.itemView.setTag(position);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return charactersToShow.size();
     }
 }

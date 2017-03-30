@@ -144,13 +144,46 @@ public class DataManager {
 
     @Nullable
     public StoryWorld getWorldAtIndex(int index) {
-        Timber.tag(getClass().getSimpleName()).d("Getting world for index - " + index);
         if (index >= 0 && index < allWorlds.size()) {
-            Timber.tag(getClass().getSimpleName()).d("World to return - " + allWorlds.get(index).getName());
             return allWorlds.get(index);
         }
-        Timber.tag(getClass().getSimpleName()).d("No world found.");
         return null;
     }
 
+    @Nullable
+    public StoryRelationship getRelationshipForCharacterAtIndex(int characterIndex, int position)
+    {
+        if (characterIndex < 0 || position < 0)
+        {
+            return null;
+        }
+
+        return getCurrentWorld().getRelationshipForCharacterAtIndex(characterIndex, position);
+    }
+
+    public int getRelationshipCountForCharacter(int characterIndex)
+    {
+        return getCurrentWorld().getRelationshipCountForCharacter(characterIndex);
+    }
+
+    public int addRelationship(@NonNull StoryRelationship relationship)
+    {
+        return getCurrentWorld().addRelationship(relationship);
+    }
+
+    public void updateRelationship(int characterIndex, int relationIndex, @NonNull StoryRelationship relationship)
+    {
+        getCurrentWorld().setRelationship(characterIndex, relationIndex, relationship);
+    }
+
+    @Nullable
+    public ArrayList<StoryCharacter> getCharactersExcept(int index)
+    {
+        if (index < 0)
+        {
+            return null;
+        }
+
+        return getCurrentWorld().getCharactersExcept(index);
+    }
 }

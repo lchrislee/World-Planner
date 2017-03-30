@@ -76,14 +76,14 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
                         isShowingDetails = true;
                         break;
                     case R.id.menu_detail_character_relationship:
-                        if (relationFragment == null) {
-                            relationFragment = new CharacterRelationListFragment();
+                        /*if (relationFragment == null) {
+                            relationFragment = CharacterRelationListFragment.newInstance(index);
                         }
                         getChildFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_tab_character_frame, relationFragment)
                                 .addToBackStack(relationFragment.getClass().getSimpleName())
                                 .commit();
-                        isShowingDetails = false;
+                        isShowingDetails = false;*/
                         break;
                 }
                 if (listener != null)
