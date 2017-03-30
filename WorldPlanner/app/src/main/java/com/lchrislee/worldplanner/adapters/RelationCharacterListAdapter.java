@@ -43,19 +43,11 @@ public class RelationCharacterListAdapter extends RecyclerView.Adapter<RelationC
 
     private Context context;
 
-    private ArrayList<StoryCharacter> characters;
-
     private DefaultPlannerObjectSelected listener;
 
     public RelationCharacterListAdapter(Context context, DefaultPlannerObjectSelected l) {
         this.context = context;
         listener = l;
-        characters = new ArrayList<>();
-        int randomAmount = (int)(Math.random() * 10) + 2;
-        for (int i = 0; i < randomAmount; ++i)
-        {
-            characters.add(new StoryCharacter(String.valueOf(i), ""));
-        }
     }
 
     @Override
@@ -65,12 +57,12 @@ public class RelationCharacterListAdapter extends RecyclerView.Adapter<RelationC
 
     @Override
     public void onBindViewHolder(DefaultPlannerObjectViewHolder holder, int position) {
-        holder.name.setText(characters.get(position).getName());
+        holder.name.setText("");
         holder.itemView.setTag(position);
     }
 
     @Override
     public int getItemCount() {
-        return characters.size();
+        return 0;
     }
 }

@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
  * Created by chrisl on 3/26/17.
  */
 
-public class StoryCharacter extends WorldPlannerBaseModel implements ImportanceRelation.Important {
+public class StoryCharacter extends StoryElement implements ImportanceRelation.Important {
     private ImportanceRelation importantItems;
     private ImportanceRelation importantLocations;
     private ImportanceRelation importantPlots;
@@ -16,8 +16,10 @@ public class StoryCharacter extends WorldPlannerBaseModel implements ImportanceR
     private String gender;
     private int age;
 
-    public StoryCharacter(@NonNull String title, @NonNull String description) {
-        super(title, description);
+    public StoryCharacter(@NonNull String title,
+                          @NonNull String description,
+                          @NonNull StoryWorld world) {
+        super(title, description, world);
     }
 
     public @Nullable String getNickname() {

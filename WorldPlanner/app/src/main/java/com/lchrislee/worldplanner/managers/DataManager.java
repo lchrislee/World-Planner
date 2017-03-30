@@ -23,52 +23,33 @@ import timber.log.Timber;
 public class DataManager {
 
     private static DataManager instance;
-    private ArrayList<StoryCharacter> allCharacters;
-    private ArrayList<StoryLocation> allLocations;
-    private ArrayList<StoryItem> allItems;
-    private ArrayList<StoryPlot> allPlots;
     private ArrayList<StoryWorld> allWorlds;
-    private ArrayList<StoryRelationship> allRelationships;
-
     private int currentWorldIndex;
 
-    private DataManager()
-    {
-        allCharacters = new ArrayList<>();
-        allLocations = new ArrayList<>();
-        allItems = new ArrayList<>();
-        allPlots = new ArrayList<>();
+    private DataManager() {
         allWorlds = new ArrayList<>();
         allWorlds.add(new StoryWorld("", ""));
         currentWorldIndex = 0;
     }
 
     @NonNull
-    public static DataManager getInstance()
-    {
-        if (instance == null)
-        {
+    public static DataManager getInstance() {
+        if (instance == null) {
             instance = new DataManager();
         }
         return instance;
     }
 
-    public int add(@NonNull WorldPlannerBaseModel model, @NonNull ImportanceRelation.ImportantType type)
-    {
-        switch(type)
-        {
+    public int add(@NonNull WorldPlannerBaseModel model, @NonNull ImportanceRelation.ImportantType type) {
+        switch (type) {
             case Character:
-                allCharacters.add((StoryCharacter) model);
-                return allCharacters.size() - 1;
+                return getCurrentWorld().addCharacter((StoryCharacter) model);
             case Location:
-                allLocations.add((StoryLocation) model);
-                return allLocations.size() - 1;
+                return getCurrentWorld().addLocation((StoryLocation) model);
             case Item:
-                allItems.add((StoryItem) model);
-                return allItems.size() - 1;
+                return getCurrentWorld().addItem((StoryItem) model);
             case Plot:
-                allPlots.add((StoryPlot) model);
-                return  allPlots.size() - 1;
+                return getCurrentWorld().addPlot((StoryPlot) model);
             case None:
                 allWorlds.add((StoryWorld) model);
                 return allWorlds.size() - 1;
@@ -76,46 +57,22 @@ public class DataManager {
         return -1;
     }
 
-    public boolean update(@NonNull WorldPlannerBaseModel model, int index, @NonNull ImportanceRelation.ImportantType type)
-    {
-        if (index < 0)
-        {
+    public boolean update(@NonNull WorldPlannerBaseModel model, int index, @NonNull ImportanceRelation.ImportantType type) {
+        if (index < 0) {
             return false;
         }
 
-        switch(type)
-        {
+        switch (type) {
             case Character:
-                if (index < allCharacters.size())
-                {
-                    allCharacters.set(index, (StoryCharacter) model);
-                    return true;
-                }
-                break;
+                return getCurrentWorld().setCharacter(index, (StoryCharacter) model);
             case Location:
-                if (index < allLocations.size())
-                {
-                    allLocations.set(index, (StoryLocation) model);
-                    return true;
-                }
-                break;
+                return getCurrentWorld().setLocation(index, (StoryLocation) model);
             case Item:
-                if (index < allItems.size())
-                {
-                    allItems.set(index, (StoryItem) model);
-                    return true;
-                }
-                break;
+                return getCurrentWorld().setItem(index, (StoryItem) model);
             case Plot:
-                if (index < allPlots.size())
-                {
-                    allPlots.set(index, (StoryPlot) model);
-                    return true;
-                }
-                break;
+                return getCurrentWorld().setPlot(index, (StoryPlot) model);
             case None:
-                if (index < allWorlds.size())
-                {
+                if (index < allWorlds.size()) {
                     allWorlds.set(index, (StoryWorld) model);
                     return true;
                 }
@@ -124,59 +81,42 @@ public class DataManager {
         return false;
     }
 
-    public int getCountForType(@NonNull ImportanceRelation.ImportantType type)
-    {
+    public int getCountForType(@NonNull ImportanceRelation.ImportantType type) {
         Timber.tag(getClass().getSimpleName()).d("getCountForType - " + type.name());
-        switch(type)
-        {
+        switch (type) {
             case Character:
-                return allCharacters.size();
+                return getCurrentWorld().getCountCharacters();
             case Location:
-                return allLocations.size();
+                return getCurrentWorld().getCountLocations();
             case Item:
-                return allItems.size();
+                return getCurrentWorld().getCountItems();
             case Plot:
-                return allPlots.size();
+                return getCurrentWorld().getCountPlots();
             default:
                 return allWorlds.size();
         }
     }
 
     @Nullable
-    public WorldPlannerBaseModel getAtIndexWithType(int index, @NonNull ImportanceRelation.ImportantType type)
-    {
-        if (index < 0)
-        {
+    public WorldPlannerBaseModel getAtIndexWithType(int index, @NonNull ImportanceRelation.ImportantType type) {
+        if (index < 0) {
             return null;
         }
 
-        switch(type)
-        {
+        switch (type) {
             case Character:
-                if (index < allCharacters.size())
-                {
-                    return allCharacters.get(index);
-                }
+                return getCurrentWorld().getCharacterAtIndex(index);
             case Location:
-                if (index < allLocations.size())
-                {
-                    return allLocations.get(index);
-                }
+                return getCurrentWorld().getLocationAtIndex(index);
             case Item:
-                if (index < allItems.size())
-                {
-                    return allItems.get(index);
-                }
+                return getCurrentWorld().getItemAtIndex(index);
             case Plot:
-                if (index < allPlots.size())
-                {
-                    return allPlots.get(index);
-                }
+                return getCurrentWorld().getPlotAtIndex(index);
             case None:
-                if (index < allWorlds.size())
-                {
+                if (index < allWorlds.size()) {
                     return allWorlds.get(index);
                 }
+                break;
         }
         return null;
     }
@@ -186,115 +126,31 @@ public class DataManager {
     }
 
     @NonNull
-    public StoryWorld getCurrentWorld()
-    {
+    public StoryWorld getCurrentWorld() {
         return allWorlds.get(currentWorldIndex);
     }
 
-    // Characters
-
-    @NonNull
-    public ArrayList<StoryCharacter> getAllCharacters() {
-        return allCharacters;
-    }
-
-    public void deleteCharacter(int index)
-    {
-        if (index < 0 || index >= allCharacters.size())
-        {
-            return;
+    public void changeWorldToIndex(int index) {
+        if (index >= 0 && index < allWorlds.size()) {
+            currentWorldIndex = index;
         }
-        allCharacters.remove(index);
-    }
-
-    // Locations
-
-    @NonNull
-    public ArrayList<StoryLocation> getAllLocations() {
-        return allLocations;
-    }
-
-    public void deleteLocations(int index)
-    {
-        if (index < 0 || index >= allLocations.size())
-        {
-            return;
-        }
-        allLocations.remove(index);
-    }
-
-    // Items
-
-    @NonNull
-    public ArrayList<StoryItem> getAllItems() {
-        return allItems;
-    }
-
-    public void deleteItem(int index)
-    {
-        if (index < 0 || index >= allItems.size())
-        {
-            return;
-        }
-        allItems.remove(index);
-    }
-
-    // Plots
-
-    @NonNull
-    public ArrayList<StoryPlot> getAllPlots() {
-        return allPlots;
-    }
-
-    public void deletePlot(int index)
-    {
-        if (index < 0 || index >= allPlots.size())
-        {
-            return;
-        }
-        allPlots.remove(index);
     }
 
     // Worlds
 
-    @NonNull
-    public ArrayList<StoryWorld> getAllWorlds() {
-        return allWorlds;
+    public int getCountForWorlds() {
+        return allWorlds.size();
     }
 
-    public void deleteWorld(int index)
-    {
-        if (index < 0 || index >= allWorlds.size())
-        {
-            return;
+    @Nullable
+    public StoryWorld getWorldAtIndex(int index) {
+        Timber.tag(getClass().getSimpleName()).d("Getting world for index - " + index);
+        if (index >= 0 && index < allWorlds.size()) {
+            Timber.tag(getClass().getSimpleName()).d("World to return - " + allWorlds.get(index).getName());
+            return allWorlds.get(index);
         }
-        allWorlds.remove(index);
+        Timber.tag(getClass().getSimpleName()).d("No world found.");
+        return null;
     }
 
-    // Relationships
-
-    @NonNull
-    public ArrayList<StoryRelationship> getRelationshipsForCharacter(@NonNull StoryCharacter from)
-    {
-        ArrayList<StoryRelationship> output = new ArrayList<>();
-        for (StoryRelationship relationship : allRelationships)
-        {
-            if (relationship.getFirstStoryCharacter() == from
-                    || relationship.getSecondStoryCharacter() == from)
-            {
-                output.add(relationship);
-            }
-        }
-        return output;
-    }
-
-    public void updateRelationship(@NonNull StoryRelationship relationship)
-    {
-        // TODO: This needs to update. Can't track index?
-    }
-
-    public void deleteRelationship(@NonNull StoryRelationship relationship)
-    {
-        // TODO: This needs to delete. Can't track index?
-    }
 }

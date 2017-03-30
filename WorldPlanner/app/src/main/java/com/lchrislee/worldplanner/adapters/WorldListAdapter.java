@@ -5,14 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
-import java.util.ArrayList;
+import timber.log.Timber;
 
 /**
  * Created by chrisl on 3/27/17.
@@ -29,18 +29,18 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
         ImageView image;
         TextView name;
         TextView description;
-        Button change;
 
         WorldViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.list_entity_image);
             name = (TextView) itemView.findViewById(R.id.list_entity_name);
             description = (TextView) itemView.findViewById(R.id.list_entity_description);
-            change = (Button) itemView.findViewById(R.id.list_world_change);
-            change.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onWorldSwitch((Integer)v.getTag());
+                    int index = (Integer) v.getTag();
+                    DataManager.getInstance().changeWorldToIndex(index);
+                    listener.onWorldSwitch(index);
                 }
             });
         }
@@ -48,17 +48,10 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
 
     private Context context;
     private WorldSwitch listener;
-    private ArrayList<StoryWorld> storyWorlds;
 
     public WorldListAdapter(Context context, WorldSwitch l) {
         this.context = context;
         listener = l;
-        storyWorlds = new ArrayList<>();
-        int randomAmount = (int)(Math.random() * 10) + 2;
-        for (int i = 0; i < randomAmount; ++i)
-        {
-            storyWorlds.add(new StoryWorld("Earth 616", "Some lengthy description of something or other that I honestly don't know anything about because it is too much of a hassle to come up with something long enough to extend past this stupid bare minimum barrier."));
-        }
     }
 
     @Override
@@ -68,15 +61,19 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
 
     @Override
     public void onBindViewHolder(WorldViewHolder holder, int position) {
-        StoryWorld w = storyWorlds.get(position);
+        Timber.tag(getClass().getSimpleName()).d("Obtaining world for position - " + position);
+        Timber.d("Size of worlds list - " + DataManager.getInstance().getCountForWorlds());
+        StoryWorld world = DataManager.getInstance().getWorldAtIndex(position);
 
-        holder.name.setText(w.getName());
-        holder.description.setText(w.getDescription());
-        holder.change.setTag(position);
+        if (world != null) {
+            holder.name.setText(world.getName());
+            holder.description.setText(world.getDescription());
+            holder.itemView.setTag(position);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return storyWorlds.size();
+        return DataManager.getInstance().getCountForWorlds();
     }
 }

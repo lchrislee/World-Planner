@@ -1,5 +1,6 @@
 package com.lchrislee.worldplanner.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldFragment;
 import com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldTabFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.utility.ToolbarState;
 
 import java.util.ArrayList;
@@ -70,6 +72,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         View header = navigationView.inflateHeaderView(R.layout.layout_navigation_world_current_header);
         headerWorldImage = (ImageView) header.findViewById(R.id.layout_navigation_world_current_image);
         headerWorldName = (TextView) header.findViewById(R.id.layout_navigation_world_current_name);
+        headerWorldName.setText(DataManager.getInstance().getCurrentWorld().getName());
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -140,6 +143,19 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode)
+        {
+            case EntityDetailActivity.REQUEST_CODE_WORLD:
+                int newWorldIndex = DataManager.getInstance().getCountForWorlds() - 1;
+                DataManager.getInstance().changeWorldToIndex(newWorldIndex);
+                onWorldSwitch(newWorldIndex);
+                break;
+        }
+    }
+
     private void selectDrawerItem(@NonNull MenuItem item)
     {
         Timber.tag("Drawer").d("Selected item: " + item.getTitle());
@@ -185,7 +201,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
 
     @Override
     public void onWorldSwitch(int position) {
-        // TODO: Update world displaying.
         if (currentWorldFragment == null)
         {
             currentWorldFragment = new CurrentWorldFragment();
@@ -197,6 +212,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         navigationView.setCheckedItem(R.id.menu_navigation_world_current);
         toolbarState = ToolbarState.Edit;
         supportInvalidateOptionsMenu();
+        headerWorldName.setText(DataManager.getInstance().getCurrentWorld().getName());
     }
 
     @Override

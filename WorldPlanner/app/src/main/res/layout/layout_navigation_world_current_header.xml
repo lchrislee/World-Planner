@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/layout_navigation_world_current_name"
-        android:hint="Earth 616"
+        android:hint="Untitled World"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -104,7 +104,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             StoryWorld currentWorld = dataManager.getCurrentWorld();
             switch (typeToDisplay) {
                 case Character:
-                    model = new StoryCharacter("", "");
+                    model = new StoryCharacter("", "", currentWorld);
                     break;
                 case Location:
                     model = new StoryLocation("", "", currentWorld);
@@ -159,6 +159,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             {
                 index = DataManager.getInstance().add(model, typeToDisplay);
                 Timber.tag(getClass().getSimpleName()).d("saved to index- " + index);
+                return;
             }
             else
             {

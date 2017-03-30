@@ -9,8 +9,8 @@
             />
         <item
             android:id="@+id/menu_navigation_world_current_information"
-            android:title="World Entities"
-            android:titleCondensed="Entities"
+            android:title="World Elements"
+            android:titleCondensed="Elements"
             />
     </group>
 </menu>

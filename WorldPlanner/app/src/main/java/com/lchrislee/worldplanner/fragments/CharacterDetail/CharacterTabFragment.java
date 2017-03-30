@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
+import com.lchrislee.worldplanner.managers.DataManager;
+import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 
@@ -110,9 +112,9 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
         informationFragment.editAction();
     }
 
-    @NonNull
+    @Nullable
     @Override
     public WorldPlannerBaseModel getModel() {
-        return new StoryCharacter("Character to Share", "Just a placeholder until data and model implemented.");
+        return DataManager.getInstance().getAtIndexWithType(index, ImportanceRelation.ImportantType.Character);
     }
 }

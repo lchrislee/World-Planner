@@ -108,8 +108,6 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
-            String title = ImportanceRelation.getImportantTypeString(typeToDisplay) + " Details";
-            actionBar.setTitle(title);
         }
     }
 
@@ -138,6 +136,7 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 fragment.editAction();
                 if (index == -1)
                 {
+                    setResult(-1);
                     finish();
                     return true;
                 }

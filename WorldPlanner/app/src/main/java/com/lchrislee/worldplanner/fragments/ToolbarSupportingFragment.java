@@ -1,6 +1,6 @@
 package com.lchrislee.worldplanner.fragments;
 
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 
@@ -10,5 +10,5 @@ import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 
 public interface ToolbarSupportingFragment {
     void editAction();
-    @NonNull WorldPlannerBaseModel getModel();
+    @Nullable WorldPlannerBaseModel getModel();
 }

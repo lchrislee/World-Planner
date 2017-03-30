@@ -26,8 +26,8 @@ public class CurrentWorldEntityPagerAdapter extends FragmentPagerAdapter {
         titles = new String[ImportanceRelation.IMPORTANT_TYPE_COUNT];
         titles[0] = "Characters";
         titles[1] = "Locations";
-        titles[2] = "Objects";
-        titles[3] = "StoryPlot Points";
+        titles[2] = "Items";
+        titles[3] = "Plot Points";
     }
 
     @Override

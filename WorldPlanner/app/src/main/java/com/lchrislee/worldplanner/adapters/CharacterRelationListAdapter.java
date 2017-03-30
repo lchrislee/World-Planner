@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.RelationDetailActivity;
+import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryRelationship;
 import com.lchrislee.worldplanner.views.SimpleDetailView;
@@ -35,7 +36,7 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), RelationDetailActivity.class);
-                    i.putExtra(RelationDetailActivity.RELATIONSHIP, storyRelationships.get((Integer) v.getTag()));
+                    i.putExtra(RelationDetailActivity.RELATIONSHIP, 0); // TODO: // FIXME: 3/29/17
                     v.getContext().startActivity(i);
                 }
             });
@@ -44,18 +45,8 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
 
     private Context context;
 
-    private ArrayList<StoryRelationship> storyRelationships;
-
     public CharacterRelationListAdapter(Context context) {
         this.context = context;
-        storyRelationships = new ArrayList<>();
-        int randomNum = (int)(Math.random() * 10) + 2;
-        for (int i = 0; i < randomNum; ++i)
-        {
-            StoryCharacter c = new StoryCharacter("1C" + i, "");
-            StoryCharacter d = new StoryCharacter("2C" + i, "");
-            storyRelationships.add(new StoryRelationship("StoryRelationship between " + c.getName() + " and " + d.getName(), c, d));
-        }
     }
 
     @Override
@@ -65,15 +56,17 @@ public class CharacterRelationListAdapter extends RecyclerView.Adapter<Character
 
     @Override
     public void onBindViewHolder(CharacterRelationViewHolder holder, int position) {
-        StoryRelationship r = storyRelationships.get(position);
-        holder.details.setName(r.getSecondStoryCharacter().getName());
-        holder.details.setDescription(r.getDescription());
-        holder.edit.setTag(position);
+        // TODO: // FIXME: 3/29/17 
+//        StoryRelationship r = DataManager.getInstance().getR.get(position);
+//        holder.details.setName(r.getSecondStoryCharacter().getName());
+//        holder.details.setDescription(r.getDescription());
+//        holder.edit.setTag(position);
     }
 
     @Override
     public int getItemCount() {
-        return storyRelationships.size();
+        // TODO // FIXME: 3/29/17
+        return 0;
     }
 
 }
