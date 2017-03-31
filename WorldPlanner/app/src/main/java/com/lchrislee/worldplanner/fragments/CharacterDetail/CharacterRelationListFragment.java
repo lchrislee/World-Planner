@@ -23,18 +23,18 @@ public class CharacterRelationListFragment extends WorldPlannerBaseFragment {
 
     private CharacterRelationshipsListAdapter adapter;
 
-    private int characterIndex;
+    private long characterIndex;
 
     public CharacterRelationListFragment() {
         // Required empty public constructor
     }
 
     @NonNull
-    public static CharacterRelationListFragment newInstance(int index)
+    public static CharacterRelationListFragment newInstance(long index)
     {
         CharacterRelationListFragment fragment = new CharacterRelationListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(INDEX, index);
+        bundle.putLong(INDEX, index);
         fragment.setArguments(bundle);
         return fragment;
     }

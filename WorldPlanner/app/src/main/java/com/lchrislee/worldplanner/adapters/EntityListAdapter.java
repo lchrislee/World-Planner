@@ -94,7 +94,6 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
     public void onBindViewHolder(EntityListViewHolder holder, int position) {
         StoryElement obj = null;
 
-        final DataManager manager = DataManager.getInstance();
         switch(typeDisplaying)
         {
             case DataManager.CODE_CHARACTER:
@@ -135,8 +134,7 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
             holder.trueName.setText(proper.getName());
             holder.gender_age.setText("Age " + proper.getAge() + ", " + proper.getGender());
             if (holder.description != null) {
-                String occupation = proper.getOccupation();
-                holder.description.setText(occupation == null ? "" : occupation);
+                holder.description.setText(proper.getDescription());
             }
         }
         else if (obj != null)
@@ -147,7 +145,7 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
 
     @Override
     public int getItemCount() {
-        int size = 0;
+        long size = 0;
         switch(typeDisplaying)
         {
             case DataManager.CODE_CHARACTER:
@@ -166,7 +164,7 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
                 size = DataManager.getInstance().getCountForWorlds();
                 break;
         }
-        return size;
+        return (int) size;
     }
 
 }

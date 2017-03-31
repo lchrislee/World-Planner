@@ -13,8 +13,7 @@ public enum ToolbarState
     Edit,
     Edit_Delete,
     Save,
-    Empty,
-    Edit_Share_Delete;
+    Empty;
 
     public ArrayList<Integer> getHiddenIds()
     {
@@ -23,26 +22,19 @@ public enum ToolbarState
         {
             case Edit:
                 itemsToHide.add(R.id.menu_save);
-                itemsToHide.add(R.id.menu_share);
                 itemsToHide.add(R.id.menu_delete);
                 break;
             case Edit_Delete:
                 itemsToHide.add(R.id.menu_save);
-                itemsToHide.add(R.id.menu_share);
                 break;
             case Save:
                 itemsToHide.add(R.id.menu_edit);
-                itemsToHide.add(R.id.menu_share);
                 itemsToHide.add(R.id.menu_delete);
                 break;
             case Empty:
                 itemsToHide.add(R.id.menu_save);
                 itemsToHide.add(R.id.menu_edit);
-                itemsToHide.add(R.id.menu_share);
                 itemsToHide.add(R.id.menu_delete);
-                break;
-            case Edit_Share_Delete:
-                itemsToHide.add(R.id.menu_save);
                 break;
         }
         return itemsToHide;

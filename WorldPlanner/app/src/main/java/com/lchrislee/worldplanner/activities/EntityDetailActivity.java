@@ -31,8 +31,7 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
     private ToolbarState toolbarState;
     private ToolbarState previousState;
 
-    private int index;
-    private int requestCode;
+    private long index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +39,13 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         setContentView(R.layout.activity_entity_detail);
 
         Intent i = getIntent();
-        index = i.getIntExtra(INDEX, -1);
-        requestCode = i.getIntExtra(TYPE, 100);
+        index = i.getLongExtra(INDEX, -1);
+        int requestCode = i.getIntExtra(TYPE, 100);
         Timber.d("index - " + index);
         Timber.tag(getClass().getSimpleName()).d("request code - " + requestCode);
 
         boolean isNewModel = index == -1;
-        toolbarState = isNewModel ? ToolbarState.Save : ToolbarState.Edit_Share_Delete;
+        toolbarState = isNewModel ? ToolbarState.Save : ToolbarState.Edit_Delete;
         previousState = toolbarState;
 
         if (requestCode == DataManager.CODE_CHARACTER)
@@ -111,10 +110,6 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 }
                 toolbarState = previousState;
                 break;
-            case R.id.menu_share:
-                // TODO: Implement share by pulling from the Fragment.
-                StoryElement modelToShare = fragment.getModel();
-                break;
             case R.id.menu_delete:
                 // TODO: Implement deletion.
                 StoryElement modelToDelete = fragment.getModel();
@@ -127,7 +122,7 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
 
     @Override
     public void onCharacterTabSwitch() {
-        toolbarState = ((CharacterTabFragment) fragment).isShowingDetails() ? ToolbarState.Edit_Share_Delete : ToolbarState.Empty;
+        toolbarState = ((CharacterTabFragment) fragment).isShowingDetails() ? ToolbarState.Edit_Delete : ToolbarState.Empty;
         supportInvalidateOptionsMenu();
     }
 }

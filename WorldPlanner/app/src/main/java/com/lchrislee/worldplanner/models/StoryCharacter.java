@@ -3,13 +3,15 @@ package com.lchrislee.worldplanner.models;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
  * Created by chrisl on 3/26/17.
  */
 
-public class StoryCharacter implements Serializable, StoryElement{
+public class StoryCharacter extends SugarRecord implements Serializable, StoryElement{
 
     private String name;
     private String description;
@@ -60,14 +62,6 @@ public class StoryCharacter implements Serializable, StoryElement{
 
     public void setGender(@NonNull String gender) {
         this.gender = gender;
-    }
-
-    public @Nullable String getOccupation() {
-        return getDescription();
-    }
-
-    public void setOccupation(@NonNull String occupation) {
-        setDescription(occupation);
     }
 
     public int getAge() {

@@ -38,7 +38,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
 
     protected int typeToDisplay;
     protected boolean isEditing;
-    protected int index;
+    protected long index;
 
     protected StoryElement model;
 
@@ -49,13 +49,13 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
 
     public static DetailFragment newInstance(int type,
                                              boolean edit,
-                                             int indexOfData
+                                             long indexOfData
                                              ) {
         DetailFragment fragment = new DetailFragment();
         Bundle b = new Bundle();
         b.putInt(RELATION_TYPE, type);
         b.putBoolean(EDIT, edit);
-        b.putInt(INDEX, indexOfData);
+        b.putLong(INDEX, indexOfData);
         fragment.setArguments(b);
         return fragment;
     }
@@ -67,7 +67,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         Bundle arguments = getArguments();
         typeToDisplay = arguments.getInt(RELATION_TYPE);
         isEditing = arguments.getBoolean(EDIT, false);
-        index = arguments.getInt(INDEX, -1);
+        index = arguments.getLong(INDEX, -1);
         switch(typeToDisplay)
         {
             case DataManager.CODE_CHARACTER:
@@ -189,31 +189,25 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         model.setName(name.getText().toString());
         model.setDescription(description.getText().toString());
 
-        Timber.tag(getClass().getSimpleName()).d("isEdit - " + isEditing);
-        if (!isEditing)
-        {
-            if (index == -1)
-            {
-                index = DataManager.getInstance().add(model);
-                Timber.tag(getClass().getSimpleName()).d("saved to index- " + index);
-                return;
-            }
-            else
-            {
-                boolean success = DataManager.getInstance().update(model, index);
-                Timber.tag(getClass().getSimpleName()).d("updated success - " + success);
-            }
-        }
-
         mainView.requestLayout();
     }
 
     @Override
     public void editAction()
     {
-        Timber.tag(getClass().getSimpleName()).d("editAction");
         isEditing = !isEditing;
         swapEdit();
+        if (!isEditing)
+        {
+            if (index == -1)
+            {
+                index = DataManager.getInstance().add(model);
+            }
+            else
+            {
+                DataManager.getInstance().update(model, index);
+            }
+        }
     }
 
     @NonNull

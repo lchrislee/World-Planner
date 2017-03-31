@@ -20,9 +20,6 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
 
     private RelationDetailFragment fragment;
 
-    private int relationshipIndex;
-    private int ownerIndex;
-
     private ToolbarState toolbarState;
 
     @Override
@@ -31,8 +28,8 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
         setContentView(R.layout.activity_edit_relation);
 
         Intent i = getIntent();
-        relationshipIndex = i.getIntExtra(REL_INDEX, -1);
-        ownerIndex = i.getIntExtra(OWNER_INDEX, -1);
+        int relationshipIndex = i.getIntExtra(REL_INDEX, -1);
+        int ownerIndex = i.getIntExtra(OWNER_INDEX, -1);
 
         toolbarState = relationshipIndex == -1 ? ToolbarState.Save : ToolbarState.Edit_Delete;
 
@@ -76,8 +73,6 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
                 toolbarState = ToolbarState.Edit_Delete;
                 fragment.editAction();
                 finish();
-                break;
-            case R.id.menu_share: // Will not happen.
                 break;
             case R.id.menu_delete:
                 // TODO: Delete relation.

@@ -42,9 +42,9 @@ public class CharacterRelationshipsListAdapter extends RecyclerView.Adapter<Char
     }
 
     private Context context;
-    private int characterIndex;
+    private long characterIndex;
 
-    public CharacterRelationshipsListAdapter(Context context, int index) {
+    public CharacterRelationshipsListAdapter(Context context, long index) {
         this.context = context;
         characterIndex = index;
     }
@@ -66,7 +66,7 @@ public class CharacterRelationshipsListAdapter extends RecyclerView.Adapter<Char
 
     @Override
     public int getItemCount() {
-        return DataManager.getInstance().getRelationshipCountForCharacter(characterIndex);
+        return (int) DataManager.getInstance().getRelationshipCountForCharacter(characterIndex);
     }
 
 }

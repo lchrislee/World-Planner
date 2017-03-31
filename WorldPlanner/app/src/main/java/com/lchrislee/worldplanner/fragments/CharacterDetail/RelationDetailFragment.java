@@ -28,6 +28,7 @@ import com.lchrislee.worldplanner.models.StoryRelationship;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by chrisl on 3/28/17.
@@ -51,17 +52,16 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
     private StoryCharacter otherCharacter;
 
     private boolean isEditing;
-    private int relationshipIndex;
-    private int ownerIndex;
-    private ArrayList<StoryCharacter> charactersToList;
+    private long relationshipIndex;
+    private List<StoryCharacter> charactersToList;
 
     public static @NonNull
-    RelationDetailFragment newInstance(int rel, int character)
+    RelationDetailFragment newInstance(long rel, long character)
     {
         RelationDetailFragment dialog = new RelationDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(RELATIONSHIP_INDEX, rel);
-        bundle.putInt(OWNER_INDEX, character);
+        bundle.putLong(RELATIONSHIP_INDEX, rel);
+        bundle.putLong(OWNER_INDEX, character);
         dialog.setArguments(bundle);
         return dialog;
     }
@@ -70,8 +70,8 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        relationshipIndex = arguments.getInt(RELATIONSHIP_INDEX);
-        ownerIndex = arguments.getInt(OWNER_INDEX);
+        relationshipIndex = arguments.getLong(RELATIONSHIP_INDEX);
+        long ownerIndex = arguments.getLong(OWNER_INDEX);
         isEditing = relationshipIndex == -1;
         existingStoryRelationship = DataManager.getInstance().getRelationshipForCharacterAtIndex(ownerIndex, relationshipIndex);
         if (existingStoryRelationship == null)
@@ -184,7 +184,7 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
         else
         {
             existingStoryRelationship.setFirstStoryCharacter(otherCharacter);
-            DataManager.getInstance().update(ownerIndex, relationshipIndex, existingStoryRelationship);
+            DataManager.getInstance().update(existingStoryRelationship, relationshipIndex);
         }
 
         mainView.requestLayout();

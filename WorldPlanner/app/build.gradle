@@ -23,7 +23,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "0.3"
+        versionName "0.3.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dataBinding {
@@ -64,5 +64,7 @@ dependencies {
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'com.github.clans:fab:1.6.4'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.github.satyan:sugar:1.4'
+
     testCompile 'junit:junit:4.12'
 }

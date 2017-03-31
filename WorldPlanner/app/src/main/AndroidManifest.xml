@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/WorldPlannerTheme">
         <activity android:name=".activities.WorldPlannerBaseActivity" />
         <activity android:name=".activities.CurrentWorldActivity"
             android:windowSoftInputMode="adjustPan"
@@ -38,6 +38,10 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="c30a7a54a2ff15981fe537e9bbe190f123393b76" />
+
+        <meta-data android:name="DATABASE" android:value="world_planner_sugar.db" />
+        <meta-data android:name="VERSION" android:value="1" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.lchrislee.worldplanner"/>
 
     </application>
 

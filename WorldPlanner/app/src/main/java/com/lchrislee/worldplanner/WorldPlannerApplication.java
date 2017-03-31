@@ -1,8 +1,9 @@
 package com.lchrislee.worldplanner;
 
-import android.app.Application;
-
 import com.crashlytics.android.Crashlytics;
+import com.lchrislee.worldplanner.models.StoryWorld;
+import com.orm.SugarApp;
+
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
@@ -10,12 +11,13 @@ import timber.log.Timber;
  * Created by chrisl on 3/26/17.
  */
 
-public class WorldPlannerApplication extends Application {
+public class WorldPlannerApplication extends SugarApp {
 
     @Override
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
+        StoryWorld.last(StoryWorld.class);
 
         if (BuildConfig.DEBUG)
         {

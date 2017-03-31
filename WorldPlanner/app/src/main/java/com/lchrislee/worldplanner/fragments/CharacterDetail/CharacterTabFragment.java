@@ -31,17 +31,17 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
 
     private CharacterDetailTabChange listener;
     private boolean isShowingDetails;
-    private int index;
+    private long index;
 
     public CharacterTabFragment() {
         isShowingDetails = true;
     }
 
-    public static CharacterTabFragment newInstance(int charIndex)
+    public static CharacterTabFragment newInstance(long charIndex)
     {
         CharacterTabFragment fragment = new CharacterTabFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(INDEX, charIndex);
+        bundle.putLong(INDEX, charIndex);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -49,7 +49,7 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        index = getArguments().getInt(INDEX, -1);
+        index = getArguments().getLong(INDEX, -1);
     }
 
     @Override

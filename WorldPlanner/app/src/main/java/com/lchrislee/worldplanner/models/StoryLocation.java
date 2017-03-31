@@ -2,13 +2,15 @@ package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
  * Created by chrisl on 3/26/17.
  */
 
-public class StoryLocation implements Serializable, StoryElement {
+public class StoryLocation extends SugarRecord implements Serializable, StoryElement {
 
     private StoryWorld world;
     private String name;

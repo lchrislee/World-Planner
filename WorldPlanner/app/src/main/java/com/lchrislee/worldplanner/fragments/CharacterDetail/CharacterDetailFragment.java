@@ -29,13 +29,13 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
         // Required empty public constructor
     }
 
-    public static @NonNull CharacterDetailFragment newInstance(boolean edit, int charIndex)
+    public static @NonNull CharacterDetailFragment newInstance(boolean edit, long charIndex)
     {
         CharacterDetailFragment fragment = new CharacterDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putBoolean(DetailFragment.EDIT, edit);
         bundle.putInt(DetailFragment.RELATION_TYPE, DataManager.CODE_CHARACTER);
-        bundle.putInt(INDEX, charIndex);
+        bundle.putLong(INDEX, charIndex);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -49,25 +49,30 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
             nickname = (EditText) mainView.findViewById(R.id.fragment_detail_character_nickname);
             gender = (EditText) mainView.findViewById(R.id.fragment_detail_character_gender);
             age = (EditText) mainView.findViewById(R.id.fragment_detail_character_age);
-            if (model != null)
-            {
-                trueModel = (StoryCharacter) model;
-                String textNickName= trueModel.getNickname();
-                if (textNickName != null)
-                {
-                    nickname.setText(textNickName);
-                }
-                String textGender = trueModel.getGender();
-                if (textGender != null)
-                {
-                    gender.setText(textGender);
-                }
-
-                age.setText(String.valueOf(trueModel.getAge()));
-            }
-            swapEdit();
         }
         return mainView;
+    }
+
+    @Override
+    public void onResume() {
+        if (model != null)
+        {
+            trueModel = (StoryCharacter) model;
+            String textNickName= trueModel.getNickname();
+            if (textNickName != null)
+            {
+                nickname.setText(textNickName);
+            }
+            String textGender = trueModel.getGender();
+            if (textGender != null)
+            {
+                gender.setText(textGender);
+            }
+
+            age.setText(String.valueOf(trueModel.getAge()));
+        }
+        swapEdit();
+        super.onResume();
     }
 
     @Override

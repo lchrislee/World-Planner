@@ -19,7 +19,7 @@ public class ChangeWorldFragment extends WorldPlannerBaseFragment implements Wor
 
     public interface FragmentSwap
     {
-        void onWorldSwitch(int position);
+        void onWorldSwitch(long position);
     }
 
     private FragmentSwap listener;
@@ -58,7 +58,7 @@ public class ChangeWorldFragment extends WorldPlannerBaseFragment implements Wor
     }
 
     @Override
-    public void onWorldSwitch(int position) {
+    public void onWorldSwitch(long position) {
         listener.onWorldSwitch(position);
     }
 }

@@ -89,6 +89,12 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        headerWorldName.setText(DataManager.getInstance().getCurrentWorld().getName());
+    }
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
@@ -117,7 +123,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         switch(item.getItemId())
         {
             case R.id.home:
-                headerWorldName.setText(DataManager.getInstance().getCurrentWorld().getName());
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.menu_edit:
@@ -135,8 +140,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                 }
                 headerWorldName.setText(DataManager.getInstance().getCurrentWorld().getName());
                 break;
-            case R.id.menu_share: // Will not happen.
-                break;
             case R.id.menu_delete: // Will not happen.
                 break;
         }
@@ -150,7 +153,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         switch (requestCode)
         {
             case DataManager.CODE_WORLD:
-                int newWorldIndex = DataManager.getInstance().getCountForWorlds() - 1;
+                long newWorldIndex = DataManager.getInstance().getCountForWorlds();
                 DataManager.getInstance().changeWorldToIndex(newWorldIndex);
                 onWorldSwitch(newWorldIndex);
                 break;
@@ -201,7 +204,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
     }
 
     @Override
-    public void onWorldSwitch(int position) {
+    public void onWorldSwitch(long position) {
         if (currentWorldFragment == null)
         {
             currentWorldFragment = new CurrentWorldFragment();

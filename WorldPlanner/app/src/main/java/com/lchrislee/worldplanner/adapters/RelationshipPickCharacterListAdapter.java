@@ -12,6 +12,7 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by chrisl on 3/28/17.
@@ -44,9 +45,9 @@ public class RelationshipPickCharacterListAdapter extends RecyclerView.Adapter<R
     private Context context;
 
     private DefaultPlannerObjectSelected listener;
-    private ArrayList<StoryCharacter> charactersToShow;
+    private List<StoryCharacter> charactersToShow;
 
-    public RelationshipPickCharacterListAdapter(Context context, DefaultPlannerObjectSelected l, ArrayList<StoryCharacter> show) {
+    public RelationshipPickCharacterListAdapter(Context context, DefaultPlannerObjectSelected l, List<StoryCharacter> show) {
         this.context = context;
         listener = l;
         charactersToShow = show;

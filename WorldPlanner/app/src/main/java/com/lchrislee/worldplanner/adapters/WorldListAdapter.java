@@ -21,7 +21,7 @@ import timber.log.Timber;
 public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.WorldViewHolder> {
 
     public interface WorldSwitch{
-        void onWorldSwitch(int position);
+        void onWorldSwitch(long position);
     }
 
     class WorldViewHolder extends RecyclerView.ViewHolder
@@ -38,7 +38,8 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int index = (Integer) v.getTag();
+                    long index = (Integer) v.getTag();
+                    Timber.tag(getClass().getSimpleName()).d("Changing world to %d", index + 1);
                     DataManager.getInstance().changeWorldToIndex(index);
                     listener.onWorldSwitch(index);
                 }
@@ -61,8 +62,6 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
 
     @Override
     public void onBindViewHolder(WorldViewHolder holder, int position) {
-        Timber.tag(getClass().getSimpleName()).d("Obtaining world for position - " + position);
-        Timber.d("Size of worlds list - " + DataManager.getInstance().getCountForWorlds());
         StoryWorld world = DataManager.getInstance().getWorldAtIndex(position);
 
         if (world != null) {
@@ -74,6 +73,9 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
 
     @Override
     public int getItemCount() {
-        return DataManager.getInstance().getCountForWorlds();
+        int worldCount = (int) DataManager.getInstance().getCountForWorlds();
+        Timber.tag(getClass().getSimpleName()).d("There are %d worlds", worldCount);
+
+        return worldCount;
     }
 }
