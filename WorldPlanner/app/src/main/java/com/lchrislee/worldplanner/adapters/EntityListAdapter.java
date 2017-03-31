@@ -15,12 +15,7 @@ import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryElement;
-import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.views.SimpleDetailView;
-
-import java.io.Serializable;
-
-import timber.log.Timber;
 
 /**
  * Created by chrisl on 3/27/17.

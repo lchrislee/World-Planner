@@ -27,8 +27,6 @@ import com.lchrislee.worldplanner.utility.ToolbarState;
 
 import java.util.ArrayList;
 
-import timber.log.Timber;
-
 public class CurrentWorldActivity extends WorldPlannerBaseActivity implements ChangeWorldFragment.FragmentSwap, CurrentWorldFragment.WorldTabChange {
 
     public static final String RESULT_CODE_NEW_WORLD_ID = "CurrentWorldActivity_RESULT_CODE_NEW_WORLD_ID";
@@ -154,7 +152,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
             {
                 case DataManager.CODE_WORLD:
                     long newWorldIndex = data.getLongExtra(RESULT_CODE_NEW_WORLD_ID, -1);
-                    Timber.d("newWorldIndex - %d", newWorldIndex);
                     DataManager.getInstance().changeWorldToIndex(newWorldIndex - 1);
                     onWorldSwitch();
                     break;

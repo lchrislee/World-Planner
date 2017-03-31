@@ -24,8 +24,6 @@ import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
 
-import timber.log.Timber;
-
 public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
 
     protected static final String RELATION_TYPE = "DETAIL_FRAGMENT_RELATION_TYPE";

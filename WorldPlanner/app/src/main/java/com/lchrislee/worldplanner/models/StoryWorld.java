@@ -19,12 +19,16 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
     private String description;
 
     @Ignore
+    private
     List<StoryCharacter> allCharacters;
     @Ignore
+    private
     List<StoryLocation> allLocations;
     @Ignore
+    private
     List<StoryItem> allItems;
     @Ignore
+    private
     List<StoryPlot> allPlots;
 
     public StoryWorld() {

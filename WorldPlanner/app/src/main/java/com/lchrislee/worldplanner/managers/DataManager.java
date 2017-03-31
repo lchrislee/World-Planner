@@ -17,8 +17,6 @@ import java.util.List;
 
 import timber.log.Timber;
 
-import static android.R.string.untitled;
-
 /**
  * Created by chrisl on 3/29/17.
  */

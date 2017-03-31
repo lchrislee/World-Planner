@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 
-import timber.log.Timber;
-
 public class WorldDetailFragment extends DetailFragment {
 
     public WorldDetailFragment() {
@@ -55,8 +53,6 @@ public class WorldDetailFragment extends DetailFragment {
 
     @Override
     public long editAction() {
-        long id = super.editAction();
-        Timber.d("done editing world - %d", id);
-        return id;
+        return super.editAction();
     }
 }

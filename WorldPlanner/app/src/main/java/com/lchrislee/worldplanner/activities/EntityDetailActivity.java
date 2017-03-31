@@ -15,7 +15,6 @@ import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
-import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.utility.ToolbarState;
 
 import java.io.Serializable;
@@ -133,7 +132,10 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 toolbarState = previousState;
                 break;
             case R.id.menu_delete:
-                DataManager.getInstance().delete(fragment.getModel());
+                StoryElement model = fragment.getModel();
+                if (model != null) {
+                    DataManager.getInstance().delete(model);
+                }
                 finish();
                 break;
         }
