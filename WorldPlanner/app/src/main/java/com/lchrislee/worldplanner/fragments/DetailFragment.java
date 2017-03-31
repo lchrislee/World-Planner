@@ -21,14 +21,12 @@ import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
-import java.io.Serializable;
-
 import timber.log.Timber;
 
 public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
 
     protected static final String RELATION_TYPE = "DETAIL_FRAGMENT_RELATION_TYPE";
-    protected static final String EDIT = "DETAIL_FRAGMENT__EDIT";
+    protected static final String EDIT = "DETAIL_FRAGMENT_EDIT";
     protected static final String INDEX = "DETAIL_FRAGMENT_INDEX";
 
     protected View mainView;

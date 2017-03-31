@@ -12,9 +12,5 @@
             android:id="@+id/menu_navigation_world_change"
             android:title="Change World"
             />
-        <item
-            android:id="@+id/menu_navigation_misc_account"
-            android:title="Account"
-            />
     </group>
 </menu>

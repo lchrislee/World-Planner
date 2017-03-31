@@ -14,9 +14,9 @@
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/fragment_world_current_bottomnav"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorBackgroundDark"
         app:menu="@menu/menu_navigation_bottom_world_current"
-        app:itemBackground="@color/colorPrimaryDark"
+        app:itemBackground="@color/colorBackgroundDark"
         app:itemIconTint="@color/colorAccent"
         app:itemTextColor="@color/colorAccent"
         android:layout_alignParentBottom="true"

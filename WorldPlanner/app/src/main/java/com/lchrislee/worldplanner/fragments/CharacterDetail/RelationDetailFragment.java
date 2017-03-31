@@ -53,7 +53,6 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
 
     private boolean isEditing;
     private long relationshipIndex;
-    private List<StoryCharacter> charactersToList;
 
     public static @NonNull
     RelationDetailFragment newInstance(long rel, long character)
@@ -97,7 +96,6 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
                 otherCharacter = existingStoryRelationship.getFirstStoryCharacter();
             }
         }
-        charactersToList = DataManager.getInstance().getCharactersExcept(ownerIndex);
     }
 
     @Nullable
@@ -110,7 +108,7 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
 
         description.setText(existingStoryRelationship.getDescription());
 
-        adapter = new RelationshipPickCharacterListAdapter(getContext(), this, charactersToList);
+        adapter = new RelationshipPickCharacterListAdapter(getContext(), this, null);
         list = (RecyclerView) mainView.findViewById(R.id.fragment_relation_character_list);
         list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         list.setAdapter(adapter);
@@ -147,11 +145,10 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
     }
 
     @Override
-    public void onItemSelected(int position) {
+    public void onItemSelected(long position) {
         list.setVisibility(View.INVISIBLE);
         card.setVisibility(View.VISIBLE);
         swap.setVisibility(View.VISIBLE);
-        name.setText(charactersToList.get(position).getName());
     }
 
     private void swapEdit()

@@ -38,7 +38,7 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    long index = (Integer) v.getTag();
+                    long index = (long) v.getTag();
                     Timber.tag(getClass().getSimpleName()).d("Changing world to %d", index + 1);
                     DataManager.getInstance().changeWorldToIndex(index);
                     listener.onWorldSwitch(index);
@@ -67,7 +67,7 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
         if (world != null) {
             holder.name.setText(world.getName());
             holder.description.setText(world.getDescription());
-            holder.itemView.setTag(position);
+            holder.itemView.setTag((long) position);
         }
     }
 

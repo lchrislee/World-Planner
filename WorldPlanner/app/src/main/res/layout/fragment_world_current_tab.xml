@@ -26,7 +26,7 @@
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/fragment_master_fab_menu"
-        fab:menu_colorNormal="?attr/colorAccent"
+        fab:menu_colorNormal="?attr/colorPrimary"
         fab:menu_openDirection="up"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"

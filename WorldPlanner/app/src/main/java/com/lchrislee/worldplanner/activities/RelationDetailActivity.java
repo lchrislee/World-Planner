@@ -42,8 +42,6 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
         {
-            actionBar.setTitle("StoryRelationship");
-            actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setHomeButtonEnabled(true);

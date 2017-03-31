@@ -1,6 +1,5 @@
 package com.lchrislee.worldplanner.managers;
 
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -15,6 +14,8 @@ import com.orm.query.Condition;
 import com.orm.query.Select;
 
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created by chrisl on 3/29/17.
@@ -31,6 +32,8 @@ public class DataManager {
 
     private static DataManager instance;
     private static long currentWorldIndex;
+    private boolean changedWorld;
+    private StoryWorld currentWorld;
 
     private DataManager() {
         if (StoryWorld.count(StoryWorld.class) == 0)
@@ -39,6 +42,8 @@ public class DataManager {
             world.setName("");
             world.setDescription("");
             world.save();
+            currentWorld = null;
+            changedWorld = true;
         }
     }
 
@@ -111,22 +116,22 @@ public class DataManager {
 
     public long getCountForCharacters()
     {
-        return StoryCharacter.count(StoryCharacter.class, "world = ?", new String[]{String.valueOf(currentWorldIndex)});
+        return StoryCharacter.count(StoryCharacter.class, "world = ?", new String[]{String.valueOf(currentWorldIndex + 1)});
     }
 
     public long getCountForLocations()
     {
-        return StoryLocation.count(StoryLocation.class, "world = ?", new String[]{String.valueOf(currentWorldIndex)});
+        return StoryLocation.count(StoryLocation.class, "world = ?", new String[]{String.valueOf(currentWorldIndex + 1)});
     }
 
     public long getCountForItems()
     {
-        return StoryItem.count(StoryItem.class, "world = ?", new String[]{String.valueOf(currentWorldIndex)});
+        return StoryItem.count(StoryItem.class, "world = ?", new String[]{String.valueOf(currentWorldIndex + 1)});
     }
 
     public long getCountForPlots()
     {
-        return StoryPlot.count(StoryPlot.class, "world = ?", new String[]{String.valueOf(currentWorldIndex)});
+        return StoryPlot.count(StoryPlot.class, "world = ?", new String[]{String.valueOf(currentWorldIndex + 1)});
     }
 
     public long getCountForWorlds() {
@@ -142,7 +147,11 @@ public class DataManager {
     @Nullable
     public StoryCharacter getCharacterAtIndex(long index)
     {
-        return StoryCharacter.findById(StoryCharacter.class, index);
+        if (index < 0)
+        {
+            return null;
+        }
+        return getCurrentWorld().getCharacterAtIndex(index);
     }
 
     @Nullable
@@ -151,7 +160,7 @@ public class DataManager {
         if (index < 0) {
             return null;
         }
-        return StoryLocation.findById(StoryLocation.class, index);
+        return getCurrentWorld().getLocationAtIndex(index);
     }
 
     @Nullable
@@ -160,7 +169,7 @@ public class DataManager {
         if (index < 0) {
             return null;
         }
-        return StoryItem.findById(StoryItem.class, index);
+        return getCurrentWorld().getItemAtIndex(index);
     }
 
     @Nullable
@@ -169,7 +178,7 @@ public class DataManager {
         if (index < 0) {
             return null;
         }
-        return StoryPlot.findById(StoryPlot.class, index);
+        return getCurrentWorld().getPlotAtIndex(index);
     }
 
     @Nullable
@@ -199,12 +208,18 @@ public class DataManager {
 
     @NonNull
     public StoryWorld getCurrentWorld() {
-        return StoryWorld.findById(StoryWorld.class, currentWorldIndex + 1);
+        Timber.tag(getClass().getSimpleName()).d("Getting world with id: %d", currentWorldIndex + 1);
+        if (changedWorld || currentWorld == null) {
+            changedWorld = false;
+            currentWorld = StoryWorld.findById(StoryWorld.class, currentWorldIndex + 1);
+        }
+        return currentWorld;
     }
 
     public void changeWorldToIndex(long index) {
         if (index >= 0 && index < StoryWorld.count(StoryWorld.class)) {
             currentWorldIndex = index;
+            changedWorld = true;
         }
     }
 

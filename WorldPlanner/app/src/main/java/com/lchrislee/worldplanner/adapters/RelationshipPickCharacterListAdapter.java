@@ -21,7 +21,7 @@ import java.util.List;
 public class RelationshipPickCharacterListAdapter extends RecyclerView.Adapter<RelationshipPickCharacterListAdapter.DefaultPlannerObjectViewHolder> {
 
     public interface DefaultPlannerObjectSelected{
-        void onItemSelected(int position);
+        void onItemSelected(long position);
     }
 
     class DefaultPlannerObjectViewHolder extends RecyclerView.ViewHolder{
@@ -36,7 +36,7 @@ public class RelationshipPickCharacterListAdapter extends RecyclerView.Adapter<R
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemSelected((Integer)v.getTag());
+                    listener.onItemSelected((long)v.getTag());
                 }
             });
         }
@@ -62,7 +62,7 @@ public class RelationshipPickCharacterListAdapter extends RecyclerView.Adapter<R
     public void onBindViewHolder(DefaultPlannerObjectViewHolder holder, int position) {
         StoryCharacter character = charactersToShow.get(position);
         holder.name.setText(character.getName());
-        holder.itemView.setTag(position);
+        holder.itemView.setTag((long) position);
     }
 
     @Override

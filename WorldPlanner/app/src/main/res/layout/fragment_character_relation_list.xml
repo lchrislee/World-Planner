@@ -22,7 +22,7 @@
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/fragment_character_relation_add"
-        fab:fab_colorNormal="?attr/colorAccent"
+        fab:fab_colorNormal="?attr/colorPrimary"
         android:src="@drawable/fab_add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"

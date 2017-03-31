@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lchrislee.worldplanner.fragments.AccountFragment;
 import com.lchrislee.worldplanner.fragments.ChangeWorldFragment;
 import com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldFragment;
 import com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldTabFragment;
@@ -34,7 +33,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
 
     private CurrentWorldFragment currentWorldFragment;
     private ChangeWorldFragment changeWorldFragment;
-    private AccountFragment accountFragment;
     private ImageView headerWorldImage;
     private TextView headerWorldName;
     private NavigationView navigationView;
@@ -173,14 +171,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                     changeWorldFragment.setListener(this);
                 }
                 fragToShow = changeWorldFragment;
-                toolbarState = ToolbarState.Empty;
-                break;
-            case R.id.menu_navigation_misc_account:
-                if (accountFragment == null)
-                {
-                    accountFragment = new AccountFragment();
-                }
-                fragToShow = accountFragment;
                 toolbarState = ToolbarState.Empty;
                 break;
             default:

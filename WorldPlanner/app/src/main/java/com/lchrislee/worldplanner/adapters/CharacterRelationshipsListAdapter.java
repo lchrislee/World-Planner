@@ -33,7 +33,7 @@ public class CharacterRelationshipsListAdapter extends RecyclerView.Adapter<Char
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), RelationDetailActivity.class);
-                    i.putExtra(RelationDetailActivity.REL_INDEX, (Integer) v.getTag());
+                    i.putExtra(RelationDetailActivity.REL_INDEX, (long) v.getTag());
                     i.putExtra(RelationDetailActivity.OWNER_INDEX, characterIndex);
                     v.getContext().startActivity(i);
                 }
@@ -60,7 +60,7 @@ public class CharacterRelationshipsListAdapter extends RecyclerView.Adapter<Char
         if (relationship != null) {
             holder.details.setName(relationship.getSecondStoryCharacter().getName());
             holder.details.setDescription(relationship.getDescription());
-            holder.edit.setTag(position);
+            holder.edit.setTag((long) position);
         }
     }
 

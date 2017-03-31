@@ -82,7 +82,7 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
             public void onClick(View v) {
                 Intent i = new Intent(context, EntityDetailActivity.class);
                 i.putExtra(EntityDetailActivity.TYPE, typeDisplaying);
-                i.putExtra(EntityDetailActivity.INDEX, (Integer) v.getTag());
+                i.putExtra(EntityDetailActivity.INDEX, (long) v.getTag());
 
                 ((CurrentWorldActivity) context).startActivityForResult(i, typeDisplaying);
             }
@@ -113,7 +113,7 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
                 break;
         }
 
-        holder.itemView.setTag(position);
+        holder.itemView.setTag((long) position);
 
         if (typeDisplaying == DataManager.CODE_ITEM && obj != null)
         {
