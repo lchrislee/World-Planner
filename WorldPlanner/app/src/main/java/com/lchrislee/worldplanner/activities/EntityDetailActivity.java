@@ -121,13 +121,11 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 toolbarState = ToolbarState.Save;
                 break;
             case R.id.menu_save:
-                Timber.d("Saving!");
                 long id = fragment.editAction();
                 if (isNewModel)
                 {
                     Intent i = new Intent();
                     i.putExtra(CurrentWorldActivity.RESULT_CODE_NEW_WORLD_ID, id);
-                    Timber.d("New world id is - %d", id);
                     setResult(RESULT_OK, i);
                     finish();
                     return true;
@@ -135,8 +133,7 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 toolbarState = previousState;
                 break;
             case R.id.menu_delete:
-                // TODO: Implement deletion.
-                StoryElement modelToDelete = fragment.getModel();
+                DataManager.getInstance().delete(fragment.getModel());
                 finish();
                 break;
         }

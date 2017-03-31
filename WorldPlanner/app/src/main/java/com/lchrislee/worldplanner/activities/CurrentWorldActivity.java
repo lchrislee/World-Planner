@@ -148,15 +148,14 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Timber.d("onActivityResult with req - %d, res - %d, data - %s", requestCode, resultCode, data.toString());
         if (resultCode == RESULT_OK)
         {
             switch (requestCode)
             {
                 case DataManager.CODE_WORLD:
                     long newWorldIndex = data.getLongExtra(RESULT_CODE_NEW_WORLD_ID, -1);
-                    Timber.d("New world index is - %d", newWorldIndex);
-                    DataManager.getInstance().changeWorldToIndex(newWorldIndex);
+                    Timber.d("newWorldIndex - %d", newWorldIndex);
+                    DataManager.getInstance().changeWorldToIndex(newWorldIndex - 1);
                     onWorldSwitch();
                     break;
             }

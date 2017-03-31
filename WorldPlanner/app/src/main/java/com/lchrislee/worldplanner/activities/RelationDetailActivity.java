@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.CharacterDetail.RelationDetailFragment;
+import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.utility.ToolbarState;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class RelationDetailActivity extends WorldPlannerBaseActivity {
                 finish();
                 break;
             case R.id.menu_delete:
-                // TODO: Delete relation.
+                DataManager.getInstance().delete(fragment.getModel());
                 break;
         }
         supportInvalidateOptionsMenu();

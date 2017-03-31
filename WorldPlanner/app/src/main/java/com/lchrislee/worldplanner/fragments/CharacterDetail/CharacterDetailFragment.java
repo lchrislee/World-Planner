@@ -19,6 +19,8 @@ import com.lchrislee.worldplanner.models.StoryCharacter;
 
 import java.io.Serializable;
 
+import timber.log.Timber;
+
 public class CharacterDetailFragment extends DetailFragment implements ToolbarSupportingFragment{
 
     private EditText nickname;
@@ -114,4 +116,10 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
         }
     }
 
+    @Override
+    public long editAction() {
+        long id = super.editAction();
+        Timber.d("Created character with id - %d", id);
+        return id;
+    }
 }
