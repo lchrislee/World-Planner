@@ -12,8 +12,6 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
-import timber.log.Timber;
-
 /**
  * Created by chrisl on 3/27/17.
  */
@@ -21,14 +19,14 @@ import timber.log.Timber;
 public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.WorldViewHolder> {
 
     public interface WorldSwitch{
-        void onWorldSwitch(long position);
+        void onWorldSwitch();
     }
 
     class WorldViewHolder extends RecyclerView.ViewHolder
     {
-        ImageView image;
-        TextView name;
-        TextView description;
+        final ImageView image;
+        final TextView name;
+        final TextView description;
 
         WorldViewHolder(View itemView) {
             super(itemView);
@@ -39,16 +37,15 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
                 @Override
                 public void onClick(View v) {
                     long index = (long) v.getTag();
-                    Timber.tag(getClass().getSimpleName()).d("Changing world to %d", index + 1);
                     DataManager.getInstance().changeWorldToIndex(index);
-                    listener.onWorldSwitch(index);
+                    listener.onWorldSwitch();
                 }
             });
         }
     }
 
-    private Context context;
-    private WorldSwitch listener;
+    private final Context context;
+    private final WorldSwitch listener;
 
     public WorldListAdapter(Context context, WorldSwitch l) {
         this.context = context;
@@ -73,9 +70,6 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
 
     @Override
     public int getItemCount() {
-        int worldCount = (int) DataManager.getInstance().getCountForWorlds();
-        Timber.tag(getClass().getSimpleName()).d("There are %d worlds", worldCount);
-
-        return worldCount;
+        return (int) DataManager.getInstance().getCountForWorlds();
     }
 }

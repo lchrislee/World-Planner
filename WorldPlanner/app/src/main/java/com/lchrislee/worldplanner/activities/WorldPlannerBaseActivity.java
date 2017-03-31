@@ -10,6 +10,6 @@ public class WorldPlannerBaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Timber.tag("Activity Lifecycle").d("Base Activity created");
+        Timber.tag(getClass().getSimpleName()).d("Base Activity created");
     }
 }

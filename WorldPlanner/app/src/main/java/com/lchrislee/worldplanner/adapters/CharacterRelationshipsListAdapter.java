@@ -22,8 +22,8 @@ public class CharacterRelationshipsListAdapter extends RecyclerView.Adapter<Char
 
     class CharacterRelationViewHolder extends RecyclerView.ViewHolder
     {
-        SimpleDetailView details;
-        Button edit;
+        final SimpleDetailView details;
+        final Button edit;
 
         CharacterRelationViewHolder(View itemView) {
             super(itemView);
@@ -41,8 +41,8 @@ public class CharacterRelationshipsListAdapter extends RecyclerView.Adapter<Char
         }
     }
 
-    private Context context;
-    private long characterIndex;
+    private final Context context;
+    private final long characterIndex;
 
     public CharacterRelationshipsListAdapter(Context context, long index) {
         this.context = context;

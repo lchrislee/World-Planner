@@ -14,6 +14,7 @@
         <ImageView
             android:id="@+id/fragment_detail_image"
             android:background="@color/colorAccent"
+            android:foreground="@android:drawable/ic_menu_camera"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -23,7 +24,7 @@
         <EditText
             android:id="@+id/fragment_detail_name"
             tools:text="Peter Parker"
-            android:hint="Name"
+            android:hint="Character Name"
             android:inputType="textPersonName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"

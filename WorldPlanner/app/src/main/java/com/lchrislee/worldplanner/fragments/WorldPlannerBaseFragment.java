@@ -10,7 +10,7 @@ public class WorldPlannerBaseFragment extends Fragment {
 
     public WorldPlannerBaseFragment() {
         // Required empty public constructor
-        Timber.tag("Fragment Lifecycle").d("Base Fragment created");
+        Timber.tag(getClass().getSimpleName()).d("Base Fragment created");
     }
 
 }

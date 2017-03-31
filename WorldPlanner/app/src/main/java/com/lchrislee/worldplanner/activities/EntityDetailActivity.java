@@ -15,8 +15,10 @@ import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
+import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.utility.ToolbarState;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import timber.log.Timber;
@@ -31,7 +33,7 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
     private ToolbarState toolbarState;
     private ToolbarState previousState;
 
-    private long index;
+    private boolean isNewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +41,31 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         setContentView(R.layout.activity_entity_detail);
 
         Intent i = getIntent();
-        index = i.getLongExtra(INDEX, -1);
         int requestCode = i.getIntExtra(TYPE, 100);
-        Timber.d("index - " + index);
-        Timber.tag(getClass().getSimpleName()).d("request code - " + requestCode);
+        Timber.d("request code - " + requestCode);
+        Serializable model = null;
+        long index = i.getLongExtra(INDEX, -1);
 
-        boolean isNewModel = index == -1;
+        switch(requestCode)
+        {
+            case DataManager.CODE_CHARACTER:
+                model = DataManager.getInstance().getCharacterAtIndex(index);
+                break;
+            case DataManager.CODE_LOCATION:
+                model = DataManager.getInstance().getLocationAtIndex(index);
+                break;
+            case DataManager.CODE_ITEM:
+                model = DataManager.getInstance().getItemAtIndex(index);
+                break;
+            case DataManager.CODE_PLOT:
+                model = DataManager.getInstance().getPlotAtIndex(index);
+                break;
+            case DataManager.CODE_WORLD:
+                model = DataManager.getInstance().getWorldAtIndex(index);
+                break;
+        }
+
+        isNewModel = model == null;
         toolbarState = isNewModel ? ToolbarState.Save : ToolbarState.Edit_Delete;
         previousState = toolbarState;
 
@@ -52,16 +73,16 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         {
             if (isNewModel)
             {
-                fragment = CharacterDetailFragment.newInstance(true, index);
+                fragment = CharacterDetailFragment.newInstance(null);
             }
             else {
-                fragment = CharacterTabFragment.newInstance(index);
+                fragment = CharacterTabFragment.newInstance(model);
                 ((CharacterTabFragment) fragment).setListener(this);
             }
         }
         else
         {
-            fragment = DetailFragment.newInstance(requestCode, isNewModel, index);
+            fragment = DetailFragment.newInstance(requestCode, model);
         }
 
         getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment).commit();
@@ -100,11 +121,14 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 toolbarState = ToolbarState.Save;
                 break;
             case R.id.menu_save:
-                Timber.tag(getClass().getSimpleName()).d("onOptionsItemSelected save");
-                fragment.editAction();
-                if (index == -1)
+                Timber.d("Saving!");
+                long id = fragment.editAction();
+                if (isNewModel)
                 {
-                    setResult(-1);
+                    Intent i = new Intent();
+                    i.putExtra(CurrentWorldActivity.RESULT_CODE_NEW_WORLD_ID, id);
+                    Timber.d("New world id is - %d", id);
+                    setResult(RESULT_OK, i);
                     finish();
                     return true;
                 }

@@ -1,11 +1,8 @@
 package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.orm.SugarRecord;
-
-import java.io.Serializable;
 
 /**
  * Created by chrisl on 3/27/17.

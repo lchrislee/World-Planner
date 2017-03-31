@@ -31,6 +31,8 @@ import timber.log.Timber;
 
 public class CurrentWorldActivity extends WorldPlannerBaseActivity implements ChangeWorldFragment.FragmentSwap, CurrentWorldFragment.WorldTabChange {
 
+    public static final String RESULT_CODE_NEW_WORLD_ID = "CurrentWorldActivity_RESULT_CODE_NEW_WORLD_ID";
+
     private CurrentWorldFragment currentWorldFragment;
     private ChangeWorldFragment changeWorldFragment;
     private ImageView headerWorldImage;
@@ -90,6 +92,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
     protected void onResume() {
         super.onResume();
         headerWorldName.setText(DataManager.getInstance().getCurrentWorld().getName());
+        headerWorldImage.getDrawable(); // TODO: Update if necessary
     }
 
     @Override
@@ -111,8 +114,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Timber.tag(CurrentWorldActivity.class.getSimpleName()).d("Menu click - %s", item.getTitle());
-
         if (drawerToggle.onOptionsItemSelected(item))
         {
             return true;
@@ -126,7 +127,6 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
             case R.id.menu_edit:
                 previousState = toolbarState;
                 toolbarState = ToolbarState.Save;
-                Timber.d("currentWorldFragment is not null: " + (currentWorldFragment == null));
                 if (currentWorldFragment != null) {
                     currentWorldFragment.iconAction();
                 }
@@ -148,20 +148,25 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode)
+        Timber.d("onActivityResult with req - %d, res - %d, data - %s", requestCode, resultCode, data.toString());
+        if (resultCode == RESULT_OK)
         {
-            case DataManager.CODE_WORLD:
-                long newWorldIndex = DataManager.getInstance().getCountForWorlds();
-                DataManager.getInstance().changeWorldToIndex(newWorldIndex);
-                onWorldSwitch(newWorldIndex);
-                break;
+            switch (requestCode)
+            {
+                case DataManager.CODE_WORLD:
+                    long newWorldIndex = data.getLongExtra(RESULT_CODE_NEW_WORLD_ID, -1);
+                    Timber.d("New world index is - %d", newWorldIndex);
+                    DataManager.getInstance().changeWorldToIndex(newWorldIndex);
+                    onWorldSwitch();
+                    break;
+            }
         }
+
     }
 
     private void selectDrawerItem(@NonNull MenuItem item)
     {
-        Timber.tag("Drawer").d("Selected item: " + item.getTitle());
-        WorldPlannerBaseFragment fragToShow;
+        WorldPlannerBaseFragment fragToShow = null;
         switch(item.getItemId())
         {
             case R.id.menu_navigation_world_change:
@@ -173,7 +178,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                 fragToShow = changeWorldFragment;
                 toolbarState = ToolbarState.Empty;
                 break;
-            default:
+            case R.id.menu_navigation_world_current:
                 toolbarState = ToolbarState.Edit;
                 if (currentWorldFragment == null)
                 {
@@ -185,16 +190,18 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                 break;
         }
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.activity_world_current_frame, fragToShow)
-                .addToBackStack(fragToShow.getClass().getSimpleName())
-                .commit();
+        if (fragToShow != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.activity_world_current_frame, fragToShow)
+                    .addToBackStack(fragToShow.getClass().getSimpleName())
+                    .commit();
+        }
         drawerLayout.closeDrawers();
         supportInvalidateOptionsMenu();
     }
 
     @Override
-    public void onWorldSwitch(long position) {
+    public void onWorldSwitch() {
         if (currentWorldFragment == null)
         {
             currentWorldFragment = new CurrentWorldFragment();
@@ -205,13 +212,13 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                 .commit();
         navigationView.setCheckedItem(R.id.menu_navigation_world_current);
         toolbarState = ToolbarState.Edit;
-        supportInvalidateOptionsMenu();
         headerWorldName.setText(DataManager.getInstance().getCurrentWorld().getName());
+        supportInvalidateOptionsMenu();
     }
 
     @Override
-    public void onWorldTabChanged() {
-        toolbarState = currentWorldFragment.isShowingWorld() ? ToolbarState.Edit : ToolbarState.Empty;
+    public void updateToolbarWorldTabChange(boolean editable) {
+        toolbarState = editable ? ToolbarState.Edit : ToolbarState.Empty;
         supportInvalidateOptionsMenu();
     }
 }

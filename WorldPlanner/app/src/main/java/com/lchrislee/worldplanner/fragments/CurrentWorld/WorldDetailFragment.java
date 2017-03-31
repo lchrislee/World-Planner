@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 
+import timber.log.Timber;
+
 public class WorldDetailFragment extends DetailFragment {
 
     public WorldDetailFragment() {
@@ -19,8 +21,7 @@ public class WorldDetailFragment extends DetailFragment {
         WorldDetailFragment fragment = new WorldDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable(DetailFragment.RELATION_TYPE, DataManager.CODE_WORLD);
-        args.putBoolean(DetailFragment.EDIT, false);
-        args.putLong(DetailFragment.INDEX, DataManager.getInstance().getCurrentWorldIndex());
+        args.putSerializable(DetailFragment.DATA, DataManager.getInstance().getCurrentWorld());
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,7 +54,9 @@ public class WorldDetailFragment extends DetailFragment {
     }
 
     @Override
-    public void editAction() {
-        super.editAction();
+    public long editAction() {
+        long id = super.editAction();
+        Timber.d("done editing world - %d", id);
+        return id;
     }
 }

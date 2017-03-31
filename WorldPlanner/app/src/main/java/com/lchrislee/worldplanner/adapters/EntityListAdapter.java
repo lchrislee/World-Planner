@@ -15,6 +15,7 @@ import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryElement;
+import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.views.SimpleDetailView;
 
 import java.io.Serializable;
@@ -132,7 +133,15 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
             StoryCharacter proper = (StoryCharacter) obj;
             holder.name.setText(proper.getNickname());
             holder.trueName.setText(proper.getName());
-            holder.gender_age.setText("Age " + proper.getAge() + ", " + proper.getGender());
+
+            StringBuilder gender_age = new StringBuilder("Age ");
+            gender_age.append(proper.getAge());
+            if (proper.getGender() != null && proper.getGender().length() > 0)
+            {
+                gender_age.append(", ").append(proper.getGender());
+            }
+
+            holder.gender_age.setText(gender_age.toString());
             if (holder.description != null) {
                 holder.description.setText(proper.getDescription());
             }

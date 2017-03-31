@@ -15,10 +15,11 @@
         <ImageView
             android:id="@+id/fragment_detail_image"
             android:background="@color/colorAccent"
+            android:foreground="@android:drawable/ic_menu_camera"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="232dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             />
 
         <EditText
@@ -30,7 +31,12 @@
             android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             />
 
         <EditText
@@ -42,7 +48,12 @@
             android:gravity="top"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             />
 
     </LinearLayout>

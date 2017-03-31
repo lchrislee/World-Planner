@@ -16,18 +16,15 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
 
     public interface WorldTabChange
     {
-        void onWorldTabChanged();
+        void updateToolbarWorldTabChange(boolean editable);
     }
 
     private WorldDetailFragment worldFragment;
     private CurrentWorldTabFragment tabFragment;
     private WorldTabChange tabChangeListener;
 
-    private boolean isShowingWorld;
-
     public CurrentWorldFragment() {
         // Required empty public constructor
-        isShowingWorld = true;
     }
 
     @Override
@@ -48,7 +45,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                             worldFragment = WorldDetailFragment.newInstance();
                         }
                         frag = worldFragment;
-                        isShowingWorld = true;
+                        tabChangeListener.updateToolbarWorldTabChange(true);
                         break;
                     case R.id.menu_navigation_world_current_information:
                         if (tabFragment == null)
@@ -56,7 +53,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                             tabFragment = new CurrentWorldTabFragment();
                         }
                         frag = tabFragment;
-                        isShowingWorld = false;
+                        tabChangeListener.updateToolbarWorldTabChange(false);
                         break;
                 }
 
@@ -66,23 +63,18 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                             .addToBackStack(frag.getClass().getSimpleName())
                             .commit();
                 }
-
-                if (tabChangeListener != null)
-                {
-                    tabChangeListener.onWorldTabChanged();
-                }
                 return true;
             }
         });
 
         worldFragment = WorldDetailFragment.newInstance();
-        getChildFragmentManager().beginTransaction().replace(R.id.fragment_world_current_frame, worldFragment).commit();
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.fragment_world_current_frame, worldFragment)
+                .addToBackStack(worldFragment.getClass().getSimpleName())
+                .commit();
+        tabChangeListener.updateToolbarWorldTabChange(true);
 
         return v;
-    }
-
-    public boolean isShowingWorld() {
-        return isShowingWorld;
     }
 
     public void setTabChangeListener(WorldTabChange tabChangeListener) {

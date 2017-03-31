@@ -9,7 +9,7 @@ import com.lchrislee.worldplanner.models.StoryElement;
  */
 
 public interface ToolbarSupportingFragment {
-    void editAction();
+    long editAction();
     @Nullable
     StoryElement getModel();
 }

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +25,8 @@ public class RelationshipPickCharacterListAdapter extends RecyclerView.Adapter<R
 
     class DefaultPlannerObjectViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView image;
-        TextView name;
+        final ImageView image;
+        final TextView name;
 
         DefaultPlannerObjectViewHolder(View itemView) {
             super(itemView);
@@ -42,10 +41,10 @@ public class RelationshipPickCharacterListAdapter extends RecyclerView.Adapter<R
         }
     }
 
-    private Context context;
+    private final Context context;
 
-    private DefaultPlannerObjectSelected listener;
-    private List<StoryCharacter> charactersToShow;
+    private final DefaultPlannerObjectSelected listener;
+    private final List<StoryCharacter> charactersToShow;
 
     public RelationshipPickCharacterListAdapter(Context context, DefaultPlannerObjectSelected l, List<StoryCharacter> show) {
         this.context = context;

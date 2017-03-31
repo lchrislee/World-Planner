@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,22 +22,24 @@ import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
+import java.io.Serializable;
+
 import timber.log.Timber;
 
 public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
 
     protected static final String RELATION_TYPE = "DETAIL_FRAGMENT_RELATION_TYPE";
-    protected static final String EDIT = "DETAIL_FRAGMENT_EDIT";
-    protected static final String INDEX = "DETAIL_FRAGMENT_INDEX";
+    protected static final String DATA = "DETAIL_FRAGMENT_DATA";
 
-    protected View mainView;
-    protected EditText name;
-    protected EditText description;
-    protected ImageView image;
+    private View mainView;
+    private EditText name;
+    private EditText description;
+    private ImageView image;
 
-    protected int typeToDisplay;
+    private int typeToDisplay;
+    private boolean isNew;
     protected boolean isEditing;
-    protected long index;
+    private long id;
 
     protected StoryElement model;
 
@@ -46,14 +49,12 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
     }
 
     public static DetailFragment newInstance(int type,
-                                             boolean edit,
-                                             long indexOfData
+                                             @Nullable Serializable object
                                              ) {
         DetailFragment fragment = new DetailFragment();
         Bundle b = new Bundle();
         b.putInt(RELATION_TYPE, type);
-        b.putBoolean(EDIT, edit);
-        b.putLong(INDEX, indexOfData);
+        b.putSerializable(DATA, object);
         fragment.setArguments(b);
         return fragment;
     }
@@ -64,26 +65,9 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
 
         Bundle arguments = getArguments();
         typeToDisplay = arguments.getInt(RELATION_TYPE);
-        isEditing = arguments.getBoolean(EDIT, false);
-        index = arguments.getLong(INDEX, -1);
-        switch(typeToDisplay)
-        {
-            case DataManager.CODE_CHARACTER:
-                model = DataManager.getInstance().getCharacterAtIndex(index);
-                break;
-            case DataManager.CODE_LOCATION:
-                model = DataManager.getInstance().getLocationAtIndex(index);
-                break;
-            case DataManager.CODE_ITEM:
-                model = DataManager.getInstance().getItemAtIndex(index);
-                break;
-            case DataManager.CODE_PLOT:
-                model = DataManager.getInstance().getPlotAtIndex(index);
-                break;
-            case DataManager.CODE_WORLD:
-                model = DataManager.getInstance().getWorldAtIndex(index);
-                break;
-        }
+        model = (StoryElement) arguments.getSerializable(DATA);
+        isNew = model == null;
+        isEditing = isNew;
     }
 
     @Override
@@ -191,21 +175,36 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
     }
 
     @Override
-    public void editAction()
+    public long editAction()
     {
         isEditing = !isEditing;
         swapEdit();
         if (!isEditing)
         {
-            if (index == -1)
+            if (isNew)
             {
-                index = DataManager.getInstance().add(model);
+                isNew = false;
+                return DataManager.getInstance().add(model);
             }
             else
             {
-                DataManager.getInstance().update(model, index);
+                DataManager.getInstance().update(model);
             }
         }
+        switch(typeToDisplay)
+        {
+            case DataManager.CODE_CHARACTER:
+                return ((StoryCharacter) model).getId();
+            case DataManager.CODE_LOCATION:
+                return ((StoryLocation) model).getId();
+            case DataManager.CODE_ITEM:
+                return ((StoryItem) model).getId();
+            case DataManager.CODE_PLOT:
+                return ((StoryPlot) model).getId();
+            case DataManager.CODE_WORLD:
+                return ((StoryWorld) model).getId();
+        }
+        return -1;
     }
 
     @NonNull

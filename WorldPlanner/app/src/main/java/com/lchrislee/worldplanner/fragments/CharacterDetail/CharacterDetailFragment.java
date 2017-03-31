@@ -17,25 +17,26 @@ import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 
+import java.io.Serializable;
+
 public class CharacterDetailFragment extends DetailFragment implements ToolbarSupportingFragment{
 
     private EditText nickname;
     private EditText gender;
     private EditText age;
 
-    StoryCharacter trueModel;
+    private StoryCharacter trueModel;
 
     public CharacterDetailFragment() {
         // Required empty public constructor
     }
 
-    public static @NonNull CharacterDetailFragment newInstance(boolean edit, long charIndex)
+    public static @NonNull CharacterDetailFragment newInstance(Serializable object)
     {
         CharacterDetailFragment fragment = new CharacterDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(DetailFragment.EDIT, edit);
         bundle.putInt(DetailFragment.RELATION_TYPE, DataManager.CODE_CHARACTER);
-        bundle.putLong(INDEX, charIndex);
+        bundle.putSerializable(DATA, object);
         fragment.setArguments(bundle);
         return fragment;
     }

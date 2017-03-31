@@ -26,10 +26,6 @@ import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.models.StoryRelationship;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by chrisl on 3/28/17.
  */
@@ -181,16 +177,17 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
         else
         {
             existingStoryRelationship.setFirstStoryCharacter(otherCharacter);
-            DataManager.getInstance().update(existingStoryRelationship, relationshipIndex);
+            DataManager.getInstance().update(existingStoryRelationship);
         }
 
         mainView.requestLayout();
     }
 
     @Override
-    public void editAction() {
+    public long editAction() {
         isEditing = !isEditing;
         swapEdit();
+        return -1;
     }
 
     @NonNull

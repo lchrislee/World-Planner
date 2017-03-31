@@ -26,7 +26,8 @@
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/fragment_master_fab_menu"
-        fab:menu_colorNormal="?attr/colorPrimary"
+        fab:menu_colorNormal="@color/colorPrimary"
+        fab:menu_colorPressed="@color/colorAccent"
         fab:menu_openDirection="up"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -36,7 +37,8 @@
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fragment_master_fab_plot"
-            fab:fab_colorNormal="?attr/colorPrimary"
+            fab:fab_colorNormal="@color/colorPrimary"
+            fab:fab_colorPressed="@color/colorAccent"
             fab:fab_label="Plot Point"
             fab:fab_size="mini"
             android:layout_width="wrap_content"
@@ -45,6 +47,7 @@
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fragment_master_fab_item"
             fab:fab_colorNormal="?attr/colorPrimary"
+            fab:fab_colorPressed="@color/colorAccent"
             fab:fab_label="Item"
             fab:fab_size="mini"
             android:layout_width="wrap_content"
@@ -54,6 +57,7 @@
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fragment_master_fab_location"
             fab:fab_colorNormal="?attr/colorPrimary"
+            fab:fab_colorPressed="@color/colorAccent"
             fab:fab_label="Location"
             fab:fab_size="mini"
             android:layout_width="wrap_content"
@@ -63,6 +67,7 @@
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fragment_master_fab_character"
             fab:fab_colorNormal="?attr/colorPrimary"
+            fab:fab_colorPressed="@color/colorAccent"
             fab:fab_label="Character"
             fab:fab_size="mini"
             android:layout_width="wrap_content"

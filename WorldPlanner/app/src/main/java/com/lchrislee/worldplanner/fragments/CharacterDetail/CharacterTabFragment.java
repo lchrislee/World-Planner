@@ -13,35 +13,35 @@ import android.view.ViewGroup;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
-import com.lchrislee.worldplanner.managers.DataManager;
+import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryElement;
 
 import java.io.Serializable;
 
 public class CharacterTabFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
-    public static final String INDEX = CharacterTabFragment.class.getSimpleName() + "_INDEX";
+    private static final String DATA = CharacterTabFragment.class.getSimpleName() + "_DATA";
 
     public interface CharacterDetailTabChange
     {
         void onCharacterTabSwitch();
     }
 
-    CharacterDetailFragment informationFragment;
+    private CharacterDetailFragment informationFragment;
     CharacterRelationListFragment relationFragment; // TODO: FIX RELATIONS
 
     private CharacterDetailTabChange listener;
     private boolean isShowingDetails;
-    private long index;
+    private StoryCharacter model;
 
     public CharacterTabFragment() {
         isShowingDetails = true;
     }
 
-    public static CharacterTabFragment newInstance(long charIndex)
+    public static CharacterTabFragment newInstance(@NonNull Serializable object)
     {
         CharacterTabFragment fragment = new CharacterTabFragment();
         Bundle bundle = new Bundle();
-        bundle.putLong(INDEX, charIndex);
+        bundle.putSerializable(DATA, object);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -49,7 +49,7 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        index = getArguments().getLong(INDEX, -1);
+        model = (StoryCharacter) getArguments().getSerializable(DATA);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
                     case R.id.menu_detail_character_information:
                         if (informationFragment == null)
                         {
-                            informationFragment = CharacterDetailFragment.newInstance(false, index);
+                            informationFragment = CharacterDetailFragment.newInstance(model);
                         }
                         getChildFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_tab_character_frame, informationFragment)
@@ -94,7 +94,7 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
             }
         });
 
-        informationFragment = CharacterDetailFragment.newInstance(false, index);
+        informationFragment = CharacterDetailFragment.newInstance(model);
         getChildFragmentManager().beginTransaction().replace(R.id.fragment_tab_character_frame, informationFragment).commit();
         return v;
     }
@@ -108,13 +108,13 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
     }
 
     @Override
-    public void editAction() {
-        informationFragment.editAction();
+    public long editAction() {
+        return informationFragment.editAction();
     }
 
     @Nullable
     @Override
     public StoryElement getModel() {
-        return DataManager.getInstance().getCharacterAtIndex(index);
+        return model;
     }
 }

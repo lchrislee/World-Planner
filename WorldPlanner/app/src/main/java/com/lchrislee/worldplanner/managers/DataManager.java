@@ -57,6 +57,7 @@ public class DataManager {
     }
 
     public long add(@NonNull StoryElement model) {
+        Timber.d("Saving model with name: %s and description %s.", model.getName(), model.getDescription());
         if (model instanceof StoryCharacter)
         {
             return ((StoryCharacter) model).save();
@@ -86,11 +87,8 @@ public class DataManager {
         return -1;
     }
 
-    public void update(@NonNull StoryElement model, long index) {
-        if (index < 0) {
-            return;
-        }
-
+    public void update(@NonNull StoryElement model) {
+        Timber.d("Updating model with name - %s, and description - %s.", model.getName(), model.getDescription());
         if (model instanceof StoryCharacter) {
             ((StoryCharacter) model).save();
         }
@@ -104,7 +102,6 @@ public class DataManager {
             ((StoryPlot) model).save();
         }
         else if (model instanceof StoryWorld) {
-            ++index;
             ((StoryWorld) model).save();
         }
         else if (model instanceof StoryRelationship)
@@ -202,10 +199,6 @@ public class DataManager {
         return null;
     }
 
-    public long getCurrentWorldIndex() {
-        return currentWorldIndex;
-    }
-
     @NonNull
     public StoryWorld getCurrentWorld() {
         Timber.tag(getClass().getSimpleName()).d("Getting world with id: %d", currentWorldIndex + 1);
@@ -217,9 +210,11 @@ public class DataManager {
     }
 
     public void changeWorldToIndex(long index) {
-        if (index >= 0 && index < StoryWorld.count(StoryWorld.class)) {
-            currentWorldIndex = index;
+        Timber.d("Switching worlds, there are %d in total.", StoryWorld.count(StoryWorld.class));
+        if (index >= 0 && index <= StoryWorld.count(StoryWorld.class)) {
+            currentWorldIndex = index - 1;
             changedWorld = true;
+            getCurrentWorld();
         }
     }
 
