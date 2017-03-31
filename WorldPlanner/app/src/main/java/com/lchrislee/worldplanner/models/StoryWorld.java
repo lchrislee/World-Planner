@@ -3,13 +3,17 @@ package com.lchrislee.worldplanner.models;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by chrisl on 3/26/17.
  */
 
-public class StoryWorld extends WorldPlannerBaseModel implements ImportanceRelation.Important {
+public class StoryWorld implements Serializable, StoryElement{
+
+    private String name;
+    private String description;
 
     private ArrayList<StoryCharacter> allCharacters;
     private ArrayList<StoryLocation> allLocations;
@@ -17,22 +21,36 @@ public class StoryWorld extends WorldPlannerBaseModel implements ImportanceRelat
     private ArrayList<StoryPlot> allPlots;
     private ArrayList<StoryRelationship> allRelationships;
 
-    private ImportanceRelation importantCharacters;
-    private ImportanceRelation importantLocations;
-    private ImportanceRelation importantItems;
-    private ImportanceRelation importantPlots;
-
-    public StoryWorld(@NonNull String title, @NonNull String description) {
-        super(title, description);
-        importantCharacters = new ImportanceRelation();
-        importantLocations = new ImportanceRelation();
-        importantItems = new ImportanceRelation();
-        importantPlots = new ImportanceRelation();
+    public StoryWorld() {
         allCharacters = new ArrayList<>();
         allLocations = new ArrayList<>();
         allItems = new ArrayList<>();
         allPlots = new ArrayList<>();
         allRelationships = new ArrayList<>();
+        name = "";
+        description = "";
+    }
+
+    @NonNull
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
+
+    @NonNull
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(@NonNull String description) {
+        this.description = description;
     }
 
     public int addCharacter(@NonNull StoryCharacter character)
@@ -211,7 +229,7 @@ public class StoryWorld extends WorldPlannerBaseModel implements ImportanceRelat
         return relationshipsForLastCharacter.size() - 1;
     }
 
-    public void setRelationship(int characterIndex, int relationIndex, @NonNull StoryRelationship relationship)
+    public boolean setRelationship(int characterIndex, int relationIndex, @NonNull StoryRelationship relationship)
     {
         lastCharacterIndex = -1;
         int count = 0;
@@ -225,11 +243,12 @@ public class StoryWorld extends WorldPlannerBaseModel implements ImportanceRelat
                 if (count == relationIndex)
                 {
                     allRelationships.set(i, relationship);
-                    break;
+                    return true;
                 }
                 ++count;
             }
         }
+        return false;
     }
 
     @NonNull
@@ -245,69 +264,6 @@ public class StoryWorld extends WorldPlannerBaseModel implements ImportanceRelat
             returnList.add(allCharacters.get(i));
         }
         return returnList;
-    }
-
-    public void addImportantCharacter(@NonNull StoryCharacter c) {
-        importantCharacters.addObject(c);
-    }
-
-    public void removeImportantCharacter(@NonNull StoryCharacter c)
-    {
-        importantCharacters.removeObject(c);
-    }
-
-
-    public void addImportantItem(@NonNull StoryItem i)
-    {
-        importantItems.addObject(i);
-    }
-
-    public void removeImportantItem(@NonNull StoryItem i)
-    {
-        importantItems.removeObject(i);
-    }
-
-    public void addImportantLocation(@NonNull StoryLocation l)
-    {
-        importantLocations.addObject(l);
-    }
-
-    public void removeImportantLocation(@NonNull StoryLocation l)
-    {
-        importantLocations.removeObject(l);
-    }
-
-
-    public void addImportantPlot(@NonNull StoryPlot p)
-    {
-        importantPlots.addObject(p);
-    }
-
-    public void removeImportantPlot(@NonNull StoryPlot p)
-    {
-        importantPlots.removeObject(p);
-    }
-
-    public @NonNull ImportanceRelation getImportantCharacters() {
-        return importantCharacters;
-    }
-
-    public @NonNull ImportanceRelation getImportantItems() {
-        return importantItems;
-    }
-
-    public @NonNull ImportanceRelation getImportantLocations() {
-        return importantLocations;
-    }
-
-    public @NonNull ImportanceRelation getImportantPlots() {
-        return importantPlots;
-    }
-
-    @NonNull
-    @Override
-    public ImportanceRelation.ImportantType getImportanceType() {
-        return ImportanceRelation.ImportantType.None;
     }
 
 }

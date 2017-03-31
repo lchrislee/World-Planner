@@ -3,15 +3,15 @@ package com.lchrislee.worldplanner.managers;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.lchrislee.worldplanner.models.ImportanceRelation;
+import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.models.StoryRelationship;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
-import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import timber.log.Timber;
@@ -22,13 +22,22 @@ import timber.log.Timber;
 
 public class DataManager {
 
+    public static final int CODE_WORLD = 100;
+    public static final int CODE_CHARACTER = 200;
+    public static final int CODE_LOCATION = 300;
+    public static final int CODE_ITEM = 400;
+    public static final int CODE_PLOT = 500;
+    public static final int CODE_RELATIONSHIP = 600;
+
     private static DataManager instance;
     private ArrayList<StoryWorld> allWorlds;
     private int currentWorldIndex;
 
     private DataManager() {
         allWorlds = new ArrayList<>();
-        allWorlds.add(new StoryWorld("", ""));
+        allWorlds.add(new StoryWorld());
+        allWorlds.get(0).setName("");
+        allWorlds.get(0).setDescription("");
         currentWorldIndex = 0;
     }
 
@@ -40,106 +49,129 @@ public class DataManager {
         return instance;
     }
 
-    public int add(@NonNull WorldPlannerBaseModel model, @NonNull ImportanceRelation.ImportantType type) {
-        switch (type) {
-            case Character:
-                return getCurrentWorld().addCharacter((StoryCharacter) model);
-            case Location:
-                return getCurrentWorld().addLocation((StoryLocation) model);
-            case Item:
-                return getCurrentWorld().addItem((StoryItem) model);
-            case Plot:
-                return getCurrentWorld().addPlot((StoryPlot) model);
-            case None:
-                allWorlds.add((StoryWorld) model);
-                return allWorlds.size() - 1;
+    public int add(@NonNull StoryElement model) {
+        if (model instanceof StoryCharacter)
+        {
+            return getCurrentWorld().addCharacter((StoryCharacter) model);
+        }
+        else if (model instanceof StoryLocation)
+        {
+            return getCurrentWorld().addLocation((StoryLocation) model);
+        }
+        else if (model instanceof StoryItem)
+        {
+            return getCurrentWorld().addItem((StoryItem) model);
+        }
+        else if (model instanceof StoryPlot)
+        {
+            return getCurrentWorld().addPlot((StoryPlot) model);
+        }
+        else if (model instanceof StoryWorld)
+        {
+            allWorlds.add((StoryWorld) model);
+            return allWorlds.size() - 1;
+        }
+        else if (model instanceof StoryRelationship)
+        {
+            return getCurrentWorld().addRelationship((StoryRelationship) model);
         }
         return -1;
     }
 
-    public boolean update(@NonNull WorldPlannerBaseModel model, int index, @NonNull ImportanceRelation.ImportantType type) {
+    public boolean update(@NonNull StoryElement model, int index) {
         if (index < 0) {
             return false;
         }
 
-        switch (type) {
-            case Character:
-                return getCurrentWorld().setCharacter(index, (StoryCharacter) model);
-            case Location:
-                return getCurrentWorld().setLocation(index, (StoryLocation) model);
-            case Item:
-                return getCurrentWorld().setItem(index, (StoryItem) model);
-            case Plot:
-                return getCurrentWorld().setPlot(index, (StoryPlot) model);
-            case None:
-                if (index < allWorlds.size()) {
-                    allWorlds.set(index, (StoryWorld) model);
-                    return true;
-                }
-                break;
+        if (model instanceof StoryCharacter) {
+            return getCurrentWorld().setCharacter(index, (StoryCharacter) model);
+        }
+        else if (model instanceof StoryLocation) {
+            return getCurrentWorld().setLocation(index, (StoryLocation) model);
+        }
+        else if (model instanceof StoryItem) {
+            return getCurrentWorld().setItem(index, (StoryItem) model);
+        }
+        else if (model instanceof StoryPlot) {
+            return getCurrentWorld().setPlot(index, (StoryPlot) model);
+        }
+        else if (model instanceof StoryWorld) {
+            if (index < allWorlds.size()) {
+                allWorlds.set(index, (StoryWorld) model);
+                return true;
+            }
         }
         return false;
     }
 
-    public int getCountForType(@NonNull ImportanceRelation.ImportantType type) {
-        Timber.tag(getClass().getSimpleName()).d("getCountForType - " + type.name());
-        switch (type) {
-            case Character:
-                return getCurrentWorld().getCountCharacters();
-            case Location:
-                return getCurrentWorld().getCountLocations();
-            case Item:
-                return getCurrentWorld().getCountItems();
-            case Plot:
-                return getCurrentWorld().getCountPlots();
-            default:
-                return allWorlds.size();
-        }
+    // This is what Lint tells me to do. It looks terrybly ugly.
+    public boolean update(int characterIndex, int relationIndex, @NonNull StoryElement model) {
+        return !(characterIndex < 0 || relationIndex < 0) && model instanceof StoryRelationship && getCurrentWorld().setRelationship(characterIndex, relationIndex, (StoryRelationship) model);
     }
 
-    @Nullable
-    public WorldPlannerBaseModel getAtIndexWithType(int index, @NonNull ImportanceRelation.ImportantType type) {
-        if (index < 0) {
-            return null;
-        }
-
-        switch (type) {
-            case Character:
-                return getCurrentWorld().getCharacterAtIndex(index);
-            case Location:
-                return getCurrentWorld().getLocationAtIndex(index);
-            case Item:
-                return getCurrentWorld().getItemAtIndex(index);
-            case Plot:
-                return getCurrentWorld().getPlotAtIndex(index);
-            case None:
-                if (index < allWorlds.size()) {
-                    return allWorlds.get(index);
-                }
-                break;
-        }
-        return null;
+    public int getCountForCharacters() {
+        return getCurrentWorld().getCountCharacters();
     }
 
-    public int getCurrentWorldIndex() {
-        return currentWorldIndex;
+    public int getCountForLocations() {
+        return getCurrentWorld().getCountLocations();
     }
 
-    @NonNull
-    public StoryWorld getCurrentWorld() {
-        return allWorlds.get(currentWorldIndex);
+    public int getCountForItems() {
+        return getCurrentWorld().getCountItems();
     }
 
-    public void changeWorldToIndex(int index) {
-        if (index >= 0 && index < allWorlds.size()) {
-            currentWorldIndex = index;
-        }
+    public int getCountForPlots() {
+        return getCurrentWorld().getCountPlots();
     }
-
-    // Worlds
 
     public int getCountForWorlds() {
         return allWorlds.size();
+    }
+
+    public int getRelationshipCountForCharacter(int characterIndex)
+    {
+        if (characterIndex < 0)
+        {
+            return 0;
+        }
+        return getCurrentWorld().getRelationshipCountForCharacter(characterIndex);
+    }
+
+    @Nullable
+    public StoryCharacter getCharacterAtIndex(int index)
+    {
+        if (index < 0) {
+            return null;
+        }
+        return getCurrentWorld().getCharacterAtIndex(index);
+    }
+
+    @Nullable
+    public StoryLocation getLocationAtIndex(int index)
+    {
+        if (index < 0) {
+            return null;
+        }
+        return getCurrentWorld().getLocationAtIndex(index);
+    }
+
+    @Nullable
+    public StoryItem getItemAtIndex(int index)
+    {
+        if (index < 0) {
+            return null;
+        }
+        return getCurrentWorld().getItemAtIndex(index);
+    }
+
+    @Nullable
+    public StoryPlot getPlotAtIndex(int index)
+    {
+        if (index < 0) {
+            return null;
+        }
+        return getCurrentWorld().getPlotAtIndex(index);
     }
 
     @Nullable
@@ -161,19 +193,19 @@ public class DataManager {
         return getCurrentWorld().getRelationshipForCharacterAtIndex(characterIndex, position);
     }
 
-    public int getRelationshipCountForCharacter(int characterIndex)
-    {
-        return getCurrentWorld().getRelationshipCountForCharacter(characterIndex);
+    public int getCurrentWorldIndex() {
+        return currentWorldIndex;
     }
 
-    public int addRelationship(@NonNull StoryRelationship relationship)
-    {
-        return getCurrentWorld().addRelationship(relationship);
+    @NonNull
+    public StoryWorld getCurrentWorld() {
+        return allWorlds.get(currentWorldIndex);
     }
 
-    public void updateRelationship(int characterIndex, int relationIndex, @NonNull StoryRelationship relationship)
-    {
-        getCurrentWorld().setRelationship(characterIndex, relationIndex, relationship);
+    public void changeWorldToIndex(int index) {
+        if (index >= 0 && index < allWorlds.size()) {
+            currentWorldIndex = index;
+        }
     }
 
     @Nullable

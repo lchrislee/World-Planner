@@ -22,11 +22,11 @@ import com.lchrislee.worldplanner.adapters.RelationshipPickCharacterListAdapter;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.models.StoryCharacter;
+import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.models.StoryRelationship;
-import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -76,15 +76,18 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
         existingStoryRelationship = DataManager.getInstance().getRelationshipForCharacterAtIndex(ownerIndex, relationshipIndex);
         if (existingStoryRelationship == null)
         {
-            owner = (StoryCharacter) DataManager.getInstance().getAtIndexWithType(ownerIndex, ImportanceRelation.ImportantType.Character);
+            owner = DataManager.getInstance().getCharacterAtIndex(ownerIndex);
             if (owner != null)
             {
-                existingStoryRelationship = new StoryRelationship("", owner, null);
+                existingStoryRelationship = new StoryRelationship();
+                existingStoryRelationship.setFirstStoryCharacter(owner);
+                existingStoryRelationship.setDescription("");
+                existingStoryRelationship.setWorld(DataManager.getInstance().getCurrentWorld());
             }
         }
         else
         {
-            owner = (StoryCharacter) DataManager.getInstance().getAtIndexWithType(ownerIndex, ImportanceRelation.ImportantType.Character);
+            owner = DataManager.getInstance().getCharacterAtIndex(ownerIndex);
             if (existingStoryRelationship.getFirstStoryCharacter() == owner)
             {
                 otherCharacter = existingStoryRelationship.getSecondStoryCharacter();
@@ -176,12 +179,12 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
         if (relationshipIndex == -1 || existingStoryRelationship.getFirstStoryCharacter() == owner)
         {
             existingStoryRelationship.setSecondStoryCharacter(otherCharacter);
-            relationshipIndex = DataManager.getInstance().addRelationship(existingStoryRelationship);
+            relationshipIndex = DataManager.getInstance().add(existingStoryRelationship);
         }
         else
         {
             existingStoryRelationship.setFirstStoryCharacter(otherCharacter);
-            DataManager.getInstance().updateRelationship(ownerIndex, relationshipIndex, existingStoryRelationship);
+            DataManager.getInstance().update(ownerIndex, relationshipIndex, existingStoryRelationship);
         }
 
         mainView.requestLayout();
@@ -195,7 +198,7 @@ public class RelationDetailFragment extends WorldPlannerBaseFragment implements 
 
     @NonNull
     @Override
-    public WorldPlannerBaseModel getModel() {
+    public StoryElement getModel() {
         return existingStoryRelationship;
     }
 }

@@ -14,9 +14,9 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
-import com.lchrislee.worldplanner.models.StoryCharacter;
-import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
+import com.lchrislee.worldplanner.models.StoryElement;
+
+import java.io.Serializable;
 
 public class CharacterTabFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
     public static final String INDEX = CharacterTabFragment.class.getSimpleName() + "_INDEX";
@@ -27,7 +27,7 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
     }
 
     CharacterDetailFragment informationFragment;
-    CharacterRelationListFragment relationFragment;
+    CharacterRelationListFragment relationFragment; // TODO: FIX RELATIONS
 
     private CharacterDetailTabChange listener;
     private boolean isShowingDetails;
@@ -114,7 +114,7 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
 
     @Nullable
     @Override
-    public WorldPlannerBaseModel getModel() {
-        return DataManager.getInstance().getAtIndexWithType(index, ImportanceRelation.ImportantType.Character);
+    public StoryElement getModel() {
+        return DataManager.getInstance().getCharacterAtIndex(index);
     }
 }

@@ -13,10 +13,11 @@ import com.lchrislee.worldplanner.activities.CurrentWorldActivity;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
-import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.views.SimpleDetailView;
+
+import java.io.Serializable;
 
 import timber.log.Timber;
 
@@ -49,10 +50,9 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
 
     private final Context context;
 
-    private int REQUEST_CODE_TO_SEND;
-    private final ImportanceRelation.ImportantType typeDisplaying;
+    private final int typeDisplaying;
 
-    public EntityListAdapter(ImportanceRelation.ImportantType type, Context c) {
+    public EntityListAdapter(int type, Context c) {
         typeDisplaying = type;
         context = c;
     }
@@ -62,21 +62,17 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
         int layout;
         switch(typeDisplaying)
         {
-            case Character:
+            case DataManager.CODE_CHARACTER:
                 layout = R.layout.list_character;
-                REQUEST_CODE_TO_SEND = EntityDetailActivity.REQUEST_CODE_CHARACTER;
                 break;
-            case Location:
+            case DataManager.CODE_LOCATION:
                 layout = R.layout.list_location;
-                REQUEST_CODE_TO_SEND = EntityDetailActivity.REQUEST_CODE_LOCATION;
                 break;
-            case Item:
+            case DataManager.CODE_ITEM:
                 layout = R.layout.list_item;
-                REQUEST_CODE_TO_SEND = EntityDetailActivity.REQUEST_CODE_ITEM;
                 break;
             default: // StoryPlot
                 layout = R.layout.list_plot;
-                REQUEST_CODE_TO_SEND = EntityDetailActivity.REQUEST_CODE_PLOT;
                 break;
         }
 
@@ -85,10 +81,10 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, EntityDetailActivity.class);
-                i.putExtra(EntityDetailActivity.TYPE, REQUEST_CODE_TO_SEND);
+                i.putExtra(EntityDetailActivity.TYPE, typeDisplaying);
                 i.putExtra(EntityDetailActivity.INDEX, (Integer) v.getTag());
 
-                ((CurrentWorldActivity) context).startActivityForResult(i, REQUEST_CODE_TO_SEND);
+                ((CurrentWorldActivity) context).startActivityForResult(i, typeDisplaying);
             }
         });
         return new EntityListViewHolder(v);
@@ -96,14 +92,31 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
 
     @Override
     public void onBindViewHolder(EntityListViewHolder holder, int position) {
-        WorldPlannerBaseModel obj;
+        StoryElement obj = null;
 
         final DataManager manager = DataManager.getInstance();
-        obj = manager.getAtIndexWithType(position, typeDisplaying);
+        switch(typeDisplaying)
+        {
+            case DataManager.CODE_CHARACTER:
+                obj = DataManager.getInstance().getCharacterAtIndex(position);
+                break;
+            case DataManager.CODE_LOCATION:
+                obj = DataManager.getInstance().getLocationAtIndex(position);
+                break;
+            case DataManager.CODE_ITEM:
+                obj = DataManager.getInstance().getItemAtIndex(position);
+                break;
+            case DataManager.CODE_PLOT:
+                obj = DataManager.getInstance().getPlotAtIndex(position);
+                break;
+            case DataManager.CODE_WORLD:
+                obj = DataManager.getInstance().getWorldAtIndex(position);
+                break;
+        }
 
         holder.itemView.setTag(position);
 
-        if (typeDisplaying == ImportanceRelation.ImportantType.Item && obj != null)
+        if (typeDisplaying == DataManager.CODE_ITEM && obj != null)
         {
             holder.details.setName(obj.getName());
             holder.details.setDescription(obj.getDescription());
@@ -115,7 +128,7 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
             holder.description.setText(obj.getDescription());
         }
 
-        if (typeDisplaying == ImportanceRelation.ImportantType.Character && obj != null)
+        if (typeDisplaying == DataManager.CODE_CHARACTER && obj != null)
         {
             StoryCharacter proper = (StoryCharacter) obj;
             holder.name.setText(proper.getNickname());
@@ -134,8 +147,25 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.En
 
     @Override
     public int getItemCount() {
-        int size = DataManager.getInstance().getCountForType(typeDisplaying);
-        Timber.tag(getClass().getSimpleName()).d("size is: " + size + " for type - " + typeDisplaying.name());
+        int size = 0;
+        switch(typeDisplaying)
+        {
+            case DataManager.CODE_CHARACTER:
+                size = DataManager.getInstance().getCountForCharacters();
+                break;
+            case DataManager.CODE_LOCATION:
+                size = DataManager.getInstance().getCountForLocations();
+                break;
+            case DataManager.CODE_ITEM:
+                size = DataManager.getInstance().getCountForItems();
+                break;
+            case DataManager.CODE_PLOT:
+                size = DataManager.getInstance().getCountForPlots();
+                break;
+            case DataManager.CODE_WORLD:
+                size = DataManager.getInstance().getCountForWorlds();
+                break;
+        }
         return size;
     }
 

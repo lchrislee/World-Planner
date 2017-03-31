@@ -2,7 +2,7 @@ package com.lchrislee.worldplanner.fragments;
 
 import android.support.annotation.Nullable;
 
-import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
+import com.lchrislee.worldplanner.models.StoryElement;
 
 /**
  * Created by chrisl on 3/28/17.
@@ -10,5 +10,6 @@ import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
 
 public interface ToolbarSupportingFragment {
     void editAction();
-    @Nullable WorldPlannerBaseModel getModel();
+    @Nullable
+    StoryElement getModel();
 }

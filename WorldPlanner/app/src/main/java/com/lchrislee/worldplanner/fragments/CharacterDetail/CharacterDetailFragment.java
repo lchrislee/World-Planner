@@ -14,7 +14,7 @@ import android.widget.EditText;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
+import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 
 public class CharacterDetailFragment extends DetailFragment implements ToolbarSupportingFragment{
@@ -34,7 +34,7 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
         CharacterDetailFragment fragment = new CharacterDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putBoolean(DetailFragment.EDIT, edit);
-        bundle.putSerializable(DetailFragment.RELATION_TYPE, ImportanceRelation.ImportantType.Character);
+        bundle.putInt(DetailFragment.RELATION_TYPE, DataManager.CODE_CHARACTER);
         bundle.putInt(INDEX, charIndex);
         fragment.setArguments(bundle);
         return fragment;

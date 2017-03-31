@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.adapters.EntityListAdapter;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.R;
 
 public class EntityListFragment extends WorldPlannerBaseFragment {
@@ -20,10 +19,10 @@ public class EntityListFragment extends WorldPlannerBaseFragment {
         // Required empty public constructor
     }
 
-    public static EntityListFragment newInstance(ImportanceRelation.ImportantType type) {
+    public static EntityListFragment newInstance(int type) {
         EntityListFragment fragment = new EntityListFragment();
         Bundle args = new Bundle();
-        args.putSerializable(TYPE_TO_DISPLAY, type);
+        args.putInt(TYPE_TO_DISPLAY, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -32,7 +31,7 @@ public class EntityListFragment extends WorldPlannerBaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        ImportanceRelation.ImportantType typeToDisplay = (ImportanceRelation.ImportantType) arguments.getSerializable(TYPE_TO_DISPLAY);
+        int typeToDisplay =  arguments.getInt(TYPE_TO_DISPLAY);
         adapter = new EntityListAdapter(typeToDisplay, getContext());
     }
 

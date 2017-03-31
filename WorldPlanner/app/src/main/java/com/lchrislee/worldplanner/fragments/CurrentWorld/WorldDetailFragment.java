@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
 
 import timber.log.Timber;
 
@@ -21,7 +20,7 @@ public class WorldDetailFragment extends DetailFragment {
     public static WorldDetailFragment newInstance() {
         WorldDetailFragment fragment = new WorldDetailFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DetailFragment.RELATION_TYPE, ImportanceRelation.ImportantType.None);
+        args.putSerializable(DetailFragment.RELATION_TYPE, DataManager.CODE_WORLD);
         args.putBoolean(DetailFragment.EDIT, false);
         args.putInt(DetailFragment.INDEX, DataManager.getInstance().getCurrentWorldIndex()); // TODO: This may need revising.
         fragment.setArguments(args);

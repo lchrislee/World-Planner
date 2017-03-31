@@ -13,14 +13,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.lchrislee.worldplanner.managers.DataManager;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryCharacter;
+import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
-import com.lchrislee.worldplanner.models.WorldPlannerBaseModel;
+
+import java.io.Serializable;
 
 import timber.log.Timber;
 
@@ -35,24 +36,24 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
     protected EditText description;
     protected ImageView image;
 
-    protected ImportanceRelation.ImportantType typeToDisplay;
+    protected int typeToDisplay;
     protected boolean isEditing;
     protected int index;
 
-    protected WorldPlannerBaseModel model;
+    protected StoryElement model;
 
     public DetailFragment() {
         super();
         // Required empty public constructor
     }
 
-    public static DetailFragment newInstance(ImportanceRelation.ImportantType type,
+    public static DetailFragment newInstance(int type,
                                              boolean edit,
                                              int indexOfData
                                              ) {
         DetailFragment fragment = new DetailFragment();
         Bundle b = new Bundle();
-        b.putSerializable(RELATION_TYPE, type);
+        b.putInt(RELATION_TYPE, type);
         b.putBoolean(EDIT, edit);
         b.putInt(INDEX, indexOfData);
         fragment.setArguments(b);
@@ -64,10 +65,27 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
-        typeToDisplay = (ImportanceRelation.ImportantType) arguments.getSerializable(RELATION_TYPE);
+        typeToDisplay = arguments.getInt(RELATION_TYPE);
         isEditing = arguments.getBoolean(EDIT, false);
         index = arguments.getInt(INDEX, -1);
-        model = DataManager.getInstance().getAtIndexWithType(index, typeToDisplay);
+        switch(typeToDisplay)
+        {
+            case DataManager.CODE_CHARACTER:
+                model = DataManager.getInstance().getCharacterAtIndex(index);
+                break;
+            case DataManager.CODE_LOCATION:
+                model = DataManager.getInstance().getLocationAtIndex(index);
+                break;
+            case DataManager.CODE_ITEM:
+                model = DataManager.getInstance().getItemAtIndex(index);
+                break;
+            case DataManager.CODE_PLOT:
+                model = DataManager.getInstance().getPlotAtIndex(index);
+                break;
+            case DataManager.CODE_WORLD:
+                model = DataManager.getInstance().getWorldAtIndex(index);
+                break;
+        }
     }
 
     @Override
@@ -75,16 +93,16 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
                              Bundle savedInstanceState) {
         switch (typeToDisplay)
         {
-            case Character: // Propogate to CharacterDetailFragment.
+            case DataManager.CODE_CHARACTER: // Propogate to CharacterDetailFragment.
                 mainView = inflater.inflate(R.layout.fragment_detail_character, container, false);
                 image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
                 break;
-            case Location:
-            case Item:
+            case DataManager.CODE_ITEM:
+            case DataManager.CODE_LOCATION:
                 mainView = inflater.inflate(R.layout.fragment_detail_default, container, false);
                 image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
                 break;
-            case Plot:
+            case DataManager.CODE_PLOT:
                 mainView = inflater.inflate(R.layout.fragment_detail_plot, container, false);
                 break;
             default:
@@ -103,20 +121,39 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             DataManager dataManager = DataManager.getInstance();
             StoryWorld currentWorld = dataManager.getCurrentWorld();
             switch (typeToDisplay) {
-                case Character:
-                    model = new StoryCharacter("", "", currentWorld);
+                case DataManager.CODE_CHARACTER:
+                    StoryCharacter character = new StoryCharacter();
+                    character.setName("");
+                    character.setDescription("");
+                    character.setWorld(currentWorld);
+                    model = character;
                     break;
-                case Location:
-                    model = new StoryLocation("", "", currentWorld);
+                case DataManager.CODE_LOCATION:
+                    StoryLocation location = new StoryLocation();
+                    location.setWorld(currentWorld);
+                    location.setName("");
+                    location.setDescription("");
+                    model = location;
                     break;
-                case Item:
-                    model = new StoryItem("", "", currentWorld);
+                case DataManager.CODE_ITEM:
+                    StoryItem item = new StoryItem();
+                    item.setWorld(currentWorld);
+                    item.setName("");
+                    item.setDescription("");
+                    model = item;
                     break;
-                case Plot:
-                    model = new StoryPlot("", "", currentWorld);
+                case DataManager.CODE_PLOT:
+                    StoryPlot plot = new StoryPlot();
+                    plot.setWorld(currentWorld);
+                    plot.setName("");
+                    plot.setDescription("");
+                    model = plot;
                     break;
-                case None:
-                    model = new StoryWorld("", "");
+                case DataManager.CODE_WORLD:
+                    StoryWorld world = new StoryWorld();
+                    world.setName("");
+                    world.setDescription("");
+                    model = world;
                     break;
             }
         }
@@ -157,13 +194,13 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         {
             if (index == -1)
             {
-                index = DataManager.getInstance().add(model, typeToDisplay);
+                index = DataManager.getInstance().add(model);
                 Timber.tag(getClass().getSimpleName()).d("saved to index- " + index);
                 return;
             }
             else
             {
-                boolean success = DataManager.getInstance().update(model, index, typeToDisplay);
+                boolean success = DataManager.getInstance().update(model, index);
                 Timber.tag(getClass().getSimpleName()).d("updated success - " + success);
             }
         }
@@ -181,7 +218,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
 
     @NonNull
     @Override
-    public WorldPlannerBaseModel getModel() {
+    public StoryElement getModel() {
         return model;
     }
 

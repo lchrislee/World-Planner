@@ -16,7 +16,7 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.adapters.CurrentWorldEntityPagerAdapter;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
+import com.lchrislee.worldplanner.managers.DataManager;
 
 import timber.log.Timber;
 
@@ -59,19 +59,19 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
                 switch(v.getId())
                 {
                     case R.id.fragment_master_fab_character:
-                        requestCode = EntityDetailActivity.REQUEST_CODE_CHARACTER;
+                        requestCode = DataManager.CODE_CHARACTER;
                         break;
                     case R.id.fragment_master_fab_location:
-                        requestCode = EntityDetailActivity.REQUEST_CODE_LOCATION;
+                        requestCode = DataManager.CODE_LOCATION;
                         break;
                     case R.id.fragment_master_fab_item:
-                        requestCode = EntityDetailActivity.REQUEST_CODE_ITEM;
+                        requestCode = DataManager.CODE_ITEM;
                         break;
                     case R.id.fragment_master_fab_plot:
-                        requestCode = EntityDetailActivity.REQUEST_CODE_PLOT;
+                        requestCode = DataManager.CODE_PLOT;
                         break;
                     default:
-                        requestCode = EntityDetailActivity.REQUEST_CODE_WORLD;
+                        requestCode = DataManager.CODE_WORLD;
                 }
                 floatingActionMenu.close(true);
 

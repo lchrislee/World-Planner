@@ -2,20 +2,50 @@ package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * Created by chrisl on 3/26/17.
  */
 
-public class StoryLocation extends StoryElement implements ImportanceRelation.Important {
-    public StoryLocation(@NonNull String title,
-                         @NonNull String description,
-                         @NonNull StoryWorld world) {
-        super(title, description, world);
+public class StoryLocation implements Serializable, StoryElement {
+
+    private StoryWorld world;
+    private String name;
+    private String description;
+
+    public StoryLocation() {
+        name = "";
+        description = "";
     }
 
     @NonNull
     @Override
-    public ImportanceRelation.ImportantType getImportanceType() {
-        return ImportanceRelation.ImportantType.Location;
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
+
+    @NonNull
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(@NonNull String description) {
+        this.description = description;
+    }
+
+    public StoryWorld getWorld() {
+        return world;
+    }
+
+    public void setWorld(StoryWorld world) {
+        this.world = world;
     }
 }

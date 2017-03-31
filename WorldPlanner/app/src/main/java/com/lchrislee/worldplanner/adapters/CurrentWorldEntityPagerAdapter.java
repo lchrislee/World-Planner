@@ -5,25 +5,28 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.lchrislee.worldplanner.fragments.EntityListFragment;
-import com.lchrislee.worldplanner.models.ImportanceRelation;
+import com.lchrislee.worldplanner.managers.DataManager;
 
 /**
  * Created by chrisl on 3/26/17.
  */
 
 public class CurrentWorldEntityPagerAdapter extends FragmentPagerAdapter {
+
+    private static final int TAB_COUNT = 4;
+
     private final EntityListFragment fragments[];
     private final String[] titles;
 
     public CurrentWorldEntityPagerAdapter(FragmentManager fm) {
         super(fm);
-        fragments = new EntityListFragment[ImportanceRelation.IMPORTANT_TYPE_COUNT];
-        fragments[0] = EntityListFragment.newInstance(ImportanceRelation.ImportantType.Character);
-        fragments[1] = EntityListFragment.newInstance(ImportanceRelation.ImportantType.Location);
-        fragments[2] = EntityListFragment.newInstance(ImportanceRelation.ImportantType.Item);
-        fragments[3] = EntityListFragment.newInstance(ImportanceRelation.ImportantType.Plot);
+        fragments = new EntityListFragment[TAB_COUNT];
+        fragments[0] = EntityListFragment.newInstance(DataManager.CODE_CHARACTER);
+        fragments[1] = EntityListFragment.newInstance(DataManager.CODE_LOCATION);
+        fragments[2] = EntityListFragment.newInstance(DataManager.CODE_ITEM);
+        fragments[3] = EntityListFragment.newInstance(DataManager.CODE_PLOT);
 
-        titles = new String[ImportanceRelation.IMPORTANT_TYPE_COUNT];
+        titles = new String[TAB_COUNT];
         titles[0] = "Characters";
         titles[1] = "Locations";
         titles[2] = "Items";
@@ -42,7 +45,7 @@ public class CurrentWorldEntityPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return ImportanceRelation.IMPORTANT_TYPE_COUNT;
+        return TAB_COUNT;
     }
 
 }

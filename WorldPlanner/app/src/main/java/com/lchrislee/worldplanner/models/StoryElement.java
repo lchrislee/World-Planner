@@ -3,19 +3,18 @@ package com.lchrislee.worldplanner.models;
 import android.support.annotation.NonNull;
 
 /**
- * Created by chrisl on 3/29/17.
+ * Created by chrisl on 3/30/17.
  */
 
-public abstract class StoryElement extends WorldPlannerBaseModel {
-
-    private StoryWorld world;
-
-    StoryElement(@NonNull String name, @NonNull String description, StoryWorld world) {
-        super(name, description);
-    }
+public interface StoryElement {
 
     @NonNull
-    public StoryWorld getWorld() {
-        return world;
-    }
+    String getName();
+
+    void setName(@NonNull String name);
+
+    @NonNull
+    String getDescription();
+
+    void setDescription(@NonNull String description);
 }

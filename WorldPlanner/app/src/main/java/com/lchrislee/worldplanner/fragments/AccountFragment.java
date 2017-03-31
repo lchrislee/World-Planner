@@ -10,11 +10,9 @@ import com.lchrislee.worldplanner.R;
 
 public class AccountFragment extends WorldPlannerBaseFragment {
 
-
     public AccountFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
