@@ -35,7 +35,7 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
     {
         CharacterDetailFragment fragment = new CharacterDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(DetailFragment.RELATION_TYPE, DataManager.CODE_CHARACTER);
+        bundle.putInt(DetailFragment.RELATION_TYPE, DataManager.CHARACTER);
         bundle.putSerializable(DATA, object);
         fragment.setArguments(bundle);
         return fragment;

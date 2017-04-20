@@ -42,33 +42,24 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         Intent i = getIntent();
         int requestCode = i.getIntExtra(TYPE, 100);
         Timber.d("request code - " + requestCode);
-        Serializable model = null;
+        Serializable model;
         long index = i.getLongExtra(INDEX, -1);
 
-        switch(requestCode)
+        if (requestCode == DataManager.NOT_WORLD)
         {
-            case DataManager.CODE_CHARACTER:
-                model = DataManager.getInstance().getCharacterAtIndex(index);
-                break;
-            case DataManager.CODE_LOCATION:
-                model = DataManager.getInstance().getLocationAtIndex(index);
-                break;
-            case DataManager.CODE_ITEM:
-                model = DataManager.getInstance().getItemAtIndex(index);
-                break;
-            case DataManager.CODE_PLOT:
-                model = DataManager.getInstance().getPlotAtIndex(index);
-                break;
-            case DataManager.CODE_WORLD:
-                model = DataManager.getInstance().getWorldAtIndex(index);
-                break;
+            model = (Serializable) DataManager.getInstance().getElementAtIndex(index);
+            requestCode = DataManager.getInstance().getElementTypeAtIndex((int) index);
+        }
+        else
+        {
+            model = DataManager.getInstance().getWorldAtIndex(index);
         }
 
         isNewModel = model == null;
         toolbarState = isNewModel ? ToolbarState.Save : ToolbarState.Edit_Delete;
         previousState = toolbarState;
 
-        if (requestCode == DataManager.CODE_CHARACTER)
+        if (requestCode == DataManager.CHARACTER)
         {
             if (isNewModel)
             {

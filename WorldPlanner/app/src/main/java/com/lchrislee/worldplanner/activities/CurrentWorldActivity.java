@@ -150,7 +150,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         {
             switch (requestCode)
             {
-                case DataManager.CODE_WORLD:
+                case DataManager.WORLD:
                     long newWorldIndex = data.getLongExtra(RESULT_CODE_NEW_WORLD_ID, -1);
                     DataManager.getInstance().changeWorldToIndex(newWorldIndex - 1);
                     onWorldSwitch();

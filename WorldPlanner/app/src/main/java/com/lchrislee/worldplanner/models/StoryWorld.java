@@ -7,6 +7,7 @@ import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,9 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
 
     private String name;
     private String description;
+
+    @Ignore
+    private List<StoryElement> allElements;
 
     @Ignore
     private
@@ -112,6 +116,49 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
             return null;
         }
         return allPlots.get((int) index);
+    }
+
+    public int getElementsCount()
+    {
+        if (checkElements())
+        {
+            generateAllElements();
+        }
+        return allElements.size();
+    }
+
+    @Nullable
+    public StoryElement getElementAtIndex(long index)
+    {
+        if (checkElements())
+        {
+            generateAllElements();
+        }
+
+        if (allElements.size() == 0)
+        {
+            return null;
+        }
+        return allElements.get((int) index);
+    }
+
+    protected boolean checkElements()
+    {
+        String idClause[] = new String[]{String.valueOf(getId())};
+        long elementsCount = StoryItem.count(StoryItem.class, "world = ?", idClause);
+        elementsCount += StoryLocation.count(StoryLocation.class, "world = ?", idClause);
+        elementsCount += StoryCharacter.count(StoryCharacter.class, "world = ?", idClause);
+        elementsCount += StoryPlot.count(StoryPlot.class, "world = ?", idClause);
+        return allElements == null || allElements.size() != elementsCount;
+    }
+
+    protected void generateAllElements()
+    {
+        allElements = new ArrayList<>();
+        allElements.addAll(StoryItem.find(StoryItem.class, "world = ?", String.valueOf(getId())));
+        allElements.addAll(StoryLocation.find(StoryLocation.class, "world = ?", String.valueOf(getId())));
+        allElements.addAll(StoryCharacter.find(StoryCharacter.class, "world = ?", String.valueOf(getId())));
+        allElements.addAll(StoryPlot.find(StoryPlot.class, "world = ?", String.valueOf(getId())));
     }
 
 }

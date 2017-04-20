@@ -45,8 +45,8 @@ public class ChangeWorldFragment extends WorldPlannerBaseFragment implements Wor
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), EntityDetailActivity.class);
-                i.putExtra(EntityDetailActivity.TYPE, DataManager.CODE_WORLD);
-                getActivity().startActivityForResult(i, DataManager.CODE_WORLD);
+                i.putExtra(EntityDetailActivity.TYPE, DataManager.WORLD);
+                getActivity().startActivityForResult(i, DataManager.WORLD);
             }
         });
 

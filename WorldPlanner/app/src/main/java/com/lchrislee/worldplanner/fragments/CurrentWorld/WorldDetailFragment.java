@@ -18,7 +18,7 @@ public class WorldDetailFragment extends DetailFragment {
     public static WorldDetailFragment newInstance() {
         WorldDetailFragment fragment = new WorldDetailFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DetailFragment.RELATION_TYPE, DataManager.CODE_WORLD);
+        args.putSerializable(DetailFragment.RELATION_TYPE, DataManager.WORLD);
         args.putSerializable(DetailFragment.DATA, DataManager.getInstance().getCurrentWorld());
         fragment.setArguments(args);
         return fragment;

@@ -73,16 +73,16 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
                              Bundle savedInstanceState) {
         switch (typeToDisplay)
         {
-            case DataManager.CODE_CHARACTER: // Propogate to CharacterDetailFragment.
+            case DataManager.CHARACTER: // Propogate to CharacterDetailFragment.
                 mainView = inflater.inflate(R.layout.fragment_detail_character, container, false);
                 image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
                 break;
-            case DataManager.CODE_ITEM:
-            case DataManager.CODE_LOCATION:
+            case DataManager.ITEM:
+            case DataManager.LOCATION:
                 mainView = inflater.inflate(R.layout.fragment_detail_default, container, false);
                 image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
                 break;
-            case DataManager.CODE_PLOT:
+            case DataManager.PLOT:
                 mainView = inflater.inflate(R.layout.fragment_detail_plot, container, false);
                 break;
             default:
@@ -101,35 +101,35 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             DataManager dataManager = DataManager.getInstance();
             StoryWorld currentWorld = dataManager.getCurrentWorld();
             switch (typeToDisplay) {
-                case DataManager.CODE_CHARACTER:
+                case DataManager.CHARACTER:
                     StoryCharacter character = new StoryCharacter();
                     character.setName("");
                     character.setDescription("");
                     character.setWorld(currentWorld);
                     model = character;
                     break;
-                case DataManager.CODE_LOCATION:
+                case DataManager.LOCATION:
                     StoryLocation location = new StoryLocation();
                     location.setWorld(currentWorld);
                     location.setName("");
                     location.setDescription("");
                     model = location;
                     break;
-                case DataManager.CODE_ITEM:
+                case DataManager.ITEM:
                     StoryItem item = new StoryItem();
                     item.setWorld(currentWorld);
                     item.setName("");
                     item.setDescription("");
                     model = item;
                     break;
-                case DataManager.CODE_PLOT:
+                case DataManager.PLOT:
                     StoryPlot plot = new StoryPlot();
                     plot.setWorld(currentWorld);
                     plot.setName("");
                     plot.setDescription("");
                     model = plot;
                     break;
-                case DataManager.CODE_WORLD:
+                case DataManager.WORLD:
                     StoryWorld world = new StoryWorld();
                     world.setName("");
                     world.setDescription("");
@@ -191,15 +191,15 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         }
         switch(typeToDisplay)
         {
-            case DataManager.CODE_CHARACTER:
+            case DataManager.CHARACTER:
                 return ((StoryCharacter) model).getId();
-            case DataManager.CODE_LOCATION:
+            case DataManager.LOCATION:
                 return ((StoryLocation) model).getId();
-            case DataManager.CODE_ITEM:
+            case DataManager.ITEM:
                 return ((StoryItem) model).getId();
-            case DataManager.CODE_PLOT:
+            case DataManager.PLOT:
                 return ((StoryPlot) model).getId();
-            case DataManager.CODE_WORLD:
+            case DataManager.WORLD:
                 return ((StoryWorld) model).getId();
         }
         return -1;

@@ -20,7 +20,6 @@ public class WorldPlannerApplication extends SugarApp {
     @Override
     public void onCreate() {
         super.onCreate();
-        StoryWorld.last(StoryWorld.class);
         Fabric.with(this, new Crashlytics());
 
         if (BuildConfig.DEBUG)

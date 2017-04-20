@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lchrislee.worldplanner.activities.CurrentWorldActivity;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
@@ -17,158 +16,161 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.views.SimpleDetailView;
 
+import timber.log.Timber;
+
 /**
  * Created by chrisl on 3/27/17.
  */
 
-public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.EntityListViewHolder> {
-
-    class EntityListViewHolder extends RecyclerView.ViewHolder
-    {
-        final TextView name;
-        final TextView description;
-        final ImageView image;
-
-        final TextView trueName;
-        final TextView gender_age;
-        final SimpleDetailView details;
-
-        EntityListViewHolder(View itemView) {
-            super(itemView);
-            name = (TextView) itemView.findViewById(R.id.list_entity_name);
-            description = (TextView) itemView.findViewById(R.id.list_entity_description);
-            image = (ImageView) itemView.findViewById(R.id.list_entity_image);
-            gender_age = (TextView) itemView.findViewById(R.id.list_character_age_gender);
-            trueName = (TextView) itemView.findViewById(R.id.list_character_true_name);
-            details = (SimpleDetailView) itemView.findViewById(R.id.list_item_simple);
-        }
-    }
+public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.DefaultEntityViewHolder> {
 
     private final Context context;
 
-    private final int typeDisplaying;
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(context, EntityDetailActivity.class);
+            i.putExtra(EntityDetailActivity.INDEX, (long) v.getTag());
+            i.putExtra(EntityDetailActivity.TYPE, DataManager.NOT_WORLD);
+            context.startActivity(i);
+        }
+    };
 
-    public EntityListAdapter(int type, Context c) {
-        typeDisplaying = type;
+    public EntityListAdapter(Context c) {
         context = c;
     }
 
     @Override
-    public EntityListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layout;
-        switch(typeDisplaying)
-        {
-            case DataManager.CODE_CHARACTER:
-                layout = R.layout.list_character;
+    public DefaultEntityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Timber.d("onCreateViewHolder View type: " + viewType);
+        DefaultEntityViewHolder holder;
+        switch(viewType) {
+            case DataManager.CHARACTER: {
+                View v = LayoutInflater.from(context).inflate(R.layout.list_character, parent, false);
+                v.setOnClickListener(clickListener);
+                holder = new CharacterViewHolder(v);
+            }
                 break;
-            case DataManager.CODE_LOCATION:
-                layout = R.layout.list_location;
+            case DataManager.ITEM: {
+                View v = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
+                v.setOnClickListener(clickListener);
+                holder = new ItemViewHolder(v);
+            }
                 break;
-            case DataManager.CODE_ITEM:
-                layout = R.layout.list_item;
+            case DataManager.LOCATION: {
+                View v = LayoutInflater.from(context).inflate(R.layout.list_location, parent, false);
+                v.setOnClickListener(clickListener);
+                holder = new ImageEntityViewHolder(v);
+            }
                 break;
-            default: // StoryPlot
-                layout = R.layout.list_plot;
+            case DataManager.PLOT: {
+                View v = LayoutInflater.from(context).inflate(R.layout.list_plot, parent, false);
+                v.setOnClickListener(clickListener);
+                holder = new DefaultEntityViewHolder(v);
+            }
                 break;
+            default:
+                holder = null;
         }
 
-        View v = LayoutInflater.from(context).inflate(layout, parent, false);
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, EntityDetailActivity.class);
-                i.putExtra(EntityDetailActivity.TYPE, typeDisplaying);
-                i.putExtra(EntityDetailActivity.INDEX, (long) v.getTag());
-
-                ((CurrentWorldActivity) context).startActivityForResult(i, typeDisplaying);
-            }
-        });
-        return new EntityListViewHolder(v);
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(EntityListViewHolder holder, int position) {
-        StoryElement obj = null;
-
-        switch(typeDisplaying)
+    public void onBindViewHolder(DefaultEntityViewHolder holder, int position) {
+        StoryElement obj = DataManager.getInstance().getElementAtIndex(position);
+        if (obj == null)
         {
-            case DataManager.CODE_CHARACTER:
-                obj = DataManager.getInstance().getCharacterAtIndex(position);
-                break;
-            case DataManager.CODE_LOCATION:
-                obj = DataManager.getInstance().getLocationAtIndex(position);
-                break;
-            case DataManager.CODE_ITEM:
-                obj = DataManager.getInstance().getItemAtIndex(position);
-                break;
-            case DataManager.CODE_PLOT:
-                obj = DataManager.getInstance().getPlotAtIndex(position);
-                break;
-            case DataManager.CODE_WORLD:
-                obj = DataManager.getInstance().getWorldAtIndex(position);
-                break;
-        }
-
-        holder.itemView.setTag((long) position);
-
-        if (typeDisplaying == DataManager.CODE_ITEM && obj != null)
-        {
-            holder.details.setName(obj.getName());
-            holder.details.setDescription(obj.getDescription());
             return;
         }
+        holder.itemView.setTag((long) position);
 
-        if (holder.description != null && obj != null)
+        switch(holder.getItemViewType())
         {
-            holder.description.setText(obj.getDescription());
-        }
+            case DataManager.CHARACTER: {
+                StoryCharacter proper = (StoryCharacter) obj;
+                holder.name.setText(proper.getNickname());
+                CharacterViewHolder trueHolder = (CharacterViewHolder) holder;
+                trueHolder.trueName.setText(proper.getName());
+                StringBuilder gender_age = new StringBuilder("Age ");
+                gender_age.append(proper.getAge());
+                if (proper.getGender() != null && proper.getGender().length() > 0) {
+                    gender_age.append(", ").append(proper.getGender());
+                }
 
-        if (typeDisplaying == DataManager.CODE_CHARACTER && obj != null)
-        {
-            StoryCharacter proper = (StoryCharacter) obj;
-            holder.name.setText(proper.getNickname());
-            holder.trueName.setText(proper.getName());
-
-            StringBuilder gender_age = new StringBuilder("Age ");
-            gender_age.append(proper.getAge());
-            if (proper.getGender() != null && proper.getGender().length() > 0)
-            {
-                gender_age.append(", ").append(proper.getGender());
-            }
-
-            holder.gender_age.setText(gender_age.toString());
-            if (holder.description != null) {
+                trueHolder.gender_age.setText(gender_age.toString());
                 holder.description.setText(proper.getDescription());
             }
-        }
-        else if (obj != null)
-        {
-            holder.name.setText(obj.getName());
+                break;
+            case DataManager.ITEM: {
+                ItemViewHolder trueHolder = (ItemViewHolder) holder;
+                trueHolder.details.setName(obj.getName());
+                trueHolder.details.setDescription(obj.getDescription());
+            }
+                break;
+            case DataManager.LOCATION: { // Location differs from plot only by image.
+            }
+            case DataManager.PLOT: {
+                holder.name.setText(obj.getName());
+                holder.description.setText(obj.getDescription());
+            }
+                break;
+            default:
         }
     }
 
     @Override
     public int getItemCount() {
-        long size = 0;
-        switch(typeDisplaying)
-        {
-            case DataManager.CODE_CHARACTER:
-                size = DataManager.getInstance().getCountForCharacters();
-                break;
-            case DataManager.CODE_LOCATION:
-                size = DataManager.getInstance().getCountForLocations();
-                break;
-            case DataManager.CODE_ITEM:
-                size = DataManager.getInstance().getCountForItems();
-                break;
-            case DataManager.CODE_PLOT:
-                size = DataManager.getInstance().getCountForPlots();
-                break;
-            case DataManager.CODE_WORLD:
-                size = DataManager.getInstance().getCountForWorlds();
-                break;
+        Timber.d("Count for world: " + DataManager.getInstance().getCountForAllWorldElements());
+        return DataManager.getInstance().getCountForAllWorldElements();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Timber.d("Item view type: " + DataManager.getInstance().getElementTypeAtIndex(position) + " for position: " + position);
+        return DataManager.getInstance().getElementTypeAtIndex(position);
+    }
+
+    class DefaultEntityViewHolder extends RecyclerView.ViewHolder // Plot
+    {
+        final TextView name;
+        final TextView description;
+
+
+        DefaultEntityViewHolder(View itemView) {
+            super(itemView);
+            name = (TextView) itemView.findViewById(R.id.list_entity_name);
+            description = (TextView) itemView.findViewById(R.id.list_entity_description);
         }
-        return (int) size;
+    }
+
+    class ImageEntityViewHolder extends DefaultEntityViewHolder // Location
+    {
+        final ImageView image;
+        ImageEntityViewHolder(View itemView) {
+            super(itemView);
+            image = (ImageView) itemView.findViewById(R.id.list_entity_image);
+        }
+    }
+
+    private class CharacterViewHolder extends ImageEntityViewHolder
+    {
+        final TextView trueName;
+        final TextView gender_age;
+        CharacterViewHolder(View itemView) {
+            super(itemView);
+            trueName = (TextView) itemView.findViewById(R.id.list_character_true_name);
+            gender_age = (TextView) itemView.findViewById(R.id.list_character_age_gender);
+        }
+    }
+
+    private class ItemViewHolder extends DefaultEntityViewHolder
+    {
+        final SimpleDetailView details;
+        ItemViewHolder(View itemView) {
+            super(itemView);
+            details = (SimpleDetailView) itemView.findViewById(R.id.list_item_simple);
+        }
     }
 
 }

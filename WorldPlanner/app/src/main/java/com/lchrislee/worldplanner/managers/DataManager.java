@@ -23,12 +23,13 @@ import timber.log.Timber;
 
 public class DataManager {
 
-    public static final int CODE_WORLD = 100;
-    public static final int CODE_CHARACTER = 200;
-    public static final int CODE_LOCATION = 300;
-    public static final int CODE_ITEM = 400;
-    public static final int CODE_PLOT = 500;
-    public static final int CODE_RELATIONSHIP = 600;
+    public static final int WORLD = 100;
+    public static final int NOT_WORLD = 101;
+    public static final int CHARACTER = 200;
+    public static final int LOCATION = 300;
+    public static final int ITEM = 400;
+    public static final int PLOT = 500;
+    public static final int RELATIONSHIP = 600;
 
     private static DataManager instance;
     private static long currentWorldIndex;
@@ -240,6 +241,17 @@ public class DataManager {
     }
 
     @Nullable
+    public StoryElement getElementAtIndex(long index)
+    {
+        if (index < 0)
+        {
+            return null;
+        }
+        return getCurrentWorld().getElementAtIndex(index);
+    }
+
+
+    @Nullable
     public StoryRelationship getRelationshipForCharacterAtIndex(long characterIndex, long position)
     {
         if (characterIndex < 0 || position < 0)
@@ -268,6 +280,36 @@ public class DataManager {
             changedWorld = true;
             getCurrentWorld();
         }
+    }
+
+    public int getCountForAllWorldElements()
+    {
+        return getCurrentWorld().getElementsCount();
+    }
+
+    public int getElementTypeAtIndex(int index)
+    {
+        StoryElement element = getElementAtIndex(index);
+        if (element != null)
+        {
+            if (element instanceof StoryCharacter)
+            {
+                return CHARACTER;
+            }
+            else if (element instanceof StoryLocation)
+            {
+                return LOCATION;
+            }
+            else if (element instanceof StoryItem)
+            {
+                return ITEM;
+            }
+            else if (element instanceof StoryPlot)
+            {
+                return PLOT;
+            }
+        }
+        return -1;
     }
 
     @Nullable
