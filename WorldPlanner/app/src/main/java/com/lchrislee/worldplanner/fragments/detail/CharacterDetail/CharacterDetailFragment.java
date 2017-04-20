@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments.CharacterDetail;
+package com.lchrislee.worldplanner.fragments.detail.CharacterDetail;
 
 
 import android.graphics.drawable.ColorDrawable;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.fragments.DetailFragment;
+import com.lchrislee.worldplanner.fragments.detail.DetailFragment;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;

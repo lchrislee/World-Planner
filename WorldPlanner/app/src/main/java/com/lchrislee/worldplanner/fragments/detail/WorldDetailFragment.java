@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments.CurrentWorld;
+package com.lchrislee.worldplanner.fragments.detail;
 
 
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lchrislee.worldplanner.fragments.DetailFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 
 public class WorldDetailFragment extends DetailFragment {

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
+import com.lchrislee.worldplanner.fragments.detail.WorldDetailFragment;
 
 public class CurrentWorldFragment extends WorldPlannerBaseFragment {
 

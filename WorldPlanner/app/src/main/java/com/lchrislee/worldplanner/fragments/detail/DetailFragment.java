@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments;
+package com.lchrislee.worldplanner.fragments.detail;
 
 
 import android.graphics.drawable.ColorDrawable;
@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
+import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryCharacter;
@@ -37,8 +39,6 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
     private int typeToDisplay;
     private boolean isNew;
     protected boolean isEditing;
-    private long id;
-
     protected StoryElement model;
 
     public DetailFragment() {
@@ -103,39 +103,30 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             switch (typeToDisplay) {
                 case DataManager.CHARACTER:
                     StoryCharacter character = new StoryCharacter();
-                    character.setName("");
-                    character.setDescription("");
                     character.setWorld(currentWorld);
                     model = character;
                     break;
                 case DataManager.LOCATION:
                     StoryLocation location = new StoryLocation();
                     location.setWorld(currentWorld);
-                    location.setName("");
-                    location.setDescription("");
                     model = location;
                     break;
                 case DataManager.ITEM:
                     StoryItem item = new StoryItem();
                     item.setWorld(currentWorld);
-                    item.setName("");
-                    item.setDescription("");
                     model = item;
                     break;
                 case DataManager.PLOT:
                     StoryPlot plot = new StoryPlot();
                     plot.setWorld(currentWorld);
-                    plot.setName("");
-                    plot.setDescription("");
                     model = plot;
                     break;
                 case DataManager.WORLD:
-                    StoryWorld world = new StoryWorld();
-                    world.setName("");
-                    world.setDescription("");
-                    model = world;
+                    model = new StoryWorld();
                     break;
             }
+            model.setName("");
+            model.setDescription("");
         }
         swapEdit();
         return mainView;
@@ -189,6 +180,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
                 DataManager.getInstance().update(model);
             }
         }
+
         switch(typeToDisplay)
         {
             case DataManager.CHARACTER:

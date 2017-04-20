@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.fragments.CharacterDetail.RelationDetailFragment;
+import com.lchrislee.worldplanner.fragments.detail.CharacterDetail.RelationDetailFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.utility.ToolbarState;
 
