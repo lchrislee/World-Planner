@@ -10,6 +10,13 @@
         />
 
     <item
+        android:id="@+id/menu_world_change"
+        android:icon="@drawable/world_switch"
+        android:title="Change World"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
         android:id="@+id/menu_save"
         android:icon="@android:drawable/ic_menu_save"
         android:name="Save"

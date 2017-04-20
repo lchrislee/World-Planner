@@ -22,7 +22,7 @@ import timber.log.Timber;
  * Created by chrisl on 3/27/17.
  */
 
-public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.DefaultEntityViewHolder> {
+public class StoryElementListAdapter extends RecyclerView.Adapter<StoryElementListAdapter.DefaultEntityViewHolder> {
 
     private final Context context;
 
@@ -36,7 +36,7 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.De
         }
     };
 
-    public EntityListAdapter(Context c) {
+    public StoryElementListAdapter(Context c) {
         context = c;
     }
 
@@ -88,10 +88,19 @@ public class EntityListAdapter extends RecyclerView.Adapter<EntityListAdapter.De
         switch(holder.getItemViewType())
         {
             case DataManager.CHARACTER: {
-                StoryCharacter proper = (StoryCharacter) obj;
-                holder.name.setText(proper.getNickname());
                 CharacterViewHolder trueHolder = (CharacterViewHolder) holder;
-                trueHolder.trueName.setText(proper.getName());
+                StoryCharacter proper = (StoryCharacter) obj;
+                String nickname = proper.getNickname();
+                if (nickname == null || nickname.length() == 0)
+                {
+                    holder.name.setText(proper.getName());
+                    trueHolder.trueName.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    holder.name.setText(nickname);
+                    trueHolder.trueName.setText(proper.getName());
+                }
+
                 StringBuilder gender_age = new StringBuilder("Age ");
                 gender_age.append(proper.getAge());
                 if (proper.getGender() != null && proper.getGender().length() > 0) {

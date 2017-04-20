@@ -17,7 +17,7 @@
             android:foreground="@android:drawable/ic_menu_camera"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:layout_marginBottom="8dp"
             />
 

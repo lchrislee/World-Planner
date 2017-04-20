@@ -15,7 +15,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
-import com.lchrislee.worldplanner.adapters.EntityListAdapter;
+import com.lchrislee.worldplanner.adapters.StoryElementListAdapter;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 
@@ -23,7 +23,7 @@ import timber.log.Timber;
 
 public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
     private FloatingActionMenu floatingActionMenu;
-    private EntityListAdapter adapter;
+    private StoryElementListAdapter adapter;
 
     public CurrentWorldTabFragment() {
         // Required empty public constructor
@@ -40,7 +40,7 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_world_current_tab, container, false);
 
-        adapter = new EntityListAdapter(getActivity());
+        adapter = new StoryElementListAdapter(getActivity());
 
         final RecyclerView list = (RecyclerView) v.findViewById(R.id.fragment_master_list);
         list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

@@ -87,6 +87,7 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle("Details");
         }
     }
 

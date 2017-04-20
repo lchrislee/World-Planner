@@ -1,39 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout android:id="@+id/activity_world_current_drawerlayout"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.lchrislee.worldplanner.activities.CurrentWorldActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        android:orientation="vertical"
+    >
+    <include
+        layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-        <include
-            layout="@layout/toolbar_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-        <FrameLayout
-            android:id="@+id/activity_world_current_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="UnknownIdInLayout"
-            />
-
-    </LinearLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/activity_world_current_navigationview"
-        app:menu="@menu/menu_navigation_world_current"
-        android:background="?attr/colorPrimary"
-        android:layout_gravity="start"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         />
 
-</android.support.v4.widget.DrawerLayout>
+    <FrameLayout
+        android:id="@+id/activity_world_current_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UnknownIdInLayout"
+        />
+
+</LinearLayout>

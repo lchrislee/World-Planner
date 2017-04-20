@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public enum ToolbarState
 {
-    Edit,
+    Edit_Change,
     Edit_Delete,
     Save,
     Empty;
@@ -20,20 +20,23 @@ public enum ToolbarState
         ArrayList<Integer> itemsToHide = new ArrayList<>();
         switch(this)
         {
-            case Edit:
+            case Edit_Change:
                 itemsToHide.add(R.id.menu_save);
                 itemsToHide.add(R.id.menu_delete);
                 break;
             case Edit_Delete:
+                itemsToHide.add(R.id.menu_world_change);
                 itemsToHide.add(R.id.menu_save);
                 break;
             case Save:
                 itemsToHide.add(R.id.menu_edit);
+                itemsToHide.add(R.id.menu_world_change);
                 itemsToHide.add(R.id.menu_delete);
                 break;
             case Empty:
-                itemsToHide.add(R.id.menu_save);
                 itemsToHide.add(R.id.menu_edit);
+                itemsToHide.add(R.id.menu_world_change);
+                itemsToHide.add(R.id.menu_save);
                 itemsToHide.add(R.id.menu_delete);
                 break;
         }
