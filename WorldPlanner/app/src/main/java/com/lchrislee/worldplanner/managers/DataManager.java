@@ -1,5 +1,7 @@
 package com.lchrislee.worldplanner.managers;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -10,12 +12,10 @@ import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
-import com.orm.query.Condition;
-import com.orm.query.Select;
-
-import java.util.List;
 
 import timber.log.Timber;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by chrisl on 3/29/17.
@@ -29,7 +29,9 @@ public class DataManager {
     public static final int LOCATION = 300;
     public static final int ITEM = 400;
     public static final int PLOT = 500;
-    public static final int RELATIONSHIP = 600;
+
+    private static final String MASTER_PREFERENCES = "com.lchrislee.worldplanner.managers.DataManager.PREFERENCES";
+    private static final String SELECTED_WORLD = "DataManager_SELECTED_WORLD";
 
     private static DataManager instance;
     private static long currentWorldIndex;
@@ -51,6 +53,19 @@ public class DataManager {
         if (instance == null) {
             instance = new DataManager();
             currentWorldIndex = 1;
+        }
+        return instance;
+    }
+
+    @NonNull
+    public static synchronized DataManager getInstance(@NonNull Context context)
+    {
+        if (instance == null)
+        {
+            SharedPreferences preferences = context.getSharedPreferences(MASTER_PREFERENCES, MODE_PRIVATE);
+            long worldID = preferences.getLong(SELECTED_WORLD, 0);
+            instance = new DataManager();
+            instance.changeWorldToIndex(worldID);
         }
         return instance;
     }
@@ -168,26 +183,6 @@ public class DataManager {
         }
     }
 
-    public long getCountForCharacters()
-    {
-        return StoryCharacter.count(StoryCharacter.class, "world = ?", new String[]{String.valueOf(currentWorldIndex)});
-    }
-
-    public long getCountForLocations()
-    {
-        return StoryLocation.count(StoryLocation.class, "world = ?", new String[]{String.valueOf(currentWorldIndex)});
-    }
-
-    public long getCountForItems()
-    {
-        return StoryItem.count(StoryItem.class, "world = ?", new String[]{String.valueOf(currentWorldIndex)});
-    }
-
-    public long getCountForPlots()
-    {
-        return StoryPlot.count(StoryPlot.class, "world = ?", new String[]{String.valueOf(currentWorldIndex)});
-    }
-
     public long getCountForWorlds() {
         return StoryWorld.count(StoryWorld.class);
     }
@@ -206,33 +201,6 @@ public class DataManager {
             return null;
         }
         return getCurrentWorld().getCharacterAtIndex(index);
-    }
-
-    @Nullable
-    public StoryLocation getLocationAtIndex(long index)
-    {
-        if (index < 0) {
-            return null;
-        }
-        return getCurrentWorld().getLocationAtIndex(index);
-    }
-
-    @Nullable
-    public StoryItem getItemAtIndex(long index)
-    {
-        if (index < 0) {
-            return null;
-        }
-        return getCurrentWorld().getItemAtIndex(index);
-    }
-
-    @Nullable
-    public StoryPlot getPlotAtIndex(long index)
-    {
-        if (index < 0) {
-            return null;
-        }
-        return getCurrentWorld().getPlotAtIndex(index);
     }
 
     @Nullable
@@ -279,7 +247,7 @@ public class DataManager {
 
     public void changeWorldToIndex(long index) {
         ++index;
-        Timber.d("Switching worlds, there are %d in total.", StoryWorld.count(StoryWorld.class));
+        Timber.d("Switching to world %d, there are %d in total.", index, StoryWorld.count(StoryWorld.class));
         if (index >= 1 && index <= StoryWorld.count(StoryWorld.class)) {
             currentWorldIndex = index;
             changedWorld = true;
@@ -317,9 +285,11 @@ public class DataManager {
         return -1;
     }
 
-    @Nullable
-    public List<StoryCharacter> getCharactersExcept(long index)
+    public void retainSelectedWorld(@NonNull Context context)
     {
-        return Select.from(StoryCharacter.class).where(Condition.prop("id").notEq(index)).list();
+        SharedPreferences preferences = context.getSharedPreferences(MASTER_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong(SELECTED_WORLD, currentWorldIndex - 1);
+        editor.apply();
     }
 }

@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.lchrislee.worldplanner.WorldPlannerApplication;
 import com.lchrislee.worldplanner.fragments.ChangeWorldFragment;
 import com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldFragment;
 import com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldTabFragment;
@@ -130,6 +131,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
         toolbarState = ToolbarState.Edit_Change;
         actionBar.setTitle("Current World");
         supportInvalidateOptionsMenu();
+        DataManager.getInstance().retainSelectedWorld(this);
     }
 
     @Override

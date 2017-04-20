@@ -42,7 +42,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                     case R.id.menu_navigation_world_current_world:
                         if (worldFragment == null)
                         {
-                            worldFragment = WorldDetailFragment.newInstance();
+                            worldFragment = WorldDetailFragment.newInstance(getContext());
                         }
                         frag = worldFragment;
                         tabChangeListener.updateToolbarWorldTabChange(true);
@@ -67,7 +67,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
             }
         });
 
-        worldFragment = WorldDetailFragment.newInstance();
+        worldFragment = WorldDetailFragment.newInstance(getContext());
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.fragment_world_current_frame, worldFragment)
                 .addToBackStack(worldFragment.getClass().getSimpleName())

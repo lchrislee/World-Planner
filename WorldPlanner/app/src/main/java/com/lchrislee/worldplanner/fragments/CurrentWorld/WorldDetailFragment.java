@@ -1,7 +1,9 @@
 package com.lchrislee.worldplanner.fragments.CurrentWorld;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,11 @@ public class WorldDetailFragment extends DetailFragment {
         // Required empty public constructor
     }
 
-    public static WorldDetailFragment newInstance() {
+    public static WorldDetailFragment newInstance(@NonNull Context context) {
         WorldDetailFragment fragment = new WorldDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable(DetailFragment.RELATION_TYPE, DataManager.WORLD);
-        args.putSerializable(DetailFragment.DATA, DataManager.getInstance().getCurrentWorld());
+        args.putSerializable(DetailFragment.DATA, DataManager.getInstance(context).getCurrentWorld());
         fragment.setArguments(args);
         return fragment;
     }
