@@ -57,37 +57,42 @@ public class DataManager {
 
     public long add(@NonNull StoryElement model) {
         Timber.d("Saving model with name: %s and description %s.", model.getName(), model.getDescription());
+        long id;
         if (model instanceof StoryCharacter)
         {
             getCurrentWorld().save();
-            return ((StoryCharacter) model).save();
+            id = ((StoryCharacter) model).save();
         }
         else if (model instanceof StoryLocation)
         {
             getCurrentWorld().save();
-            return ((StoryLocation) model).save();
+            id = ((StoryLocation) model).save();
         }
         else if (model instanceof StoryItem)
         {
             getCurrentWorld().save();
-            return ((StoryItem) model).save();
+            id = ((StoryItem) model).save();
         }
         else if (model instanceof StoryPlot)
         {
             getCurrentWorld().save();
-            return ((StoryPlot) model).save();
+            id = ((StoryPlot) model).save();
         }
         else if (model instanceof StoryWorld)
         {
-            return ((StoryWorld) model).save();
+            id = ((StoryWorld) model).save();
         }
-        else if (model instanceof StoryRelationship)
+        else
         {
-            //TODO FIX Relationships
-            return -1;
+            id = -1;
         }
 
-        return -1;
+        if (!(model instanceof StoryWorld) && id != -1)
+        {
+            getCurrentWorld().insertElement(model);
+        }
+
+        return id;
     }
 
     public void update(@NonNull StoryElement model) {

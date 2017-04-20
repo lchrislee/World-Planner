@@ -38,11 +38,11 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_world_current_tab, container, false);
+        final View v = inflater.inflate(R.layout.fragment_world_current_tab, container, false);
 
-        adapter = new EntityListAdapter(getContext());
+        adapter = new EntityListAdapter(getActivity());
 
-        RecyclerView list = (RecyclerView) v.findViewById(R.id.fragment_master_list);
+        final RecyclerView list = (RecyclerView) v.findViewById(R.id.fragment_master_list);
         list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         list.setAdapter(adapter);
 

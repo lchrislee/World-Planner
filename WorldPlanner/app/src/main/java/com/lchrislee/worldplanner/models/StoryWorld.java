@@ -8,6 +8,7 @@ import com.orm.dsl.Ignore;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -159,6 +160,12 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         allElements.addAll(StoryLocation.find(StoryLocation.class, "world = ?", String.valueOf(getId())));
         allElements.addAll(StoryCharacter.find(StoryCharacter.class, "world = ?", String.valueOf(getId())));
         allElements.addAll(StoryPlot.find(StoryPlot.class, "world = ?", String.valueOf(getId())));
+        Collections.shuffle(allElements);
+    }
+
+    public void insertElement(@NonNull StoryElement element)
+    {
+        allElements.add(0, element);
     }
 
 }
