@@ -40,7 +40,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
 
-    protected static final String RELATION_TYPE = "DETAIL_FRAGMENT_RELATION_TYPE";
+    protected static final String ENTITY_TYPE = "DETAIL_FRAGMENT_ENTITY_TYPE";
     protected static final String DATA = "DETAIL_FRAGMENT_DATA";
 
     private View mainView;
@@ -65,7 +65,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
                                              ) {
         DetailFragment fragment = new DetailFragment();
         Bundle b = new Bundle();
-        b.putInt(RELATION_TYPE, type);
+        b.putInt(ENTITY_TYPE, type);
         b.putSerializable(DATA, object);
         fragment.setArguments(b);
         return fragment;
@@ -76,7 +76,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
-        typeToDisplay = arguments.getInt(RELATION_TYPE);
+        typeToDisplay = arguments.getInt(ENTITY_TYPE);
         model = (StoryElement) arguments.getSerializable(DATA);
         isNew = model == null;
         isEditing = isNew;
@@ -86,26 +86,31 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        switch (typeToDisplay)
+        if (typeToDisplay == DataManager.PLOT)
         {
-            case DataManager.CHARACTER: // Propogate to CharacterDetailFragment.
-                mainView = inflater.inflate(R.layout.fragment_detail_character, container, false);
-                image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
-                break;
-            case DataManager.GROUP:
-            case DataManager.ITEM:
-            case DataManager.LOCATION:
-                mainView = inflater.inflate(R.layout.fragment_detail_default, container, false);
-                image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
-                break;
-            case DataManager.PLOT:
-                mainView = inflater.inflate(R.layout.fragment_detail_plot, container, false);
-                break;
-            default: // World
-                mainView = inflater.inflate(R.layout.fragment_detail_world, container, false);
-                image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
-                break;
+            mainView = inflater.inflate(R.layout.fragment_detail_plot, container, false);
         }
+        else
+        {
+            switch (typeToDisplay)
+            {
+                case DataManager.CHARACTER: // Propagate to CharacterDetailFragment.
+                    mainView = inflater.inflate(R.layout.fragment_detail_character, container, false);
+                    break;
+                case DataManager.GROUP: // Propogate to GroupDetailFragment.
+                    mainView = inflater.inflate(R.layout.fragment_detail_group, container, false);
+                    break;
+                case DataManager.ITEM:
+                case DataManager.LOCATION:
+                    mainView = inflater.inflate(R.layout.fragment_detail_default, container, false);
+                    break;
+                default: // Propagate to WorldDetailFragment.
+                    mainView = inflater.inflate(R.layout.fragment_detail_world, container, false);
+                    break;
+            }
+            image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
+        }
+
         name = (EditText) mainView.findViewById(R.id.fragment_detail_name);
         description = (EditText) mainView.findViewById(R.id.fragment_detail_description);
 
@@ -263,7 +268,8 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
     @Override
     public long editAction()
     {
-        stopEditing();
+        isEditing = !isEditing;
+        swapEdit();
         if (!isEditing)
         {
             if (isNew)
@@ -282,7 +288,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
 
     public void stopEditing()
     {
-        isEditing = !isEditing;
+        isEditing = false;
         swapEdit();
     }
 

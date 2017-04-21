@@ -15,6 +15,7 @@ public class StoryGroup extends SugarRecord implements Serializable, StoryElemen
     private String name;
     private String description;
     private String imagePath; // In SugarORM: image_path;
+    private int size;
 
     private StoryWorld world;
 
@@ -64,5 +65,13 @@ public class StoryGroup extends SugarRecord implements Serializable, StoryElemen
 
     public void setWorld(StoryWorld world) {
         this.world = world;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

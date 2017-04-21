@@ -1,6 +1,5 @@
 package com.lchrislee.worldplanner.fragments.detail.CharacterDetail;
 
-
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -35,15 +34,14 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
     {
         CharacterDetailFragment fragment = new CharacterDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(DetailFragment.RELATION_TYPE, DataManager.CHARACTER);
+        bundle.putInt(DetailFragment.ENTITY_TYPE, DataManager.CHARACTER);
         bundle.putSerializable(DATA, object);
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View mainView = super.onCreateView(inflater, container, savedInstanceState);
         if (mainView != null) {
@@ -114,8 +112,4 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
         }
     }
 
-    @Override
-    public long editAction() {
-        return super.editAction();
-    }
 }

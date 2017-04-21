@@ -34,7 +34,7 @@ public class WorldDetailFragment extends DetailFragment {
     public static WorldDetailFragment newInstance(@NonNull Context context) {
         WorldDetailFragment fragment = new WorldDetailFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DetailFragment.RELATION_TYPE, DataManager.WORLD);
+        args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.WORLD);
         args.putSerializable(DetailFragment.DATA, DataManager.getInstance(context).getCurrentWorld());
         fragment.setArguments(args);
         return fragment;
@@ -43,7 +43,7 @@ public class WorldDetailFragment extends DetailFragment {
     public static WorldDetailFragment newInstance() {
         WorldDetailFragment fragment = new WorldDetailFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DetailFragment.RELATION_TYPE, DataManager.WORLD);
+        args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.WORLD);
         args.putSerializable(DetailFragment.DATA, null);
         fragment.setArguments(args);
         return fragment;
@@ -98,15 +98,6 @@ public class WorldDetailFragment extends DetailFragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == DataManager.PLOT)
-        {
-            isEditing = true;
-        }
-    }
-
-    @Override
     protected void swapEdit() {
         if (isEditing)
         {
@@ -138,8 +129,4 @@ public class WorldDetailFragment extends DetailFragment {
         super.swapEdit();
     }
 
-    @Override
-    public long editAction() {
-        return super.editAction();
-    }
 }

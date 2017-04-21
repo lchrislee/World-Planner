@@ -145,7 +145,7 @@ public class DataManager extends WorldPlannerBaseManager{
         }
         else if (model instanceof SugarRecord)
         {
-            ((StoryPlot) model).delete();
+            ((SugarRecord) model).delete();
             getCurrentWorld().save();
         }
     }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.adapters.viewholders.CharacterViewHolder;
 import com.lchrislee.worldplanner.adapters.viewholders.DefaultEntityViewHolder;
+import com.lchrislee.worldplanner.adapters.viewholders.GroupViewHolder;
 import com.lchrislee.worldplanner.adapters.viewholders.ItemViewHolder;
 import com.lchrislee.worldplanner.managers.BitmapManager;
 import com.lchrislee.worldplanner.managers.DataManager;
@@ -64,7 +65,12 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
                 holder = new DefaultEntityViewHolder(v);
             }
                 break;
-            case DataManager.GROUP:
+            case DataManager.GROUP:{
+                View v = LayoutInflater.from(context).inflate(R.layout.list_group, parent, false);
+                v.setOnClickListener(clickListener);
+                holder = new GroupViewHolder(v);
+            }
+            break;
             case DataManager.ITEM: {
                 View v = LayoutInflater.from(context).inflate(R.layout.list_default, parent, false);
                 v.setOnClickListener(clickListener);
@@ -128,22 +134,24 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
             }
                 break;
             case DataManager.GROUP:{
-                ItemViewHolder trueHolder = (ItemViewHolder) holder;
-                trueHolder.details.setName(obj.getName());
-                trueHolder.details.setDescription(obj.getDescription());
                 StoryGroup proper = (StoryGroup) obj;
-                String imagePath = proper.getImage();
+                GroupViewHolder trueHolder = (GroupViewHolder) holder;
+                trueHolder.name.setText(proper.getName());
+                trueHolder.description.setText(proper.getDescription());
+                String size = "Size: " + proper.getSize();
+                trueHolder.size.setText(size);
 
+                String imagePath = proper.getImage();
                 if (imagePath.length() > 0) {
                     Bitmap bitmap = BitmapManager.getInstance().loadBitmapFromFile(
                             context,
                             imagePath,
                             BitmapManager.ResizeType.LIST_DEFAULT);
-                    trueHolder.details.setImage(bitmap);
+                    trueHolder.image.setImageBitmap(bitmap);
                 }
                 else
                 {
-                    trueHolder.details.setImage((Bitmap) null);
+                    trueHolder.image.setImageBitmap(null);
                 }
             }
             break;
