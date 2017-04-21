@@ -9,8 +9,6 @@ import android.util.TypedValue;
 
 import com.lchrislee.worldplanner.R;
 
-import timber.log.Timber;
-
 /**
  * Created by chrisl on 4/21/17.
  */
@@ -23,6 +21,7 @@ public class BitmapManager extends WorldPlannerBaseManager {
         LIST_CHARACTER,
         LIST_LOCATION,
         LIST_ITEM,
+        LIST_WORLD,
         DETAIL
     }
 
@@ -59,7 +58,7 @@ public class BitmapManager extends WorldPlannerBaseManager {
         switch(type)
         {
             case RAW:
-                return raw;
+                return Bitmap.createScaledBitmap(raw, raw.getWidth() / 2, raw.getHeight() / 2, true);
             case LIST_CHARACTER:
                 heightID = R.dimen.height_list_character;
                 break;
@@ -71,6 +70,9 @@ public class BitmapManager extends WorldPlannerBaseManager {
                         context.getResources().getDimension(R.dimen.width_simple_image),
                         context.getResources().getDisplayMetrics());
                 heightID = R.dimen.height_simple_image;
+                break;
+            case LIST_WORLD:
+                heightID = R.dimen.height_list_world;
                 break;
             case DETAIL:
                 heightID = R.dimen.height_detail_image;
@@ -99,7 +101,8 @@ public class BitmapManager extends WorldPlannerBaseManager {
         {
             scaleWidth = raw.getWidth();
         }
+        raw = Bitmap.createBitmap(raw, offsetX, offsetY, scaleWidth, scaleHeight);
 
-        return Bitmap.createBitmap(raw, offsetX, offsetY, scaleWidth, scaleHeight);
+        return Bitmap.createScaledBitmap(raw, scaleWidth / 2, scaleHeight / 2, true);
     }
 }

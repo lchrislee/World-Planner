@@ -1,6 +1,7 @@
 package com.lchrislee.worldplanner.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.managers.BitmapManager;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
@@ -64,6 +66,19 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.Worl
         if (world != null) {
             holder.name.setText(world.getName());
             holder.description.setText(world.getDescription());
+            String file = world.getImage();
+            if (file.length() > 0) {
+                Bitmap bitmap = BitmapManager.getInstance().loadBitmapFromFile(
+                        context,
+                        file,
+                        BitmapManager.ResizeType.LIST_WORLD
+                );
+                holder.image.setImageBitmap(bitmap);
+            }
+            else
+            {
+                holder.image.setImageBitmap(null);
+            }
             holder.itemView.setTag((long) position);
         }
     }

@@ -119,6 +119,10 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
                             BitmapManager.ResizeType.LIST_CHARACTER);
                     trueHolder.image.setImageBitmap(bitmap);
                 }
+                else
+                {
+                    trueHolder.image.setImageBitmap(null);
+                }
             }
                 break;
             case DataManager.ITEM: {
@@ -135,6 +139,10 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
                             BitmapManager.ResizeType.LIST_ITEM);
                     trueHolder.details.setImage(bitmap);
                 }
+                else
+                {
+                    trueHolder.details.setImage((Bitmap) null);
+                }
             }
                 break;
             case DataManager.LOCATION: {
@@ -150,6 +158,10 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
                             imagePath,
                             BitmapManager.ResizeType.LIST_LOCATION);
                     trueHolder.image.setImageBitmap(bitmap);
+                }
+                else
+                {
+                    trueHolder.image.setImageBitmap(null);
                 }
             }
                 break;

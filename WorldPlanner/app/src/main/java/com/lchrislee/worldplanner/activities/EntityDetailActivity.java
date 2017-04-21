@@ -13,6 +13,7 @@ import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.detail.DetailFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.fragments.detail.WorldDetailFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.utility.ToolbarState;
@@ -74,6 +75,10 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 fragment = CharacterTabFragment.newInstance(model);
                 ((CharacterTabFragment) fragment).setListener(this);
             }
+        }
+        else if (requestCode == DataManager.WORLD)
+        {
+            fragment = WorldDetailFragment.newInstance();
         }
         else
         {

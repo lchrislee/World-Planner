@@ -98,8 +98,9 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             case DataManager.PLOT:
                 mainView = inflater.inflate(R.layout.fragment_detail_plot, container, false);
                 break;
-            default:
+            default: // World
                 mainView = inflater.inflate(R.layout.fragment_detail_world, container, false);
+                image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
                 break;
         }
         name = (EditText) mainView.findViewById(R.id.fragment_detail_name);

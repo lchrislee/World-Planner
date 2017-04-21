@@ -13,7 +13,7 @@
 
         <ImageView
             android:id="@+id/fragment_detail_image"
-            android:background="@android:drawable/ic_menu_camera"
+            android:background="@color/colorImageBackground"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_detail_image"

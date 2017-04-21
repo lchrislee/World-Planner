@@ -5,21 +5,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.adapters.StoryPlotListAdapter;
 import com.lchrislee.worldplanner.managers.DataManager;
 
+import java.io.Serializable;
+
+import timber.log.Timber;
+
 public class WorldDetailFragment extends DetailFragment {
 
     private StoryPlotListAdapter adapter;
+    private TextView listPrompt;
     private ImageView addPlot;
     private RecyclerView list;
 
@@ -36,6 +43,15 @@ public class WorldDetailFragment extends DetailFragment {
         return fragment;
     }
 
+    public static WorldDetailFragment newInstance() {
+        WorldDetailFragment fragment = new WorldDetailFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(DetailFragment.RELATION_TYPE, DataManager.WORLD);
+        args.putSerializable(DetailFragment.DATA, null);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +63,8 @@ public class WorldDetailFragment extends DetailFragment {
             list = (RecyclerView) mainView.findViewById(R.id.fragment_detail_world_plots);
             list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
             list.setAdapter(adapter);
+
+            listPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_world_plot_prompt);
 
             addPlot = (ImageView) mainView.findViewById(R.id.fragment_detail_world_plot_add);
             addPlot.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +84,7 @@ public class WorldDetailFragment extends DetailFragment {
 
     @Override
     public void onResume() {
+        Timber.d("onResume start");
         if (model != null)
         {
             if (adapter != null)
@@ -94,29 +113,20 @@ public class WorldDetailFragment extends DetailFragment {
     protected void swapEdit() {
         if (isEditing)
         {
-            if (addPlot != null) {
-                if (isNew) {
-                    addPlot.setVisibility(View.GONE);
-                }
-                else {
-                    addPlot.setVisibility(View.VISIBLE);
-                }
-            }
-
             if (list != null)
             {
                 if (isNew)
                 {
+                    addPlot.setVisibility(View.GONE);
                     list.setVisibility(View.GONE);
+                    listPrompt.setVisibility(View.GONE);
                 }
                 else
                 {
+                    addPlot.setVisibility(View.VISIBLE);
                     list.setVisibility(View.VISIBLE);
+                    listPrompt.setVisibility(View.VISIBLE);
                 }
-            }
-
-            if (adapter != null) {
-                adapter.setDetailable(false);
             }
         }
         else
@@ -124,9 +134,10 @@ public class WorldDetailFragment extends DetailFragment {
             if (addPlot != null) {
                 addPlot.setVisibility(View.GONE);
             }
-            if (adapter != null) {
-                adapter.setDetailable(true);
-            }
+        }
+
+        if (adapter != null) {
+            adapter.setDetailable(!isEditing);
         }
         super.swapEdit();
     }

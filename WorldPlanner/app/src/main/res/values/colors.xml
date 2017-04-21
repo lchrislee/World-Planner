@@ -5,7 +5,8 @@
     <color name="colorAccent">#2E7D32</color> <!-- Green 800 -->
     <color name="colorAccentLight">#66BB6A</color> <!-- Green 400 -->
     <color name="colorAccentDark">#1B5E20</color> <!-- Green 900 -->
-    <color name="colorBackground">#EEEEEE</color>
+    <color name="colorBackground">#E3F2FD</color> <!-- Blue 50-->
+    <color name="colorImageBackground">#90CAF9</color> <!-- Blue 200-->
     <color name="colorBackgroundDark">#223057</color>
     <color name="colorForeground">#090619</color>
     <color name="colorTextPrimary">#111111</color>
