@@ -32,7 +32,7 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
 
     private final Context context;
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
+    private final View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent i = new Intent(context, EntityDetailActivity.class);

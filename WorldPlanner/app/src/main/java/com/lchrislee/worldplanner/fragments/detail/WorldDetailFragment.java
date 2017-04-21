@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,8 +17,6 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.adapters.StoryPlotListAdapter;
 import com.lchrislee.worldplanner.managers.DataManager;
-
-import java.io.Serializable;
 
 import timber.log.Timber;
 

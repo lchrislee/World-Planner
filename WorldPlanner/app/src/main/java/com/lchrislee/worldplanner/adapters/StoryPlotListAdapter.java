@@ -20,7 +20,7 @@ import com.lchrislee.worldplanner.models.StoryElement;
 
 public class StoryPlotListAdapter extends RecyclerView.Adapter<DefaultEntityViewHolder>
 {
-    private Context context;
+    private final Context context;
     private boolean isDetailable;
 
     public StoryPlotListAdapter(@NonNull Context context) {

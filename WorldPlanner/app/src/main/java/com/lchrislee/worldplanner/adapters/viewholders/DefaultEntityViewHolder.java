@@ -2,11 +2,9 @@ package com.lchrislee.worldplanner.adapters.viewholders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.views.SimpleDetailView;
 
 /**
  * Created by chrisl on 4/20/17.

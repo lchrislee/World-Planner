@@ -1,12 +1,10 @@
 package com.lchrislee.worldplanner;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.lchrislee.worldplanner.models.StoryWorld;
 import com.orm.SugarApp;
 
 import io.fabric.sdk.android.Fabric;
