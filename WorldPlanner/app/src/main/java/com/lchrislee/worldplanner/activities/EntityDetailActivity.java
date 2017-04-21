@@ -33,6 +33,7 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
     private ToolbarState previousState;
 
     private boolean isNewModel;
+    private int requestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,16 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         setContentView(R.layout.activity_entity_detail);
 
         Intent i = getIntent();
-        int requestCode = i.getIntExtra(TYPE, 100);
+        requestCode = i.getIntExtra(TYPE, 100);
         Timber.d("request code - " + requestCode);
         Serializable model;
         long index = i.getLongExtra(INDEX, -1);
 
-        if (requestCode == DataManager.NOT_WORLD)
+        if (requestCode == DataManager.PLOT)
+        {
+            model = DataManager.getInstance().getPlotAtIndex(index);
+        }
+        else if (requestCode == DataManager.NOT_WORLD)
         {
             model = (Serializable) DataManager.getInstance().getElementAtIndex(index);
             requestCode = DataManager.getInstance().getElementTypeAtIndex((int) index);
@@ -75,20 +80,7 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
             fragment = DetailFragment.newInstance(requestCode, model);
         }
 
-        getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment).commit();
-
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-        {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("Details");
-        }
+        setupToolbar();
     }
 
     @Override
@@ -116,7 +108,12 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 if (isNewModel)
                 {
                     Intent i = new Intent();
-                    i.putExtra(CurrentWorldActivity.RESULT_CODE_NEW_WORLD_ID, id);
+                    if (requestCode == DataManager.PLOT) {
+                        i.putExtra(CurrentWorldActivity.RESULT_CODE_NEW_PLOT, id);
+                    }
+                    else {
+                        i.putExtra(CurrentWorldActivity.RESULT_CODE_NEW_WORLD_ID, id);
+                    }
                     setResult(RESULT_OK, i);
                     finish();
                     return true;
@@ -140,4 +137,23 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         toolbarState = ((CharacterTabFragment) fragment).isShowingDetails() ? ToolbarState.Edit_Delete : ToolbarState.Empty;
         supportInvalidateOptionsMenu();
     }
+
+    private void setupToolbar()
+    {
+        getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment).commit();
+
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+        {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle("Details");
+        }
+    }
+
 }

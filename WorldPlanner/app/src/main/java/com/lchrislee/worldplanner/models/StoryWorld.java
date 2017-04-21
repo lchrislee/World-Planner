@@ -26,12 +26,7 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
     @Ignore
     private
     List<StoryCharacter> allCharacters;
-    @Ignore
-    private
-    List<StoryLocation> allLocations;
-    @Ignore
-    private
-    List<StoryItem> allItems;
+
     @Ignore
     private
     List<StoryPlot> allPlots;
@@ -40,8 +35,6 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         name = "";
         description = "";
         allCharacters = null;
-        allLocations = null;
-        allItems = null;
         allPlots = null;
     }
 
@@ -80,31 +73,6 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         return allCharacters.get((int) index);
     }
 
-    @Nullable
-    public StoryLocation getLocationAtIndex(long index)
-    {
-        if (allLocations == null || allLocations.size() != StoryLocation.count(StoryLocation.class)) {
-            allLocations = StoryLocation.find(StoryLocation.class, "world = ?", String.valueOf(getId()));
-        }
-        if (allLocations.size() == 0)
-        {
-            return null;
-        }
-        return allLocations.get((int) index);
-    }
-
-    @Nullable
-    public StoryItem getItemAtIndex(long index)
-    {
-        if (allItems == null || allItems.size() != StoryItem.count(StoryItem.class)) {
-            allItems = StoryItem.find(StoryItem.class, "world = ?", String.valueOf(getId()));
-        }
-        if (allItems.size() == 0)
-        {
-            return null;
-        }
-        return allItems.get((int) index);
-    }
 
     @Nullable
     public StoryPlot getPlotAtIndex(long index)
@@ -117,6 +85,14 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
             return null;
         }
         return allPlots.get((int) index);
+    }
+
+    public int getPlotCount()
+    {
+        if (allPlots == null || allPlots.size() != StoryPlot.count(StoryPlot.class)) {
+            allPlots = StoryPlot.find(StoryPlot.class, "world = ?", String.valueOf(getId()));
+        }
+        return allPlots.size();
     }
 
     public int getElementsCount()
@@ -149,7 +125,6 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         long elementsCount = StoryItem.count(StoryItem.class, "world = ?", idClause);
         elementsCount += StoryLocation.count(StoryLocation.class, "world = ?", idClause);
         elementsCount += StoryCharacter.count(StoryCharacter.class, "world = ?", idClause);
-        elementsCount += StoryPlot.count(StoryPlot.class, "world = ?", idClause);
         return allElements == null || allElements.size() != elementsCount;
     }
 
@@ -159,7 +134,6 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         allElements.addAll(StoryItem.find(StoryItem.class, "world = ?", String.valueOf(getId())));
         allElements.addAll(StoryLocation.find(StoryLocation.class, "world = ?", String.valueOf(getId())));
         allElements.addAll(StoryCharacter.find(StoryCharacter.class, "world = ?", String.valueOf(getId())));
-        allElements.addAll(StoryPlot.find(StoryPlot.class, "world = ?", String.valueOf(getId())));
         Collections.shuffle(allElements);
     }
 

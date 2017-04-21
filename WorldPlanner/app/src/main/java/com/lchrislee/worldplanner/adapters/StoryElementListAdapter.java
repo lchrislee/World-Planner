@@ -6,15 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
+import com.lchrislee.worldplanner.adapters.viewholders.CharacterViewHolder;
+import com.lchrislee.worldplanner.adapters.viewholders.ImageEntityViewHolder;
+import com.lchrislee.worldplanner.adapters.viewholders.ItemViewHolder;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryElement;
-import com.lchrislee.worldplanner.views.SimpleDetailView;
+import com.lchrislee.worldplanner.adapters.viewholders.DefaultEntityViewHolder;
 
 import timber.log.Timber;
 
@@ -22,7 +23,7 @@ import timber.log.Timber;
  * Created by chrisl on 3/27/17.
  */
 
-public class StoryElementListAdapter extends RecyclerView.Adapter<StoryElementListAdapter.DefaultEntityViewHolder> {
+public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityViewHolder> {
 
     private final Context context;
 
@@ -61,12 +62,6 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<StoryElementLi
                 View v = LayoutInflater.from(context).inflate(R.layout.list_location, parent, false);
                 v.setOnClickListener(clickListener);
                 holder = new ImageEntityViewHolder(v);
-            }
-                break;
-            case DataManager.PLOT: {
-                View v = LayoutInflater.from(context).inflate(R.layout.list_plot, parent, false);
-                v.setOnClickListener(clickListener);
-                holder = new DefaultEntityViewHolder(v);
             }
                 break;
             default:
@@ -117,9 +112,7 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<StoryElementLi
                 trueHolder.details.setDescription(obj.getDescription());
             }
                 break;
-            case DataManager.LOCATION: { // Location differs from plot only by image.
-            }
-            case DataManager.PLOT: {
+            case DataManager.LOCATION: {
                 holder.name.setText(obj.getName());
                 holder.description.setText(obj.getDescription());
             }
@@ -138,48 +131,6 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<StoryElementLi
     public int getItemViewType(int position) {
         Timber.d("Item view type: " + DataManager.getInstance().getElementTypeAtIndex(position) + " for position: " + position);
         return DataManager.getInstance().getElementTypeAtIndex(position);
-    }
-
-    class DefaultEntityViewHolder extends RecyclerView.ViewHolder // Plot
-    {
-        final TextView name;
-        final TextView description;
-
-
-        DefaultEntityViewHolder(View itemView) {
-            super(itemView);
-            name = (TextView) itemView.findViewById(R.id.list_entity_name);
-            description = (TextView) itemView.findViewById(R.id.list_entity_description);
-        }
-    }
-
-    class ImageEntityViewHolder extends DefaultEntityViewHolder // Location
-    {
-        final ImageView image;
-        ImageEntityViewHolder(View itemView) {
-            super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.list_entity_image);
-        }
-    }
-
-    private class CharacterViewHolder extends ImageEntityViewHolder
-    {
-        final TextView trueName;
-        final TextView gender_age;
-        CharacterViewHolder(View itemView) {
-            super(itemView);
-            trueName = (TextView) itemView.findViewById(R.id.list_character_true_name);
-            gender_age = (TextView) itemView.findViewById(R.id.list_character_age_gender);
-        }
-    }
-
-    private class ItemViewHolder extends DefaultEntityViewHolder
-    {
-        final SimpleDetailView details;
-        ItemViewHolder(View itemView) {
-            super(itemView);
-            details = (SimpleDetailView) itemView.findViewById(R.id.list_item_simple);
-        }
     }
 
 }

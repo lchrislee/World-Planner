@@ -102,7 +102,7 @@ public class DataManager {
             id = -1;
         }
 
-        if (!(model instanceof StoryWorld) && id != -1)
+        if (!(model instanceof StoryWorld) && !(model instanceof StoryPlot) && id != -1)
         {
             getCurrentWorld().insertElement(model);
         }
@@ -183,6 +183,11 @@ public class DataManager {
         }
     }
 
+    public int getCountForPlots()
+    {
+        return currentWorld.getPlotCount();
+    }
+
     public long getCountForWorlds() {
         return StoryWorld.count(StoryWorld.class);
     }
@@ -200,7 +205,17 @@ public class DataManager {
         {
             return null;
         }
-        return getCurrentWorld().getCharacterAtIndex(index);
+        return currentWorld.getCharacterAtIndex(index);
+    }
+
+    @Nullable
+    public StoryPlot getPlotAtIndex(long index)
+    {
+        if (index < 0)
+        {
+            return null;
+        }
+        return currentWorld.getPlotAtIndex(index);
     }
 
     @Nullable
@@ -220,7 +235,7 @@ public class DataManager {
         {
             return null;
         }
-        return getCurrentWorld().getElementAtIndex(index);
+        return currentWorld.getElementAtIndex(index);
     }
 
 

@@ -83,9 +83,6 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
                     case R.id.fragment_master_fab_item:
                         requestCode = DataManager.ITEM;
                         break;
-                    case R.id.fragment_master_fab_plot:
-                        requestCode = DataManager.PLOT;
-                        break;
                     default:
                         requestCode = DataManager.WORLD;
                 }
@@ -103,8 +100,6 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
         location.setOnClickListener(toDetail);
         final FloatingActionButton item = (FloatingActionButton) v.findViewById(R.id.fragment_master_fab_item);
         item.setOnClickListener(toDetail);
-        final FloatingActionButton plot = (FloatingActionButton) v.findViewById(R.id.fragment_master_fab_plot);
-        plot.setOnClickListener(toDetail);
     }
 
 }
