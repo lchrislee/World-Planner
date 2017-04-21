@@ -1,6 +1,7 @@
 package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.orm.SugarRecord;
 
@@ -15,10 +16,12 @@ public class StoryLocation extends SugarRecord implements Serializable, StoryEle
     private StoryWorld world;
     private String name;
     private String description;
+    private String imagePath; // In SugarORM, image_path
 
     public StoryLocation() {
         name = "";
         description = "";
+        imagePath = "";
     }
 
     @NonNull
@@ -49,5 +52,17 @@ public class StoryLocation extends SugarRecord implements Serializable, StoryEle
 
     public void setWorld(StoryWorld world) {
         this.world = world;
+    }
+
+    @NonNull
+    @Override
+    public String getImage() {
+        return imagePath;
+    }
+
+    @Override
+    public boolean setImage(@NonNull String path) {
+        imagePath = path;
+        return true;
     }
 }

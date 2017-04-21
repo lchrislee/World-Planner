@@ -1,8 +1,13 @@
 package com.lchrislee.worldplanner.fragments.detail;
 
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +20,7 @@ import android.widget.ImageView;
 
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
+import com.lchrislee.worldplanner.managers.CameraManager;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryCharacter;
@@ -25,6 +31,10 @@ import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
+
+import timber.log.Timber;
+
+import static android.app.Activity.RESULT_OK;
 
 public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
 
@@ -38,8 +48,10 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
 
     private int typeToDisplay;
     private boolean isNew;
+    private boolean haveCameraPermissions = false;
     protected boolean isEditing;
     protected StoryElement model;
+    protected View.OnClickListener imageClickListener;
 
     public DetailFragment() {
         super();
@@ -66,6 +78,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         model = (StoryElement) arguments.getSerializable(DATA);
         isNew = model == null;
         isEditing = isNew;
+        setupImageListener();
     }
 
     @Override
@@ -129,7 +142,58 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             model.setDescription("");
         }
         swapEdit();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (isNew) {
+                requestCameraPermissions();
+            }
+        }
+        else
+        {
+            haveCameraPermissions = true;
+        }
+
         return mainView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK)
+        {
+            if (requestCode == CameraManager.REQUEST_CAPTURE_IMAGE)
+            {
+                String photoPath = CameraManager.getInstance().getLastPath();
+                Timber.d("Returning from image capture with path: %s", photoPath);
+                if (model.getImage().length() > 0)
+                {
+                    CameraManager.getInstance().deleteImage(model.getImage());
+                }
+                model.setImage(photoPath);
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (image != null)
+        {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestCameraPermissions();
+            }
+
+            String path = model.getImage();
+            if (path.length() > 0)
+            {
+                Timber.d("New image path is: %s", path);
+                image.setImageBitmap(BitmapFactory.decodeFile(path));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    image.setForeground(null);
+                }
+            }
+        }
     }
 
     protected void swapEdit()
@@ -139,6 +203,15 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             Drawable editBackground = ContextCompat.getDrawable(getContext(), android.R.drawable.edit_text);
             name.setBackground(editBackground);
             description.setBackground(editBackground);
+            if (image != null)
+            {
+                Timber.d("Can click image");
+                image.setOnClickListener(imageClickListener);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    image.setForeground(ContextCompat.getDrawable(getContext(), android.R.drawable.ic_menu_camera));
+                }
+            }
         }
         else
         {
@@ -146,6 +219,14 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             ColorDrawable background = new ColorDrawable(transparent);
             name.setBackground(background);
             description.setBackground(background);
+            if (image != null)
+            {
+                Timber.d("Can NOT click image");
+                image.setOnClickListener(null);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    image.setForeground(null);
+                }
+            }
         }
 
         name.setFocusable(isEditing);
@@ -203,4 +284,54 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         return model;
     }
 
+    protected void setupImageListener()
+    {
+        imageClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (haveCameraPermissions) {
+                    CameraManager.getInstance().requestImageCapture(DetailFragment.this, typeToDisplay);
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CameraManager.REQUEST_CAPTURE_IMAGE)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[2] == PackageManager.PERMISSION_GRANTED)
+            {
+                haveCameraPermissions = true;
+            }
+        }
+    }
+
+    protected void requestCameraPermissions()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                    PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) !=
+                    PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                    PackageManager.PERMISSION_GRANTED)
+            {
+                requestPermissions(
+                        new String[]{
+                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            android.Manifest.permission.CAMERA
+                            },
+                        CameraManager.REQUEST_CAPTURE_IMAGE);
+            }
+            else
+            {
+                haveCameraPermissions = true;
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.orm.SugarRecord;
 
@@ -41,6 +42,17 @@ public class StoryPlot extends SugarRecord implements Serializable, StoryElement
     @Override
     public void setDescription(@NonNull String description) {
         this.description = description;
+    }
+
+    @NonNull
+    @Override
+    public String getImage() {
+        return null;
+    }
+
+    @Override
+    public boolean setImage(@NonNull String path) {
+        return false;
     }
 
     public StoryWorld getWorld() {

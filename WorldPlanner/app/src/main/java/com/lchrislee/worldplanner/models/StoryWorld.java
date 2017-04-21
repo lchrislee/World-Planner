@@ -19,6 +19,7 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
 
     private String name;
     private String description;
+    private String imagePath; // In SugarORM: image_path
 
     @Ignore
     private List<StoryElement> allElements;
@@ -36,6 +37,7 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         description = "";
         allCharacters = null;
         allPlots = null;
+        imagePath = "";
     }
 
     @NonNull
@@ -58,6 +60,18 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
     @Override
     public void setDescription(@NonNull String description) {
         this.description = description;
+    }
+
+    @NonNull
+    @Override
+    public String getImage() {
+        return imagePath;
+    }
+
+    @Override
+    public boolean setImage(@NonNull String path) {
+        imagePath = path;
+        return true;
     }
 
     @Nullable

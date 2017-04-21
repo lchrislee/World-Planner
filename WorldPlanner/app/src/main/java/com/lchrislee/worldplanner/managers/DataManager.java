@@ -21,7 +21,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by chrisl on 3/29/17.
  */
 
-public class DataManager {
+public class DataManager extends WorldPlannerBaseManager{
 
     public static final int WORLD = 100;
     public static final int NOT_WORLD = 101;
@@ -136,6 +136,19 @@ public class DataManager {
         {
             // TODO FIX Relationship
             return;
+        }
+    }
+
+    public void setImage(@NonNull StoryElement model, @Nullable String path)
+    {
+        if (path == null)
+        {
+            return;
+        }
+
+        if (model.setImage(path))
+        {
+            update(model);
         }
     }
 

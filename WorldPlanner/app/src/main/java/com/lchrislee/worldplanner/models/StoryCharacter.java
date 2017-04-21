@@ -17,6 +17,7 @@ public class StoryCharacter extends SugarRecord implements Serializable, StoryEl
     private String description;
     private String nickname;
     private String gender;
+    private String imagePath; // In SugarORM: image_path;
     private int age;
 
     private StoryWorld world;
@@ -24,6 +25,7 @@ public class StoryCharacter extends SugarRecord implements Serializable, StoryEl
     public StoryCharacter() {
         name = "";
         description = "";
+        imagePath = "";
     }
 
     @NonNull
@@ -46,6 +48,18 @@ public class StoryCharacter extends SugarRecord implements Serializable, StoryEl
     @Override
     public void setDescription(@NonNull String description) {
         this.description = description;
+    }
+
+    @NonNull
+    @Override
+    public String getImage() {
+        return imagePath;
+    }
+
+    @Override
+    public boolean setImage(@NonNull String path) {
+        imagePath = path;
+        return true;
     }
 
     public @Nullable String getNickname() {
