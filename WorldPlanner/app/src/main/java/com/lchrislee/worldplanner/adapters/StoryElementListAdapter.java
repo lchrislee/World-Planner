@@ -2,6 +2,8 @@ package com.lchrislee.worldplanner.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +13,14 @@ import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.adapters.viewholders.CharacterViewHolder;
 import com.lchrislee.worldplanner.adapters.viewholders.ImageEntityViewHolder;
 import com.lchrislee.worldplanner.adapters.viewholders.ItemViewHolder;
+import com.lchrislee.worldplanner.managers.BitmapManager;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.adapters.viewholders.DefaultEntityViewHolder;
+import com.lchrislee.worldplanner.models.StoryItem;
+import com.lchrislee.worldplanner.models.StoryLocation;
 
 import timber.log.Timber;
 
@@ -37,7 +42,7 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
         }
     };
 
-    public StoryElementListAdapter(Context c) {
+    public StoryElementListAdapter(@NonNull Context c) {
         context = c;
     }
 
@@ -85,6 +90,8 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
             case DataManager.CHARACTER: {
                 CharacterViewHolder trueHolder = (CharacterViewHolder) holder;
                 StoryCharacter proper = (StoryCharacter) obj;
+                holder.description.setText(proper.getDescription());
+
                 String nickname = proper.getNickname();
                 if (nickname == null || nickname.length() == 0)
                 {
@@ -103,18 +110,47 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
                 }
 
                 trueHolder.gender_age.setText(gender_age.toString());
-                holder.description.setText(proper.getDescription());
+                String imagePath = proper.getImage();
+                Timber.d("Image path for Character: %s", imagePath);
+                if (imagePath.length() > 0) {
+                    Bitmap bitmap = BitmapManager.getInstance().loadBitmapFromFile(
+                            context,
+                            imagePath,
+                            BitmapManager.ResizeType.LIST_CHARACTER);
+                    trueHolder.image.setImageBitmap(bitmap);
+                }
             }
                 break;
             case DataManager.ITEM: {
                 ItemViewHolder trueHolder = (ItemViewHolder) holder;
                 trueHolder.details.setName(obj.getName());
                 trueHolder.details.setDescription(obj.getDescription());
+                StoryItem proper = (StoryItem) obj;
+                String imagePath = proper.getImage();
+                Timber.d("Image path for Character: %s", imagePath);
+                if (imagePath.length() > 0) {
+                    Bitmap bitmap = BitmapManager.getInstance().loadBitmapFromFile(
+                            context,
+                            imagePath,
+                            BitmapManager.ResizeType.LIST_ITEM);
+                    trueHolder.details.setImage(bitmap);
+                }
             }
                 break;
             case DataManager.LOCATION: {
                 holder.name.setText(obj.getName());
                 holder.description.setText(obj.getDescription());
+                StoryLocation proper = (StoryLocation) obj;
+                String imagePath = proper.getImage();
+                ImageEntityViewHolder trueHolder = (ImageEntityViewHolder) holder;
+                Timber.d("Image path for Character: %s", imagePath);
+                if (imagePath.length() > 0) {
+                    Bitmap bitmap = BitmapManager.getInstance().loadBitmapFromFile(
+                            context,
+                            imagePath,
+                            BitmapManager.ResizeType.LIST_LOCATION);
+                    trueHolder.image.setImageBitmap(bitmap);
+                }
             }
                 break;
             default:

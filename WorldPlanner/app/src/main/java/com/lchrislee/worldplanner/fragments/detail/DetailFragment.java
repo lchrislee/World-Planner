@@ -4,7 +4,6 @@ package com.lchrislee.worldplanner.fragments.detail;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -20,6 +19,7 @@ import android.widget.ImageView;
 
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
+import com.lchrislee.worldplanner.managers.BitmapManager;
 import com.lchrislee.worldplanner.managers.CameraManager;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.R;
@@ -47,8 +47,8 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
     private ImageView image;
 
     private int typeToDisplay;
-    private boolean isNew;
     private boolean haveCameraPermissions = false;
+    protected boolean isNew;
     protected boolean isEditing;
     protected StoryElement model;
     protected View.OnClickListener imageClickListener;
@@ -165,7 +165,6 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             if (requestCode == CameraManager.REQUEST_CAPTURE_IMAGE)
             {
                 String photoPath = CameraManager.getInstance().getLastPath();
-                Timber.d("Returning from image capture with path: %s", photoPath);
                 if (model.getImage().length() > 0)
                 {
                     CameraManager.getInstance().deleteImage(model.getImage());
@@ -187,8 +186,8 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             String path = model.getImage();
             if (path.length() > 0)
             {
-                Timber.d("New image path is: %s", path);
-                image.setImageBitmap(BitmapFactory.decodeFile(path));
+                Timber.d("image path is: %s", path);
+                image.setImageBitmap(BitmapManager.getInstance().loadBitmapFromFile(getContext(), path, BitmapManager.ResizeType.DETAIL));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     image.setForeground(null);
                 }

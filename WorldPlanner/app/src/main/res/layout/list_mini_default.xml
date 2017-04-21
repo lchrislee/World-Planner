@@ -14,11 +14,12 @@
 
         <ImageView
             android:id="@+id/list_entity_image"
+            android:scaleType="centerInside"
             android:background="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginBottom="4dp"
-            android:scaleType="fitXY" />
+            />
 
         <TextView
             android:id="@+id/list_entity_name"
