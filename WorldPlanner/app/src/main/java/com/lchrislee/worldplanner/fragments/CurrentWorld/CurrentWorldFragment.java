@@ -33,40 +33,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_world_current, container, false);
-        final BottomNavigationView bottomNavigationView = (BottomNavigationView) v.findViewById(R.id.fragment_world_current_bottomnav);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                WorldPlannerBaseFragment frag = null;
-                switch(item.getItemId())
-                {
-                    case R.id.menu_navigation_world_current_world:
-                        if (worldFragment == null)
-                        {
-                            worldFragment = WorldDetailFragment.newInstance(getContext());
-                        }
-                        frag = worldFragment;
-                        tabChangeListener.updateToolbarWorldTabChange(true);
-                        break;
-                    case R.id.menu_navigation_world_current_information:
-                        if (tabFragment == null)
-                        {
-                            tabFragment = new CurrentWorldTabFragment();
-                        }
-                        frag = tabFragment;
-                        tabChangeListener.updateToolbarWorldTabChange(false);
-                        break;
-                }
-
-                if (frag != null) {
-                    getChildFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_world_current_frame, frag)
-                            .addToBackStack(frag.getClass().getSimpleName())
-                            .commit();
-                }
-                return true;
-            }
-        });
+        setupBottomNav(v);
 
         worldFragment = WorldDetailFragment.newInstance(getContext());
         getChildFragmentManager().beginTransaction()
@@ -85,5 +52,48 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
     public void iconAction()
     {
         worldFragment.editAction();
+    }
+
+    private void setupBottomNav(@NonNull View v)
+    {
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView) v.findViewById(R.id.fragment_world_current_bottomnav);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                WorldPlannerBaseFragment frag = null;
+                switch(item.getItemId())
+                {
+                    case R.id.menu_navigation_world_current_world:
+                        if (worldFragment == null)
+                        {
+                            worldFragment = WorldDetailFragment.newInstance(getContext());
+                        }
+                        frag = worldFragment;
+                        tabChangeListener.updateToolbarWorldTabChange(true);
+                        worldFragment.stopEditing();
+                        break;
+                    case R.id.menu_navigation_world_current_information:
+                        if (tabFragment == null)
+                        {
+                            tabFragment = new CurrentWorldTabFragment();
+                        }
+                        frag = tabFragment;
+                        tabChangeListener.updateToolbarWorldTabChange(false);
+                        if (worldFragment != null)
+                        {
+                            worldFragment.stopEditing();
+                        }
+                        break;
+                }
+
+                if (frag != null) {
+                    getChildFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_world_current_frame, frag)
+                            .addToBackStack(frag.getClass().getSimpleName())
+                            .commit();
+                }
+                return true;
+            }
+        });
     }
 }

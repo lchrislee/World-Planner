@@ -114,22 +114,21 @@ public class WorldDetailFragment extends DetailFragment {
             {
                 if (isNew)
                 {
-                    addPlot.setVisibility(View.GONE);
                     list.setVisibility(View.GONE);
                     listPrompt.setVisibility(View.GONE);
                 }
                 else
                 {
-                    addPlot.setVisibility(View.VISIBLE);
                     list.setVisibility(View.VISIBLE);
                     listPrompt.setVisibility(View.VISIBLE);
                 }
+                addPlot.setVisibility(View.GONE);
             }
         }
         else
         {
             if (addPlot != null) {
-                addPlot.setVisibility(View.GONE);
+                addPlot.setVisibility(View.VISIBLE);
             }
         }
 

@@ -29,6 +29,7 @@ import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
+import com.orm.SugarRecord;
 
 import java.io.Serializable;
 
@@ -211,6 +212,10 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     image.setForeground(ContextCompat.getDrawable(getContext(), android.R.drawable.ic_menu_camera));
                 }
+                else
+                {
+                    image.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.ic_menu_camera));
+                }
             }
         }
         else
@@ -225,6 +230,10 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
                 image.setOnClickListener(null);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     image.setForeground(null);
+                }
+                else if (model.getImage().length() == 0)
+                {
+                    image.setImageDrawable(null);
                 }
             }
         }
@@ -247,8 +256,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
     @Override
     public long editAction()
     {
-        isEditing = !isEditing;
-        swapEdit();
+        stopEditing();
         if (!isEditing)
         {
             if (isNew)
@@ -262,20 +270,13 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             }
         }
 
-        switch(typeToDisplay)
-        {
-            case DataManager.CHARACTER:
-                return ((StoryCharacter) model).getId();
-            case DataManager.LOCATION:
-                return ((StoryLocation) model).getId();
-            case DataManager.ITEM:
-                return ((StoryItem) model).getId();
-            case DataManager.PLOT:
-                return ((StoryPlot) model).getId();
-            case DataManager.WORLD:
-                return ((StoryWorld) model).getId();
-        }
-        return -1;
+        return ((SugarRecord) model).getId();
+    }
+
+    public void stopEditing()
+    {
+        isEditing = !isEditing;
+        swapEdit();
     }
 
     @NonNull
