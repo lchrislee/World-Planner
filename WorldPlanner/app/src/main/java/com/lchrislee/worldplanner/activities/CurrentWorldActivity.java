@@ -46,7 +46,8 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
 
         currentWorldFragment = new CurrentWorldFragment();
         currentWorldFragment.setTabChangeListener(this);
-        getSupportFragmentManager().beginTransaction().add(R.id.activity_world_current_frame, currentWorldFragment).addToBackStack(CurrentWorldTabFragment.class.getSimpleName()).commit();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.activity_world_current_frame, currentWorldFragment).commit();
     }
 
     @Override

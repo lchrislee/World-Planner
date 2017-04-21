@@ -23,10 +23,7 @@ import com.lchrislee.worldplanner.managers.BitmapManager;
 import com.lchrislee.worldplanner.managers.CameraManager;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryElement;
-import com.lchrislee.worldplanner.models.StoryGroup;
-import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
@@ -92,22 +89,26 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         }
         else
         {
+            int layoutId;
             switch (typeToDisplay)
             {
                 case DataManager.CHARACTER: // Propagate to CharacterDetailFragment.
-                    mainView = inflater.inflate(R.layout.fragment_detail_character, container, false);
+                    layoutId = R.layout.fragment_detail_character;
                     break;
                 case DataManager.GROUP: // Propogate to GroupDetailFragment.
-                    mainView = inflater.inflate(R.layout.fragment_detail_group, container, false);
+                    layoutId = R.layout.fragment_detail_group;
                     break;
-                case DataManager.ITEM:
+                case DataManager.ITEM: // Propogate to ItemDetailFragment.
+                    layoutId = R.layout.fragment_detail_item;
+                    break;
                 case DataManager.LOCATION:
-                    mainView = inflater.inflate(R.layout.fragment_detail_default, container, false);
+                    layoutId = R.layout.fragment_detail_default;
                     break;
                 default: // Propagate to WorldDetailFragment.
-                    mainView = inflater.inflate(R.layout.fragment_detail_world, container, false);
+                    layoutId = R.layout.fragment_detail_world;
                     break;
             }
+            mainView = inflater.inflate(layoutId, container, false);
             image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
         }
 
@@ -123,47 +124,25 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
             DataManager dataManager = DataManager.getInstance();
             StoryWorld currentWorld = dataManager.getCurrentWorld();
             switch (typeToDisplay) {
-                case DataManager.CHARACTER:
-                    StoryCharacter character = new StoryCharacter();
-                    character.setWorld(currentWorld);
-                    model = character;
-                    break;
                 case DataManager.LOCATION:
                     StoryLocation location = new StoryLocation();
                     location.setWorld(currentWorld);
                     model = location;
-                    break;
-                case DataManager.ITEM:
-                    StoryItem item = new StoryItem();
-                    item.setWorld(currentWorld);
-                    model = item;
+                    model.setName("");
+                    model.setDescription("");
                     break;
                 case DataManager.PLOT:
                     StoryPlot plot = new StoryPlot();
                     plot.setWorld(currentWorld);
                     model = plot;
-                    break;
-                case DataManager.GROUP:
-                    StoryGroup group = new StoryGroup();
-                    group.setWorld(currentWorld);
-                    model = group;
-                    break;
-                case DataManager.WORLD:
-                    model = new StoryWorld();
+                    model.setName("");
+                    model.setDescription("");
                     break;
             }
-            model.setName("");
-            model.setDescription("");
         }
-        swapEdit();
+        updateViews();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (isNew) {
-                requestCameraPermissions();
-            }
-        }
-        else
-        {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             haveCameraPermissions = true;
         }
 
@@ -193,10 +172,6 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         super.onResume();
         if (image != null)
         {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestCameraPermissions();
-            }
-
             String path = model.getImage();
             if (path.length() > 0)
             {
@@ -209,7 +184,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
         }
     }
 
-    protected void swapEdit()
+    protected void updateViews()
     {
         if (isEditing)
         {
@@ -269,7 +244,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
     public long editAction()
     {
         isEditing = !isEditing;
-        swapEdit();
+        updateViews();
         if (!isEditing)
         {
             if (isNew)
@@ -289,7 +264,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
     public void stopEditing()
     {
         isEditing = false;
-        swapEdit();
+        updateViews();
     }
 
     @NonNull
@@ -306,6 +281,10 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
                 if (haveCameraPermissions) {
                     CameraManager.getInstance().requestImageCapture(DetailFragment.this, typeToDisplay);
                 }
+                else
+                {
+                    requestCameraPermissions();
+                }
             }
         };
     }
@@ -320,6 +299,8 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
                     && grantResults[2] == PackageManager.PERMISSION_GRANTED)
             {
                 haveCameraPermissions = true;
+                updateViews();
+                CameraManager.getInstance().requestImageCapture(DetailFragment.this, typeToDisplay);
             }
         }
     }

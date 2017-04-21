@@ -17,6 +17,7 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.adapters.StoryPlotListAdapter;
 import com.lchrislee.worldplanner.managers.DataManager;
+import com.lchrislee.worldplanner.models.StoryWorld;
 
 import timber.log.Timber;
 
@@ -50,6 +51,16 @@ public class WorldDetailFragment extends DetailFragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (model == null) {
+            model = new StoryWorld();
+            model.setName("");
+            model.setDescription("");
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -73,7 +84,7 @@ public class WorldDetailFragment extends DetailFragment {
                 }
             });
 
-            swapEdit();
+            updateViews();
         }
 
         return mainView;
@@ -87,18 +98,14 @@ public class WorldDetailFragment extends DetailFragment {
             if (adapter != null)
             {
                 adapter.notifyDataSetChanged();
-            }
-
-            if (list != null)
-            {
-                list.scrollToPosition(DataManager.getInstance().getCountForPlots() - 1);
+                list.scrollToPosition(adapter.getItemCount() - 1);
             }
         }
         super.onResume();
     }
 
     @Override
-    protected void swapEdit() {
+    protected void updateViews() {
         if (isEditing)
         {
             if (list != null)
@@ -126,7 +133,7 @@ public class WorldDetailFragment extends DetailFragment {
         if (adapter != null) {
             adapter.setDetailable(!isEditing);
         }
-        super.swapEdit();
+        super.updateViews();
     }
 
 }

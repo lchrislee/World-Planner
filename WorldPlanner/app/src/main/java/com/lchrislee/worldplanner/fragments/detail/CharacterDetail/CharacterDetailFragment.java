@@ -15,6 +15,7 @@ import com.lchrislee.worldplanner.fragments.detail.DetailFragment;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
+import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
 
@@ -38,6 +39,18 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
         bundle.putSerializable(DATA, object);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (model == null) {
+            DataManager dataManager = DataManager.getInstance();
+            StoryWorld currentWorld = dataManager.getCurrentWorld();
+            StoryCharacter character = new StoryCharacter();
+            character.setWorld(currentWorld);
+            model = character;
+        }
     }
 
     @Override
@@ -70,12 +83,12 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
 
             age.setText(String.valueOf(trueModel.getAge()));
         }
-        swapEdit();
+        updateViews();
         super.onResume();
     }
 
     @Override
-    protected void swapEdit()
+    protected void updateViews()
     {
         if (nickname != null) {
             Drawable editBackground = ContextCompat.getDrawable(getContext(), android.R.drawable.edit_text);
@@ -108,7 +121,7 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
             trueModel.setNickname(nickname.getText().toString());
             trueModel.setGender(gender.getText().toString());
 
-            super.swapEdit();
+            super.updateViews();
         }
     }
 

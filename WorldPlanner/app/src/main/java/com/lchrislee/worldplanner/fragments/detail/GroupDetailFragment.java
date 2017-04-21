@@ -15,10 +15,9 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryGroup;
+import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
-
-import timber.log.Timber;
 
 public class GroupDetailFragment extends DetailFragment implements ToolbarSupportingFragment {
 
@@ -41,6 +40,18 @@ public class GroupDetailFragment extends DetailFragment implements ToolbarSuppor
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (model == null) {
+            DataManager dataManager = DataManager.getInstance();
+            StoryWorld currentWorld = dataManager.getCurrentWorld();
+            StoryGroup group = new StoryGroup();
+            group.setWorld(currentWorld);
+            model = group;
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View mainView = super.onCreateView(inflater, container, savedInstanceState);
         if (mainView != null)
@@ -56,12 +67,12 @@ public class GroupDetailFragment extends DetailFragment implements ToolbarSuppor
             group = (StoryGroup) model;
             size.setText(String.valueOf(group.getSize()));
         }
-        swapEdit();
+        updateViews();
         super.onResume();
     }
 
     @Override
-    protected void swapEdit()
+    protected void updateViews()
     {
         if (size != null)
         {
@@ -92,7 +103,7 @@ public class GroupDetailFragment extends DetailFragment implements ToolbarSuppor
                 group.setSize(Integer.parseInt(sizeText));
             }
 
-            super.swapEdit();
+            super.updateViews();
         }
 
     }

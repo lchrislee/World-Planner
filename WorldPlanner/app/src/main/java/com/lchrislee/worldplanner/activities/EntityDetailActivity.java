@@ -14,6 +14,7 @@ import com.lchrislee.worldplanner.fragments.detail.DetailFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.detail.GroupDetailFragment;
+import com.lchrislee.worldplanner.fragments.detail.ItemDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.WorldDetailFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
@@ -86,6 +87,17 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
             else
             {
                 fragment = GroupDetailFragment.newInstance(model);
+            }
+        }
+        else if (requestCode == DataManager.ITEM)
+        {
+            if (isNewModel)
+            {
+                fragment = ItemDetailFragment.newInstance(null);
+            }
+            else
+            {
+                fragment = ItemDetailFragment.newInstance(model);
             }
         }
         else if (requestCode == DataManager.WORLD)
