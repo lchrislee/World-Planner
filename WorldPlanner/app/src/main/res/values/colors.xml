@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#0D47A1</color>
+    <color name="colorAccent">#00E5FF</color>
+    <color name="colorBackground">#EEEEEE</color>
+    <color name="colorBackgroundDark">#223057</color>
+    <color name="colorForeground">#090619</color>
+    <color name="colorTextPrimary">#111111</color>
+    <color name="colorTextPrimaryInverse">#AAAAAA</color>
+    <color name="colorTextSecondary">#2E4650</color>
+    <color name="colorTextSecondaryInverse">#CCCCCC</color>
+    <!--
     <color name="colorPrimary">#86AFBF</color>
     <color name="colorPrimaryDark">#251F42</color>
     <color name="colorAccent">#486874</color>
@@ -10,13 +21,5 @@
     <color name="colorTextPrimaryInverse">#AAAAAA</color>
     <color name="colorTextSecondary">#2E4650</color>
     <color name="colorTextSecondaryInverse">#CCCCCC</color>
-    <!--<color name="colorPrimary">#59888D</color>-->
-    <!--<color name="colorPrimaryDark">#40787E</color>-->
-    <!--<color name="colorAccent">#E7BA92</color>-->
-    <!--<color name="colorBackground">#FFEAD7</color>-->
-    <!--<color name="colorForeground">#27676C</color>-->
-    <!--<color name="colorTextPrimary">#111111</color>-->
-    <!--<color name="colorTextPrimaryInverse">#EEEEEE</color>-->
-    <!--<color name="colorTextSecondary">#333333</color>-->
-    <!--<color name="colorTextSecondaryInverse">#CCCCCC</color>-->
+    -->
 </resources>

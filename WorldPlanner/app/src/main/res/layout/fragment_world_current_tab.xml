@@ -12,6 +12,13 @@
         tools:listitem="@layout/list_default"
         />
 
+    <ImageView
+        android:id="@+id/fragment_master_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/add_elements" />
+
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/fragment_master_fab_menu"
         fab:menu_colorNormal="@color/colorPrimary"

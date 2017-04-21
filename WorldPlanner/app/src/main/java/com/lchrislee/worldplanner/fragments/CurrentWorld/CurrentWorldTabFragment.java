@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -24,6 +25,7 @@ import timber.log.Timber;
 public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
     private FloatingActionMenu floatingActionMenu;
     private StoryElementListAdapter adapter;
+    private ImageView empty;
 
     public CurrentWorldTabFragment() {
         // Required empty public constructor
@@ -46,6 +48,8 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
         list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         list.setAdapter(adapter);
 
+        empty = (ImageView) v.findViewById(R.id.fragment_master_empty);
+
         setupFAB(v);
 
         return v;
@@ -57,6 +61,15 @@ public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
         if (adapter != null)
         {
             adapter.notifyDataSetChanged();
+            int size = adapter.getItemCount();
+            if (size == 0)
+            {
+                empty.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                empty.setVisibility(View.GONE);
+            }
         }
     }
 

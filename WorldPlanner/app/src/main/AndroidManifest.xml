@@ -16,6 +16,7 @@
         android:theme="@style/WorldPlannerTheme">
         <activity android:name=".activities.WorldPlannerBaseActivity" />
         <activity android:name=".activities.CurrentWorldActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             >
             <intent-filter>
@@ -28,6 +29,7 @@
             android:name=".activities.EntityDetailActivity"
             android:parentActivityName=".activities.CurrentWorldActivity"
             android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
             >
         </activity>
 
@@ -35,6 +37,7 @@
             android:name=".activities.RelationDetailActivity"
             android:parentActivityName=".activities.CurrentWorldActivity"
             android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
             />
 
         <meta-data

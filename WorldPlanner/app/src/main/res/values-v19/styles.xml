@@ -10,7 +10,6 @@
         <item name="android:textColorPrimaryInverse">@color/colorTextPrimaryInverse</item>
         <item name="android:textColorSecondary">@color/colorTextSecondary</item>
         <item name="android:textColorSecondaryInverse">@color/colorTextSecondaryInverse</item>
-        <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
 </resources>
