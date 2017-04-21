@@ -26,16 +26,11 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
 
     @Ignore
     private
-    List<StoryCharacter> allCharacters;
-
-    @Ignore
-    private
     List<StoryPlot> allPlots;
 
     public StoryWorld() {
         name = "";
         description = "";
-        allCharacters = null;
         allPlots = null;
         imagePath = "";
     }
@@ -73,20 +68,6 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         imagePath = path;
         return true;
     }
-
-    @Nullable
-    public StoryCharacter getCharacterAtIndex(long index)
-    {
-        if (allCharacters == null || allCharacters.size() != StoryCharacter.count(StoryCharacter.class)) {
-            allCharacters = StoryCharacter.find(StoryCharacter.class, "world = ?", String.valueOf(getId()));
-        }
-        if (allCharacters.size() == 0)
-        {
-            return null;
-        }
-        return allCharacters.get((int) index);
-    }
-
 
     @Nullable
     public StoryPlot getPlotAtIndex(long index)
@@ -139,6 +120,7 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         long elementsCount = StoryItem.count(StoryItem.class, "world = ?", idClause);
         elementsCount += StoryLocation.count(StoryLocation.class, "world = ?", idClause);
         elementsCount += StoryCharacter.count(StoryCharacter.class, "world = ?", idClause);
+        elementsCount += StoryGroup.count(StoryGroup.class, "world = ?", idClause);
         return allElements == null || allElements.size() != elementsCount;
     }
 
@@ -148,6 +130,7 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         allElements.addAll(StoryItem.find(StoryItem.class, "world = ?", String.valueOf(getId())));
         allElements.addAll(StoryLocation.find(StoryLocation.class, "world = ?", String.valueOf(getId())));
         allElements.addAll(StoryCharacter.find(StoryCharacter.class, "world = ?", String.valueOf(getId())));
+        allElements.addAll(StoryGroup.find(StoryGroup.class, "world = ?", String.valueOf(getId())));
         Collections.shuffle(allElements);
     }
 

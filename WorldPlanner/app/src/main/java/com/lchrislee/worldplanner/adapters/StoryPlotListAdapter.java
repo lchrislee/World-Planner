@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
-import com.lchrislee.worldplanner.adapters.viewholders.DefaultEntityViewHolder;
+import com.lchrislee.worldplanner.adapters.viewholders.WorldPlannerBaseViewHolder;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
 
@@ -18,7 +18,7 @@ import com.lchrislee.worldplanner.models.StoryElement;
  * Created by chrisl on 4/20/17.
  */
 
-public class StoryPlotListAdapter extends RecyclerView.Adapter<DefaultEntityViewHolder>
+public class StoryPlotListAdapter extends RecyclerView.Adapter<WorldPlannerBaseViewHolder>
 {
     private final Context context;
     private boolean isDetailable;
@@ -29,7 +29,7 @@ public class StoryPlotListAdapter extends RecyclerView.Adapter<DefaultEntityView
     }
 
     @Override
-    public DefaultEntityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public WorldPlannerBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.list_plot, parent, false);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,11 +42,11 @@ public class StoryPlotListAdapter extends RecyclerView.Adapter<DefaultEntityView
                 }
             }
         });
-        return(new DefaultEntityViewHolder(v));
+        return(new WorldPlannerBaseViewHolder(v));
     }
 
     @Override
-    public void onBindViewHolder(DefaultEntityViewHolder holder, int position) {
+    public void onBindViewHolder(WorldPlannerBaseViewHolder holder, int position) {
         StoryElement obj = DataManager.getInstance().getPlotAtIndex(position);
         if (obj == null)
         {

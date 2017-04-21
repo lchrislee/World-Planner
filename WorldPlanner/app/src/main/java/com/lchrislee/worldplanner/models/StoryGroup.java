@@ -4,22 +4,24 @@ import android.support.annotation.NonNull;
 
 import com.orm.SugarRecord;
 
+import java.io.Serializable;
+
 /**
- * Created by chrisl on 3/27/17.
+ * Created by chrisl on 4/21/17.
  */
 
-public class StoryRelationship extends SugarRecord implements StoryElement{
+public class StoryGroup extends SugarRecord implements Serializable, StoryElement {
 
     private String name;
     private String description;
+    private String imagePath; // In SugarORM: image_path;
 
     private StoryWorld world;
-    private StoryCharacter firstStoryCharacter;
-    private StoryCharacter secondStoryCharacter;
 
-    public StoryRelationship() {
-        name = "";
-        description = "";
+    public StoryGroup() {
+        this.name = "";
+        this.description = "";
+        this.imagePath = "";
     }
 
     @NonNull
@@ -47,28 +49,13 @@ public class StoryRelationship extends SugarRecord implements StoryElement{
     @NonNull
     @Override
     public String getImage() {
-        return "";
+        return imagePath;
     }
 
     @Override
     public boolean setImage(@NonNull String path) {
-        return false;
-    }
-
-    public StoryCharacter getFirstStoryCharacter() {
-        return firstStoryCharacter;
-    }
-
-    public void setFirstStoryCharacter(StoryCharacter firstStoryCharacter) {
-        this.firstStoryCharacter = firstStoryCharacter;
-    }
-
-    public StoryCharacter getSecondStoryCharacter() {
-        return secondStoryCharacter;
-    }
-
-    public void setSecondStoryCharacter(StoryCharacter secondStoryCharacter) {
-        this.secondStoryCharacter = secondStoryCharacter;
+        imagePath = path;
+        return true;
     }
 
     public StoryWorld getWorld() {

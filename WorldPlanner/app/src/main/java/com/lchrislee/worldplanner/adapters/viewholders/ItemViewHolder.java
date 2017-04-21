@@ -9,7 +9,7 @@ import com.lchrislee.worldplanner.views.SimpleDetailView;
  * Created by chrisl on 4/20/17.
  */
 
-public class ItemViewHolder extends DefaultEntityViewHolder
+public class ItemViewHolder extends WorldPlannerBaseViewHolder
 {
     public final SimpleDetailView details;
     public ItemViewHolder(View itemView) {

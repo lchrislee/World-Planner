@@ -20,8 +20,8 @@ public class BitmapManager extends WorldPlannerBaseManager {
         RAW,
         LIST_CHARACTER,
         LIST_LOCATION,
-        LIST_ITEM,
         LIST_WORLD,
+        LIST_DEFAULT,
         DETAIL
     }
 
@@ -65,7 +65,7 @@ public class BitmapManager extends WorldPlannerBaseManager {
             case LIST_LOCATION:
                 heightID = R.dimen.height_list_location;
                 break;
-            case LIST_ITEM:
+            case LIST_DEFAULT:
                 scaleWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                         context.getResources().getDimension(R.dimen.width_simple_image),
                         context.getResources().getDisplayMetrics());

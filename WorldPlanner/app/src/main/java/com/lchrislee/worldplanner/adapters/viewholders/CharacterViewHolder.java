@@ -9,7 +9,7 @@ import com.lchrislee.worldplanner.R;
  * Created by chrisl on 4/20/17.
  */
 
-public class CharacterViewHolder extends ImageEntityViewHolder
+public class CharacterViewHolder extends DefaultEntityViewHolder
 {
     public final TextView trueName;
     public final TextView gender_age;

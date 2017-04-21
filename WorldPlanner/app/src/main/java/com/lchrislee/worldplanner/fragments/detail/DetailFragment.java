@@ -25,6 +25,7 @@ import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryElement;
+import com.lchrislee.worldplanner.models.StoryGroup;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryPlot;
@@ -91,6 +92,7 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
                 mainView = inflater.inflate(R.layout.fragment_detail_character, container, false);
                 image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
                 break;
+            case DataManager.GROUP:
             case DataManager.ITEM:
             case DataManager.LOCATION:
                 mainView = inflater.inflate(R.layout.fragment_detail_default, container, false);
@@ -135,6 +137,11 @@ public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarS
                     StoryPlot plot = new StoryPlot();
                     plot.setWorld(currentWorld);
                     model = plot;
+                    break;
+                case DataManager.GROUP:
+                    StoryGroup group = new StoryGroup();
+                    group.setWorld(currentWorld);
+                    model = group;
                     break;
                 case DataManager.WORLD:
                     model = new StoryWorld();

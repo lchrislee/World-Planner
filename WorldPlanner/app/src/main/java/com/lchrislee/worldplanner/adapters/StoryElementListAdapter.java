@@ -11,14 +11,15 @@ import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.adapters.viewholders.CharacterViewHolder;
-import com.lchrislee.worldplanner.adapters.viewholders.ImageEntityViewHolder;
+import com.lchrislee.worldplanner.adapters.viewholders.DefaultEntityViewHolder;
 import com.lchrislee.worldplanner.adapters.viewholders.ItemViewHolder;
 import com.lchrislee.worldplanner.managers.BitmapManager;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryElement;
-import com.lchrislee.worldplanner.adapters.viewholders.DefaultEntityViewHolder;
+import com.lchrislee.worldplanner.adapters.viewholders.WorldPlannerBaseViewHolder;
+import com.lchrislee.worldplanner.models.StoryGroup;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
 
@@ -28,7 +29,7 @@ import timber.log.Timber;
  * Created by chrisl on 3/27/17.
  */
 
-public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityViewHolder> {
+public class StoryElementListAdapter extends RecyclerView.Adapter<WorldPlannerBaseViewHolder> {
 
     private final Context context;
 
@@ -47,9 +48,9 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
     }
 
     @Override
-    public DefaultEntityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public WorldPlannerBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Timber.d("onCreateViewHolder View type: " + viewType);
-        DefaultEntityViewHolder holder;
+        WorldPlannerBaseViewHolder holder;
         switch(viewType) {
             case DataManager.CHARACTER: {
                 View v = LayoutInflater.from(context).inflate(R.layout.list_character, parent, false);
@@ -57,18 +58,19 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
                 holder = new CharacterViewHolder(v);
             }
                 break;
-            case DataManager.ITEM: {
-                View v = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
-                v.setOnClickListener(clickListener);
-                holder = new ItemViewHolder(v);
-            }
-                break;
             case DataManager.LOCATION: {
                 View v = LayoutInflater.from(context).inflate(R.layout.list_location, parent, false);
                 v.setOnClickListener(clickListener);
-                holder = new ImageEntityViewHolder(v);
+                holder = new DefaultEntityViewHolder(v);
             }
                 break;
+            case DataManager.GROUP:
+            case DataManager.ITEM: {
+                View v = LayoutInflater.from(context).inflate(R.layout.list_default, parent, false);
+                v.setOnClickListener(clickListener);
+                holder = new ItemViewHolder(v);
+            }
+            break;
             default:
                 holder = null;
         }
@@ -77,7 +79,7 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
     }
 
     @Override
-    public void onBindViewHolder(DefaultEntityViewHolder holder, int position) {
+    public void onBindViewHolder(WorldPlannerBaseViewHolder holder, int position) {
         StoryElement obj = DataManager.getInstance().getElementAtIndex(position);
         if (obj == null)
         {
@@ -111,7 +113,7 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
 
                 trueHolder.gender_age.setText(gender_age.toString());
                 String imagePath = proper.getImage();
-                Timber.d("Image path for Character: %s", imagePath);
+
                 if (imagePath.length() > 0) {
                     Bitmap bitmap = BitmapManager.getInstance().loadBitmapFromFile(
                             context,
@@ -125,18 +127,38 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
                 }
             }
                 break;
+            case DataManager.GROUP:{
+                ItemViewHolder trueHolder = (ItemViewHolder) holder;
+                trueHolder.details.setName(obj.getName());
+                trueHolder.details.setDescription(obj.getDescription());
+                StoryGroup proper = (StoryGroup) obj;
+                String imagePath = proper.getImage();
+
+                if (imagePath.length() > 0) {
+                    Bitmap bitmap = BitmapManager.getInstance().loadBitmapFromFile(
+                            context,
+                            imagePath,
+                            BitmapManager.ResizeType.LIST_DEFAULT);
+                    trueHolder.details.setImage(bitmap);
+                }
+                else
+                {
+                    trueHolder.details.setImage((Bitmap) null);
+                }
+            }
+            break;
             case DataManager.ITEM: {
                 ItemViewHolder trueHolder = (ItemViewHolder) holder;
                 trueHolder.details.setName(obj.getName());
                 trueHolder.details.setDescription(obj.getDescription());
                 StoryItem proper = (StoryItem) obj;
                 String imagePath = proper.getImage();
-                Timber.d("Image path for Character: %s", imagePath);
+
                 if (imagePath.length() > 0) {
                     Bitmap bitmap = BitmapManager.getInstance().loadBitmapFromFile(
                             context,
                             imagePath,
-                            BitmapManager.ResizeType.LIST_ITEM);
+                            BitmapManager.ResizeType.LIST_DEFAULT);
                     trueHolder.details.setImage(bitmap);
                 }
                 else
@@ -150,8 +172,8 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<DefaultEntityV
                 holder.description.setText(obj.getDescription());
                 StoryLocation proper = (StoryLocation) obj;
                 String imagePath = proper.getImage();
-                ImageEntityViewHolder trueHolder = (ImageEntityViewHolder) holder;
-                Timber.d("Image path for Character: %s", imagePath);
+                DefaultEntityViewHolder trueHolder = (DefaultEntityViewHolder) holder;
+
                 if (imagePath.length() > 0) {
                     Bitmap bitmap = BitmapManager.getInstance().loadBitmapFromFile(
                             context,

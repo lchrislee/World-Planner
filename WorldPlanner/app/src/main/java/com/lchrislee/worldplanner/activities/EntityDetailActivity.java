@@ -139,7 +139,9 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
 
     @Override
     public void onCharacterTabSwitch() {
-        toolbarState = ((CharacterTabFragment) fragment).isShowingDetails() ? ToolbarState.Edit_Delete : ToolbarState.Empty;
+        toolbarState = ((CharacterTabFragment) fragment).isShowingDetails() ?
+                ToolbarState.Edit_Delete
+                : ToolbarState.Empty;
         supportInvalidateOptionsMenu();
     }
 

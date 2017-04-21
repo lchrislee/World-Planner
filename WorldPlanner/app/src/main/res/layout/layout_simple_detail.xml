@@ -10,7 +10,7 @@
         <ImageView
             android:id="@+id/layout_simple_detail_image"
             android:scaleType="centerCrop"
-            android:background="@color/colorAccent"
+            android:background="@color/colorImageBackground"
             android:layout_width="@dimen/width_simple_image"
             android:layout_height="@dimen/height_simple_image"
             android:layout_alignParentTop="true"

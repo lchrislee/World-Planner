@@ -11,12 +11,5 @@
             app:showAsAction="ifRoom|withText"
             android:checked="true"
             />
-
-        <item
-            android:id="@+id/menu_detail_character_relationship"
-            android:icon="@drawable/character_relationship"
-            android:title="Relations"
-            app:showAsAction="ifRoom|withText"
-            />
     </group>
 </menu>

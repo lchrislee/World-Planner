@@ -6,12 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.lchrislee.worldplanner.models.StoryElement;
-import com.lchrislee.worldplanner.models.StoryRelationship;
+import com.lchrislee.worldplanner.models.StoryGroup;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
+import com.orm.SugarRecord;
 
 import timber.log.Timber;
 
@@ -29,6 +30,7 @@ public class DataManager extends WorldPlannerBaseManager{
     public static final int LOCATION = 300;
     public static final int ITEM = 400;
     public static final int PLOT = 500;
+    public static final int GROUP = 600;
 
     private static final String MASTER_PREFERENCES = "com.lchrislee.worldplanner.managers.DataManager.PREFERENCES";
     private static final String SELECTED_WORLD = "DataManager_SELECTED_WORLD";
@@ -73,29 +75,14 @@ public class DataManager extends WorldPlannerBaseManager{
     public long add(@NonNull StoryElement model) {
         Timber.d("Saving model with name: %s and description %s.", model.getName(), model.getDescription());
         long id;
-        if (model instanceof StoryCharacter)
-        {
-            getCurrentWorld().save();
-            id = ((StoryCharacter) model).save();
-        }
-        else if (model instanceof StoryLocation)
-        {
-            getCurrentWorld().save();
-            id = ((StoryLocation) model).save();
-        }
-        else if (model instanceof StoryItem)
-        {
-            getCurrentWorld().save();
-            id = ((StoryItem) model).save();
-        }
-        else if (model instanceof StoryPlot)
-        {
-            getCurrentWorld().save();
-            id = ((StoryPlot) model).save();
-        }
-        else if (model instanceof StoryWorld)
+        if (model instanceof StoryWorld)
         {
             id = ((StoryWorld) model).save();
+        }
+        else if (model instanceof SugarRecord)
+        {
+            getCurrentWorld().save();
+            id = ((SugarRecord) model).save();
         }
         else
         {
@@ -112,30 +99,13 @@ public class DataManager extends WorldPlannerBaseManager{
 
     public void update(@NonNull StoryElement model) {
         Timber.d("Updating model with name - %s, and description - %s.", model.getName(), model.getDescription());
-        if (model instanceof StoryCharacter) {
-            getCurrentWorld().save();
-            ((StoryCharacter) model).save();
-        }
-        else if (model instanceof StoryLocation) {
-            getCurrentWorld().save();
-            ((StoryLocation) model).save();
-        }
-        else if (model instanceof StoryItem) {
-            getCurrentWorld().save();
-            ((StoryItem) model).save();
-        }
-        else if (model instanceof StoryPlot) {
-            getCurrentWorld().save();
-            ((StoryPlot) model).save();
-        }
-        else if (model instanceof StoryWorld) {
-            getCurrentWorld().save();
+        if (model instanceof StoryWorld) {
             ((StoryWorld) model).save();
         }
-        else if (model instanceof StoryRelationship)
+        else
         {
-            // TODO FIX Relationship
-            return;
+            getCurrentWorld().save();
+            ((SugarRecord) model).save();
         }
     }
 
@@ -155,23 +125,7 @@ public class DataManager extends WorldPlannerBaseManager{
     public void delete(@NonNull StoryElement model)
     {
         Timber.d("Deleting model with name - %s, and description - %s.", model.getName(), model.getDescription());
-        if (model instanceof StoryCharacter) {
-            ((StoryCharacter) model).delete();
-            getCurrentWorld().save();
-        }
-        else if (model instanceof StoryLocation) {
-            ((StoryLocation) model).delete();
-            getCurrentWorld().save();
-        }
-        else if (model instanceof StoryItem) {
-            ((StoryItem) model).delete();
-            getCurrentWorld().save();
-        }
-        else if (model instanceof StoryPlot) {
-            ((StoryPlot) model).delete();
-            getCurrentWorld().save();
-        }
-        else if (model instanceof StoryWorld) {
+        if (model instanceof StoryWorld) {
             StoryWorld delete = ((StoryWorld) model);
             long id = delete.getId();
             delete.delete();
@@ -189,10 +143,10 @@ public class DataManager extends WorldPlannerBaseManager{
                 }
             }
         }
-        else if (model instanceof StoryRelationship)
+        else if (model instanceof SugarRecord)
         {
-            // TODO FIX Relationship
-            return;
+            ((StoryPlot) model).delete();
+            getCurrentWorld().save();
         }
     }
 
@@ -203,22 +157,6 @@ public class DataManager extends WorldPlannerBaseManager{
 
     public long getCountForWorlds() {
         return StoryWorld.count(StoryWorld.class);
-    }
-
-    public long getRelationshipCountForCharacter(long characterIndex)
-    {
-        return 0;
-        // TODO: Fix relationships
-    }
-
-    @Nullable
-    public StoryCharacter getCharacterAtIndex(long index)
-    {
-        if (index < 0)
-        {
-            return null;
-        }
-        return currentWorld.getCharacterAtIndex(index);
     }
 
     @Nullable
@@ -249,18 +187,6 @@ public class DataManager extends WorldPlannerBaseManager{
             return null;
         }
         return currentWorld.getElementAtIndex(index);
-    }
-
-
-    @Nullable
-    public StoryRelationship getRelationshipForCharacterAtIndex(long characterIndex, long position)
-    {
-        if (characterIndex < 0 || position < 0)
-        {
-            return null;
-        }
-
-        return null;
     }
 
     @NonNull
@@ -308,6 +234,10 @@ public class DataManager extends WorldPlannerBaseManager{
             else if (element instanceof StoryPlot)
             {
                 return PLOT;
+            }
+            else if (element instanceof StoryGroup)
+            {
+                return GROUP;
             }
         }
         return -1;

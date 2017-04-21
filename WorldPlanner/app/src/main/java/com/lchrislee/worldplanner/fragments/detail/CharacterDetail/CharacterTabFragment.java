@@ -27,7 +27,6 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
     }
 
     private CharacterDetailFragment informationFragment;
-    CharacterRelationListFragment relationFragment; // TODO: FIX RELATIONS
 
     private CharacterDetailTabChange listener;
     private boolean isShowingDetails;
@@ -74,16 +73,6 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
                                 .addToBackStack(informationFragment.getClass().getSimpleName())
                                 .commit();
                         isShowingDetails = true;
-                        break;
-                    case R.id.menu_detail_character_relationship:
-                        /*if (relationFragment == null) {
-                            relationFragment = CharacterRelationListFragment.newInstance(index);
-                        }
-                        getChildFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_tab_character_frame, relationFragment)
-                                .addToBackStack(relationFragment.getClass().getSimpleName())
-                                .commit();
-                        isShowingDetails = false;*/
                         break;
                 }
                 if (listener != null)
