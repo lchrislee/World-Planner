@@ -110,19 +110,6 @@ public class DataManager extends WorldPlannerBaseManager{
         }
     }
 
-    public void setImage(@NonNull StoryElement model, @Nullable String path)
-    {
-        if (path == null)
-        {
-            return;
-        }
-
-        if (model.setImage(path))
-        {
-            update(model);
-        }
-    }
-
     public void delete(@NonNull StoryElement model)
     {
         Timber.d("Deleting model with name - %s, and description - %s.", model.getName(), model.getDescription());

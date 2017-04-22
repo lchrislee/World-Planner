@@ -56,10 +56,6 @@ public class StoryItem extends SugarRecord implements Serializable, StoryElement
         return true;
     }
 
-    public StoryWorld getWorld() {
-        return world;
-    }
-
     public void setWorld(StoryWorld world) {
         this.world = world;
     }
@@ -100,10 +96,9 @@ public class StoryItem extends SugarRecord implements Serializable, StoryElement
         }
     }
 
-    public int addEffect(@NonNull StoryItemEffect effect)
+    public void addEffect(@NonNull StoryItemEffect effect)
     {
         effects.add(effect);
-        return effects.size() - 1;
     }
 
     public static class StoryItemEffect extends SugarRecord implements StoryElement, Serializable

@@ -17,8 +17,6 @@ import com.lchrislee.worldplanner.models.StoryItem;
 
 import java.io.Serializable;
 
-import timber.log.Timber;
-
 public class ItemEffectDialogFragment extends DialogFragment {
 
     public interface ItemEffectDialogListener

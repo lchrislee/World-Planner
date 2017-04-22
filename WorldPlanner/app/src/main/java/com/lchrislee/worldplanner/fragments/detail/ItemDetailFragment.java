@@ -141,8 +141,8 @@ public class ItemDetailFragment
     {
         class ItemEffectViewHolder extends RecyclerView.ViewHolder
         {
-            public TextView name;
-            public TextView description;
+            public final TextView name;
+            public final TextView description;
             ItemEffectViewHolder(View itemView) {
                 super(itemView);
                 name = (TextView) itemView.findViewById(android.R.id.text1);
@@ -150,7 +150,7 @@ public class ItemDetailFragment
             }
         }
 
-        Context context;
+        final Context context;
 
         ItemEffectListAdapter(@NonNull Context context) {
             this.context = context;

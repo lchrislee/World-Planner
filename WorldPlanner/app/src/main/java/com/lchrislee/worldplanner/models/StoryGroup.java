@@ -59,10 +59,6 @@ public class StoryGroup extends SugarRecord implements Serializable, StoryElemen
         return true;
     }
 
-    public StoryWorld getWorld() {
-        return world;
-    }
-
     public void setWorld(StoryWorld world) {
         this.world = world;
     }

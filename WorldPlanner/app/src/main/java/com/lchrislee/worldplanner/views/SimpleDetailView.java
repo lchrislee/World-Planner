@@ -63,13 +63,6 @@ public class SimpleDetailView extends RelativeLayout {
         requestLayout();
     }
 
-    public void setImage(@Nullable Drawable d)
-    {
-        image.setImageDrawable(d);
-        invalidate();
-        requestLayout();
-    }
-
     public void setImage(@Nullable Bitmap b)
     {
         image.setImageBitmap(b);

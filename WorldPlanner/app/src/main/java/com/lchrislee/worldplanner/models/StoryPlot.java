@@ -54,10 +54,6 @@ public class StoryPlot extends SugarRecord implements Serializable, StoryElement
         return false;
     }
 
-    public StoryWorld getWorld() {
-        return world;
-    }
-
     public void setWorld(StoryWorld world) {
         this.world = world;
     }

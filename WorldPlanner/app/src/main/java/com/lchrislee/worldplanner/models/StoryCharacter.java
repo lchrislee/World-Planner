@@ -86,10 +86,6 @@ public class StoryCharacter extends SugarRecord implements Serializable, StoryEl
         this.age = age;
     }
 
-    public StoryWorld getWorld() {
-        return world;
-    }
-
     public void setWorld(StoryWorld world) {
         this.world = world;
     }

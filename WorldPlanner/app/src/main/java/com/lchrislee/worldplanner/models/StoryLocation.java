@@ -45,10 +45,6 @@ public class StoryLocation extends SugarRecord implements Serializable, StoryEle
         this.description = description;
     }
 
-    public StoryWorld getWorld() {
-        return world;
-    }
-
     public void setWorld(StoryWorld world) {
         this.world = world;
     }
