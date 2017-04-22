@@ -27,8 +27,8 @@ public class ItemDetailFragment
 
     private StoryItem item;
 
-    private ItemEffectListAdapter adapter;
-    private RecyclerView list;
+    private ItemEffectListAdapter effectAdapter;
+    private RecyclerView effectList;
     private ImageView addEffect;
     private TextView addEffectPrompt;
 
@@ -66,10 +66,10 @@ public class ItemDetailFragment
 
         if (mainView != null)
         {
-            adapter = new ItemEffectListAdapter(getContext());
-            list = (RecyclerView) mainView.findViewById(R.id.fragment_detail_item_list);
-            list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
-            list.setAdapter(adapter);
+            effectAdapter = new ItemEffectListAdapter(getContext());
+            effectList = (RecyclerView) mainView.findViewById(R.id.fragment_detail_item_list);
+            effectList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
+            effectList.setAdapter(effectAdapter);
 
             addEffectPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_item_effect_prompt);
             addEffect = (ImageView) mainView.findViewById(R.id.fragment_detail_item_effect_add);
@@ -91,9 +91,9 @@ public class ItemDetailFragment
         if (model != null)
         {
             item = (StoryItem) model;
-            if (adapter != null) {
-                adapter.notifyDataSetChanged();
-                list.scrollToPosition(adapter.getItemCount() - 1);
+            if (effectAdapter != null) {
+                effectAdapter.notifyDataSetChanged();
+                effectList.scrollToPosition(effectAdapter.getItemCount() - 1);
             }
         }
         updateViews();
@@ -104,15 +104,15 @@ public class ItemDetailFragment
     protected void updateViews() {
         if (isEditing)
         {
-            if (list != null)
+            if (effectList != null)
             {
                 if (isNew)
                 {
-                    list.setVisibility(View.GONE);
+                    effectList.setVisibility(View.GONE);
                 }
                 else
                 {
-                    list.setVisibility(View.VISIBLE);
+                    effectList.setVisibility(View.VISIBLE);
                 }
                 addEffect.setVisibility(View.GONE);
                 addEffectPrompt.setVisibility(View.GONE);
@@ -131,7 +131,7 @@ public class ItemDetailFragment
     @Override
     public void onUpdate()
     {
-        adapter.notifyDataSetChanged();
+        effectAdapter.notifyDataSetChanged();
     }
 
     private class ItemEffectListAdapter

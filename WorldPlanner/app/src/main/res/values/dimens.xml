@@ -5,6 +5,5 @@
     <dimen name="height_list_character">140dp</dimen>
     <dimen name="height_list_location">176dp</dimen>
     <dimen name="height_list_world">160dp</dimen>
-    <!--<dimen name="height_detail_world_image">260dp</dimen>-->
-    <dimen name="height_detail_image">260dp</dimen>
+    <dimen name="height_detail_image">248dp</dimen>
 </resources>

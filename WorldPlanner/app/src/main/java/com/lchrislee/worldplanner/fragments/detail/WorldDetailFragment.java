@@ -21,10 +21,10 @@ import com.lchrislee.worldplanner.models.StoryWorld;
 
 public class WorldDetailFragment extends DetailFragment {
 
-    private StoryEventListAdapter adapter;
-    private TextView listPrompt;
+    private StoryEventListAdapter eventsAdapter;
+    private TextView eventListPrompt;
     private ImageView addPlot;
-    private RecyclerView list;
+    private RecyclerView eventsList;
 
     public WorldDetailFragment() {
         // Required empty public constructor
@@ -65,12 +65,12 @@ public class WorldDetailFragment extends DetailFragment {
         final View mainView = super.onCreateView(inflater, container, savedInstanceState);
         if (mainView != null)
         {
-            adapter = new StoryEventListAdapter(getContext());
-            list = (RecyclerView) mainView.findViewById(R.id.fragment_detail_world_plots);
-            list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
-            list.setAdapter(adapter);
+            eventsAdapter = new StoryEventListAdapter(getContext());
+            eventsList = (RecyclerView) mainView.findViewById(R.id.fragment_detail_world_plots);
+            eventsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
+            eventsList.setAdapter(eventsAdapter);
 
-            listPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_world_plot_prompt);
+            eventListPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_world_plot_prompt);
 
             addPlot = (ImageView) mainView.findViewById(R.id.fragment_detail_world_plot_add);
             addPlot.setOnClickListener(new View.OnClickListener() {
@@ -92,10 +92,10 @@ public class WorldDetailFragment extends DetailFragment {
     public void onResume() {
         if (model != null)
         {
-            if (adapter != null)
+            if (eventsAdapter != null)
             {
-                adapter.notifyDataSetChanged();
-                list.scrollToPosition(adapter.getItemCount() - 1);
+                eventsAdapter.notifyDataSetChanged();
+                eventsList.scrollToPosition(eventsAdapter.getItemCount() - 1);
             }
         }
         super.onResume();
@@ -105,17 +105,17 @@ public class WorldDetailFragment extends DetailFragment {
     protected void updateViews() {
         if (isEditing)
         {
-            if (list != null)
+            if (eventsList != null)
             {
                 if (isNew)
                 {
-                    list.setVisibility(View.GONE);
-                    listPrompt.setVisibility(View.GONE);
+                    eventsList.setVisibility(View.GONE);
+                    eventListPrompt.setVisibility(View.GONE);
                 }
                 else
                 {
-                    list.setVisibility(View.VISIBLE);
-                    listPrompt.setVisibility(View.VISIBLE);
+                    eventsList.setVisibility(View.VISIBLE);
+                    eventListPrompt.setVisibility(View.VISIBLE);
                 }
                 addPlot.setVisibility(View.GONE);
             }
@@ -127,8 +127,8 @@ public class WorldDetailFragment extends DetailFragment {
             }
         }
 
-        if (adapter != null) {
-            adapter.setDetailable(!isEditing);
+        if (eventsAdapter != null) {
+            eventsAdapter.setDetailable(!isEditing);
         }
         super.updateViews();
     }

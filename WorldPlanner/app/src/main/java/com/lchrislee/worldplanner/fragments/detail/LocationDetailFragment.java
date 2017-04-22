@@ -33,10 +33,10 @@ public class LocationDetailFragment
 
     private StoryLocation location;
 
-    private TextView listPrompt;
+    private TextView eventListPrompt;
     private ImageView addEvent;
-    private RecyclerView list;
-    private EventInLocationListAdapter adapter;
+    private RecyclerView eventsList;
+    private EventInLocationListAdapter eventsAdapter;
 
     public LocationDetailFragment() {
         // Required
@@ -70,17 +70,17 @@ public class LocationDetailFragment
         final View mainView = super.onCreateView(inflater, container, savedInstanceState);
         if (mainView != null)
         {
-            adapter = new EventInLocationListAdapter(getContext());
-            list = (RecyclerView) mainView.findViewById(R.id.fragment_detail_location_events);
-            list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
-            list.setAdapter(adapter);
+            eventsAdapter = new EventInLocationListAdapter(getContext());
+            eventsList = (RecyclerView) mainView.findViewById(R.id.fragment_detail_location_events);
+            eventsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
+            eventsList.setAdapter(eventsAdapter);
 
-            listPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_location_event_prompt);
+            eventListPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_location_event_prompt);
             addEvent = (ImageView) mainView.findViewById(R.id.fragment_detail_location_event_add);
             addEvent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    LocationAddEventDialogFragment fragment = LocationAddEventDialogFragment.newInstance();
+                    LocationAddEventDialogFragment fragment = LocationAddEventDialogFragment.newInstance(location);
                     fragment.setListener(LocationDetailFragment.this);
                     fragment.show(getChildFragmentManager(), "Location add event");
                 }
@@ -96,10 +96,10 @@ public class LocationDetailFragment
         if (model != null)
         {
             location = (StoryLocation) model;
-            if (adapter != null)
+            if (eventsAdapter != null)
             {
-                adapter.notifyDataSetChanged();
-                list.scrollToPosition(adapter.getItemCount() - 1);
+                eventsAdapter.notifyDataSetChanged();
+                eventsList.scrollToPosition(eventsAdapter.getItemCount() - 1);
             }
         }
         super.onResume();
@@ -109,17 +109,17 @@ public class LocationDetailFragment
     protected void updateViews() {
         if (isEditing)
         {
-            if (list != null)
+            if (eventsList != null)
             {
                 if (isNew)
                 {
-                    list.setVisibility(View.GONE);
-                    listPrompt.setVisibility(View.GONE);
+                    eventsList.setVisibility(View.GONE);
+                    eventListPrompt.setVisibility(View.GONE);
                 }
                 else
                 {
-                    list.setVisibility(View.VISIBLE);
-                    listPrompt.setVisibility(View.VISIBLE);
+                    eventsList.setVisibility(View.VISIBLE);
+                    eventListPrompt.setVisibility(View.VISIBLE);
                 }
                 addEvent.setVisibility(View.GONE);
             }
@@ -139,7 +139,7 @@ public class LocationDetailFragment
         for (long l : events) {
             DataManager.getInstance().setEventLocation(l, location);
         }
-        adapter.notifyDataSetChanged();
+        eventsAdapter.notifyDataSetChanged();
     }
 
     private class EventInLocationListAdapter extends WorldPlannerBaseListAdapter<EventViewHolder>
@@ -155,7 +155,7 @@ public class LocationDetailFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DataManager.getInstance().removeEventFromLocation(lastPressed, location);
-                        adapter.notifyDataSetChanged();
+                        eventsAdapter.notifyDataSetChanged();
                     }
                 });
                 builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {

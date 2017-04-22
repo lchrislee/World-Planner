@@ -11,10 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by chrisl on 3/26/17.
- */
-
 public class StoryWorld extends SugarRecord implements Serializable, StoryElement{
 
     private String name;
@@ -85,10 +81,25 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         return allEvents.size();
     }
 
-    public @NonNull List<StoryEvent> getAllEvents()
+    public @NonNull List<StoryEvent> getAllEventsNotInLocation(@NonNull StoryLocation location)
     {
         generateEvents();
-        return allEvents;
+        List<StoryEvent> outputList = new ArrayList<>();
+
+        for (StoryEvent event : allEvents)
+        {
+            StoryLocation eventLocation = event.getLocation();
+            if (eventLocation == null)
+            {
+                outputList.add(event);
+            }
+            else if (!(eventLocation.getId().equals(location.getId())))
+            {
+                outputList.add(event);
+            }
+        }
+
+        return outputList;
     }
 
     private void generateEvents()

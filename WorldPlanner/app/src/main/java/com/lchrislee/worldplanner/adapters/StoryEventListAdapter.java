@@ -12,6 +12,9 @@ import com.lchrislee.worldplanner.adapters.viewholders.EventViewHolder;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.models.StoryEvent;
+import com.lchrislee.worldplanner.models.StoryLocation;
+
+import timber.log.Timber;
 
 public class StoryEventListAdapter extends WorldPlannerBaseListAdapter<EventViewHolder>
 {
@@ -38,14 +41,15 @@ public class StoryEventListAdapter extends WorldPlannerBaseListAdapter<EventView
     @Override
     protected void additionalBindViewHolder(EventViewHolder holder, @NonNull StoryElement element) {
         StoryEvent event = (StoryEvent) element;
-        StoryElement location = event.getLocation();
+        StoryLocation location = event.getLocation();
         if (location == null)
         {
             holder.location.setVisibility(View.GONE);
         }
         else
         {
-            String text = "Occurred at " + location.getName();
+            String locationName = location.getName();
+            String text = "Occurred at " + (locationName.length() == 0 ? " unnamed location" : locationName);
             holder.location.setText(text);
             holder.location.setVisibility(View.VISIBLE);
         }

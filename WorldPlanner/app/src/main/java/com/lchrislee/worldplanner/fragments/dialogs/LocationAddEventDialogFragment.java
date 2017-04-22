@@ -18,7 +18,9 @@ import android.widget.CheckedTextView;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryEvent;
+import com.lchrislee.worldplanner.models.StoryLocation;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,19 +30,24 @@ public class LocationAddEventDialogFragment extends DialogFragment {
         void onPositiveClick(@NonNull List<Long> events);
     }
 
+    private static final String LOCATION = "LOCATION";
+
     private ArrayList<Long> selected;
 
     private LocationAddEventListener listener;
+
+    private StoryLocation master;
 
     public LocationAddEventDialogFragment() {
         // Required.
     }
 
     public static @NonNull
-    LocationAddEventDialogFragment newInstance()
+    LocationAddEventDialogFragment newInstance(@NonNull Serializable obj)
     {
         LocationAddEventDialogFragment fragment = new LocationAddEventDialogFragment();
         Bundle argument = new Bundle();
+        argument.putSerializable(LOCATION, obj);
         fragment.setArguments(argument);
         return fragment;
     }
@@ -50,6 +57,7 @@ public class LocationAddEventDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
 
         selected = new ArrayList<>();
+        master = (StoryLocation) getArguments().getSerializable(LOCATION);
     }
 
     @NonNull
@@ -120,7 +128,7 @@ public class LocationAddEventDialogFragment extends DialogFragment {
 
         AddPlotListAdapter(@NonNull Context context) {
             this.context = context;
-            events = DataManager.getInstance().getAllEventsInWorld();
+            events = DataManager.getInstance().getAllEventsNotInLocation(master);
         }
 
         @Override

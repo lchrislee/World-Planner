@@ -20,10 +20,6 @@ import timber.log.Timber;
 
 import static android.content.Context.MODE_PRIVATE;
 
-/**
- * Created by chrisl on 3/29/17.
- */
-
 public class DataManager extends WorldPlannerBaseManager{
 
     public static final int WORLD = 100;
@@ -155,9 +151,9 @@ public class DataManager extends WorldPlannerBaseManager{
         return currentWorld.getEventCount();
     }
 
-    public @NonNull List<StoryEvent> getAllEventsInWorld()
+    public @NonNull List<StoryEvent> getAllEventsNotInLocation(@NonNull StoryLocation location)
     {
-        return currentWorld.getAllEvents();
+        return currentWorld.getAllEventsNotInLocation(location);
     }
 
     @Nullable
@@ -175,6 +171,12 @@ public class DataManager extends WorldPlannerBaseManager{
         StoryEvent event = StoryEvent.findById(StoryEvent.class, index);
         event.setLocation(location);
         update(event);
+        updateEventsInCurrentWorld();
+    }
+
+    private void updateEventsInCurrentWorld()
+    {
+        currentWorld.updateEvents();
     }
 
     public void removeEventFromLocation(int index, @NonNull StoryLocation location)
@@ -182,7 +184,7 @@ public class DataManager extends WorldPlannerBaseManager{
         StoryEvent event = location.removeEvent(index);
         event.setLocation(null);
         update(event);
-        currentWorld.updateEvents();
+        updateEventsInCurrentWorld();
     }
 
     public long getCountForWorlds() {

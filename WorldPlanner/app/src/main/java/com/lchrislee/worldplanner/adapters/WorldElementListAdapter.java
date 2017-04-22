@@ -152,10 +152,14 @@ public class WorldElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
             }
             break;
             case DataManager.ITEM: {
-                ItemViewHolder trueHolder = (ItemViewHolder) holder;
-                trueHolder.details.setName(obj.getName());
-                trueHolder.details.setDescription(obj.getDescription());
                 StoryItem proper = (StoryItem) obj;
+                ItemViewHolder trueHolder = (ItemViewHolder) holder;
+                trueHolder.name.setText(obj.getName());
+                trueHolder.description.setText(obj.getDescription());
+
+                String effectsText = "Number of effects: " + proper.getEffectsCount();
+                trueHolder.effectsCount.setText(effectsText);
+
                 String imagePath = proper.getImage();
 
                 if (imagePath.length() > 0) {
@@ -163,11 +167,11 @@ public class WorldElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
                             context,
                             imagePath,
                             BitmapManager.ResizeType.LIST_DEFAULT);
-                    trueHolder.details.setImage(bitmap);
+                    trueHolder.image.setImageBitmap(bitmap);
                 }
                 else
                 {
-                    trueHolder.details.setImage(null);
+                    trueHolder.image.setImageBitmap(null);
                 }
             }
                 break;

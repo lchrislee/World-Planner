@@ -15,8 +15,7 @@ public class WorldPlannerBaseViewHolder extends RecyclerView.ViewHolder {
     public final TextView name;
     public final TextView description;
 
-
-    public WorldPlannerBaseViewHolder(View itemView) {
+    protected WorldPlannerBaseViewHolder(View itemView) {
         super(itemView);
         name = (TextView) itemView.findViewById(R.id.list_entity_name);
         description = (TextView) itemView.findViewById(R.id.list_entity_description);
