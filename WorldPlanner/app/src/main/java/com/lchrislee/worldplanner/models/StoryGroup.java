@@ -50,9 +50,8 @@ public class StoryGroup extends SugarRecord implements Serializable, StoryElemen
     }
 
     @Override
-    public boolean setImage(@NonNull String path) {
+    public void setImage(@NonNull String path) {
         imagePath = path;
-        return true;
     }
 
     public void setWorld(StoryWorld world) {

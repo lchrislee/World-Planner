@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">World Planner</string>
+
+    <string name="dialog_effect_name_prompt">Effect name:</string>
+    <string name="dialog_effect_name_hint">Commanding Might</string>
+    <string name="dialog_effect_description_prompt">Effect description:</string>
+    <string name="dialog_effect_description_hint">The power to command all!</string>
+
+    <string name="fragment_detail_name_hint">Name</string>
+    <string name="fragment_detail_description_hint">Description</string>
+
+    <string name="fragment_detail_character_nickname_hint">Nickname</string>
+    <string name="fragment_detail_character_gender_hint">Gender</string>
+    <string name="fragment_detail_character_age_prompt">Age:</string>
+    <string name="fragment_detail_character_description_hint">Description and Roles</string>
+
+    <string name="fragment_detail_event_location_hint">Where this event took place</string>
+
+    <string name="fragment_detail_group_size_prompt">Size:</string>
+    <string name="fragment_detail_group_size_hint">How large is the group?</string>
+
+    <string name="fragment_detail_item_effects_prompt">Item Effects</string>
+
+    <string name="fragment_detail_location_event_prompt">Events that occurred here</string>
+
+    <string name="fragment_detail_world_name_hint">Untitled world</string>
+    <string name="fragment_detail_world_description_hint">Add a description to your world to get started.</string>
+    <string name="fragment_detail_world_events_prompt">Major Events</string>
+
+    <string name="menu_bottom_character_details">Details</string>
+
+    <string name="menu_bottom_world_details">World Details</string>
+    <string name="menu_bottom_world_elements">World Elements</string>
+    <string name="menu_bottom_world_settings">World Settings</string>
+
+    <string name="menu_edit">Edit</string>
+    <string name="menu_change_world">Change World</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_delete">Delete</string>
+
 </resources>

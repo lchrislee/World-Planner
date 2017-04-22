@@ -25,6 +25,7 @@ public class CurrentWorldSettingsFragment extends WorldPlannerBaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_world_current_settings, container, false);
+
         return v;
     }
 }

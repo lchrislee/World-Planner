@@ -14,10 +14,6 @@ import com.lchrislee.worldplanner.managers.BitmapManager;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
-/**
- * Created by chrisl on 3/27/17.
- */
-
 public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.WorldViewHolder> {
 
     public interface WorldSwitch{

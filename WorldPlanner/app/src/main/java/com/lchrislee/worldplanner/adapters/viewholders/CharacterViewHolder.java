@@ -5,10 +5,6 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 
-/**
- * Created by chrisl on 4/20/17.
- */
-
 public class CharacterViewHolder extends DefaultEntityViewHolder
 {
     public final TextView trueName;

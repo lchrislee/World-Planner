@@ -145,7 +145,7 @@ public class LocationDetailFragment
     private class EventInLocationListAdapter extends WorldPlannerBaseListAdapter<EventViewHolder>
     {
         private int lastPressed;
-        private View.OnClickListener trueListener = new View.OnClickListener() {
+        private final View.OnClickListener trueListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 lastPressed = (int) v.getTag();

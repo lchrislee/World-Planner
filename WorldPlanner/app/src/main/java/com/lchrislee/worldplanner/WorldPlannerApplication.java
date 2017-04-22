@@ -10,10 +10,6 @@ import com.orm.SugarApp;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-/**
- * Created by chrisl on 3/26/17.
- */
-
 public class WorldPlannerApplication extends SugarApp {
 
     @Override

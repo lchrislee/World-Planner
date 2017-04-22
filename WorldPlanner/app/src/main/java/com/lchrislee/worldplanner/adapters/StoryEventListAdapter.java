@@ -14,12 +14,10 @@ import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.models.StoryEvent;
 import com.lchrislee.worldplanner.models.StoryLocation;
 
-import timber.log.Timber;
-
 public class StoryEventListAdapter extends WorldPlannerBaseListAdapter<EventViewHolder>
 {
     private boolean isDetailable;
-    private View.OnClickListener trueListener = new View.OnClickListener() {
+    private final View.OnClickListener trueListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (isDetailable) {

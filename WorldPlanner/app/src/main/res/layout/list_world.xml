@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/list_entity_name"
-            android:hint="Untitled World"
+            android:hint="@string/fragment_detail_world_name_hint"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@android:color/primary_text_light"
             android:layout_above="@id/list_entity_description"
@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/list_entity_description"
-            android:hint="Fill this in to get started."
+            android:hint="@string/fragment_detail_world_description_hint"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/primary_text_light"
             android:maxLines="2"
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"

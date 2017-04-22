@@ -24,7 +24,7 @@
         <EditText
             android:id="@+id/fragment_detail_name"
             tools:text="Earth - 616"
-            android:hint="Untitled world"
+            android:hint="@string/fragment_detail_world_name_hint"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:inputType="textPersonName"
             android:maxLines="1"
@@ -41,7 +41,7 @@
         <EditText
             android:id="@+id/fragment_detail_description"
             tools:text="The main Earth in the Marvel universe. This world is home to mutants, technological geniuses, and even alien lifeforms. No two days are the same for true believers."
-            android:hint="Fill in these details to get started."
+            android:hint="@string/fragment_detail_world_description_hint"
             android:inputType="textMultiLine"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:gravity="top"
@@ -65,7 +65,7 @@
 
             <TextView
                 android:id="@+id/fragment_detail_world_plot_prompt"
-                android:text="Major Events"
+                android:text="@string/fragment_detail_world_events_prompt"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_toStartOf="@+id/fragment_detail_world_plot_add"
                 android:layout_toLeftOf="@+id/fragment_detail_world_plot_add"

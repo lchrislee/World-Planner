@@ -63,7 +63,7 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId())
                 {
-                    case R.id.menu_detail_character_information:
+                    case R.id.menu_bottom_character_details:
                         if (informationFragment == null)
                         {
                             informationFragment = CharacterDetailFragment.newInstance(model);

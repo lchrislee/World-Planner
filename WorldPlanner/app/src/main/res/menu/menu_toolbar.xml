@@ -5,14 +5,14 @@
         android:id="@+id/menu_edit"
         android:icon="@android:drawable/ic_menu_edit"
         android:name="Edit"
-        android:title="Edit"
+        android:title="@string/menu_edit"
         app:showAsAction="ifRoom"
         />
 
     <item
         android:id="@+id/menu_world_change"
         android:icon="@drawable/world_switch"
-        android:title="Change World"
+        android:title="@string/menu_change_world"
         app:showAsAction="ifRoom"
         />
 
@@ -20,7 +20,7 @@
         android:id="@+id/menu_save"
         android:icon="@android:drawable/ic_menu_save"
         android:name="Save"
-        android:title="Save"
+        android:title="@string/menu_save"
         app:showAsAction="ifRoom"
         />
 
@@ -28,7 +28,7 @@
         android:id="@+id/menu_delete"
         android:icon="@android:drawable/ic_menu_delete"
         android:name="Delete"
-        android:title="Delete"
+        android:title="@string/menu_delete"
         app:showAsAction="ifRoom"
         />
 </menu>

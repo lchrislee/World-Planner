@@ -15,10 +15,6 @@ import java.util.Calendar;
 
 import timber.log.Timber;
 
-/**
- * Created by chrisl on 4/21/17.
- */
-
 public class CameraManager extends WorldPlannerBaseManager {
 
     public static final int REQUEST_CAPTURE_IMAGE = 2017;

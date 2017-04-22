@@ -51,7 +51,7 @@ public abstract class DetailFragment
     protected boolean isNew;
     protected boolean isEditing;
     protected StoryElement model;
-    protected View.OnClickListener imageClickListener;
+    private View.OnClickListener imageClickListener;
 
     public DetailFragment() {
         super();
@@ -263,7 +263,7 @@ public abstract class DetailFragment
         }
     }
 
-    protected void requestCameraPermissions()
+    private void requestCameraPermissions()
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=

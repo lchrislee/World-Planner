@@ -7,10 +7,6 @@ import com.orm.SugarRecord;
 
 import java.io.Serializable;
 
-/**
- * Created by chrisl on 3/26/17.
- */
-
 public class StoryCharacter extends SugarRecord implements Serializable, StoryElement{
 
     private String name;
@@ -57,9 +53,8 @@ public class StoryCharacter extends SugarRecord implements Serializable, StoryEl
     }
 
     @Override
-    public boolean setImage(@NonNull String path) {
+    public void setImage(@NonNull String path) {
         imagePath = path;
-        return true;
     }
 
     public @Nullable String getNickname() {

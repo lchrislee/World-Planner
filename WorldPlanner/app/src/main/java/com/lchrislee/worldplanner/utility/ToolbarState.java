@@ -4,10 +4,6 @@ import com.lchrislee.worldplanner.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by chrisl on 3/28/17.
- */
-
 public enum ToolbarState
 {
     Edit_Change,

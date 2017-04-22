@@ -15,7 +15,7 @@ public abstract class WorldPlannerBaseListAdapter<T extends WorldPlannerBaseView
 {
     protected final Context context;
     private View.OnClickListener viewClickListener;
-    private int layout;
+    private final int layout;
 
     public WorldPlannerBaseListAdapter(@NonNull Context context, int layout) {
         this.context = context;

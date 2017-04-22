@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_navigation_world_current_world_details"
+            android:id="@+id/menu_bottom_world_details"
             android:icon="@drawable/world_detail"
-            android:title="World Details"
+            android:title="@string/menu_bottom_world_details"
             android:titleCondensed="World"
             android:checked="true"
             />
         <item
-            android:id="@+id/menu_navigation_world_current_elements"
+            android:id="@+id/menu_bottom_world_elements"
             android:icon="@drawable/world_element"
-            android:title="World Elements"
+            android:title="@string/menu_bottom_world_elements"
             android:titleCondensed="Elements"
             />
         <item
-            android:id="@+id/menu_navigation_world_current_settings"
+            android:id="@+id/menu_bottom_world_settings"
             android:icon="@android:drawable/ic_menu_preferences"
-            android:title="World Settings"
+            android:title="@string/menu_bottom_world_settings"
             android:titleCondensed="Settings"
             />
     </group>

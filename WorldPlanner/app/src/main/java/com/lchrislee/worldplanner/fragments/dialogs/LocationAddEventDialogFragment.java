@@ -100,8 +100,8 @@ public class LocationAddEventDialogFragment extends DialogFragment {
 
     private class AddPlotListAdapter extends RecyclerView.Adapter<AddPlotListAdapter.EventViewHolder>
     {
-        private Context context;
-        private List<StoryEvent> events;
+        private final Context context;
+        private final List<StoryEvent> events;
 
         class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
         {

@@ -63,7 +63,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                 WorldPlannerBaseFragment frag = null;
                 switch(item.getItemId())
                 {
-                    case R.id.menu_navigation_world_current_world_details:
+                    case R.id.menu_bottom_world_details:
                         if (worldFragment == null)
                         {
                             worldFragment = WorldDetailFragment.newInstance(getContext());
@@ -72,7 +72,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                         tabChangeListener.updateToolbarWorldTabChange(true);
                         worldFragment.stopEditing();
                         break;
-                    case R.id.menu_navigation_world_current_elements:
+                    case R.id.menu_bottom_world_elements:
                         if (tabFragment == null)
                         {
                             tabFragment = new CurrentWorldTabFragment();
@@ -84,7 +84,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                             worldFragment.stopEditing();
                         }
                         break;
-                    case R.id.menu_navigation_world_current_settings:
+                    case R.id.menu_bottom_world_settings:
                         if (settingsFragment == null)
                         {
                             settingsFragment = new CurrentWorldSettingsFragment();

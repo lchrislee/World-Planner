@@ -9,10 +9,6 @@ import com.orm.dsl.Ignore;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by chrisl on 3/26/17.
- */
-
 public class StoryItem extends SugarRecord implements Serializable, StoryElement{
 
     private StoryWorld world;
@@ -53,9 +49,8 @@ public class StoryItem extends SugarRecord implements Serializable, StoryElement
     }
 
     @Override
-    public boolean setImage(@NonNull String path) {
+    public void setImage(@NonNull String path) {
         imagePath = path;
-        return true;
     }
 
     public void setWorld(StoryWorld world) {
@@ -148,12 +143,15 @@ public class StoryItem extends SugarRecord implements Serializable, StoryElement
         }
 
         @Override
-        public boolean setImage(@NonNull String path) {
-            return false;
+        public void setImage(@NonNull String path) {
         }
 
         public void setMasterItem(StoryItem master) {
             this.masterItem = master;
+        }
+
+        public StoryItem getMasterItem() {
+            return masterItem;
         }
     }
 }

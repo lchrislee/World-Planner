@@ -23,7 +23,7 @@
         <EditText
             android:id="@+id/fragment_detail_name"
             tools:text="Peter Parker"
-            android:hint="Character Name"
+            android:hint="@string/fragment_detail_name_hint"
             android:inputType="textPersonName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"
@@ -40,7 +40,7 @@
         <EditText
             android:id="@+id/fragment_detail_character_nickname"
             tools:text="Spiderman"
-            android:hint="Nickname"
+            android:hint="@string/fragment_detail_character_nickname_hint"
             android:inputType="textPersonName"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -56,7 +56,7 @@
         <EditText
             android:id="@+id/fragment_detail_character_gender"
             tools:text="Male"
-            android:hint="Gender"
+            android:hint="@string/fragment_detail_character_gender_hint"
             android:inputType="text"
             android:maxLines="1"
             android:layout_toStartOf="@+id/fragment_detail_age_prompt"
@@ -72,7 +72,7 @@
 
         <TextView
             android:id="@+id/fragment_detail_age_prompt"
-            android:text="Age:"
+            android:text="@string/fragment_detail_character_age_prompt"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:gravity="end|center_vertical"
             android:layout_toStartOf="@+id/fragment_detail_character_age"
@@ -104,7 +104,7 @@
         <EditText
             android:id="@+id/fragment_detail_description"
             tools:text="Main Protagonist"
-            android:hint="Roles or description"
+            android:hint="@string/fragment_detail_character_description_hint"
             android:inputType="textMultiLine"
             android:gravity="top"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"

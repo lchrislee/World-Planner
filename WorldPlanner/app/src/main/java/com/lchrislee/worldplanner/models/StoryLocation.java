@@ -9,10 +9,6 @@ import com.orm.dsl.Ignore;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by chrisl on 3/26/17.
- */
-
 public class StoryLocation extends SugarRecord implements Serializable, StoryElement {
 
     private StoryWorld world;
@@ -63,9 +59,8 @@ public class StoryLocation extends SugarRecord implements Serializable, StoryEle
     }
 
     @Override
-    public boolean setImage(@NonNull String path) {
+    public void setImage(@NonNull String path) {
         imagePath = path;
-        return true;
     }
 
     public int getEventsCount()

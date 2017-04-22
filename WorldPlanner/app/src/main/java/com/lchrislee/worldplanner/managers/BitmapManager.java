@@ -9,10 +9,6 @@ import android.util.TypedValue;
 
 import com.lchrislee.worldplanner.R;
 
-/**
- * Created by chrisl on 4/21/17.
- */
-
 public class BitmapManager extends WorldPlannerBaseManager {
 
     public enum ResizeType

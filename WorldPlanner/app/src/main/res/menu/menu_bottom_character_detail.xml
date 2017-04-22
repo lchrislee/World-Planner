@@ -5,9 +5,9 @@
         android:checkableBehavior="single"
         >
         <item
-            android:id="@+id/menu_detail_character_information"
+            android:id="@+id/menu_bottom_character_details"
             android:icon="@drawable/character_detail"
-            android:title="Details"
+            android:title="@string/menu_bottom_character_details"
             app:showAsAction="ifRoom|withText"
             android:checked="true"
             />

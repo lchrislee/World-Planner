@@ -15,5 +15,5 @@ public interface StoryElement {
     void setDescription(@NonNull String description);
 
     @NonNull String getImage();
-    boolean setImage(@NonNull String path); // Return success/fail. No image should return fail.
+    void setImage(@NonNull String path); // Return success/fail. No image should return fail.
 }

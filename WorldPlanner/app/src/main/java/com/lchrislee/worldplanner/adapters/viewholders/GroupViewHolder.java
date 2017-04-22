@@ -5,12 +5,8 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 
-/**
- * Created by chrisl on 4/21/17.
- */
-
 public class GroupViewHolder extends DefaultEntityViewHolder {
-    public TextView size;
+    public final TextView size;
 
     public GroupViewHolder(View itemView) {
         super(itemView);

@@ -48,8 +48,7 @@ public class StoryEvent extends SugarRecord implements Serializable, StoryElemen
     }
 
     @Override
-    public boolean setImage(@NonNull String path) {
-        return false;
+    public void setImage(@NonNull String path) {
     }
 
     public void setWorld(StoryWorld world) {
