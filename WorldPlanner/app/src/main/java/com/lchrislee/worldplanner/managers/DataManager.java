@@ -88,7 +88,10 @@ public class DataManager extends WorldPlannerBaseManager{
             id = -1;
         }
 
-        if (!(model instanceof StoryItem.StoryItemEffect) && !(model instanceof StoryEvent) && id != -1)
+        if (!(model instanceof StoryEvent.StoryEventType)
+                && !(model instanceof StoryItem.StoryItemEffect)
+                && !(model instanceof StoryEvent)
+                && id != -1)
         {
             getCurrentWorld().insertElement(model);
         }
@@ -185,6 +188,20 @@ public class DataManager extends WorldPlannerBaseManager{
         event.setLocation(null);
         update(event);
         updateEventsInCurrentWorld();
+    }
+
+    public @Nullable StoryEvent.StoryEventType getEventTypeAtIndex(int index)
+    {
+        if (index < 0)
+        {
+            return null;
+        }
+        return currentWorld.getEventTypeAtIndex(index);
+    }
+
+    public int getEventTypeCountForWorld()
+    {
+        return currentWorld.getEventTypeCountForWorld();
     }
 
     public long getCountForWorlds() {

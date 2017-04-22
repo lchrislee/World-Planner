@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        >
+
+        <TextView
+            android:text="@string/dialog_event_type_name_prompt"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            />
+
+        <EditText
+            android:id="@+id/dialog_event_type_name"
+            android:hint="@string/dialog_event_type_name_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginStart="2dp"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:text="@string/dialog_event_type_description_prompt"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        />
+
+    <EditText
+        android:id="@+id/dialog_event_type_description"
+        android:hint="@string/dialog_event_type_description_hint"
+        android:maxLines="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="4dp"
+        />
+
+    <TextView
+        android:text="@string/dialog_event_type_color_prompt"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <com.skydoves.colorpickerview.ColorPickerView
+        android:id="@+id/dialog_event_type_color_picker"
+        app:src="@drawable/palette"
+        app:selector="@drawable/wheel"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="4dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        />
+
+</LinearLayout>

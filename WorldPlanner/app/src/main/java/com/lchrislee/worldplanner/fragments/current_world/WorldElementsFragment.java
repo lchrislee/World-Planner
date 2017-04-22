@@ -21,12 +21,12 @@ import com.lchrislee.worldplanner.managers.DataManager;
 
 import timber.log.Timber;
 
-public class CurrentWorldTabFragment extends WorldPlannerBaseFragment {
+public class WorldElementsFragment extends WorldPlannerBaseFragment {
     private FloatingActionMenu floatingActionMenu;
     private WorldElementListAdapter adapter;
     private ImageView empty;
 
-    public CurrentWorldTabFragment() {
+    public WorldElementsFragment() {
         // Required empty public constructor
     }
 

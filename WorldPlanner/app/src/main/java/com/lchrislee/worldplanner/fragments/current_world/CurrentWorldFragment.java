@@ -21,8 +21,8 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
     }
 
     private WorldDetailFragment worldFragment;
-    private CurrentWorldTabFragment tabFragment;
-    private CurrentWorldSettingsFragment settingsFragment;
+    private WorldElementsFragment tabFragment;
+    private WorldSettingsFragment settingsFragment;
     private WorldTabChange tabChangeListener;
 
     public CurrentWorldFragment() {
@@ -75,7 +75,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                     case R.id.menu_bottom_world_elements:
                         if (tabFragment == null)
                         {
-                            tabFragment = new CurrentWorldTabFragment();
+                            tabFragment = new WorldElementsFragment();
                         }
                         frag = tabFragment;
                         tabChangeListener.updateToolbarWorldTabChange(false);
@@ -87,7 +87,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                     case R.id.menu_bottom_world_settings:
                         if (settingsFragment == null)
                         {
-                            settingsFragment = new CurrentWorldSettingsFragment();
+                            settingsFragment = new WorldSettingsFragment();
                         }
                         frag = settingsFragment;
                         tabChangeListener.updateToolbarWorldTabChange(false);

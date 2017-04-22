@@ -38,4 +38,12 @@
     <string name="menu_save">Save</string>
     <string name="menu_delete">Delete</string>
 
+    <string name="fragment_settings_event_type_prompt">Types of Events</string>
+
+    <string name="dialog_event_type_name_prompt">Type Name:</string>
+    <string name="dialog_event_type_name_hint">Worldwide</string>
+    <string name="dialog_event_type_description_prompt">Type Description:</string>
+    <string name="dialog_event_type_description_hint">Something so large that everyone knows about it.</string>
+    <string name="dialog_event_type_color_prompt">Events will have this color:</string>
+
 </resources>

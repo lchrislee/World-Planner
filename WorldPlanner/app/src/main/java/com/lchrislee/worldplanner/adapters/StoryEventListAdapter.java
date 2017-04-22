@@ -51,6 +51,12 @@ public class StoryEventListAdapter extends WorldPlannerBaseListAdapter<EventView
             holder.location.setText(text);
             holder.location.setVisibility(View.VISIBLE);
         }
+
+        StoryEvent.StoryEventType type = event.getType();
+        if (type != null && type.getColor() != 0)
+        {
+            holder.itemView.setBackgroundColor(type.getColor());
+        }
     }
 
     @Override

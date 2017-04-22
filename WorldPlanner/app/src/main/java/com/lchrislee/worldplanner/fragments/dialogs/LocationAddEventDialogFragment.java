@@ -134,6 +134,11 @@ public class LocationAddEventDialogFragment extends DialogFragment {
         @Override
         public void onBindViewHolder(EventViewHolder holder, int position) {
             holder.name.setText(events.get(position).getName());
+            StoryEvent.StoryEventType type = events.get(position).getType();
+            if (type != null && type.getColor() != 0)
+            {
+                holder.itemView.setBackgroundColor(type.getColor());
+            }
         }
 
         @Override

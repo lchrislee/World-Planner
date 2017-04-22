@@ -87,12 +87,18 @@ public class ItemEffectDialogFragment extends DialogFragment {
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (effect == null)
+                boolean isNew = effect == null;
+                if (isNew)
                 {
                     effect = new StoryItem.StoryItemEffect();
-                    effect.setName(name.getText().toString());
-                    effect.setDescription(description.getText().toString());
-                    effect.setMasterItem(master);
+                }
+
+                effect.setName(name.getText().toString());
+                effect.setDescription(description.getText().toString());
+                effect.setMasterItem(master);
+
+                if (isNew)
+                {
                     master.addEffect(effect);
                     DataManager.getInstance().add(effect);
                     DataManager.getInstance().update(master);
