@@ -3,8 +3,12 @@ package com.lchrislee.worldplanner.models;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.lchrislee.worldplanner.managers.DataManager;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
+import com.orm.query.Condition;
+import com.orm.query.Select;
+import com.orm.util.QueryBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -188,4 +192,46 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         allElements.add(0, element);
     }
 
+    public void removeLocationFromEvents(@NonNull StoryLocation location)
+    {
+        List<StoryEvent> events = Select.from(StoryEvent.class).where(
+                Condition.prop("world").eq(String.valueOf(getId())),
+                Condition.prop("location").eq(String.valueOf(location.getId()))
+        ).list();
+
+        for (StoryEvent event : events)
+        {
+            event.setLocation(null);
+            DataManager.getInstance().update(event);
+            generateEvents();
+        }
+    }
+
+    public void removeEventTypeFromEvents(@NonNull StoryEvent.StoryEventType type)
+    {
+        List<StoryEvent> events = Select.from(StoryEvent.class).where(
+                Condition.prop("world").eq(String.valueOf(getId())),
+                Condition.prop("type").eq(String.valueOf(type.getId()))
+        ).list();
+
+        for (StoryEvent event : events)
+        {
+            event.setType(null);
+            DataManager.getInstance().update(event);
+            generateEvents();
+        }
+    }
+
+    public void removeItemEffectsForItem(@NonNull StoryItem item)
+    {
+        List<StoryItem.StoryItemEffect> effects = Select.from(StoryItem.StoryItemEffect.class).where(
+                Condition.prop("world").eq(String.valueOf(getId())),
+                Condition.prop("master_item").eq(String.valueOf(item.getId()))
+        ).list();
+
+        for (StoryItem.StoryItemEffect effect : effects)
+        {
+            DataManager.getInstance().delete(effect);
+        }
+    }
 }

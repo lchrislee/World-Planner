@@ -18,14 +18,14 @@ import com.skydoves.colorpickerview.ColorPickerView;
 
 import timber.log.Timber;
 
-public class EventTypeDialogFragment extends DialogFragment {
+public class CreateEventTypeDialog extends DialogFragment {
 
     public interface EventTypeDialogListener
     {
         void onUpdate();
     }
 
-    private static final String INDEX_EVENT = "EventTypeDialogFragment.INDEX_VENT";
+    private static final String INDEX_EVENT = "CreateEventTypeDialog.INDEX_EVENT";
 
     private EventTypeDialogListener listener;
 
@@ -36,13 +36,14 @@ public class EventTypeDialogFragment extends DialogFragment {
 
     private ColorPickerView colorPickerView;
 
-    public EventTypeDialogFragment() {
+    public CreateEventTypeDialog() {
         // Required.
     }
 
-    public static @NonNull EventTypeDialogFragment newInstance(int index)
+    public static @NonNull
+    CreateEventTypeDialog newInstance(int index)
     {
-        EventTypeDialogFragment fragment = new EventTypeDialogFragment();
+        CreateEventTypeDialog fragment = new CreateEventTypeDialog();
         Bundle args = new Bundle();
         args.putInt(INDEX_EVENT, index);
         fragment.setArguments(args);
@@ -110,7 +111,7 @@ public class EventTypeDialogFragment extends DialogFragment {
         builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EventTypeDialogFragment.this.getDialog().cancel();
+                CreateEventTypeDialog.this.getDialog().cancel();
             }
         });
 

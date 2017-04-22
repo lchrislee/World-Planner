@@ -6,15 +6,15 @@
     <string name="dialog_effect_description_prompt">Effect description:</string>
     <string name="dialog_effect_description_hint">The power to command all!</string>
 
-    <string name="fragment_detail_name_hint">Name</string>
-    <string name="fragment_detail_description_hint">Description</string>
+    <string name="fragment_detail_name_prompt">Name:</string>
+    <string name="fragment_detail_description_prompt">Description:</string>
 
     <string name="fragment_detail_character_nickname_hint">Nickname</string>
     <string name="fragment_detail_character_gender_hint">Gender</string>
     <string name="fragment_detail_character_age_prompt">Age:</string>
     <string name="fragment_detail_character_description_hint">Description and Roles</string>
 
-    <string name="fragment_detail_event_location_hint">Where this event took place</string>
+    <string name="fragment_detail_event_location_hint">Where this event occurred</string>
 
     <string name="fragment_detail_group_size_prompt">Size:</string>
     <string name="fragment_detail_group_size_hint">How large is the group?</string>
@@ -45,5 +45,7 @@
     <string name="dialog_event_type_description_prompt">Type Description:</string>
     <string name="dialog_event_type_description_hint">Something so large that everyone knows about it.</string>
     <string name="dialog_event_type_color_prompt">Events will have this color:</string>
+    <string name="dialog_event_type_change">Change</string>
+    <string name="fragment_detail_event_type_prompt">Type:</string>
 
 </resources>

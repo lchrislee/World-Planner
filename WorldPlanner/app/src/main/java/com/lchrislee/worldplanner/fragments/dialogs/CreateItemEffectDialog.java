@@ -17,15 +17,15 @@ import com.lchrislee.worldplanner.models.StoryItem;
 
 import java.io.Serializable;
 
-public class ItemEffectDialogFragment extends DialogFragment {
+public class CreateItemEffectDialog extends DialogFragment {
 
     public interface ItemEffectDialogListener
     {
         void onUpdate();
     }
 
-    private static final String INDEX_EFFECT = "ItemEffectDialogFragment.INDEX_EFFECT";
-    private static final String ITEM = "ItemEffectDialogFragment.ITEM";
+    private static final String INDEX_EFFECT = "CreateItemEffectDialog.INDEX_EFFECT";
+    private static final String ITEM = "CreateItemEffectDialog.ITEM";
 
     private StoryItem.StoryItemEffect effect;
     private StoryItem master;
@@ -35,14 +35,15 @@ public class ItemEffectDialogFragment extends DialogFragment {
 
     private ItemEffectDialogListener listener;
 
-    public ItemEffectDialogFragment() {
+    public CreateItemEffectDialog() {
         // Required
     }
 
-    public static @NonNull ItemEffectDialogFragment newInstance(@NonNull Serializable item,
-                                                                int effectIndex)
+    public static @NonNull
+    CreateItemEffectDialog newInstance(@NonNull Serializable item,
+                                       int effectIndex)
     {
-        ItemEffectDialogFragment fragment = new ItemEffectDialogFragment();
+        CreateItemEffectDialog fragment = new CreateItemEffectDialog();
         Bundle argument = new Bundle();
         argument.putInt(INDEX_EFFECT, effectIndex);
         argument.putSerializable(ITEM, item);
@@ -113,7 +114,7 @@ public class ItemEffectDialogFragment extends DialogFragment {
         builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ItemEffectDialogFragment.this.getDialog().cancel();
+                CreateItemEffectDialog.this.getDialog().cancel();
             }
         });
         if (effect != null)

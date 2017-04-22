@@ -6,9 +6,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.fragments.dialogs.SingleSelectEventTypeDialog;
+import com.lchrislee.worldplanner.fragments.dialogs.SingleSelectDialog;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryEvent;
@@ -16,10 +19,13 @@ import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
 
-public class EventDetailFragment extends DetailFragment {
+public class EventDetailFragment extends DetailFragment implements SingleSelectDialog.SingleSelectDialogListener {
 
     private StoryEvent event;
     private TextView locationText;
+    private TextView typeName;
+    private TextView typeDescription;
+    private Button changeEventType;
 
     public EventDetailFragment() {
 
@@ -56,6 +62,17 @@ public class EventDetailFragment extends DetailFragment {
         if (mainView != null)
         {
             locationText = (TextView) mainView.findViewById(R.id.fragment_detail_event_location);
+            typeName = (TextView) mainView.findViewById(R.id.fragment_detail_event_type_name);
+            typeDescription = (TextView) mainView.findViewById(R.id.fragment_detail_event_type_description);
+            changeEventType = (Button) mainView.findViewById(R.id.fragment_detail_event_type_change);
+            changeEventType.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SingleSelectEventTypeDialog fragment = SingleSelectEventTypeDialog.newInstance("Select an event type");
+                    fragment.setListener(EventDetailFragment.this);
+                    fragment.show(getChildFragmentManager(), "Select Event Type");
+                }
+            });
         }
         return mainView;
     }
@@ -65,19 +82,17 @@ public class EventDetailFragment extends DetailFragment {
         if (model != null)
         {
             event = (StoryEvent) model;
+            updateTypeView(event.getType());
             if (locationText != null)
             {
                 StoryLocation location = event.getLocation();
-                String locationOutput = "Occurred at ";
                 if (location == null)
                 {
-                    locationOutput += "undisclosed location";
-                    locationText.setText(locationOutput);
+                    locationText.setText("undisclosed location");
                 }
                 else
                 {
-                    locationOutput += location.getName();
-                    locationText.setText(locationOutput);
+                    locationText.setText(location.getName());
                 }
             }
         }
@@ -89,17 +104,40 @@ public class EventDetailFragment extends DetailFragment {
     protected void updateViews() {
         if (isEditing)
         {
-            if (locationText != null) {
-                locationText.setVisibility(View.GONE);
+            if (changeEventType != null) {
+                changeEventType.setVisibility(View.VISIBLE);
             }
         }
         else
         {
-            if (locationText != null) {
-                locationText.setVisibility(View.VISIBLE);
+            if (changeEventType != null) {
+                changeEventType.setVisibility(View.GONE);
             }
         }
         super.updateViews();
     }
 
+    @Override
+    public void onPositivePressed(int selected) {
+        StoryEvent.StoryEventType type = DataManager.getInstance().getEventTypeAtIndex(selected);
+        event.setType(type);
+        DataManager.getInstance().update(event);
+
+        updateTypeView(type);
+    }
+
+    private void updateTypeView(@Nullable StoryEvent.StoryEventType type)
+    {
+        if (type != null)
+        {
+            typeName.setText(type.getName());
+            typeDescription.setText(type.getDescription());
+            typeDescription.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            typeName.setText("Undeclared");
+            typeDescription.setVisibility(View.GONE);
+        }
+    }
 }

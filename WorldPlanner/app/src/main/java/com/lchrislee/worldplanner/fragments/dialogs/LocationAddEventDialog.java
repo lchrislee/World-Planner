@@ -24,7 +24,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationAddEventDialogFragment extends DialogFragment {
+public class LocationAddEventDialog extends DialogFragment {
 
     public interface LocationAddEventListener {
         void onPositiveClick(@NonNull List<Long> events);
@@ -38,14 +38,14 @@ public class LocationAddEventDialogFragment extends DialogFragment {
 
     private StoryLocation master;
 
-    public LocationAddEventDialogFragment() {
+    public LocationAddEventDialog() {
         // Required.
     }
 
     public static @NonNull
-    LocationAddEventDialogFragment newInstance(@NonNull Serializable obj)
+    LocationAddEventDialog newInstance(@NonNull Serializable obj)
     {
-        LocationAddEventDialogFragment fragment = new LocationAddEventDialogFragment();
+        LocationAddEventDialog fragment = new LocationAddEventDialog();
         Bundle argument = new Bundle();
         argument.putSerializable(LOCATION, obj);
         fragment.setArguments(argument);
@@ -67,9 +67,9 @@ public class LocationAddEventDialogFragment extends DialogFragment {
         builder.setTitle("Add plot events to this location.");
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View v = inflater.inflate(R.layout.dialog_location_event, null);
+        final View v = inflater.inflate(R.layout.dialog_select, null);
 
-        final RecyclerView list = (RecyclerView) v.findViewById(R.id.dialog_location_event_list);
+        final RecyclerView list = (RecyclerView) v.findViewById(R.id.dialog_select_list);
         list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         list.setAdapter(new AddPlotListAdapter(getContext()));
 
@@ -86,7 +86,7 @@ public class LocationAddEventDialogFragment extends DialogFragment {
         builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                LocationAddEventDialogFragment.this.getDialog().cancel();
+                LocationAddEventDialog.this.getDialog().cancel();
             }
         });
 
@@ -132,6 +132,13 @@ public class LocationAddEventDialogFragment extends DialogFragment {
         }
 
         @Override
+        public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View view = inflater.inflate(android.R.layout.simple_list_item_multiple_choice, parent, false);
+            return new EventViewHolder(view);
+        }
+
+        @Override
         public void onBindViewHolder(EventViewHolder holder, int position) {
             holder.name.setText(events.get(position).getName());
             StoryEvent.StoryEventType type = events.get(position).getType();
@@ -139,13 +146,6 @@ public class LocationAddEventDialogFragment extends DialogFragment {
             {
                 holder.itemView.setBackgroundColor(type.getColor());
             }
-        }
-
-        @Override
-        public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            View view = inflater.inflate(android.R.layout.simple_list_item_multiple_choice, parent, false);
-            return new EventViewHolder(view);
         }
 
         @Override

@@ -23,7 +23,7 @@
         <EditText
             android:id="@+id/fragment_detail_name"
             tools:text="Peter Parker"
-            android:hint="@string/fragment_detail_name_hint"
+            android:hint="@string/fragment_detail_name_prompt"
             android:inputType="textPersonName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"

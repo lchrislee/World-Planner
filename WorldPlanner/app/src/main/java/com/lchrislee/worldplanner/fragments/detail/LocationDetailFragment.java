@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.adapters.WorldPlannerBaseListAdapter;
 import com.lchrislee.worldplanner.adapters.viewholders.EventViewHolder;
-import com.lchrislee.worldplanner.fragments.dialogs.LocationAddEventDialogFragment;
+import com.lchrislee.worldplanner.fragments.dialogs.LocationAddEventDialog;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.models.StoryLocation;
@@ -28,7 +28,7 @@ import java.util.List;
 
 public class LocationDetailFragment
         extends DetailFragment
-        implements LocationAddEventDialogFragment.LocationAddEventListener
+        implements LocationAddEventDialog.LocationAddEventListener
 {
 
     private StoryLocation location;
@@ -81,7 +81,7 @@ public class LocationDetailFragment
             addEvent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    LocationAddEventDialogFragment fragment = LocationAddEventDialogFragment.newInstance(location);
+                    LocationAddEventDialog fragment = LocationAddEventDialog.newInstance(location);
                     fragment.setListener(LocationDetailFragment.this);
                     fragment.show(getChildFragmentManager(), "Location add event");
                 }

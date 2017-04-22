@@ -23,7 +23,7 @@
         <EditText
             android:id="@+id/fragment_detail_name"
             tools:text="Web Canister"
-            android:hint="@string/fragment_detail_name_hint"
+            android:hint="@string/fragment_detail_name_prompt"
             android:inputType="textPersonName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"
@@ -58,7 +58,7 @@
         <EditText
             android:id="@+id/fragment_detail_description"
             tools:text="Peter Parker's source of webbing, easily swapped so he can always be ready for battle. It is his own creation and holds a variety of webbing."
-            android:hint="@string/fragment_detail_description_hint"
+            android:hint="@string/fragment_detail_description_prompt"
             android:inputType="textMultiLine"
             android:gravity="top"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"

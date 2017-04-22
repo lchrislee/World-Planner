@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.fragments.dialogs.ItemEffectDialogFragment;
+import com.lchrislee.worldplanner.fragments.dialogs.CreateItemEffectDialog;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryWorld;
@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 public class ItemDetailFragment
         extends DetailFragment
-        implements ItemEffectDialogFragment.ItemEffectDialogListener
+        implements CreateItemEffectDialog.ItemEffectDialogListener
 {
 
     private StoryItem item;
@@ -77,7 +77,7 @@ public class ItemDetailFragment
             addEffect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ItemEffectDialogFragment dialogFragment = ItemEffectDialogFragment.newInstance(item, -1);
+                    CreateItemEffectDialog dialogFragment = CreateItemEffectDialog.newInstance(item, -1);
                     dialogFragment.setListener(ItemDetailFragment.this);
                     dialogFragment.show(getChildFragmentManager(), "ITEM_EFFECT");
                 }
@@ -156,7 +156,7 @@ public class ItemDetailFragment
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ItemEffectDialogFragment dialogFragment = ItemEffectDialogFragment.newInstance(item, (int) v.getTag());
+                    CreateItemEffectDialog dialogFragment = CreateItemEffectDialog.newInstance(item, (int) v.getTag());
                     dialogFragment.setListener(ItemDetailFragment.this);
                     dialogFragment.show(getChildFragmentManager(), "ITEM_EFFECT");
                 }

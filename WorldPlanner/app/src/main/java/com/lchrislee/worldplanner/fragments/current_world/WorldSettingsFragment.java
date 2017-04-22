@@ -13,13 +13,13 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
-import com.lchrislee.worldplanner.fragments.dialogs.EventTypeDialogFragment;
+import com.lchrislee.worldplanner.fragments.dialogs.CreateEventTypeDialog;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryEvent;
 
 public class WorldSettingsFragment
         extends WorldPlannerBaseFragment
-        implements EventTypeDialogFragment.EventTypeDialogListener
+        implements CreateEventTypeDialog.EventTypeDialogListener
 {
 
     private EventTypeListAdapter eventTypeListAdapter;
@@ -50,7 +50,7 @@ public class WorldSettingsFragment
         addEventType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventTypeDialogFragment fragment = EventTypeDialogFragment.newInstance(-1);
+                CreateEventTypeDialog fragment = CreateEventTypeDialog.newInstance(-1);
                 fragment.setListener(WorldSettingsFragment.this);
                 fragment.show(getChildFragmentManager(), "Add EventType");
             }
@@ -79,7 +79,7 @@ public class WorldSettingsFragment
 
             @Override
             public void onClick(View v) {
-                EventTypeDialogFragment fragment = EventTypeDialogFragment.newInstance((int) v.getTag());
+                CreateEventTypeDialog fragment = CreateEventTypeDialog.newInstance((int) v.getTag());
                 fragment.setListener(WorldSettingsFragment.this);
                 fragment.show(getChildFragmentManager(), "Update EventType");
             }

@@ -80,7 +80,7 @@ public class DataManager extends WorldPlannerBaseManager{
         }
         else if (model instanceof SugarRecord)
         {
-            getCurrentWorld().save();
+            currentWorld.save();
             id = ((SugarRecord) model).save();
         }
         else
@@ -93,7 +93,7 @@ public class DataManager extends WorldPlannerBaseManager{
                 && !(model instanceof StoryEvent)
                 && id != -1)
         {
-            getCurrentWorld().insertElement(model);
+            currentWorld.insertElement(model);
         }
 
         return id;
@@ -106,8 +106,9 @@ public class DataManager extends WorldPlannerBaseManager{
         }
         else
         {
-            getCurrentWorld().save();
+            currentWorld.save();
             ((SugarRecord) model).save();
+            currentWorld.updateEvents();
         }
     }
 
@@ -132,10 +133,19 @@ public class DataManager extends WorldPlannerBaseManager{
                 }
             }
         }
-        else if (model instanceof SugarRecord)
-        {
-            ((SugarRecord) model).delete();
-            getCurrentWorld().save();
+        else {
+            if (model instanceof StoryLocation) {
+                currentWorld.removeLocationFromEvents((StoryLocation) model);
+            } else if (model instanceof StoryEvent.StoryEventType) {
+                currentWorld.removeEventTypeFromEvents((StoryEvent.StoryEventType) model);
+            } else if (model instanceof StoryItem) {
+                currentWorld.removeItemEffectsForItem((StoryItem) model);
+            }
+            if (model instanceof SugarRecord) {
+                ((SugarRecord) model).delete();
+                currentWorld.save();
+                currentWorld.updateEvents();
+            }
         }
     }
 
@@ -240,7 +250,7 @@ public class DataManager extends WorldPlannerBaseManager{
 
     public int getCountForAllWorldElements()
     {
-        return getCurrentWorld().getElementsCount();
+        return currentWorld.getElementsCount();
     }
 
     public int getElementTypeAtIndex(int index)
