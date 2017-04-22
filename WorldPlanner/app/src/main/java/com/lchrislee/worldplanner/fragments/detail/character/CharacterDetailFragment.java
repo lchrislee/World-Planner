@@ -19,7 +19,7 @@ import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
 
-public class CharacterDetailFragment extends DetailFragment implements ToolbarSupportingFragment{
+public class CharacterDetailFragment extends DetailFragment{
 
     private EditText nickname;
     private EditText gender;
@@ -37,6 +37,7 @@ public class CharacterDetailFragment extends DetailFragment implements ToolbarSu
         Bundle bundle = new Bundle();
         bundle.putInt(DetailFragment.ENTITY_TYPE, DataManager.CHARACTER);
         bundle.putSerializable(DATA, object);
+        bundle.putInt(LAYOUT, R.layout.fragment_detail_character);
         fragment.setArguments(bundle);
         return fragment;
     }

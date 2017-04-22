@@ -183,6 +183,7 @@ public class DataManager extends WorldPlannerBaseManager{
         StoryPlot plot = location.removePlot(index);
         plot.setLocation(null);
         update(plot);
+        currentWorld.updatePlots();
     }
 
     public long getCountForWorlds() {

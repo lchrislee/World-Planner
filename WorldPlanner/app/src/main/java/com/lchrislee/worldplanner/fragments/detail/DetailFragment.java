@@ -34,19 +34,21 @@ import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
 
-public class DetailFragment
+public abstract class DetailFragment
         extends WorldPlannerBaseFragment
         implements ToolbarSupportingFragment
 {
 
     protected static final String ENTITY_TYPE = "DETAIL_FRAGMENT_ENTITY_TYPE";
     protected static final String DATA = "DETAIL_FRAGMENT_DATA";
+    protected static final String LAYOUT = "DETAIL_FRAGMENT_LAYOUT";
 
     private View mainView;
     private EditText name;
     private EditText description;
     private ImageView image;
 
+    private int layoutId;
     private int typeToDisplay;
     private boolean haveCameraPermissions = false;
     protected boolean isNew;
@@ -59,18 +61,6 @@ public class DetailFragment
         // Required empty public constructor
     }
 
-    public static DetailFragment newInstance(int type,
-                                             @Nullable Serializable object
-                                             )
-    {
-        DetailFragment fragment = new DetailFragment();
-        Bundle b = new Bundle();
-        b.putInt(ENTITY_TYPE, type);
-        b.putSerializable(DATA, object);
-        fragment.setArguments(b);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,43 +70,18 @@ public class DetailFragment
         model = (StoryElement) arguments.getSerializable(DATA);
         isNew = model == null;
         isEditing = isNew;
+        layoutId = arguments.getInt(LAYOUT);
         setupImageListener();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (typeToDisplay == DataManager.PLOT)
-        {
-            mainView = inflater.inflate(R.layout.fragment_detail_plot, container, false);
-        }
-        else
-        {
-            int layoutId;
-            switch (typeToDisplay)
-            {
-                case DataManager.CHARACTER: // Propagate to CharacterDetailFragment.
-                    layoutId = R.layout.fragment_detail_character;
-                    break;
-                case DataManager.GROUP: // Propagate to GroupDetailFragment.
-                    layoutId = R.layout.fragment_detail_group;
-                    break;
-                case DataManager.ITEM: // Propagate to ItemDetailFragment.
-                    layoutId = R.layout.fragment_detail_item;
-                    break;
-                case DataManager.LOCATION: // Propagate to LocationDetailFragment.
-                    layoutId = R.layout.fragment_detail_location;
-                    break;
-                default: // Propagate to WorldDetailFragment.
-                    layoutId = R.layout.fragment_detail_world;
-                    break;
-            }
-            mainView = inflater.inflate(layoutId, container, false);
-            image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
-        }
+        mainView = inflater.inflate(layoutId, container, false);
 
         name = (EditText) mainView.findViewById(R.id.fragment_detail_name);
         description = (EditText) mainView.findViewById(R.id.fragment_detail_description);
+        image = (ImageView) mainView.findViewById(R.id.fragment_detail_image);
 
         if (model != null)
         {

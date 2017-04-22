@@ -98,6 +98,12 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         }
     }
 
+    public void updatePlots()
+    {
+        allPlots = null;
+        generatePlots();
+    }
+
     public int getElementsCount()
     {
         if (checkElements())

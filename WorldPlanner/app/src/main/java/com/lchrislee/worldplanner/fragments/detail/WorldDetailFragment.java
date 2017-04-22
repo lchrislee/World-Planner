@@ -37,6 +37,7 @@ public class WorldDetailFragment extends DetailFragment {
         Bundle args = new Bundle();
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.WORLD);
         args.putSerializable(DetailFragment.DATA, DataManager.getInstance(context).getCurrentWorld());
+        args.putInt(LAYOUT, R.layout.fragment_detail_world);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,6 +47,7 @@ public class WorldDetailFragment extends DetailFragment {
         Bundle args = new Bundle();
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.WORLD);
         args.putSerializable(DetailFragment.DATA, null);
+        args.putInt(LAYOUT, R.layout.fragment_detail_world);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,8 +57,6 @@ public class WorldDetailFragment extends DetailFragment {
         super.onCreate(savedInstanceState);
         if (model == null) {
             model = new StoryWorld();
-            model.setName("");
-            model.setDescription("");
         }
     }
 

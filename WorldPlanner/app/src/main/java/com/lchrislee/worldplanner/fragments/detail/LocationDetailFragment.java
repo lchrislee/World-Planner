@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.adapters.WorldPlannerBaseListAdapter;
-import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
+import com.lchrislee.worldplanner.adapters.viewholders.PlotViewHolder;
 import com.lchrislee.worldplanner.fragments.dialogs.LocationAddPlotDialogFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
@@ -28,7 +28,7 @@ import java.util.List;
 
 public class LocationDetailFragment
         extends DetailFragment
-        implements ToolbarSupportingFragment, LocationAddPlotDialogFragment.LocationAddPlotListener
+        implements LocationAddPlotDialogFragment.LocationAddPlotListener
 {
 
     private StoryLocation location;
@@ -42,12 +42,13 @@ public class LocationDetailFragment
         // Required
     }
 
-    public static @NonNull LocationDetailFragment newInstance(@NonNull Serializable obj)
+    public static @NonNull LocationDetailFragment newInstance(@Nullable Serializable obj)
     {
         LocationDetailFragment fragment = new LocationDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.LOCATION);
         args.putSerializable(DetailFragment.DATA, obj);
+        args.putInt(LAYOUT, R.layout.fragment_detail_location);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,8 +62,6 @@ public class LocationDetailFragment
             StoryLocation location = new StoryLocation();
             location.setWorld(currentWorld);
             model = location;
-            model.setName("");
-            model.setDescription("");
         }
     }
 
@@ -143,7 +142,7 @@ public class LocationDetailFragment
         adapter.notifyDataSetChanged();
     }
 
-    private class StoryPlotInLocationListAdapter extends WorldPlannerBaseListAdapter
+    private class StoryPlotInLocationListAdapter extends WorldPlannerBaseListAdapter<PlotViewHolder>
     {
         private int lastPressed;
         private View.OnClickListener trueListener = new View.OnClickListener() {
@@ -183,6 +182,17 @@ public class LocationDetailFragment
         @Override
         protected StoryElement obtainElement(int position) {
             return location.getPlotAtIndex(position);
+        }
+
+        @NonNull
+        @Override
+        protected PlotViewHolder generateViewHolder(View v) {
+            return new PlotViewHolder(v);
+        }
+
+        @Override
+        protected void additionalBindViewHolder(PlotViewHolder holder, @NonNull StoryElement element) {
+            holder.location.setVisibility(View.GONE);
         }
     }
 

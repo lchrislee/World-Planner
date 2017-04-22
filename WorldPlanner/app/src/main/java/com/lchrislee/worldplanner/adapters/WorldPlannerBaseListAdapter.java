@@ -11,11 +11,7 @@ import android.view.ViewGroup;
 import com.lchrislee.worldplanner.adapters.viewholders.WorldPlannerBaseViewHolder;
 import com.lchrislee.worldplanner.models.StoryElement;
 
-/**
- * Created by chrisl on 4/21/17.
- */
-
-public abstract class WorldPlannerBaseListAdapter extends RecyclerView.Adapter<WorldPlannerBaseViewHolder>
+public abstract class WorldPlannerBaseListAdapter<T extends WorldPlannerBaseViewHolder> extends RecyclerView.Adapter<T>
 {
     protected final Context context;
     private View.OnClickListener viewClickListener;
@@ -34,15 +30,20 @@ public abstract class WorldPlannerBaseListAdapter extends RecyclerView.Adapter<W
     @Nullable
     protected abstract StoryElement obtainElement(int position);
 
+    @NonNull
+    protected abstract T generateViewHolder(View v);
+
+    protected abstract void additionalBindViewHolder(T holder, @NonNull StoryElement element);
+
     @Override
-    public WorldPlannerBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public T onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(layout, parent, false);
         v.setOnClickListener(viewClickListener);
-        return new WorldPlannerBaseViewHolder(v);
+        return generateViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(WorldPlannerBaseViewHolder holder, int position) {
+    public void onBindViewHolder(T holder, int position) {
         StoryElement obj = obtainElement(position);
         if (obj == null)
         {
@@ -51,5 +52,6 @@ public abstract class WorldPlannerBaseListAdapter extends RecyclerView.Adapter<W
         holder.itemView.setTag(position);
         holder.name.setText(obj.getName());
         holder.description.setText(obj.getDescription());
+        additionalBindViewHolder(holder, obj);
     }
 }

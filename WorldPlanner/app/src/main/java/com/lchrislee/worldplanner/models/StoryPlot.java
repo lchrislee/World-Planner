@@ -63,4 +63,8 @@ public class StoryPlot extends SugarRecord implements Serializable, StoryElement
     public void setLocation(StoryLocation location) {
         this.location = location;
     }
+
+    public StoryLocation getLocation() {
+        return location;
+    }
 }

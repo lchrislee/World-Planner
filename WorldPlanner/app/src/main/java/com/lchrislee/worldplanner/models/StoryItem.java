@@ -26,6 +26,8 @@ public class StoryItem extends SugarRecord implements Serializable, StoryElement
     public StoryItem() {
         imagePath = "";
         effects = null;
+        name = "";
+        description = "";
     }
 
     @NonNull

@@ -23,7 +23,7 @@ import java.io.Serializable;
 
 public class ItemDetailFragment
         extends DetailFragment
-        implements ToolbarSupportingFragment, ItemEffectDialogFragment.ItemEffectDialogListener
+        implements ItemEffectDialogFragment.ItemEffectDialogListener
 {
 
     private StoryItem item;
@@ -44,6 +44,7 @@ public class ItemDetailFragment
         Bundle args = new Bundle();
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.ITEM);
         args.putSerializable(DetailFragment.DATA, obj);
+        args.putInt(LAYOUT, R.layout.fragment_detail_item);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,8 +58,6 @@ public class ItemDetailFragment
             StoryItem item = new StoryItem();
             item.setWorld(currentWorld);
             model = item;
-            model.setName("");
-            model.setDescription("");
         }
     }
 

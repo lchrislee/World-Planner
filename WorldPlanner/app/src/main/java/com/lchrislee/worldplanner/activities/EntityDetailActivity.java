@@ -8,10 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.fragments.detail.LocationDetailFragment;
+import com.lchrislee.worldplanner.fragments.detail.PlotDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.CharacterDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.CharacterTabFragment;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
-import com.lchrislee.worldplanner.fragments.detail.DetailFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.detail.GroupDetailFragment;
@@ -68,52 +68,33 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         toolbarState = isNewModel ? ToolbarState.Save : ToolbarState.Edit_Delete;
         previousState = toolbarState;
 
-        if (requestCode == DataManager.WORLD)
+        switch(requestCode)
         {
-            fragment = WorldDetailFragment.newInstance();
-        }
-        else if (isNewModel)
-        {
-            switch(requestCode)
-            {
-                case DataManager.CHARACTER:
+            case DataManager.CHARACTER:
+                if (model == null) {
                     fragment = CharacterDetailFragment.newInstance(null);
-                    break;
-                case DataManager.GROUP:
-                    fragment = GroupDetailFragment.newInstance(null);
-                    break;
-                case DataManager.ITEM:
-                    fragment = ItemDetailFragment.newInstance(null);
-                    break;
-                case DataManager.LOCATION:
-                    fragment = LocationDetailFragment.newInstance(null);
-                    break;
-                case DataManager.PLOT:
-                    fragment = DetailFragment.newInstance(requestCode, null);
-                    break;
-            }
-        }
-        else
-        {
-            switch(requestCode)
-            {
-                case DataManager.CHARACTER:
+                }
+                else
+                {
                     fragment = CharacterTabFragment.newInstance(model);
                     ((CharacterTabFragment) fragment).setListener(this);
-                    break;
-                case DataManager.GROUP:
-                    fragment = GroupDetailFragment.newInstance(model);
-                    break;
-                case DataManager.ITEM:
-                    fragment = ItemDetailFragment.newInstance(model);
-                    break;
-                case DataManager.LOCATION:
-                    fragment = LocationDetailFragment.newInstance(model);
-                    break;
-                case DataManager.PLOT:
-                    fragment = DetailFragment.newInstance(requestCode, model);
-                    break;
-            }
+                }
+                break;
+            case DataManager.GROUP:
+                fragment = GroupDetailFragment.newInstance(model);
+                break;
+            case DataManager.ITEM:
+                fragment = ItemDetailFragment.newInstance(model);
+                break;
+            case DataManager.LOCATION:
+                fragment = LocationDetailFragment.newInstance(model);
+                break;
+            case DataManager.PLOT:
+                fragment = PlotDetailFragment.newInstance(model);
+                break;
+            case DataManager.WORLD:
+                fragment = WorldDetailFragment.newInstance();
+                break;
         }
 
         setupToolbar();

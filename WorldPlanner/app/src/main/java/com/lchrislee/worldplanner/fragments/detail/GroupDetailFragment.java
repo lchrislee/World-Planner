@@ -19,7 +19,7 @@ import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
 
-public class GroupDetailFragment extends DetailFragment implements ToolbarSupportingFragment {
+public class GroupDetailFragment extends DetailFragment {
 
     private EditText size;
 
@@ -35,6 +35,7 @@ public class GroupDetailFragment extends DetailFragment implements ToolbarSuppor
         Bundle args = new Bundle();
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.GROUP);
         args.putSerializable(DetailFragment.DATA, obj);
+        args.putInt(LAYOUT, R.layout.fragment_detail_group);
         fragment.setArguments(args);
         return fragment;
     }
