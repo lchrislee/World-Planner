@@ -26,11 +26,7 @@ import com.lchrislee.worldplanner.models.StoryLocation;
 
 import timber.log.Timber;
 
-/**
- * Created by chrisl on 3/27/17.
- */
-
-public class StoryElementListAdapter extends RecyclerView.Adapter<WorldPlannerBaseViewHolder> {
+public class WorldElementListAdapter extends RecyclerView.Adapter<WorldPlannerBaseViewHolder> {
 
     private final Context context;
 
@@ -44,7 +40,7 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
         }
     };
 
-    public StoryElementListAdapter(@NonNull Context c) {
+    public WorldElementListAdapter(@NonNull Context c) {
         context = c;
     }
 
@@ -72,7 +68,7 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
             }
             break;
             case DataManager.ITEM: {
-                View v = LayoutInflater.from(context).inflate(R.layout.list_default, parent, false);
+                View v = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
                 v.setOnClickListener(clickListener);
                 holder = new ItemViewHolder(v);
             }
@@ -171,7 +167,7 @@ public class StoryElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
                 }
                 else
                 {
-                    trueHolder.details.setImage((Bitmap) null);
+                    trueHolder.details.setImage(null);
                 }
             }
                 break;

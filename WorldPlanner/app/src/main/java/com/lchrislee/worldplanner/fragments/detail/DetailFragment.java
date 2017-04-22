@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +23,9 @@ import com.lchrislee.worldplanner.managers.CameraManager;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryElement;
-import com.lchrislee.worldplanner.models.StoryPlot;
+import com.lchrislee.worldplanner.models.StoryEvent;
 import com.lchrislee.worldplanner.models.StoryWorld;
 import com.orm.SugarRecord;
-
-import java.io.Serializable;
 
 import timber.log.Timber;
 
@@ -92,8 +89,8 @@ public abstract class DetailFragment
             DataManager dataManager = DataManager.getInstance();
             StoryWorld currentWorld = dataManager.getCurrentWorld();
             switch (typeToDisplay) {
-                case DataManager.PLOT:
-                    StoryPlot plot = new StoryPlot();
+                case DataManager.EVENT:
+                    StoryEvent plot = new StoryEvent();
                     plot.setWorld(currentWorld);
                     model = plot;
                     model.setName("");

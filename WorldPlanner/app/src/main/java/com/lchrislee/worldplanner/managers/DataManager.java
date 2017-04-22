@@ -10,11 +10,10 @@ import com.lchrislee.worldplanner.models.StoryGroup;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
-import com.lchrislee.worldplanner.models.StoryPlot;
+import com.lchrislee.worldplanner.models.StoryEvent;
 import com.lchrislee.worldplanner.models.StoryWorld;
 import com.orm.SugarRecord;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -32,7 +31,7 @@ public class DataManager extends WorldPlannerBaseManager{
     public static final int CHARACTER = 200;
     public static final int LOCATION = 300;
     public static final int ITEM = 400;
-    public static final int PLOT = 500;
+    public static final int EVENT = 500;
     public static final int GROUP = 600;
 
     private static final String MASTER_PREFERENCES = "com.lchrislee.worldplanner.managers.DataManager.PREFERENCES";
@@ -93,7 +92,7 @@ public class DataManager extends WorldPlannerBaseManager{
             id = -1;
         }
 
-        if (!(model instanceof StoryItem.StoryItemEffect) && !(model instanceof StoryPlot) && id != -1)
+        if (!(model instanceof StoryItem.StoryItemEffect) && !(model instanceof StoryEvent) && id != -1)
         {
             getCurrentWorld().insertElement(model);
         }
@@ -151,39 +150,39 @@ public class DataManager extends WorldPlannerBaseManager{
         return currentWorld.getElementAtIndex(index);
     }
 
-    public int getCountForPlots()
+    public int getCountForEvents()
     {
-        return currentWorld.getPlotCount();
+        return currentWorld.getEventCount();
     }
 
-    public @NonNull List<StoryPlot> getAllPlotsInWorld()
+    public @NonNull List<StoryEvent> getAllEventsInWorld()
     {
-        return currentWorld.getAllPlots();
+        return currentWorld.getAllEvents();
     }
 
     @Nullable
-    public StoryPlot getPlotAtIndex(long index)
+    public StoryEvent getEventAtIndex(long index)
     {
         if (index < 0)
         {
             return null;
         }
-        return currentWorld.getPlotAtIndex(index);
+        return currentWorld.getEventAtIndex(index);
     }
 
-    public void setPlotLocation(long index, @NonNull StoryLocation location)
+    public void setEventLocation(long index, @NonNull StoryLocation location)
     {
-        StoryPlot plot = StoryPlot.findById(StoryPlot.class, index);
-        plot.setLocation(location);
-        update(plot);
+        StoryEvent event = StoryEvent.findById(StoryEvent.class, index);
+        event.setLocation(location);
+        update(event);
     }
 
-    public void removePlotFromLocation(int index, @NonNull StoryLocation location)
+    public void removeEventFromLocation(int index, @NonNull StoryLocation location)
     {
-        StoryPlot plot = location.removePlot(index);
-        plot.setLocation(null);
-        update(plot);
-        currentWorld.updatePlots();
+        StoryEvent event = location.removeEvent(index);
+        event.setLocation(null);
+        update(event);
+        currentWorld.updateEvents();
     }
 
     public long getCountForWorlds() {

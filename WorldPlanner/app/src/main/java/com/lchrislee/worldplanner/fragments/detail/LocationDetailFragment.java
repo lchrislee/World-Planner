@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.adapters.WorldPlannerBaseListAdapter;
-import com.lchrislee.worldplanner.adapters.viewholders.PlotViewHolder;
-import com.lchrislee.worldplanner.fragments.dialogs.LocationAddPlotDialogFragment;
+import com.lchrislee.worldplanner.adapters.viewholders.EventViewHolder;
+import com.lchrislee.worldplanner.fragments.dialogs.LocationAddEventDialogFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.models.StoryLocation;
@@ -28,15 +28,15 @@ import java.util.List;
 
 public class LocationDetailFragment
         extends DetailFragment
-        implements LocationAddPlotDialogFragment.LocationAddPlotListener
+        implements LocationAddEventDialogFragment.LocationAddEventListener
 {
 
     private StoryLocation location;
 
     private TextView listPrompt;
-    private ImageView addPlot;
+    private ImageView addEvent;
     private RecyclerView list;
-    private StoryPlotInLocationListAdapter adapter;
+    private EventInLocationListAdapter adapter;
 
     public LocationDetailFragment() {
         // Required
@@ -70,19 +70,19 @@ public class LocationDetailFragment
         final View mainView = super.onCreateView(inflater, container, savedInstanceState);
         if (mainView != null)
         {
-            adapter = new StoryPlotInLocationListAdapter(getContext());
-            list = (RecyclerView) mainView.findViewById(R.id.fragment_detail_location_plots);
+            adapter = new EventInLocationListAdapter(getContext());
+            list = (RecyclerView) mainView.findViewById(R.id.fragment_detail_location_events);
             list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
             list.setAdapter(adapter);
 
-            listPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_location_plot_prompt);
-            addPlot = (ImageView) mainView.findViewById(R.id.fragment_detail_location_plot_add);
-            addPlot.setOnClickListener(new View.OnClickListener() {
+            listPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_location_event_prompt);
+            addEvent = (ImageView) mainView.findViewById(R.id.fragment_detail_location_event_add);
+            addEvent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    LocationAddPlotDialogFragment fragment = LocationAddPlotDialogFragment.newInstance();
+                    LocationAddEventDialogFragment fragment = LocationAddEventDialogFragment.newInstance();
                     fragment.setListener(LocationDetailFragment.this);
-                    fragment.show(getChildFragmentManager(), "Location add plot");
+                    fragment.show(getChildFragmentManager(), "Location add event");
                 }
             });
 
@@ -121,13 +121,13 @@ public class LocationDetailFragment
                     list.setVisibility(View.VISIBLE);
                     listPrompt.setVisibility(View.VISIBLE);
                 }
-                addPlot.setVisibility(View.GONE);
+                addEvent.setVisibility(View.GONE);
             }
         }
         else
         {
-            if (addPlot != null) {
-                addPlot.setVisibility(View.VISIBLE);
+            if (addEvent != null) {
+                addEvent.setVisibility(View.VISIBLE);
             }
         }
 
@@ -135,14 +135,14 @@ public class LocationDetailFragment
     }
 
     @Override
-    public void onPositiveClick(@NonNull List<Long> plots) {
-        for (long l : plots) {
-            DataManager.getInstance().setPlotLocation(l, location);
+    public void onPositiveClick(@NonNull List<Long> events) {
+        for (long l : events) {
+            DataManager.getInstance().setEventLocation(l, location);
         }
         adapter.notifyDataSetChanged();
     }
 
-    private class StoryPlotInLocationListAdapter extends WorldPlannerBaseListAdapter<PlotViewHolder>
+    private class EventInLocationListAdapter extends WorldPlannerBaseListAdapter<EventViewHolder>
     {
         private int lastPressed;
         private View.OnClickListener trueListener = new View.OnClickListener() {
@@ -150,11 +150,11 @@ public class LocationDetailFragment
             public void onClick(View v) {
                 lastPressed = (int) v.getTag();
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Are you sure you want to remove this plot?");
+                builder.setMessage("Remove event from this location?");
                 builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DataManager.getInstance().removePlotFromLocation(lastPressed, location);
+                        DataManager.getInstance().removeEventFromLocation(lastPressed, location);
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -168,30 +168,30 @@ public class LocationDetailFragment
             }
         };
 
-        StoryPlotInLocationListAdapter(@NonNull Context context) {
-            super(context, R.layout.list_plot);
+        EventInLocationListAdapter(@NonNull Context context) {
+            super(context, R.layout.list_event);
             setViewClickListener(trueListener);
         }
 
         @Override
         public int getItemCount() {
-            return location.getPlotsCount();
+            return location.getEventsCount();
         }
 
         @Nullable
         @Override
         protected StoryElement obtainElement(int position) {
-            return location.getPlotAtIndex(position);
+            return location.getEventAtIndex(position);
         }
 
         @NonNull
         @Override
-        protected PlotViewHolder generateViewHolder(View v) {
-            return new PlotViewHolder(v);
+        protected EventViewHolder generateViewHolder(View v) {
+            return new EventViewHolder(v);
         }
 
         @Override
-        protected void additionalBindViewHolder(PlotViewHolder holder, @NonNull StoryElement element) {
+        protected void additionalBindViewHolder(EventViewHolder holder, @NonNull StoryElement element) {
             holder.location.setVisibility(View.GONE);
         }
     }

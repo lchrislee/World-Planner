@@ -11,27 +11,28 @@ import android.widget.TextView;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryLocation;
-import com.lchrislee.worldplanner.models.StoryPlot;
+import com.lchrislee.worldplanner.models.StoryEvent;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
 
-public class PlotDetailFragment extends DetailFragment {
+public class EventDetailFragment extends DetailFragment {
 
-    private StoryPlot plot;
+    private StoryEvent event;
     private TextView locationText;
 
-    public PlotDetailFragment() {
+    public EventDetailFragment() {
 
     }
 
-    public static @NonNull PlotDetailFragment newInstance(@Nullable Serializable obj)
+    public static @NonNull
+    EventDetailFragment newInstance(@Nullable Serializable obj)
     {
-        PlotDetailFragment fragment = new PlotDetailFragment();
+        EventDetailFragment fragment = new EventDetailFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.PLOT);
+        args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.EVENT);
         args.putSerializable(DetailFragment.DATA, obj);
-        args.putSerializable(LAYOUT, R.layout.fragment_detail_plot);
+        args.putSerializable(LAYOUT, R.layout.fragment_detail_event);
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,7 +43,7 @@ public class PlotDetailFragment extends DetailFragment {
         if (model == null) {
             DataManager dataManager = DataManager.getInstance();
             StoryWorld currentWorld = dataManager.getCurrentWorld();
-            StoryPlot item = new StoryPlot();
+            StoryEvent item = new StoryEvent();
             item.setWorld(currentWorld);
             model = item;
         }
@@ -53,7 +54,7 @@ public class PlotDetailFragment extends DetailFragment {
         final View mainView = super.onCreateView(inflater, container, savedInstanceState);
         if (mainView != null)
         {
-            locationText = (TextView) mainView.findViewById(R.id.fragment_detail_plot_location);
+            locationText = (TextView) mainView.findViewById(R.id.fragment_detail_event_location);
         }
         return mainView;
     }
@@ -62,10 +63,10 @@ public class PlotDetailFragment extends DetailFragment {
     public void onResume() {
         if (model != null)
         {
-            plot = (StoryPlot) model;
+            event = (StoryEvent) model;
             if (locationText != null)
             {
-                StoryLocation location = plot.getLocation();
+                StoryLocation location = event.getLocation();
                 String locationOutput = "Occurred at ";
                 if (location == null)
                 {

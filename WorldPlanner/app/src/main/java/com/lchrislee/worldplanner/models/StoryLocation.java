@@ -3,7 +3,6 @@ package com.lchrislee.worldplanner.models;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.lchrislee.worldplanner.managers.DataManager;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -22,13 +21,13 @@ public class StoryLocation extends SugarRecord implements Serializable, StoryEle
     private String imagePath; // In SugarORM, image_path
 
     @Ignore
-    private List<StoryPlot> plots;
+    private List<StoryEvent> events;
 
     public StoryLocation() {
         name = "";
         description = "";
         imagePath = "";
-        plots = null;
+        events = null;
     }
 
     @NonNull
@@ -69,40 +68,44 @@ public class StoryLocation extends SugarRecord implements Serializable, StoryEle
         return true;
     }
 
-    public int getPlotsCount()
+    public int getEventsCount()
     {
-        obtainPlotsList();
-        return plots.size();
+        obtainEventsList();
+        return events.size();
     }
 
     @Nullable
-    public StoryPlot getPlotAtIndex(int index)
+    public StoryEvent getEventAtIndex(int index)
     {
         if (index < 0)
         {
             return null;
         }
-        obtainPlotsList();
-        if (index > plots.size())
+        obtainEventsList();
+        if (index > events.size())
         {
             return null;
         }
-        return plots.get(index);
+        return events.get(index);
     }
 
-    private void obtainPlotsList()
+    private void obtainEventsList()
     {
-        long count = StoryPlot.count(StoryItem.StoryItemEffect.class, "location = ?", new String[] {String.valueOf(getId())});
-        if (plots == null || plots.size() != count)
+        long count = StoryEvent.count(StoryItem.StoryItemEffect.class, "location = ?", new String[] {String.valueOf(getId())});
+        if (events == null || events.size() != count)
         {
-            plots = StoryPlot.find(StoryPlot.class, "location = ?", String.valueOf(getId()));
+            events = StoryEvent.find(StoryEvent.class, "location = ?", String.valueOf(getId()));
         }
     }
 
-    public StoryPlot removePlot(int index)
+    public StoryEvent removeEvent(int index)
     {
-        StoryPlot plot = plots.get(index);
-        plots.remove(index);
-        return plot;
+        StoryEvent event = events.get(index);
+        events.remove(index);
+        return event;
+    }
+
+    public StoryWorld getWorld() {
+        return world;
     }
 }

@@ -28,7 +28,7 @@
             />
 
         <TextView
-            android:id="@+id/list_plot_location"
+            android:id="@+id/list_event_location"
             tools:text="New York City Neighborhood"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

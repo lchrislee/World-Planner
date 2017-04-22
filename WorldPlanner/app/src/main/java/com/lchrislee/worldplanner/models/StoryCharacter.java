@@ -90,4 +90,7 @@ public class StoryCharacter extends SugarRecord implements Serializable, StoryEl
         this.world = world;
     }
 
+    public StoryWorld getWorld() {
+        return world;
+    }
 }

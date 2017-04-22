@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lchrislee.worldplanner.fragments.detail.DetailFragment"
+    tools:context="com.lchrislee.worldplanner.fragments.detail.ItemDetailFragment"
     >
     <LinearLayout
         android:orientation="vertical"
@@ -65,7 +65,7 @@
 
             <TextView
                 android:id="@+id/fragment_detail_item_effect_prompt"
-                android:text="Item Effects:"
+                android:text="Item Effects"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_toStartOf="@+id/fragment_detail_item_effect_add"
                 android:layout_toLeftOf="@+id/fragment_detail_item_effect_add"

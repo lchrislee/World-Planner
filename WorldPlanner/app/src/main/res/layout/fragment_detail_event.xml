@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lchrislee.worldplanner.fragments.detail.DetailFragment"
+    tools:context="com.lchrislee.worldplanner.fragments.detail.EventDetailFragment"
     >
     <LinearLayout
         android:orientation="vertical"
@@ -30,8 +30,8 @@
             />
 
         <TextView
-            android:id="@+id/fragment_detail_plot_location"
-            android:hint="Where this plot point took place."
+            android:id="@+id/fragment_detail_event_location"
+            android:hint="Where does this event take place?"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

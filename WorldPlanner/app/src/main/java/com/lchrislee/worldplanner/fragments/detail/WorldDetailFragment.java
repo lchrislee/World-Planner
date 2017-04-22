@@ -15,15 +15,13 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
-import com.lchrislee.worldplanner.adapters.StoryPlotListAdapter;
+import com.lchrislee.worldplanner.adapters.StoryEventListAdapter;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
-import timber.log.Timber;
-
 public class WorldDetailFragment extends DetailFragment {
 
-    private StoryPlotListAdapter adapter;
+    private StoryEventListAdapter adapter;
     private TextView listPrompt;
     private ImageView addPlot;
     private RecyclerView list;
@@ -67,7 +65,7 @@ public class WorldDetailFragment extends DetailFragment {
         final View mainView = super.onCreateView(inflater, container, savedInstanceState);
         if (mainView != null)
         {
-            adapter = new StoryPlotListAdapter(getContext());
+            adapter = new StoryEventListAdapter(getContext());
             list = (RecyclerView) mainView.findViewById(R.id.fragment_detail_world_plots);
             list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
             list.setAdapter(adapter);
@@ -79,8 +77,8 @@ public class WorldDetailFragment extends DetailFragment {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getContext(), EntityDetailActivity.class);
-                    i.putExtra(EntityDetailActivity.TYPE, DataManager.PLOT);
-                    startActivityForResult(i, DataManager.PLOT);
+                    i.putExtra(EntityDetailActivity.TYPE, DataManager.EVENT);
+                    startActivityForResult(i, DataManager.EVENT);
                 }
             });
 

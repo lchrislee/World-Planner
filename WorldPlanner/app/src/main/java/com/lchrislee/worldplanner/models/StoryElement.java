@@ -2,10 +2,6 @@ package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
 
-/**
- * Created by chrisl on 3/30/17.
- */
-
 public interface StoryElement {
 
     @NonNull

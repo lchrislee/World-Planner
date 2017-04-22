@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class CurrentWorldActivity extends WorldPlannerBaseActivity implements ChangeWorldFragment.FragmentSwap, CurrentWorldFragment.WorldTabChange {
 
     public static final String RESULT_CODE_NEW_WORLD_ID = "CurrentWorldActivity_RESULT_CODE_NEW_WORLD_ID";
-    public static final String RESULT_CODE_NEW_PLOT = "CurrentWorldActivity_RESULT_CODE_NEW_PLOT";
+    public static final String RESULT_CODE_NEW_EVENT = "CurrentWorldActivity_RESULT_CODE_NEW_PLOT";
 
     private CurrentWorldFragment currentWorldFragment;
     private ChangeWorldFragment changeWorldFragment;
@@ -113,7 +113,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                     DataManager.getInstance().changeWorldToIndex(newWorldIndex - 1);
                     onWorldSwitch();
                     break;
-                case DataManager.PLOT:
+                case DataManager.EVENT:
                     toolbarState = ToolbarState.Save;
             }
         }

@@ -6,11 +6,7 @@ import com.orm.SugarRecord;
 
 import java.io.Serializable;
 
-/**
- * Created by chrisl on 3/26/17.
- */
-
-public class StoryPlot extends SugarRecord implements Serializable, StoryElement {
+public class StoryEvent extends SugarRecord implements Serializable, StoryElement {
 
     private StoryWorld world;
     private StoryLocation location;
@@ -18,7 +14,7 @@ public class StoryPlot extends SugarRecord implements Serializable, StoryElement
     private String name;
     private String description;
 
-    public StoryPlot() {
+    public StoryEvent() {
         name = "";
         description = "";
     }
@@ -66,5 +62,9 @@ public class StoryPlot extends SugarRecord implements Serializable, StoryElement
 
     public StoryLocation getLocation() {
         return location;
+    }
+
+    public StoryWorld getWorld() {
+        return world;
     }
 }

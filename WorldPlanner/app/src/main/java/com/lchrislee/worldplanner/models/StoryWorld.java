@@ -25,12 +25,12 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
     private List<StoryElement> allElements;
 
     @Ignore
-    private List<StoryPlot> allPlots;
+    private List<StoryEvent> allEvents;
 
     public StoryWorld() {
         name = "";
         description = "";
-        allPlots = null;
+        allEvents = null;
         imagePath = "";
     }
 
@@ -69,39 +69,39 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
     }
 
     @Nullable
-    public StoryPlot getPlotAtIndex(long index)
+    public StoryEvent getEventAtIndex(long index)
     {
-        generatePlots();
-        if (allPlots.size() == 0)
+        generateEvents();
+        if (allEvents.size() == 0)
         {
             return null;
         }
-        return allPlots.get((int) index);
+        return allEvents.get((int) index);
     }
 
-    public int getPlotCount()
+    public int getEventCount()
     {
-        generatePlots();
-        return allPlots.size();
+        generateEvents();
+        return allEvents.size();
     }
 
-    public @NonNull List<StoryPlot> getAllPlots()
+    public @NonNull List<StoryEvent> getAllEvents()
     {
-        generatePlots();
-        return allPlots;
+        generateEvents();
+        return allEvents;
     }
 
-    private void generatePlots()
+    private void generateEvents()
     {
-        if (allPlots == null || allPlots.size() != StoryPlot.count(StoryPlot.class)) {
-            allPlots = StoryPlot.find(StoryPlot.class, "world = ?", String.valueOf(getId()));
+        if (allEvents == null || allEvents.size() != StoryEvent.count(StoryEvent.class)) {
+            allEvents = StoryEvent.find(StoryEvent.class, "world = ?", String.valueOf(getId()));
         }
     }
 
-    public void updatePlots()
+    public void updateEvents()
     {
-        allPlots = null;
-        generatePlots();
+        allEvents = null;
+        generateEvents();
     }
 
     public int getElementsCount()

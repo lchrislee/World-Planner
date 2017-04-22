@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 
-/**
- * Created by chrisl on 4/21/17.
- */
-
 public class CurrentWorldSettingsFragment extends WorldPlannerBaseFragment {
 
     public CurrentWorldSettingsFragment() {

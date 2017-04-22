@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.fragments.detail.LocationDetailFragment;
-import com.lchrislee.worldplanner.fragments.detail.PlotDetailFragment;
+import com.lchrislee.worldplanner.fragments.detail.EventDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.CharacterDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.CharacterTabFragment;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
@@ -50,9 +50,9 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         Serializable model;
         long index = i.getLongExtra(INDEX, -1);
 
-        if (requestCode == DataManager.PLOT)
+        if (requestCode == DataManager.EVENT)
         {
-            model = DataManager.getInstance().getPlotAtIndex(index);
+            model = DataManager.getInstance().getEventAtIndex(index);
         }
         else if (requestCode == DataManager.NOT_WORLD)
         {
@@ -89,8 +89,8 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
             case DataManager.LOCATION:
                 fragment = LocationDetailFragment.newInstance(model);
                 break;
-            case DataManager.PLOT:
-                fragment = PlotDetailFragment.newInstance(model);
+            case DataManager.EVENT:
+                fragment = EventDetailFragment.newInstance(model);
                 break;
             case DataManager.WORLD:
                 fragment = WorldDetailFragment.newInstance();
@@ -125,8 +125,8 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 if (isNewModel)
                 {
                     Intent i = new Intent();
-                    if (requestCode == DataManager.PLOT) {
-                        i.putExtra(CurrentWorldActivity.RESULT_CODE_NEW_PLOT, id);
+                    if (requestCode == DataManager.EVENT) {
+                        i.putExtra(CurrentWorldActivity.RESULT_CODE_NEW_EVENT, id);
                     }
                     else {
                         i.putExtra(CurrentWorldActivity.RESULT_CODE_NEW_WORLD_ID, id);

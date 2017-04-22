@@ -12,7 +12,6 @@ import android.widget.EditText;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.detail.DetailFragment;
-import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryWorld;

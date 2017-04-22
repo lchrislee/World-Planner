@@ -6,10 +6,6 @@ import com.orm.SugarRecord;
 
 import java.io.Serializable;
 
-/**
- * Created by chrisl on 4/21/17.
- */
-
 public class StoryGroup extends SugarRecord implements Serializable, StoryElement {
 
     private String name;
@@ -69,5 +65,9 @@ public class StoryGroup extends SugarRecord implements Serializable, StoryElemen
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public StoryWorld getWorld() {
+        return world;
     }
 }

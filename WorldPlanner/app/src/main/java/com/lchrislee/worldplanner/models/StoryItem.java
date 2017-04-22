@@ -103,6 +103,10 @@ public class StoryItem extends SugarRecord implements Serializable, StoryElement
         effects.add(effect);
     }
 
+    public StoryWorld getWorld() {
+        return world;
+    }
+
     public static class StoryItemEffect extends SugarRecord implements StoryElement, Serializable
     {
         private String name;
