@@ -106,4 +106,10 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
     public StoryElement getModel() {
         return model;
     }
+
+    @NonNull
+    @Override
+    public String getTitle() {
+        return "Character";
+    }
 }

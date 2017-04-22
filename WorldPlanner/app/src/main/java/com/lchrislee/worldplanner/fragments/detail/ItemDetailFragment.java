@@ -44,6 +44,7 @@ public class ItemDetailFragment
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.ITEM);
         args.putSerializable(DetailFragment.DATA, obj);
         args.putInt(LAYOUT, R.layout.fragment_detail_item);
+        args.putString(TITLE, "Item");
         fragment.setArguments(args);
         return fragment;
     }
@@ -106,14 +107,7 @@ public class ItemDetailFragment
         {
             if (effectList != null)
             {
-                if (isNew)
-                {
-                    effectList.setVisibility(View.GONE);
-                }
-                else
-                {
-                    effectList.setVisibility(View.VISIBLE);
-                }
+                effectList.setVisibility(View.GONE);
                 addEffect.setVisibility(View.GONE);
                 addEffectPrompt.setVisibility(View.GONE);
             }
@@ -123,6 +117,7 @@ public class ItemDetailFragment
             if (addEffect != null) {
                 addEffect.setVisibility(View.VISIBLE);
                 addEffectPrompt.setVisibility(View.VISIBLE);
+                effectList.setVisibility(View.VISIBLE);
             }
         }
         super.updateViews();

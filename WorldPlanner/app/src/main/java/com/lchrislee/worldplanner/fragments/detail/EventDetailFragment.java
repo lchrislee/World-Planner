@@ -33,6 +33,7 @@ public class EventDetailFragment extends DetailFragment {
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.EVENT);
         args.putSerializable(DetailFragment.DATA, obj);
         args.putSerializable(LAYOUT, R.layout.fragment_detail_event);
+        args.putString(TITLE, "Event");
         fragment.setArguments(args);
         return fragment;
     }

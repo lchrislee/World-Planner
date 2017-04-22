@@ -36,6 +36,7 @@ public class WorldDetailFragment extends DetailFragment {
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.WORLD);
         args.putSerializable(DetailFragment.DATA, DataManager.getInstance(context).getCurrentWorld());
         args.putInt(LAYOUT, R.layout.fragment_detail_world);
+        args.putString(TITLE, "World");
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,6 +47,7 @@ public class WorldDetailFragment extends DetailFragment {
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.WORLD);
         args.putSerializable(DetailFragment.DATA, null);
         args.putInt(LAYOUT, R.layout.fragment_detail_world);
+        args.putString(TITLE, "World");
         fragment.setArguments(args);
         return fragment;
     }
@@ -107,16 +109,8 @@ public class WorldDetailFragment extends DetailFragment {
         {
             if (eventsList != null)
             {
-                if (isNew)
-                {
-                    eventsList.setVisibility(View.GONE);
-                    eventListPrompt.setVisibility(View.GONE);
-                }
-                else
-                {
-                    eventsList.setVisibility(View.VISIBLE);
-                    eventListPrompt.setVisibility(View.VISIBLE);
-                }
+                eventsList.setVisibility(View.GONE);
+                eventListPrompt.setVisibility(View.GONE);
                 addPlot.setVisibility(View.GONE);
             }
         }
@@ -124,6 +118,8 @@ public class WorldDetailFragment extends DetailFragment {
         {
             if (addPlot != null) {
                 addPlot.setVisibility(View.VISIBLE);
+                eventsList.setVisibility(View.VISIBLE);
+                eventListPrompt.setVisibility(View.VISIBLE);
             }
         }
 

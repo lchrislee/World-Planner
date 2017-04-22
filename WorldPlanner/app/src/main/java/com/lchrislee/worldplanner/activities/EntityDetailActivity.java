@@ -33,6 +33,8 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
 
     private ToolbarSupportingFragment fragment;
 
+    private ActionBar actionBar;
+
     private ToolbarState toolbarState;
     private ToolbarState previousState;
 
@@ -97,7 +99,14 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 break;
         }
 
+        getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment).commit();
         setupToolbar();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateToolbarTitle();
     }
 
     @Override
@@ -159,20 +168,23 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
 
     private void setupToolbar()
     {
-        getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment).commit();
-
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         if (actionBar != null)
         {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("Details");
         }
+    }
+
+    private void updateToolbarTitle()
+    {
+        String title = fragment.getTitle() + " Details";
+        actionBar.setTitle(title);
     }
 
 }

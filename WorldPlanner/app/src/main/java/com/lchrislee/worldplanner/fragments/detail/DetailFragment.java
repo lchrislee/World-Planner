@@ -39,12 +39,14 @@ public abstract class DetailFragment
     protected static final String ENTITY_TYPE = "DETAIL_FRAGMENT_ENTITY_TYPE";
     protected static final String DATA = "DETAIL_FRAGMENT_DATA";
     protected static final String LAYOUT = "DETAIL_FRAGMENT_LAYOUT";
+    protected static final String TITLE = "DETAIL_FRAGMENT_TITLE";
 
     private View mainView;
     private EditText name;
     private EditText description;
     private ImageView image;
 
+    private String title;
     private int layoutId;
     private int typeToDisplay;
     private boolean haveCameraPermissions = false;
@@ -68,6 +70,7 @@ public abstract class DetailFragment
         isNew = model == null;
         isEditing = isNew;
         layoutId = arguments.getInt(LAYOUT);
+        title = arguments.getString(TITLE);
         setupImageListener();
     }
 
@@ -146,7 +149,7 @@ public abstract class DetailFragment
     {
         if (isEditing)
         {
-            Drawable editBackground = ContextCompat.getDrawable(getContext(), android.R.drawable.edit_text);
+            Drawable editBackground = ContextCompat.getDrawable(getContext(), android.R.drawable.editbox_background_normal);
             name.setBackground(editBackground);
             description.setBackground(editBackground);
             if (image != null)
@@ -217,6 +220,12 @@ public abstract class DetailFragment
         }
 
         return ((SugarRecord) model).getId();
+    }
+
+    @NonNull
+    @Override
+    public String getTitle() {
+        return title;
     }
 
     public void stopEditing()

@@ -33,7 +33,7 @@ public class LocationDetailFragment
 
     private StoryLocation location;
 
-    private TextView eventListPrompt;
+    private TextView eventsListPrompt;
     private ImageView addEvent;
     private RecyclerView eventsList;
     private EventInLocationListAdapter eventsAdapter;
@@ -49,6 +49,7 @@ public class LocationDetailFragment
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.LOCATION);
         args.putSerializable(DetailFragment.DATA, obj);
         args.putInt(LAYOUT, R.layout.fragment_detail_location);
+        args.putString(TITLE, "Location");
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,7 +76,7 @@ public class LocationDetailFragment
             eventsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
             eventsList.setAdapter(eventsAdapter);
 
-            eventListPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_location_event_prompt);
+            eventsListPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_location_event_prompt);
             addEvent = (ImageView) mainView.findViewById(R.id.fragment_detail_location_event_add);
             addEvent.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,16 +112,8 @@ public class LocationDetailFragment
         {
             if (eventsList != null)
             {
-                if (isNew)
-                {
-                    eventsList.setVisibility(View.GONE);
-                    eventListPrompt.setVisibility(View.GONE);
-                }
-                else
-                {
-                    eventsList.setVisibility(View.VISIBLE);
-                    eventListPrompt.setVisibility(View.VISIBLE);
-                }
+                eventsList.setVisibility(View.GONE);
+                eventsListPrompt.setVisibility(View.GONE);
                 addEvent.setVisibility(View.GONE);
             }
         }
@@ -128,6 +121,8 @@ public class LocationDetailFragment
         {
             if (addEvent != null) {
                 addEvent.setVisibility(View.VISIBLE);
+                eventsList.setVisibility(View.VISIBLE);
+                eventsListPrompt.setVisibility(View.VISIBLE);
             }
         }
 

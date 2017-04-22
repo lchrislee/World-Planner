@@ -35,6 +35,7 @@ public class GroupDetailFragment extends DetailFragment {
         args.putSerializable(DetailFragment.ENTITY_TYPE, DataManager.GROUP);
         args.putSerializable(DetailFragment.DATA, obj);
         args.putInt(LAYOUT, R.layout.fragment_detail_group);
+        args.putString(TITLE, "Group");
         fragment.setArguments(args);
         return fragment;
     }
@@ -78,7 +79,7 @@ public class GroupDetailFragment extends DetailFragment {
         {
             if (isEditing)
             {
-                Drawable editBackground = ContextCompat.getDrawable(getContext(), android.R.drawable.edit_text);
+                Drawable editBackground = ContextCompat.getDrawable(getContext(), android.R.drawable.editbox_background_normal);
                 size.setBackground(editBackground);
             }
             else

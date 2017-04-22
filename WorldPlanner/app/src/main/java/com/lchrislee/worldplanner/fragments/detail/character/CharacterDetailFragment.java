@@ -37,6 +37,7 @@ public class CharacterDetailFragment extends DetailFragment{
         bundle.putInt(DetailFragment.ENTITY_TYPE, DataManager.CHARACTER);
         bundle.putSerializable(DATA, object);
         bundle.putInt(LAYOUT, R.layout.fragment_detail_character);
+        bundle.putString(TITLE, "Character");
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -91,7 +92,7 @@ public class CharacterDetailFragment extends DetailFragment{
     protected void updateViews()
     {
         if (nickname != null) {
-            Drawable editBackground = ContextCompat.getDrawable(getContext(), android.R.drawable.edit_text);
+            Drawable editBackground = ContextCompat.getDrawable(getContext(), android.R.drawable.editbox_background_normal);
             if (isEditing) {
                 nickname.setBackground(editBackground);
                 gender.setBackground(editBackground);
