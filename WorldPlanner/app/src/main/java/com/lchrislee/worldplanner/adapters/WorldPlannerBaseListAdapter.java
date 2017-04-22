@@ -48,7 +48,7 @@ public abstract class WorldPlannerBaseListAdapter extends RecyclerView.Adapter<W
         {
             return;
         }
-        holder.itemView.setTag((long) position);
+        holder.itemView.setTag(position);
         holder.name.setText(obj.getName());
         holder.description.setText(obj.getDescription());
     }

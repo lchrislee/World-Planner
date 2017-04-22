@@ -1,9 +1,11 @@
 package com.lchrislee.worldplanner.fragments.detail;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,16 +17,18 @@ import android.widget.TextView;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.adapters.WorldPlannerBaseListAdapter;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
+import com.lchrislee.worldplanner.fragments.dialogs.LocationAddPlotDialogFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class LocationDetailFragment
         extends DetailFragment
-        implements ToolbarSupportingFragment
+        implements ToolbarSupportingFragment, LocationAddPlotDialogFragment.LocationAddPlotListener
 {
 
     private StoryLocation location;
@@ -77,8 +81,9 @@ public class LocationDetailFragment
             addPlot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: Setup dialogFragment to select from existing plot points.
-                    // For list, use android.R.layout.simple_list_item_multiple_choice
+                    LocationAddPlotDialogFragment fragment = LocationAddPlotDialogFragment.newInstance();
+                    fragment.setListener(LocationDetailFragment.this);
+                    fragment.show(getChildFragmentManager(), "Location add plot");
                 }
             });
 
@@ -130,12 +135,37 @@ public class LocationDetailFragment
         super.updateViews();
     }
 
+    @Override
+    public void onPositiveClick(@NonNull List<Long> plots) {
+        for (long l : plots) {
+            DataManager.getInstance().setPlotLocation(l, location);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
     private class StoryPlotInLocationListAdapter extends WorldPlannerBaseListAdapter
     {
+        private int lastPressed;
         private View.OnClickListener trueListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Launch Dialog to offer to remove from list.
+                lastPressed = (int) v.getTag();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Are you sure you want to remove this plot?");
+                builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DataManager.getInstance().removePlotFromLocation(lastPressed, location);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.create().show();
             }
         };
 

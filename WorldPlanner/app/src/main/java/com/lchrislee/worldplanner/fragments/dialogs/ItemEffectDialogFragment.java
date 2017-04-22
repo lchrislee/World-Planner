@@ -71,7 +71,6 @@ public class ItemEffectDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(effect == null ? "Create Item Effect" : "Edit Item Effect");
-        builder.setView(R.layout.dialog_effect);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.dialog_effect, null);

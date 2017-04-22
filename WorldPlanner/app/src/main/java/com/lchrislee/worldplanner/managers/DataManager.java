@@ -156,9 +156,9 @@ public class DataManager extends WorldPlannerBaseManager{
         return currentWorld.getPlotCount();
     }
 
-    public @NonNull ArrayList<String> getAllPlotNamesInWorld()
+    public @NonNull List<StoryPlot> getAllPlotsInWorld()
     {
-        return currentWorld.getAllPlotNames();
+        return currentWorld.getAllPlots();
     }
 
     @Nullable
@@ -169,6 +169,20 @@ public class DataManager extends WorldPlannerBaseManager{
             return null;
         }
         return currentWorld.getPlotAtIndex(index);
+    }
+
+    public void setPlotLocation(long index, @NonNull StoryLocation location)
+    {
+        StoryPlot plot = StoryPlot.findById(StoryPlot.class, index);
+        plot.setLocation(location);
+        update(plot);
+    }
+
+    public void removePlotFromLocation(int index, @NonNull StoryLocation location)
+    {
+        StoryPlot plot = location.removePlot(index);
+        plot.setLocation(null);
+        update(plot);
     }
 
     public long getCountForWorlds() {

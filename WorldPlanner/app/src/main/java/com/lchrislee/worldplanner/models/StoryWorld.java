@@ -25,8 +25,7 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
     private List<StoryElement> allElements;
 
     @Ignore
-    private
-    List<StoryPlot> allPlots;
+    private List<StoryPlot> allPlots;
 
     public StoryWorld() {
         name = "";
@@ -86,15 +85,10 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         return allPlots.size();
     }
 
-    public @NonNull ArrayList<String> getAllPlotNames()
+    public @NonNull List<StoryPlot> getAllPlots()
     {
         generatePlots();
-        ArrayList<String> output = new ArrayList<>();
-        for (StoryPlot p : allPlots)
-        {
-            output.add(p.getName());
-        }
-        return output;
+        return allPlots;
     }
 
     private void generatePlots()

@@ -3,6 +3,7 @@ package com.lchrislee.worldplanner.models;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.lchrislee.worldplanner.managers.DataManager;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -96,5 +97,12 @@ public class StoryLocation extends SugarRecord implements Serializable, StoryEle
         {
             plots = StoryPlot.find(StoryPlot.class, "location = ?", String.valueOf(getId()));
         }
+    }
+
+    public StoryPlot removePlot(int index)
+    {
+        StoryPlot plot = plots.get(index);
+        plots.remove(index);
+        return plot;
     }
 }
