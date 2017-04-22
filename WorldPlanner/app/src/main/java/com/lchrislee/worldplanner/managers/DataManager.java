@@ -14,6 +14,9 @@ import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
 import com.orm.SugarRecord;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import timber.log.Timber;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -138,13 +141,24 @@ public class DataManager extends WorldPlannerBaseManager{
         }
     }
 
+    @Nullable
+    public StoryElement getElementAtIndex(long index)
+    {
+        if (index < 0)
+        {
+            return null;
+        }
+        return currentWorld.getElementAtIndex(index);
+    }
+
     public int getCountForPlots()
     {
         return currentWorld.getPlotCount();
     }
 
-    public long getCountForWorlds() {
-        return StoryWorld.count(StoryWorld.class);
+    public @NonNull ArrayList<String> getAllPlotNamesInWorld()
+    {
+        return currentWorld.getAllPlotNames();
     }
 
     @Nullable
@@ -157,6 +171,10 @@ public class DataManager extends WorldPlannerBaseManager{
         return currentWorld.getPlotAtIndex(index);
     }
 
+    public long getCountForWorlds() {
+        return StoryWorld.count(StoryWorld.class);
+    }
+
     @Nullable
     public StoryWorld getWorldAtIndex(long index) {
         ++index;
@@ -165,16 +183,6 @@ public class DataManager extends WorldPlannerBaseManager{
             return null;
         }
         return StoryWorld.findById(StoryWorld.class, index);
-    }
-
-    @Nullable
-    public StoryElement getElementAtIndex(long index)
-    {
-        if (index < 0)
-        {
-            return null;
-        }
-        return currentWorld.getElementAtIndex(index);
     }
 
     @NonNull
@@ -218,10 +226,6 @@ public class DataManager extends WorldPlannerBaseManager{
             else if (element instanceof StoryItem)
             {
                 return ITEM;
-            }
-            else if (element instanceof StoryPlot)
-            {
-                return PLOT;
             }
             else if (element instanceof StoryGroup)
             {

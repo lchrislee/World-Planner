@@ -72,9 +72,7 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
     @Nullable
     public StoryPlot getPlotAtIndex(long index)
     {
-        if (allPlots == null || allPlots.size() != StoryPlot.count(StoryPlot.class)) {
-            allPlots = StoryPlot.find(StoryPlot.class, "world = ?", String.valueOf(getId()));
-        }
+        generatePlots();
         if (allPlots.size() == 0)
         {
             return null;
@@ -84,10 +82,26 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
 
     public int getPlotCount()
     {
+        generatePlots();
+        return allPlots.size();
+    }
+
+    public @NonNull ArrayList<String> getAllPlotNames()
+    {
+        generatePlots();
+        ArrayList<String> output = new ArrayList<>();
+        for (StoryPlot p : allPlots)
+        {
+            output.add(p.getName());
+        }
+        return output;
+    }
+
+    private void generatePlots()
+    {
         if (allPlots == null || allPlots.size() != StoryPlot.count(StoryPlot.class)) {
             allPlots = StoryPlot.find(StoryPlot.class, "world = ?", String.valueOf(getId()));
         }
-        return allPlots.size();
     }
 
     public int getElementsCount()

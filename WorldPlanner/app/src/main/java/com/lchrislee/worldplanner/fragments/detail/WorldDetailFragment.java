@@ -92,7 +92,6 @@ public class WorldDetailFragment extends DetailFragment {
 
     @Override
     public void onResume() {
-        Timber.d("onResume start");
         if (model != null)
         {
             if (adapter != null)

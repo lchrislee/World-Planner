@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.lchrislee.worldplanner.fragments.detail.LocationDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.CharacterDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.CharacterTabFragment;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
@@ -67,46 +68,52 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
         toolbarState = isNewModel ? ToolbarState.Save : ToolbarState.Edit_Delete;
         previousState = toolbarState;
 
-        if (requestCode == DataManager.CHARACTER)
-        {
-            if (isNewModel)
-            {
-                fragment = CharacterDetailFragment.newInstance(null);
-            }
-            else {
-                fragment = CharacterTabFragment.newInstance(model);
-                ((CharacterTabFragment) fragment).setListener(this);
-            }
-        }
-        else if (requestCode == DataManager.GROUP)
-        {
-            if (isNewModel)
-            {
-                fragment = GroupDetailFragment.newInstance(null);
-            }
-            else
-            {
-                fragment = GroupDetailFragment.newInstance(model);
-            }
-        }
-        else if (requestCode == DataManager.ITEM)
-        {
-            if (isNewModel)
-            {
-                fragment = ItemDetailFragment.newInstance(null);
-            }
-            else
-            {
-                fragment = ItemDetailFragment.newInstance(model);
-            }
-        }
-        else if (requestCode == DataManager.WORLD)
+        if (requestCode == DataManager.WORLD)
         {
             fragment = WorldDetailFragment.newInstance();
         }
+        else if (isNewModel)
+        {
+            switch(requestCode)
+            {
+                case DataManager.CHARACTER:
+                    fragment = CharacterDetailFragment.newInstance(null);
+                    break;
+                case DataManager.GROUP:
+                    fragment = GroupDetailFragment.newInstance(null);
+                    break;
+                case DataManager.ITEM:
+                    fragment = ItemDetailFragment.newInstance(null);
+                    break;
+                case DataManager.LOCATION:
+                    fragment = LocationDetailFragment.newInstance(null);
+                    break;
+                case DataManager.PLOT:
+                    fragment = DetailFragment.newInstance(requestCode, null);
+                    break;
+            }
+        }
         else
         {
-            fragment = DetailFragment.newInstance(requestCode, model);
+            switch(requestCode)
+            {
+                case DataManager.CHARACTER:
+                    fragment = CharacterTabFragment.newInstance(model);
+                    ((CharacterTabFragment) fragment).setListener(this);
+                    break;
+                case DataManager.GROUP:
+                    fragment = GroupDetailFragment.newInstance(model);
+                    break;
+                case DataManager.ITEM:
+                    fragment = ItemDetailFragment.newInstance(model);
+                    break;
+                case DataManager.LOCATION:
+                    fragment = LocationDetailFragment.newInstance(model);
+                    break;
+                case DataManager.PLOT:
+                    fragment = DetailFragment.newInstance(requestCode, model);
+                    break;
+            }
         }
 
         setupToolbar();

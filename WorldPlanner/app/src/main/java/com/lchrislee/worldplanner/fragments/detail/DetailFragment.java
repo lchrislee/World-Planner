@@ -24,7 +24,6 @@ import com.lchrislee.worldplanner.managers.CameraManager;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryElement;
-import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryPlot;
 import com.lchrislee.worldplanner.models.StoryWorld;
 import com.orm.SugarRecord;
@@ -62,7 +61,8 @@ public class DetailFragment
 
     public static DetailFragment newInstance(int type,
                                              @Nullable Serializable object
-                                             ) {
+                                             )
+    {
         DetailFragment fragment = new DetailFragment();
         Bundle b = new Bundle();
         b.putInt(ENTITY_TYPE, type);
@@ -98,14 +98,14 @@ public class DetailFragment
                 case DataManager.CHARACTER: // Propagate to CharacterDetailFragment.
                     layoutId = R.layout.fragment_detail_character;
                     break;
-                case DataManager.GROUP: // Propogate to GroupDetailFragment.
+                case DataManager.GROUP: // Propagate to GroupDetailFragment.
                     layoutId = R.layout.fragment_detail_group;
                     break;
-                case DataManager.ITEM: // Propogate to ItemDetailFragment.
+                case DataManager.ITEM: // Propagate to ItemDetailFragment.
                     layoutId = R.layout.fragment_detail_item;
                     break;
-                case DataManager.LOCATION:
-                    layoutId = R.layout.fragment_detail_default;
+                case DataManager.LOCATION: // Propagate to LocationDetailFragment.
+                    layoutId = R.layout.fragment_detail_location;
                     break;
                 default: // Propagate to WorldDetailFragment.
                     layoutId = R.layout.fragment_detail_world;
@@ -127,13 +127,6 @@ public class DetailFragment
             DataManager dataManager = DataManager.getInstance();
             StoryWorld currentWorld = dataManager.getCurrentWorld();
             switch (typeToDisplay) {
-                case DataManager.LOCATION:
-                    StoryLocation location = new StoryLocation();
-                    location.setWorld(currentWorld);
-                    model = location;
-                    model.setName("");
-                    model.setDescription("");
-                    break;
                 case DataManager.PLOT:
                     StoryPlot plot = new StoryPlot();
                     plot.setWorld(currentWorld);

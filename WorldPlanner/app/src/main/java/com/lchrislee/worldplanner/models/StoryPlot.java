@@ -13,6 +13,8 @@ import java.io.Serializable;
 public class StoryPlot extends SugarRecord implements Serializable, StoryElement {
 
     private StoryWorld world;
+    private StoryLocation location;
+
     private String name;
     private String description;
 
@@ -56,5 +58,9 @@ public class StoryPlot extends SugarRecord implements Serializable, StoryElement
 
     public void setWorld(StoryWorld world) {
         this.world = world;
+    }
+
+    public void setLocation(StoryLocation location) {
+        this.location = location;
     }
 }
