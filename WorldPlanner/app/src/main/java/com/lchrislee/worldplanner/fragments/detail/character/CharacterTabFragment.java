@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments.detail.CharacterDetail;
+package com.lchrislee.worldplanner.fragments.detail.character;
 
 
 import android.os.Bundle;

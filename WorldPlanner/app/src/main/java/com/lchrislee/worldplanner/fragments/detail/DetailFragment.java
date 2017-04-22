@@ -35,7 +35,10 @@ import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
 
-public class DetailFragment extends WorldPlannerBaseFragment implements ToolbarSupportingFragment {
+public class DetailFragment
+        extends WorldPlannerBaseFragment
+        implements ToolbarSupportingFragment
+{
 
     protected static final String ENTITY_TYPE = "DETAIL_FRAGMENT_ENTITY_TYPE";
     protected static final String DATA = "DETAIL_FRAGMENT_DATA";

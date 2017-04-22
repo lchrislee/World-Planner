@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.detail.CharacterDetail.CharacterDetailFragment"
+    tools:context=".fragments.detail.character.CharacterDetailFragment"
     >
     <RelativeLayout
         android:layout_width="match_parent"

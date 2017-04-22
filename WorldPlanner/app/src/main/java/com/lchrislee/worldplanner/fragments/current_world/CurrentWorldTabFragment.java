@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments.CurrentWorld;
+package com.lchrislee.worldplanner.fragments.current_world;
 
 
 import android.content.Intent;

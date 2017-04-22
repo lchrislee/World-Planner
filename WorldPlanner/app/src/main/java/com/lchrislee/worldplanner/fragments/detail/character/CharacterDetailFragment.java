@@ -1,4 +1,4 @@
-package com.lchrislee.worldplanner.fragments.detail.CharacterDetail;
+package com.lchrislee.worldplanner.fragments.detail.character;
 
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;

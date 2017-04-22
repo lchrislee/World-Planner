@@ -78,6 +78,7 @@ public class DataManager extends WorldPlannerBaseManager{
         if (model instanceof StoryWorld)
         {
             id = ((StoryWorld) model).save();
+            return id;
         }
         else if (model instanceof SugarRecord)
         {
@@ -89,7 +90,7 @@ public class DataManager extends WorldPlannerBaseManager{
             id = -1;
         }
 
-        if (!(model instanceof StoryWorld) && !(model instanceof StoryPlot) && id != -1)
+        if (!(model instanceof StoryItem.StoryItemEffect) && !(model instanceof StoryPlot) && id != -1)
         {
             getCurrentWorld().insertElement(model);
         }

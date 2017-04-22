@@ -14,17 +14,17 @@ import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
+import com.lchrislee.worldplanner.fragments.dialogs.ItemEffectDialogFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
 
-/**
- * Created by chrisl on 4/21/17.
- */
-
-public class ItemDetailFragment extends DetailFragment implements ToolbarSupportingFragment {
+public class ItemDetailFragment
+        extends DetailFragment
+        implements ToolbarSupportingFragment, ItemEffectDialogFragment.ItemEffectDialogListener
+{
 
     private StoryItem item;
 
@@ -78,7 +78,9 @@ public class ItemDetailFragment extends DetailFragment implements ToolbarSupport
             addEffect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: Apply DialogFragment. See below.
+                    ItemEffectDialogFragment dialogFragment = ItemEffectDialogFragment.newInstance(item, -1);
+                    dialogFragment.setListener(ItemDetailFragment.this);
+                    dialogFragment.show(getChildFragmentManager(), "ITEM_EFFECT");
                 }
             });
         }
@@ -128,6 +130,12 @@ public class ItemDetailFragment extends DetailFragment implements ToolbarSupport
         super.updateViews();
     }
 
+    @Override
+    public void onUpdate()
+    {
+        adapter.notifyDataSetChanged();
+    }
+
     private class ItemEffectListAdapter
             extends RecyclerView.Adapter<ItemEffectListAdapter.ItemEffectViewHolder>
     {
@@ -155,10 +163,9 @@ public class ItemDetailFragment extends DetailFragment implements ToolbarSupport
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO
-                    // Show dialog fragment for editing.
-                    // It'll be the same dialog for creating a new one so it must take in an Effect.
-                    // There should be a boolean to determine whether delete shows or not.
+                    ItemEffectDialogFragment dialogFragment = ItemEffectDialogFragment.newInstance(item, (int) v.getTag());
+                    dialogFragment.setListener(ItemDetailFragment.this);
+                    dialogFragment.show(getChildFragmentManager(), "ITEM_EFFECT");
                 }
             });
             return new ItemEffectViewHolder(v);

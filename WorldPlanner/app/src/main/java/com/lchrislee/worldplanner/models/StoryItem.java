@@ -100,7 +100,13 @@ public class StoryItem extends SugarRecord implements Serializable, StoryElement
         }
     }
 
-    public static class StoryItemEffect extends SugarRecord implements StoryElement
+    public int addEffect(@NonNull StoryItemEffect effect)
+    {
+        effects.add(effect);
+        return effects.size() - 1;
+    }
+
+    public static class StoryItemEffect extends SugarRecord implements StoryElement, Serializable
     {
         private String name;
         private String description;

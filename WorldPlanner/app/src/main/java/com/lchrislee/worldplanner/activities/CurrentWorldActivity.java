@@ -7,9 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.lchrislee.worldplanner.fragments.CurrentWorld.ChangeWorldFragment;
-import com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldFragment;
-import com.lchrislee.worldplanner.fragments.CurrentWorld.CurrentWorldTabFragment;
+import com.lchrislee.worldplanner.fragments.current_world.ChangeWorldFragment;
+import com.lchrislee.worldplanner.fragments.current_world.CurrentWorldFragment;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.utility.ToolbarState;
