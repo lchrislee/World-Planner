@@ -121,7 +121,9 @@ public class EventDetailFragment extends DetailFragment implements SingleSelectD
     public void onPositivePressed(int selected) {
         StoryEvent.StoryEventType type = DataManager.getInstance().getEventTypeAtIndex(selected);
         event.setType(type);
-        DataManager.getInstance().update(event);
+        if (!isNew) {
+            DataManager.getInstance().update(event);
+        }
 
         updateTypeView(type);
     }

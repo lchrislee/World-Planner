@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
@@ -23,7 +22,6 @@ public class WorldDetailFragment extends DetailFragment {
 
     private StoryEventListAdapter eventsAdapter;
     private TextView eventListPrompt;
-    private ImageView addPlot;
     private RecyclerView eventsList;
 
     public WorldDetailFragment() {
@@ -69,13 +67,11 @@ public class WorldDetailFragment extends DetailFragment {
         {
             eventsAdapter = new StoryEventListAdapter(getContext());
             eventsList = (RecyclerView) mainView.findViewById(R.id.fragment_detail_world_plots);
-            eventsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
+            eventsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
             eventsList.setAdapter(eventsAdapter);
 
             eventListPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_world_plot_prompt);
-
-            addPlot = (ImageView) mainView.findViewById(R.id.fragment_detail_world_plot_add);
-            addPlot.setOnClickListener(new View.OnClickListener() {
+            eventListPrompt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getContext(), EntityDetailActivity.class);
@@ -97,7 +93,7 @@ public class WorldDetailFragment extends DetailFragment {
             if (eventsAdapter != null)
             {
                 eventsAdapter.notifyDataSetChanged();
-                eventsList.scrollToPosition(eventsAdapter.getItemCount() - 1);
+                eventsList.scrollToPosition(0);
             }
         }
         super.onResume();
@@ -111,13 +107,11 @@ public class WorldDetailFragment extends DetailFragment {
             {
                 eventsList.setVisibility(View.GONE);
                 eventListPrompt.setVisibility(View.GONE);
-                addPlot.setVisibility(View.GONE);
             }
         }
         else
         {
-            if (addPlot != null) {
-                addPlot.setVisibility(View.VISIBLE);
+            if (eventListPrompt != null) {
                 eventsList.setVisibility(View.VISIBLE);
                 eventListPrompt.setVisibility(View.VISIBLE);
             }

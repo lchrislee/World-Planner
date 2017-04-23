@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
@@ -43,11 +42,11 @@ public class WorldSettingsFragment
 
         eventTypeListAdapter = new EventTypeListAdapter(getContext());
         final RecyclerView eventTypeList = (RecyclerView) v.findViewById(R.id.fragment_settings_event_type_list);
-        eventTypeList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
+        eventTypeList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         eventTypeList.setAdapter(eventTypeListAdapter);
 
-        final ImageView addEventType = (ImageView) v.findViewById(R.id.fragment_settings_event_type_add);
-        addEventType.setOnClickListener(new View.OnClickListener() {
+        final TextView addEventPrompt = (TextView) v.findViewById(R.id.fragment_settings_event_type_prompt);
+        addEventPrompt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CreateEventTypeDialog fragment = CreateEventTypeDialog.newInstance(-1);

@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
@@ -29,7 +28,6 @@ public class ItemDetailFragment
 
     private ItemEffectListAdapter effectAdapter;
     private RecyclerView effectList;
-    private ImageView addEffect;
     private TextView addEffectPrompt;
 
     public ItemDetailFragment() {
@@ -69,12 +67,11 @@ public class ItemDetailFragment
         {
             effectAdapter = new ItemEffectListAdapter(getContext());
             effectList = (RecyclerView) mainView.findViewById(R.id.fragment_detail_item_list);
-            effectList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
+            effectList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
             effectList.setAdapter(effectAdapter);
 
             addEffectPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_item_effect_prompt);
-            addEffect = (ImageView) mainView.findViewById(R.id.fragment_detail_item_effect_add);
-            addEffect.setOnClickListener(new View.OnClickListener() {
+            addEffectPrompt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     CreateItemEffectDialog dialogFragment = CreateItemEffectDialog.newInstance(item, -1);
@@ -94,7 +91,7 @@ public class ItemDetailFragment
             item = (StoryItem) model;
             if (effectAdapter != null) {
                 effectAdapter.notifyDataSetChanged();
-                effectList.scrollToPosition(effectAdapter.getItemCount() - 1);
+                effectList.scrollToPosition(0);
             }
         }
         updateViews();
@@ -108,14 +105,12 @@ public class ItemDetailFragment
             if (effectList != null)
             {
                 effectList.setVisibility(View.GONE);
-                addEffect.setVisibility(View.GONE);
                 addEffectPrompt.setVisibility(View.GONE);
             }
         }
         else
         {
-            if (addEffect != null) {
-                addEffect.setVisibility(View.VISIBLE);
+            if (effectList != null) {
                 addEffectPrompt.setVisibility(View.VISIBLE);
                 effectList.setVisibility(View.VISIBLE);
             }

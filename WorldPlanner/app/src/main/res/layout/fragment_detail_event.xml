@@ -1,162 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lchrislee.worldplanner.fragments.detail.EventDetailFragment"
     >
-    <RelativeLayout
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         >
 
-        <LinearLayout
-            android:id="@+id/fragment_detail_name_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            >
-
-            <TextView
-                android:text="@string/fragment_detail_name_prompt"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
-                />
-
-            <EditText
-                android:id="@+id/fragment_detail_name"
-                tools:text="Uncle Ben's Death"
-                android:hint="@string/fragment_detail_name_prompt"
-                android:inputType="textPersonName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:maxLines="1"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fragment_detail_event_location_prompt"
-            android:layout_below="@+id/fragment_detail_name_layout"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            >
-
-            <TextView
-                android:text="Occured at:"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
-                />
-
-            <TextView
-                android:id="@+id/fragment_detail_event_location"
-                android:hint="@string/fragment_detail_event_location_hint"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:maxLines="1"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fragment_detail_event_type_layout"
-            android:layout_below="@id/fragment_detail_event_location_prompt"
-            android:orientation="horizontal"
-            android:layout_margin="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:text="@string/fragment_detail_event_type_prompt"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
-                />
-
-            <TextView
-                android:id="@+id/fragment_detail_event_type_name"
-                android:hint="@string/dialog_event_type_name_hint"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:maxLines="1"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
-                />
-
-            <Button
-                android:id="@+id/fragment_detail_event_type_change"
-                android:text="@string/dialog_event_type_change"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                />
-
-        </LinearLayout>
-
         <TextView
-            android:id="@+id/fragment_detail_event_type_description"
-            android:hint="@string/dialog_event_type_description_hint"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:gravity="center_vertical"
-            android:maxLines="3"
-            android:layout_below="@+id/fragment_detail_event_type_layout"
-            android:layout_width="match_parent"
+            android:text="@string/fragment_detail_name_prompt"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp"
-            />
-
-        <TextView
-            android:id="@+id/fragment_detail_event_description_prompt"
-            android:text="@string/fragment_detail_description_prompt"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:layout_below="@+id/fragment_detail_event_type_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginEnd="4dp"
             />
 
         <EditText
-            android:id="@+id/fragment_detail_description"
-            tools:text="Peter learns the true meaning of Uncle Ben's message about responsibility. Uncle Ben is shot and killed in an attempted robbery by the same man who Peter let escape without intervention the previous day."
-            android:hint="@string/fragment_detail_description_prompt"
-            android:inputType="textMultiLine"
-            android:gravity="top"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:layout_below="@+id/fragment_detail_event_description_prompt"
+            android:id="@+id/fragment_detail_name"
+            android:hint="@string/fragment_detail_event_name_hint"
+            android:inputType="textPersonName"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:maxLines="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             />
 
-    </RelativeLayout>
-</ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_detail_event_location_prompt"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="4dp"
+        >
+
+        <TextView
+            android:text="@string/fragment_detail_event_location_prompt"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            />
+
+        <TextView
+            android:id="@+id/fragment_detail_event_location"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:text="@string/fragment_detail_event_location_hint"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_detail_event_type_layout"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/fragment_detail_event_type_prompt"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            />
+
+        <TextView
+            android:id="@+id/fragment_detail_event_type_name"
+            tools:text="@string/dialog_event_type_name_hint"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            />
+
+        <Button
+            android:id="@+id/fragment_detail_event_type_change"
+            android:text="@string/dialog_event_type_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/fragment_detail_event_type_description"
+        tools:text="@string/dialog_event_type_description_hint"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:gravity="center_vertical"
+        android:maxLines="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        />
+
+    <TextView
+        android:id="@+id/fragment_detail_event_description_prompt"
+        android:text="@string/fragment_detail_description_prompt"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        />
+
+    <EditText
+        android:id="@+id/fragment_detail_description"
+        android:hint="@string/fragment_detail_event_description_hint"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:maxLines="3"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        />
+</LinearLayout>

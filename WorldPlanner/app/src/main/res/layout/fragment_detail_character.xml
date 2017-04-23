@@ -1,84 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.detail.character.CharacterDetailFragment"
     >
-    <RelativeLayout
+
+    <ImageView
+        android:id="@+id/fragment_detail_image"
+        android:background="@color/colorImageBackground"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_detail_image"
+        android:layout_marginBottom="8dp"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         >
 
-        <ImageView
-            android:id="@+id/fragment_detail_image"
-            android:background="@color/colorImageBackground"
-            android:scaleType="centerCrop"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_detail_image"
-            android:layout_marginBottom="8dp"
+        <TextView
+            android:text="@string/fragment_detail_name_prompt"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_marginEnd="4dp"
             />
 
         <EditText
             android:id="@+id/fragment_detail_name"
-            tools:text="Peter Parker"
-            android:hint="@string/fragment_detail_name_prompt"
+            android:hint="@string/fragment_detail_character_name_hint"
             android:inputType="textPersonName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:minWidth="280dp"
             android:maxLines="1"
-            android:layout_below="@+id/fragment_detail_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             />
 
-        <EditText
-            android:id="@+id/fragment_detail_character_nickname"
-            tools:text="Spiderman"
-            android:hint="@string/fragment_detail_character_nickname_hint"
-            android:inputType="textPersonName"
-            android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:layout_alignStart="@+id/fragment_detail_name"
-            android:layout_alignLeft="@+id/fragment_detail_name"
-            android:layout_alignEnd="@+id/fragment_detail_name"
-            android:layout_alignRight="@+id/fragment_detail_name"
-            android:layout_below="@+id/fragment_detail_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            />
+    </LinearLayout>
 
-        <EditText
-            android:id="@+id/fragment_detail_character_gender"
-            tools:text="Male"
-            android:hint="@string/fragment_detail_character_gender_hint"
-            android:inputType="text"
-            android:maxLines="1"
-            android:layout_toStartOf="@+id/fragment_detail_age_prompt"
-            android:layout_toLeftOf="@+id/fragment_detail_age_prompt"
-            android:layout_alignStart="@+id/fragment_detail_name"
-            android:layout_alignLeft="@+id/fragment_detail_name"
-            android:layout_below="@+id/fragment_detail_character_nickname"
-            android:layout_width="0dp"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        >
+
+        <TextView
+            android:text="@string/fragment_detail_character_nickname_prompt"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             />
 
+        <EditText
+            android:id="@+id/fragment_detail_character_nickname"
+            android:hint="@string/fragment_detail_character_nickname_hint"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:minWidth="280dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        >
+
         <TextView
-            android:id="@+id/fragment_detail_age_prompt"
+            android:text="@string/fragment_detail_character_gender_prompt"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            />
+
+        <EditText
+            android:id="@+id/fragment_detail_character_gender"
+            android:hint="@string/fragment_detail_character_gender_hint"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:inputType="text"
+            android:maxLines="1"
+            android:maxWidth="50dp"
+            android:minWidth="80dp"
+            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            />
+
+        <TextView
             android:text="@string/fragment_detail_character_age_prompt"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:gravity="end|center_vertical"
-            android:layout_toStartOf="@+id/fragment_detail_character_age"
-            android:layout_toLeftOf="@+id/fragment_detail_character_age"
-            android:layout_alignTop="@+id/fragment_detail_character_gender"
-            android:layout_alignBottom="@+id/fragment_detail_character_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
@@ -89,35 +140,35 @@
 
         <EditText
             android:id="@+id/fragment_detail_character_age"
-            tools:text="20"
+            android:hint="@string/fragment_detail_character_age_hint"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:inputType="number"
             android:gravity="center_horizontal"
-            android:layout_below="@+id/fragment_detail_character_nickname"
-            android:layout_alignEnd="@+id/fragment_detail_character_nickname"
-            android:layout_alignRight="@+id/fragment_detail_character_nickname"
-            android:layout_width="40dp"
+            android:minWidth="40dp"
+            android:maxWidth="100dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             />
 
-        <EditText
-            android:id="@+id/fragment_detail_description"
-            tools:text="Main Protagonist"
-            android:hint="@string/fragment_detail_character_description_hint"
-            android:inputType="textMultiLine"
-            android:gravity="top"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:minLines="2"
-            android:maxLines="4"
-            android:layout_below="@+id/fragment_detail_character_gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            />
+    </LinearLayout>
 
-    </RelativeLayout>
-</ScrollView>
+    <EditText
+        android:id="@+id/fragment_detail_description"
+        android:hint="@string/fragment_detail_character_description_hint"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        />
+
+</LinearLayout>

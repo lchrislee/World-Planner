@@ -1,103 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lchrislee.worldplanner.fragments.detail.LocationDetailFragment"
     >
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/fragment_detail_image"
-            android:background="@color/colorImageBackground"
-            android:scaleType="centerCrop"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_detail_image"
-            android:layout_marginBottom="4dp"
-            />
+    <ImageView
+        android:id="@+id/fragment_detail_image"
+        android:background="@color/colorImageBackground"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_detail_image"
+        android:layout_marginBottom="4dp"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        >
+
+        <TextView
+            android:text="@string/fragment_detail_name_prompt"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/fragment_detail_name"
-            tools:text="Web Canister"
-            android:hint="@string/fragment_detail_name_prompt"
+            android:hint="@string/fragment_detail_location_name_hint"
             android:inputType="textPersonName"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="2dp"
-            />
-
-        <EditText
-            android:id="@+id/fragment_detail_description"
-            tools:text="Peter Parker's source of webbing, easily swapped so he can always be ready for battle. It is his own creation and holds a variety of webbings."
-            android:hint="@string/fragment_detail_description_prompt"
-            android:inputType="textMultiLine"
-            android:gravity="top"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="4dp"
-            />
-
-        <RelativeLayout
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/fragment_detail_location_event_prompt"
-                android:text="@string/fragment_detail_location_event_prompt"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:layout_toStartOf="@+id/fragment_detail_location_event_add"
-                android:layout_toLeftOf="@+id/fragment_detail_location_event_add"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:id="@+id/fragment_detail_location_event_add"
-                android:src="@android:drawable/ic_menu_add"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_alignBottom="@+id/fragment_detail_location_event_prompt"
-                android:layout_alignTop="@+id/fragment_detail_location_event_prompt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragment_detail_location_events"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            tools:listitem="@layout/list_event"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             />
 
     </LinearLayout>
-</ScrollView>
+
+    <TextView
+        android:text="@string/fragment_detail_description_prompt"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        />
+
+    <EditText
+        android:id="@+id/fragment_detail_description"
+        android:hint="@string/fragment_detail_location_description_hint"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:maxLines="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        />
+
+    <TextView
+        android:id="@+id/fragment_detail_location_event_prompt"
+        android:text="@string/fragment_detail_location_event_prompt"
+        android:drawableEnd="@android:drawable/ic_menu_add"
+        android:drawableRight="@android:drawable/ic_menu_add"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_detail_location_events"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        tools:listitem="@layout/list_event"
+        />
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.lchrislee.worldplanner.fragments.detail;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
@@ -20,6 +20,7 @@ import com.lchrislee.worldplanner.adapters.viewholders.EventViewHolder;
 import com.lchrislee.worldplanner.fragments.dialogs.LocationAddEventDialog;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
+import com.lchrislee.worldplanner.models.StoryEvent;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryWorld;
 
@@ -34,7 +35,6 @@ public class LocationDetailFragment
     private StoryLocation location;
 
     private TextView eventsListPrompt;
-    private ImageView addEvent;
     private RecyclerView eventsList;
     private EventInLocationListAdapter eventsAdapter;
 
@@ -73,12 +73,11 @@ public class LocationDetailFragment
         {
             eventsAdapter = new EventInLocationListAdapter(getContext());
             eventsList = (RecyclerView) mainView.findViewById(R.id.fragment_detail_location_events);
-            eventsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
+            eventsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
             eventsList.setAdapter(eventsAdapter);
 
             eventsListPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_location_event_prompt);
-            addEvent = (ImageView) mainView.findViewById(R.id.fragment_detail_location_event_add);
-            addEvent.setOnClickListener(new View.OnClickListener() {
+            eventsListPrompt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     LocationAddEventDialog fragment = LocationAddEventDialog.newInstance(location);
@@ -100,7 +99,7 @@ public class LocationDetailFragment
             if (eventsAdapter != null)
             {
                 eventsAdapter.notifyDataSetChanged();
-                eventsList.scrollToPosition(eventsAdapter.getItemCount() - 1);
+                eventsList.scrollToPosition(0);
             }
         }
         super.onResume();
@@ -114,13 +113,11 @@ public class LocationDetailFragment
             {
                 eventsList.setVisibility(View.GONE);
                 eventsListPrompt.setVisibility(View.GONE);
-                addEvent.setVisibility(View.GONE);
             }
         }
         else
         {
-            if (addEvent != null) {
-                addEvent.setVisibility(View.VISIBLE);
+            if (eventsList != null) {
                 eventsList.setVisibility(View.VISIBLE);
                 eventsListPrompt.setVisibility(View.VISIBLE);
             }
@@ -188,6 +185,10 @@ public class LocationDetailFragment
         @Override
         protected void additionalBindViewHolder(EventViewHolder holder, @NonNull StoryElement element) {
             holder.location.setVisibility(View.GONE);
+            StoryEvent event = (StoryEvent) element;
+            StoryEvent.StoryEventType type = event.getType();
+            int color = type != null && type.getColor() != 0 ? type.getColor() : Color.WHITE;
+            holder.itemView.setBackgroundColor(color);
         }
     }
 

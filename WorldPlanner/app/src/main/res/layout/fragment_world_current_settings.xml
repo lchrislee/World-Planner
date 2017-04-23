@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
@@ -8,45 +9,21 @@
         android:id="@+id/fragment_settings_event_type_prompt"
         android:text="@string/fragment_settings_event_type_prompt"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_toStartOf="@+id/fragment_settings_event_type_add"
-        android:layout_toLeftOf="@+id/fragment_settings_event_type_add"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignBottom="@+id/fragment_settings_event_type_add"
+        android:drawableRight="@android:drawable/ic_input_add"
+        android:drawableEnd="@android:drawable/ic_input_add"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
-    <ImageView
-        android:id="@+id/fragment_settings_event_type_add"
-        android:src="@android:drawable/ic_menu_add"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_settings_event_type_list"
         tools:listitem="@android:layout/simple_list_item_1"
-        android:layout_below="@+id/fragment_settings_event_type_add"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="4dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -57,4 +34,4 @@
         android:layout_height="wrap_content"
         />
 
-</RelativeLayout>
+</LinearLayout>
