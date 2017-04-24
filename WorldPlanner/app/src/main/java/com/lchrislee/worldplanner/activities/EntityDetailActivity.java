@@ -6,7 +6,7 @@ import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.fragments.detail.LocationDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.EventDetailFragment;
-import com.lchrislee.worldplanner.fragments.detail.character.CharacterDetailFragment;
+import com.lchrislee.worldplanner.fragments.detail.character.CharacterBasicDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.CharacterTabFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.R;
@@ -63,7 +63,7 @@ public class EntityDetailActivity
         {
             case DataManager.CHARACTER:
                 if (model == null) {
-                    fragment = CharacterDetailFragment.newInstance(null);
+                    fragment = CharacterBasicDetailFragment.newInstance(null);
                 }
                 else
                 {

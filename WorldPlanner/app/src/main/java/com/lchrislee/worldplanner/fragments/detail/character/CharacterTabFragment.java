@@ -26,7 +26,9 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
         void onCharacterTabSwitch();
     }
 
-    private CharacterDetailFragment informationFragment;
+    private CharacterBasicDetailFragment basicDetailFragment;
+    private CharacterPhysicalDetailFragment physicalDetailFragment;
+    private CharacterMentalDetailFragment mentalDetailFragment;
 
     private CharacterDetailTabChange listener;
     private boolean isShowingDetails;
@@ -64,15 +66,37 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
                 switch(item.getItemId())
                 {
                     case R.id.menu_bottom_character_details:
-                        if (informationFragment == null)
+                        if (basicDetailFragment == null)
                         {
-                            informationFragment = CharacterDetailFragment.newInstance(model);
+                            basicDetailFragment = CharacterBasicDetailFragment.newInstance(model);
                         }
                         getChildFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_tab_character_frame, informationFragment)
-                                .addToBackStack(informationFragment.getClass().getSimpleName())
+                                .replace(R.id.fragment_tab_character_frame, basicDetailFragment)
+                                .addToBackStack(basicDetailFragment.getClass().getSimpleName())
                                 .commit();
                         isShowingDetails = true;
+                        break;
+                    case R.id.menu_bottom_character_physical:
+                        if (physicalDetailFragment == null)
+                        {
+                            physicalDetailFragment = CharacterPhysicalDetailFragment.newInstance(model);
+                        }
+                        getChildFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_tab_character_frame, physicalDetailFragment)
+                                .addToBackStack(physicalDetailFragment.getClass().getSimpleName())
+                                .commit();
+                        isShowingDetails = false;
+                        break;
+                    case R.id.menu_bottom_character_mental:
+                        if (mentalDetailFragment == null)
+                        {
+                            mentalDetailFragment = CharacterMentalDetailFragment.newInstance(model);
+                        }
+                        getChildFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_tab_character_frame, mentalDetailFragment)
+                                .addToBackStack(mentalDetailFragment.getClass().getSimpleName())
+                                .commit();
+                        isShowingDetails = false;
                         break;
                 }
                 if (listener != null)
@@ -83,8 +107,8 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
             }
         });
 
-        informationFragment = CharacterDetailFragment.newInstance(model);
-        getChildFragmentManager().beginTransaction().replace(R.id.fragment_tab_character_frame, informationFragment).commit();
+        basicDetailFragment = CharacterBasicDetailFragment.newInstance(model);
+        getChildFragmentManager().beginTransaction().replace(R.id.fragment_tab_character_frame, basicDetailFragment).commit();
         return v;
     }
 
@@ -98,7 +122,7 @@ public class CharacterTabFragment extends WorldPlannerBaseFragment implements To
 
     @Override
     public long editAction() {
-        return informationFragment.editAction();
+        return basicDetailFragment.editAction();
     }
 
     @Nullable

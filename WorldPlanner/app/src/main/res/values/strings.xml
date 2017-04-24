@@ -2,7 +2,10 @@
     <string name="app_name">World Planner</string>
 
     <!--Menus-->
-    <string name="menu_bottom_character_details">Details</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_change_world">Change World</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_delete">Delete</string>
 
     <string name="menu_bottom_world_details">World Details</string>
     <string name="menu_bottom_world_details_condensed">World</string>
@@ -11,10 +14,12 @@
     <string name="menu_bottom_world_elements">World Elements</string>
     <string name="menu_bottom_world_elements_condensed">Elements</string>
 
-    <string name="menu_edit">Edit</string>
-    <string name="menu_change_world">Change World</string>
-    <string name="menu_save">Save</string>
-    <string name="menu_delete">Delete</string>
+    <string name="menu_bottom_character_basic">Basic Details</string>
+    <string name="menu_bottom_character_basic_condensed">Basic</string>
+    <string name="menu_bottom_character_physical">Physical Traits</string>
+    <string name="menu_bottom_character_physical_condensed">Physical</string>
+    <string name="menu_bottom_character_mental">Psychological Traits</string>
+    <string name="menu_bottom_character_mental_condensed">Mental</string>
 
     <!--Dialogs-->
     <string name="dialog_effect_name_prompt">Effect name:</string>
