@@ -55,6 +55,7 @@
     <string name="fragment_detail_group_size_prompt">Size:</string>
     <string name="fragment_detail_group_size_hint">25</string>
     <string name="fragment_detail_group_description_hint">A small group of giants who love dancing. They meet once a week in secrecy.</string>
+    <string name="fragment_detail_group_character_prompt">Characters in group:</string>
 
     <!--Item Detail-->
     <string name="fragment_detail_item_name_hint">Web Canister</string>
@@ -71,10 +72,7 @@
     <string name="fragment_detail_world_description_hint">Add a description to your world to get started.</string>
     <string name="fragment_detail_world_events_prompt">Major Events</string>
 
-    <!--World Settings-->
-    <string name="fragment_settings_event_type_prompt">Types of Events</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--World Events-->
+    <string name="fragment_world_event_type_prompt">Types of Events</string>
 
 </resources>

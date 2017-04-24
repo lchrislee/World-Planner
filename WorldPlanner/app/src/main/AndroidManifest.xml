@@ -56,7 +56,7 @@
             android:value="world_planner_sugar.db" />
         <meta-data
             android:name="VERSION"
-            android:value="2" />
+            android:value="3" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.lchrislee.worldplanner" />

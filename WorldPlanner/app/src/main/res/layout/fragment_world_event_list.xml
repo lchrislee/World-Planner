@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/fragment_world_event_list_type_prompt"
-        android:text="@string/fragment_settings_event_type_prompt"
+        android:text="@string/fragment_world_event_type_prompt"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:drawableRight="@android:drawable/ic_menu_add"
         android:drawableEnd="@android:drawable/ic_menu_add"

@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -53,7 +53,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="4dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -90,7 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -103,15 +103,41 @@
         android:inputType="textMultiLine"
         android:gravity="top"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:lines="3"
         android:maxLines="3"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginEnd="8dp"
+        />
+
+    <TextView
+        android:id="@+id/fragment_detail_group_characters_prompt"
+        android:text="@string/fragment_detail_group_character_prompt"
+        android:drawableEnd="@android:drawable/ic_menu_add"
+        android:drawableRight="@android:drawable/ic_menu_add"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_detail_group_characters"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        tools:listitem="@layout/list_event"
         />
 
 </LinearLayout>

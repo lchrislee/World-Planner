@@ -18,6 +18,7 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.adapters.WorldPlannerBaseListAdapter;
 import com.lchrislee.worldplanner.adapters.viewholders.EventViewHolder;
 import com.lchrislee.worldplanner.fragments.dialogs.LocationAddEventDialog;
+import com.lchrislee.worldplanner.fragments.dialogs.MultipleSelectDialog;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.models.StoryEvent;
@@ -29,7 +30,7 @@ import java.util.List;
 
 public class LocationDetailFragment
         extends DetailFragment
-        implements LocationAddEventDialog.LocationAddEventListener
+        implements MultipleSelectDialog.MultipleSelectAddEventListener
 {
 
     private StoryLocation location;

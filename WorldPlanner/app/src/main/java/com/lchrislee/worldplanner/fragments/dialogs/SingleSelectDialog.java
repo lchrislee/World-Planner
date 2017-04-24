@@ -87,12 +87,12 @@ public abstract class SingleSelectDialog extends DialogFragment {
 
     protected abstract @NonNull SingleSelectListAdapter obtainAdapter();
 
-    public abstract class SingleSelectListAdapter extends RecyclerView.Adapter<SingleSelectListAdapter.SingleSelectViewHolder>
+    abstract class SingleSelectListAdapter extends RecyclerView.Adapter<SingleSelectListAdapter.SingleSelectViewHolder>
     {
-        protected class SingleSelectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+        class SingleSelectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
         {
             public CheckedTextView name;
-            protected SingleSelectViewHolder(View itemView) {
+            SingleSelectViewHolder(View itemView) {
                 super(itemView);
                 name = (CheckedTextView) itemView.findViewById(android.R.id.text1);
                 itemView.setOnClickListener(this);
@@ -107,7 +107,7 @@ public abstract class SingleSelectDialog extends DialogFragment {
 
         private Context context;
 
-        protected SingleSelectListAdapter(Context context) {
+        SingleSelectListAdapter(Context context) {
             this.context = context;
         }
 

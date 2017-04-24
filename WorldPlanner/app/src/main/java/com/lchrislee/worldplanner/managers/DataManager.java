@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryElement;
+import com.lchrislee.worldplanner.models.StoryGroup;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryEvent;
@@ -83,14 +85,6 @@ public class DataManager extends WorldPlannerBaseManager{
         else
         {
             id = -1;
-        }
-
-        if (!(model instanceof StoryEvent.StoryEventType)
-                && !(model instanceof StoryItem.StoryItemEffect)
-                && !(model instanceof StoryEvent)
-                && id != -1)
-        {
-            currentWorld.insertElement(model);
         }
 
         return id;
@@ -182,6 +176,26 @@ public class DataManager extends WorldPlannerBaseManager{
     public @NonNull List<StoryEvent> getAllEventsNotInLocation(@NonNull StoryLocation location)
     {
         return currentWorld.getAllEventsNotInLocation(location);
+    }
+
+    public @NonNull List<StoryCharacter> getAllCharactersNotInGroup(@NonNull StoryGroup group)
+    {
+        return currentWorld.getAllCharactersNotInGroup(group);
+    }
+
+    public void addCharacterToGroup(long index, @NonNull StoryGroup group)
+    {
+        StoryCharacter character = StoryCharacter.findById(StoryCharacter.class, index);
+        StoryGroup.CharacterInGroup cin = new StoryGroup.CharacterInGroup();
+        cin.setCharacter(character);
+        cin.setMasterGroup(group);
+        add(cin);
+    }
+
+    public void removeCharacterFromGroup(int index, @NonNull StoryGroup group)
+    {
+        StoryGroup.CharacterInGroup characterInGroup = group.removeCharacter(index);
+        delete(characterInGroup);
     }
 
     @Nullable
