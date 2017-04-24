@@ -18,7 +18,7 @@ import com.lchrislee.worldplanner.models.StoryWorld;
 
 import java.io.Serializable;
 
-public class CharacterDetailFragment extends DetailFragment{
+public class CharacterBasicDetailFragment extends DetailFragment{
 
     private EditText nickname;
     private EditText gender;
@@ -26,17 +26,18 @@ public class CharacterDetailFragment extends DetailFragment{
 
     private StoryCharacter trueModel;
 
-    public CharacterDetailFragment() {
+    public CharacterBasicDetailFragment() {
         // Required empty public constructor
     }
 
-    public static @NonNull CharacterDetailFragment newInstance(Serializable object)
+    public static @NonNull
+    CharacterBasicDetailFragment newInstance(Serializable object)
     {
-        CharacterDetailFragment fragment = new CharacterDetailFragment();
+        CharacterBasicDetailFragment fragment = new CharacterBasicDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(DetailFragment.ENTITY_TYPE, DataManager.CHARACTER);
         bundle.putSerializable(DATA, object);
-        bundle.putInt(LAYOUT, R.layout.fragment_detail_character);
+        bundle.putInt(LAYOUT, R.layout.fragment_detail_character_basic);
         bundle.putString(TITLE, "Character");
         fragment.setArguments(bundle);
         return fragment;

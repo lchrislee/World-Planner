@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#2196F3</color> <!-- Blue 500 -->
+    <color name="colorPrimaryLight">#90CAF9</color> <!-- Blue 200 -->
     <color name="colorPrimaryDark">#1565C0</color> <!-- Blue 800 -->
     <color name="colorAccent">#2E7D32</color> <!-- Green 800 -->
     <color name="colorAccentLight">#66BB6A</color> <!-- Green 400 -->

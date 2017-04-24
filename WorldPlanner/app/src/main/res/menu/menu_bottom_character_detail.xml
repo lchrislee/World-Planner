@@ -7,9 +7,24 @@
         <item
             android:id="@+id/menu_bottom_character_details"
             android:icon="@drawable/character_detail"
-            android:title="@string/menu_bottom_character_details"
+            android:title="@string/menu_bottom_character_basic"
+            android:titleCondensed="@string/menu_bottom_character_basic_condensed"
             app:showAsAction="ifRoom|withText"
             android:checked="true"
+            />
+        <item
+            android:id="@+id/menu_bottom_character_physical"
+            android:icon="@android:drawable/ic_menu_compass"
+            android:title="@string/menu_bottom_character_physical"
+            android:titleCondensed="@string/menu_bottom_character_physical_condensed"
+            app:showAsAction="ifRoom|withText"
+            />
+        <item
+            android:id="@+id/menu_bottom_character_mental"
+            android:icon="@android:drawable/ic_menu_report_image"
+            android:title="@string/menu_bottom_character_mental"
+            android:titleCondensed="@string/menu_bottom_character_mental_condensed"
+            app:showAsAction="ifRoom|withText"
             />
     </group>
 </menu>
