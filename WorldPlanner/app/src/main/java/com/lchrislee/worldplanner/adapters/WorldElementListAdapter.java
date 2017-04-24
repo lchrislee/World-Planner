@@ -36,7 +36,7 @@ public class WorldElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
         public void onClick(View v) {
             Intent i = new Intent(context, EntityDetailActivity.class);
             i.putExtra(EntityDetailActivity.INDEX, (long) v.getTag());
-            i.putExtra(EntityDetailActivity.TYPE, DataManager.NOT_WORLD);
+            i.putExtra(EntityDetailActivity.TYPE, type);
             context.startActivity(i);
         }
     };

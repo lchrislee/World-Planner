@@ -50,7 +50,7 @@ public class WorldElementsFragment extends WorldPlannerBaseFragment {
             @Override
             public void onClick(View v) {
                 int requestCode = 0;
-                switch(getAdapterPosition())
+                switch((int) v.getTag())
                 {
                     case 0:
                         requestCode = DataManager.CHARACTER;

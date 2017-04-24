@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.lchrislee.worldplanner.models.StoryElement;
-import com.lchrislee.worldplanner.models.StoryGroup;
-import com.lchrislee.worldplanner.models.StoryCharacter;
 import com.lchrislee.worldplanner.models.StoryItem;
 import com.lchrislee.worldplanner.models.StoryLocation;
 import com.lchrislee.worldplanner.models.StoryEvent;
@@ -23,7 +21,6 @@ import static android.content.Context.MODE_PRIVATE;
 public class DataManager extends WorldPlannerBaseManager{
 
     public static final int WORLD = 100;
-    public static final int NOT_WORLD = 101;
     public static final int CHARACTER = 200;
     public static final int LOCATION = 300;
     public static final int ITEM = 400;
@@ -147,16 +144,6 @@ public class DataManager extends WorldPlannerBaseManager{
                 currentWorld.updateEvents();
             }
         }
-    }
-
-    @Nullable
-    public StoryElement getElementAtIndex(long index)
-    {
-        if (index < 0)
-        {
-            return null;
-        }
-        return currentWorld.getElementAtIndex(index);
     }
 
     @Nullable
@@ -295,31 +282,6 @@ public class DataManager extends WorldPlannerBaseManager{
                 break;
         }
         return count;
-    }
-
-    public int getElementTypeAtIndex(int index)
-    {
-        StoryElement element = getElementAtIndex(index);
-        if (element != null)
-        {
-            if (element instanceof StoryCharacter)
-            {
-                return CHARACTER;
-            }
-            else if (element instanceof StoryLocation)
-            {
-                return LOCATION;
-            }
-            else if (element instanceof StoryItem)
-            {
-                return ITEM;
-            }
-            else if (element instanceof StoryGroup)
-            {
-                return GROUP;
-            }
-        }
-        return -1;
     }
 
     public void retainSelectedWorld(@NonNull Context context)

@@ -46,14 +46,13 @@ public class EntityDetailActivity
         {
             model = DataManager.getInstance().getEventAtIndex(index);
         }
-        else if (requestCode == DataManager.NOT_WORLD)
+        else if (requestCode == DataManager.WORLD)
         {
-            model = (Serializable) DataManager.getInstance().getElementAtIndex(index);
-            requestCode = DataManager.getInstance().getElementTypeAtIndex((int) index);
+            model = DataManager.getInstance().getWorldAtIndex(index);
         }
         else
         {
-            model = DataManager.getInstance().getWorldAtIndex(index);
+            model = (Serializable) DataManager.getInstance().getElementAtIndex(requestCode, index);
         }
 
         isNewModel = model == null;
