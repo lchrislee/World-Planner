@@ -24,7 +24,6 @@ public class ChangeWorldFragment extends WorldPlannerBaseFragment implements Wor
     }
 
     private FragmentSwap listener;
-    private WorldListAdapter adapter;
 
     public ChangeWorldFragment() {
         // Required empty public constructor
@@ -36,7 +35,7 @@ public class ChangeWorldFragment extends WorldPlannerBaseFragment implements Wor
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_change_world, container, false);
 
-        adapter = new WorldListAdapter(getContext(), this);
+        WorldListAdapter adapter = new WorldListAdapter(getContext(), this);
         final RecyclerView list = (RecyclerView) v.findViewById(R.id.fragment_world_list);
         list.setAdapter(adapter);
         list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

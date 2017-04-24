@@ -23,20 +23,20 @@ import java.util.List;
 
 public abstract class MultipleSelectDialog extends DialogFragment {
 
-    protected static final String MASTER = "MASTER";
-    protected static final String TITLE = "TITLE";
+    static final String MASTER = "MASTER";
+    static final String TITLE = "TITLE";
 
     public interface MultipleSelectAddEventListener {
         void onPositiveClick(@NonNull List<Long> selected);
     }
 
-    protected ArrayList<Long> selected;
+    private ArrayList<Long> selected;
 
-    protected StoryElement seekingElement;
+    StoryElement seekingElement;
 
-    protected MultipleSelectAddEventListener listener;
+    private MultipleSelectAddEventListener listener;
 
-    protected String title;
+    private String title;
 
     public MultipleSelectDialog() {
         // Required
@@ -118,7 +118,7 @@ public abstract class MultipleSelectDialog extends DialogFragment {
             }
         }
 
-        protected Context context;
+        final Context context;
 
         MultipleSelectListAdapter(@NonNull Context context) {
             this.context = context;

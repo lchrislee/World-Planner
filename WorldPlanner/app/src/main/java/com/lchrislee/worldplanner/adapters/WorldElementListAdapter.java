@@ -29,7 +29,7 @@ import timber.log.Timber;
 public class WorldElementListAdapter extends RecyclerView.Adapter<WorldPlannerBaseViewHolder> {
 
     private final Context context;
-    private int type;
+    private final int type;
 
     private final View.OnClickListener clickListener = new View.OnClickListener() {
         @Override

@@ -44,7 +44,7 @@ public class GroupAddCharacterDialog extends MultipleSelectDialog {
 
     private class AddCharacterListAdapter extends MultipleSelectListAdapter
     {
-        private List<StoryCharacter> characters;
+        private final List<StoryCharacter> characters;
 
         AddCharacterListAdapter(@NonNull Context context) {
             super(context);

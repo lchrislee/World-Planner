@@ -2,19 +2,13 @@ package com.lchrislee.worldplanner.fragments.detail;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
-import com.lchrislee.worldplanner.activities.EntityDetailActivity;
-import com.lchrislee.worldplanner.adapters.StoryEventListAdapter;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryWorld;
 

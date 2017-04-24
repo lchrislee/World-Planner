@@ -24,8 +24,8 @@ public abstract class SingleSelectDialog extends DialogFragment {
         void onPositivePressed(int selected);
     }
 
-    protected static final String TITLE = "TITLE";
-    protected static final String LAYOUT = "LAYOUT";
+    static final String TITLE = "TITLE";
+    static final String LAYOUT = "LAYOUT";
 
     private String title;
     private int layoutId;
@@ -33,7 +33,7 @@ public abstract class SingleSelectDialog extends DialogFragment {
 
     private SingleSelectDialogListener listener;
 
-    protected SingleSelectListAdapter adapter;
+    private SingleSelectListAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public abstract class SingleSelectDialog extends DialogFragment {
     {
         class SingleSelectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
         {
-            public CheckedTextView name;
+            public final CheckedTextView name;
             SingleSelectViewHolder(View itemView) {
                 super(itemView);
                 name = (CheckedTextView) itemView.findViewById(android.R.id.text1);
@@ -105,7 +105,7 @@ public abstract class SingleSelectDialog extends DialogFragment {
             }
         }
 
-        private Context context;
+        private final Context context;
 
         SingleSelectListAdapter(Context context) {
             this.context = context;

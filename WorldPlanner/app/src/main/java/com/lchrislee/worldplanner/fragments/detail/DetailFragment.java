@@ -50,7 +50,7 @@ public abstract class DetailFragment
     private int layoutId;
     private int typeToDisplay;
     private boolean haveCameraPermissions = false;
-    protected boolean isNew;
+    boolean isNew;
     protected boolean isEditing;
     protected StoryElement model;
     private View.OnClickListener imageClickListener;
@@ -240,7 +240,7 @@ public abstract class DetailFragment
         return model;
     }
 
-    protected void setupImageListener()
+    private void setupImageListener()
     {
         imageClickListener = new View.OnClickListener() {
             @Override

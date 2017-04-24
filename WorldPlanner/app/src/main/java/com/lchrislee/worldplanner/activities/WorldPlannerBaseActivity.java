@@ -16,11 +16,11 @@ import timber.log.Timber;
 
 public class WorldPlannerBaseActivity extends AppCompatActivity {
 
-    protected ToolbarSupportingFragment fragment;
-    protected ActionBar actionBar;
+    ToolbarSupportingFragment fragment;
+    ActionBar actionBar;
 
-    protected ToolbarState toolbarState;
-    protected ToolbarState previousState;
+    ToolbarState toolbarState;
+    ToolbarState previousState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

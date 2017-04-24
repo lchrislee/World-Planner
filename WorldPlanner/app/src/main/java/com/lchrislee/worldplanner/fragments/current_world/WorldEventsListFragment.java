@@ -34,11 +34,6 @@ public class WorldEventsListFragment
         // Required
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -126,7 +121,7 @@ public class WorldEventsListFragment
             }
         }
 
-        private Context context;
+        private final Context context;
 
         EventTypeListAdapter(Context context) {
             this.context = context;

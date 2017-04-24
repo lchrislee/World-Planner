@@ -40,7 +40,7 @@ public class WorldElementsFragment extends WorldPlannerBaseFragment {
     {
         class ElementTypeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
         {
-            TextView title;
+            final TextView title;
             ElementTypeViewHolder(View itemView) {
                 super(itemView);
                 title = (TextView) itemView.findViewById(R.id.list_element_name);
@@ -72,8 +72,8 @@ public class WorldElementsFragment extends WorldPlannerBaseFragment {
             }
         }
 
-        private Context context;
-        private String elementTypes[] = {"Characters", "Locations", "Items", "Groups"};
+        private final Context context;
+        private final String[] elementTypes = {"Characters", "Locations", "Items", "Groups"};
 
         ElementTypeListAdapter(Context context) {
             this.context = context;
