@@ -22,7 +22,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
 
     private WorldDetailFragment worldFragment;
     private WorldElementsFragment tabFragment;
-    private WorldSettingsFragment settingsFragment;
+    private WorldEventsListFragment settingsFragment;
     private WorldTabChange tabChangeListener;
 
     public CurrentWorldFragment() {
@@ -84,10 +84,10 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                             worldFragment.stopEditing();
                         }
                         break;
-                    case R.id.menu_bottom_world_settings:
+                    case R.id.menu_bottom_world_events:
                         if (settingsFragment == null)
                         {
-                            settingsFragment = new WorldSettingsFragment();
+                            settingsFragment = new WorldEventsListFragment();
                         }
                         frag = settingsFragment;
                         tabChangeListener.updateToolbarWorldTabChange(false);

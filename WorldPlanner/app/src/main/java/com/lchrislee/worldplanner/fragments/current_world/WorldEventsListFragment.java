@@ -1,7 +1,9 @@
 package com.lchrislee.worldplanner.fragments.current_world;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,19 +13,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.activities.EntityDetailActivity;
+import com.lchrislee.worldplanner.adapters.StoryEventListAdapter;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.fragments.dialogs.CreateEventTypeDialog;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.models.StoryEvent;
 
-public class WorldSettingsFragment
+public class WorldEventsListFragment
         extends WorldPlannerBaseFragment
         implements CreateEventTypeDialog.EventTypeDialogListener
 {
 
     private EventTypeListAdapter eventTypeListAdapter;
 
-    public WorldSettingsFragment() {
+    private StoryEventListAdapter eventsAdapter;
+    private RecyclerView eventsList;
+
+    public WorldEventsListFragment() {
         // Required
     }
 
@@ -38,23 +45,58 @@ public class WorldSettingsFragment
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View v = inflater.inflate(R.layout.fragment_world_current_settings, container, false);
+        View v = inflater.inflate(R.layout.fragment_world_event_list, container, false);
 
+        setupEventsList(v);
+        setupTypesList(v);
+
+        return v;
+    }
+
+    private void setupEventsList(@NonNull View v)
+    {
+        eventsAdapter = new StoryEventListAdapter(getContext());
+        eventsList = (RecyclerView) v.findViewById(R.id.fragment_world_event_list_events);
+        eventsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        eventsList.setAdapter(eventsAdapter);
+
+        TextView eventListPrompt = (TextView) v.findViewById(R.id.fragment_world_event_list_event_prompt);
+        eventListPrompt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), EntityDetailActivity.class);
+                i.putExtra(EntityDetailActivity.TYPE, DataManager.EVENT);
+                startActivityForResult(i, DataManager.EVENT);
+            }
+        });
+    }
+
+    private void setupTypesList(@NonNull View v)
+    {
         eventTypeListAdapter = new EventTypeListAdapter(getContext());
-        final RecyclerView eventTypeList = (RecyclerView) v.findViewById(R.id.fragment_settings_event_type_list);
+        final RecyclerView eventTypeList = (RecyclerView) v.findViewById(R.id.fragment_world_event_list_types);
         eventTypeList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         eventTypeList.setAdapter(eventTypeListAdapter);
 
-        final TextView addEventPrompt = (TextView) v.findViewById(R.id.fragment_settings_event_type_prompt);
+        final TextView addEventPrompt = (TextView) v.findViewById(R.id.fragment_world_event_list_type_prompt);
         addEventPrompt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CreateEventTypeDialog fragment = CreateEventTypeDialog.newInstance(-1);
-                fragment.setListener(WorldSettingsFragment.this);
+                fragment.setListener(WorldEventsListFragment.this);
                 fragment.show(getChildFragmentManager(), "Add EventType");
             }
         });
-        return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (eventsAdapter != null)
+        {
+            eventsAdapter.notifyDataSetChanged();
+            eventsList.scrollToPosition(0);
+        }
     }
 
     @Override
@@ -79,7 +121,7 @@ public class WorldSettingsFragment
             @Override
             public void onClick(View v) {
                 CreateEventTypeDialog fragment = CreateEventTypeDialog.newInstance((int) v.getTag());
-                fragment.setListener(WorldSettingsFragment.this);
+                fragment.setListener(WorldEventsListFragment.this);
                 fragment.show(getChildFragmentManager(), "Update EventType");
             }
         }

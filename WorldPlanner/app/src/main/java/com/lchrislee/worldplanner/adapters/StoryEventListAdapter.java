@@ -17,23 +17,19 @@ import com.lchrislee.worldplanner.models.StoryLocation;
 
 public class StoryEventListAdapter extends WorldPlannerBaseListAdapter<EventViewHolder>
 {
-    private boolean isDetailable;
     private final View.OnClickListener trueListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (isDetailable) {
-                Intent i = new Intent(context, EntityDetailActivity.class);
-                int index = (int) v.getTag();
-                i.putExtra(EntityDetailActivity.INDEX, (long) index);
-                i.putExtra(EntityDetailActivity.TYPE, DataManager.EVENT);
-                context.startActivity(i);
-            }
+            Intent i = new Intent(context, EntityDetailActivity.class);
+            int index = (int) v.getTag();
+            i.putExtra(EntityDetailActivity.INDEX, (long) index);
+            i.putExtra(EntityDetailActivity.TYPE, DataManager.EVENT);
+            context.startActivity(i);
         }
     };
 
     public StoryEventListAdapter(@NonNull Context context) {
         super(context, R.layout.list_event);
-        isDetailable = true;
         setViewClickListener(trueListener);
     }
 
@@ -62,11 +58,6 @@ public class StoryEventListAdapter extends WorldPlannerBaseListAdapter<EventView
     @Override
     public int getItemCount() {
         return DataManager.getInstance().getCountForEvents();
-    }
-
-    public void setDetailable(boolean newDetail)
-    {
-        isDetailable = newDetail;
     }
 
     @Nullable

@@ -5,20 +5,20 @@
             android:id="@+id/menu_bottom_world_details"
             android:icon="@drawable/world_detail"
             android:title="@string/menu_bottom_world_details"
-            android:titleCondensed="World"
+            android:titleCondensed="@string/menu_bottom_world_details_condensed"
             android:checked="true"
+            />
+        <item
+            android:id="@+id/menu_bottom_world_events"
+            android:icon="@drawable/world_event"
+            android:title="@string/menu_bottom_world_events"
+            android:titleCondensed="@string/menu_bottom_world_events_condensed"
             />
         <item
             android:id="@+id/menu_bottom_world_elements"
             android:icon="@drawable/world_element"
             android:title="@string/menu_bottom_world_elements"
-            android:titleCondensed="Elements"
-            />
-        <item
-            android:id="@+id/menu_bottom_world_settings"
-            android:icon="@android:drawable/ic_menu_preferences"
-            android:title="@string/menu_bottom_world_settings"
-            android:titleCondensed="Settings"
+            android:titleCondensed="@string/menu_bottom_world_elements_condensed"
             />
     </group>
 </menu>

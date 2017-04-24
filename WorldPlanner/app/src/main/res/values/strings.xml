@@ -5,8 +5,11 @@
     <string name="menu_bottom_character_details">Details</string>
 
     <string name="menu_bottom_world_details">World Details</string>
+    <string name="menu_bottom_world_details_condensed">World</string>
+    <string name="menu_bottom_world_events">Plot Events</string>
+    <string name="menu_bottom_world_events_condensed">Events</string>
     <string name="menu_bottom_world_elements">World Elements</string>
-    <string name="menu_bottom_world_settings">World Settings</string>
+    <string name="menu_bottom_world_elements_condensed">Elements</string>
 
     <string name="menu_edit">Edit</string>
     <string name="menu_change_world">Change World</string>

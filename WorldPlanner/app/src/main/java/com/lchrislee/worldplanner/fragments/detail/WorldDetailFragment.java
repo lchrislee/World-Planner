@@ -20,10 +20,6 @@ import com.lchrislee.worldplanner.models.StoryWorld;
 
 public class WorldDetailFragment extends DetailFragment {
 
-    private StoryEventListAdapter eventsAdapter;
-    private TextView eventListPrompt;
-    private RecyclerView eventsList;
-
     public WorldDetailFragment() {
         // Required empty public constructor
     }
@@ -65,21 +61,7 @@ public class WorldDetailFragment extends DetailFragment {
         final View mainView = super.onCreateView(inflater, container, savedInstanceState);
         if (mainView != null)
         {
-            eventsAdapter = new StoryEventListAdapter(getContext());
-            eventsList = (RecyclerView) mainView.findViewById(R.id.fragment_detail_world_plots);
-            eventsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-            eventsList.setAdapter(eventsAdapter);
-
-            eventListPrompt = (TextView) mainView.findViewById(R.id.fragment_detail_world_plot_prompt);
-            eventListPrompt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getContext(), EntityDetailActivity.class);
-                    i.putExtra(EntityDetailActivity.TYPE, DataManager.EVENT);
-                    startActivityForResult(i, DataManager.EVENT);
-                }
-            });
-
+            // Find views.
             updateViews();
         }
 
@@ -90,11 +72,7 @@ public class WorldDetailFragment extends DetailFragment {
     public void onResume() {
         if (model != null)
         {
-            if (eventsAdapter != null)
-            {
-                eventsAdapter.notifyDataSetChanged();
-                eventsList.scrollToPosition(0);
-            }
+            // Update views.
         }
         super.onResume();
     }
@@ -103,23 +81,13 @@ public class WorldDetailFragment extends DetailFragment {
     protected void updateViews() {
         if (isEditing)
         {
-            if (eventsList != null)
-            {
-                eventsList.setVisibility(View.GONE);
-                eventListPrompt.setVisibility(View.GONE);
-            }
+            // Hide things while editing.
         }
         else
         {
-            if (eventListPrompt != null) {
-                eventsList.setVisibility(View.VISIBLE);
-                eventListPrompt.setVisibility(View.VISIBLE);
-            }
+            // Make things visible.
         }
 
-        if (eventsAdapter != null) {
-            eventsAdapter.setDetailable(!isEditing);
-        }
         super.updateViews();
     }
 
