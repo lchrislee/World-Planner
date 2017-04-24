@@ -40,9 +40,14 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.fragment_world_current_frame, worldFragment)
                 .commit();
-        tabChangeListener.updateToolbarWorldTabChange(true);
 
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        tabChangeListener.updateToolbarWorldTabChange(true);
     }
 
     public void setTabChangeListener(WorldTabChange tabChangeListener) {

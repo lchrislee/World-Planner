@@ -53,6 +53,7 @@ dependencies {
         transitive = true;
     }
 
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-core-ui:25.3.1'
     compile 'com.android.support:support-fragment:25.3.1'
@@ -66,6 +67,5 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.satyan:sugar:1.4'
     compile 'com.github.skydoves:colorpickerview:1.0.0'
-
     testCompile 'junit:junit:4.12'
 }

@@ -1,10 +1,7 @@
 package com.lchrislee.worldplanner.activities;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.fragments.ChangeWorldFragment;
@@ -13,9 +10,9 @@ import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.utility.ToolbarState;
 
-import java.util.ArrayList;
-
-public class CurrentWorldActivity extends WorldPlannerBaseActivity implements ChangeWorldFragment.FragmentSwap, CurrentWorldFragment.WorldTabChange {
+public class CurrentWorldActivity
+        extends WorldPlannerBaseActivity
+        implements ChangeWorldFragment.FragmentSwap, CurrentWorldFragment.WorldTabChange {
 
     public static final String RESULT_CODE_NEW_WORLD_ID = "CurrentWorldActivity_RESULT_CODE_NEW_WORLD_ID";
     public static final String RESULT_CODE_NEW_EVENT = "CurrentWorldActivity_RESULT_CODE_NEW_PLOT";
@@ -23,24 +20,18 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
     private CurrentWorldFragment currentWorldFragment;
     private ChangeWorldFragment changeWorldFragment;
 
-    private ActionBar actionBar;
-
-    private ToolbarState toolbarState = ToolbarState.Edit_Change;
-    private ToolbarState previousState;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_world);
+        super.onCreate(savedInstanceState);
+        toolbarState = ToolbarState.Edit_Change;
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        actionBar = getSupportActionBar();
         if (actionBar != null)
         {
             actionBar.setTitle("Current World");
-            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowHomeEnabled(false);
         }
 
         currentWorldFragment = new CurrentWorldFragment();
@@ -50,14 +41,9 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        ArrayList<Integer> itemsToHide = toolbarState.getHiddenIds();
-        for (int hide : itemsToHide)
-        {
-            menu.findItem(hide).setVisible(false);
-        }
-        return super.onCreateOptionsMenu(menu);
+    protected void onResume() {
+        super.onResume();
+        supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -79,13 +65,13 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
                     changeWorldFragment.setListener(this);
                 }
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.activity_world_current_frame, changeWorldFragment)
+                        .replace(R.id.activity_element_list_frame, changeWorldFragment)
                         .addToBackStack(changeWorldFragment.getClass().getSimpleName())
                         .commit();
                 toolbarState = ToolbarState.Empty;
                 if (actionBar != null)
                 {
-                    actionBar.setTitle("Change worlds");
+                    actionBar.setTitle("Change Worlds");
                 }
                 break;
             case R.id.menu_save:
@@ -127,7 +113,7 @@ public class CurrentWorldActivity extends WorldPlannerBaseActivity implements Ch
             currentWorldFragment = new CurrentWorldFragment();
         }
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.activity_world_current_frame, currentWorldFragment)
+                .replace(R.id.activity_element_list_frame, currentWorldFragment)
                 .addToBackStack(currentWorldFragment.getClass().getSimpleName())
                 .commit();
         toolbarState = ToolbarState.Edit_Change;

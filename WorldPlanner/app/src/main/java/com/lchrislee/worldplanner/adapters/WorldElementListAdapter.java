@@ -29,6 +29,7 @@ import timber.log.Timber;
 public class WorldElementListAdapter extends RecyclerView.Adapter<WorldPlannerBaseViewHolder> {
 
     private final Context context;
+    private int type;
 
     private final View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -40,8 +41,9 @@ public class WorldElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
         }
     };
 
-    public WorldElementListAdapter(@NonNull Context c) {
+    public WorldElementListAdapter(@NonNull Context c, int type) {
         context = c;
+        this.type = type;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class WorldElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
 
     @Override
     public void onBindViewHolder(WorldPlannerBaseViewHolder holder, int position) {
-        StoryElement obj = DataManager.getInstance().getElementAtIndex(position);
+        StoryElement obj = DataManager.getInstance().getElementAtIndex(type, position);
         if (obj == null)
         {
             return;
@@ -201,14 +203,12 @@ public class WorldElementListAdapter extends RecyclerView.Adapter<WorldPlannerBa
 
     @Override
     public int getItemCount() {
-        Timber.d("Count for world: " + DataManager.getInstance().getCountForAllWorldElements());
-        return DataManager.getInstance().getCountForAllWorldElements();
+        return DataManager.getInstance().getCountForElementsOfType(type);
     }
 
     @Override
     public int getItemViewType(int position) {
-        Timber.d("Item view type: " + DataManager.getInstance().getElementTypeAtIndex(position) + " for position: " + position);
-        return DataManager.getInstance().getElementTypeAtIndex(position);
+        return type;
     }
 
 }

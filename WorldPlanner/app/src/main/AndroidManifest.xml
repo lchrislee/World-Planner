@@ -16,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/WorldPlannerTheme">
         <activity android:name=".activities.WorldPlannerBaseActivity" />
-        <activity android:name=".activities.CurrentWorldActivity"
+        <activity
+            android:name=".activities.CurrentWorldActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            >
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,30 +29,37 @@
         <activity
             android:name=".activities.EntityDetailActivity"
             android:parentActivityName=".activities.CurrentWorldActivity"
-            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            >
-        </activity>
+            android:windowSoftInputMode="adjustPan"/>
+
+        <activity android:name=".activities.ElementListActivity"
+            android:parentActivityName=".activities.CurrentWorldActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.lchrislee.worldplanner"
             android:exported="false"
-            android:grantUriPermissions="true"
-            >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/fileprovider"
-                />
-            </provider>
+                android:resource="@xml/fileprovider" />
+        </provider>
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="c30a7a54a2ff15981fe537e9bbe190f123393b76" />
-
-        <meta-data android:name="DATABASE" android:value="world_planner_sugar.db" />
-        <meta-data android:name="VERSION" android:value="2" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.lchrislee.worldplanner"/>
+        <meta-data
+            android:name="DATABASE"
+            android:value="world_planner_sugar.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="2" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.lchrislee.worldplanner" />
 
     </application>
 

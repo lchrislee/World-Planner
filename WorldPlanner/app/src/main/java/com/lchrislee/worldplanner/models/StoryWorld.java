@@ -8,7 +8,6 @@ import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 import com.orm.query.Condition;
 import com.orm.query.Select;
-import com.orm.util.QueryBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +22,18 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
 
     @Ignore
     private List<StoryElement> allElements;
+
+    @Ignore
+    private List<StoryCharacter> allCharacters;
+
+    @Ignore
+    private List<StoryItem> allItems;
+
+    @Ignore
+    private List<StoryLocation> allLocations;
+
+    @Ignore
+    private List<StoryGroup> allGroups;
 
     @Ignore
     private List<StoryEvent> allEvents;
@@ -142,14 +153,6 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
         }
     }
 
-    public int getElementsCount()
-    {
-        if (checkElements())
-        {
-            generateAllElements();
-        }
-        return allElements.size();
-    }
 
     @Nullable
     public StoryElement getElementAtIndex(long index)
@@ -164,6 +167,106 @@ public class StoryWorld extends SugarRecord implements Serializable, StoryElemen
             return null;
         }
         return allElements.get((int) index);
+    }
+
+    public int getCharacterCount()
+    {
+        generateCharacters();
+        return allCharacters.size();
+    }
+
+    public @Nullable StoryCharacter getCharacterAtIndex(long index)
+    {
+        generateCharacters();
+        if (allCharacters.size() == 0)
+        {
+            return null;
+        }
+        return allCharacters.get((int) index);
+    }
+
+    private void generateCharacters()
+    {
+        if (allCharacters == null
+                || allCharacters.size() != StoryCharacter.count(StoryCharacter.class)) {
+            allCharacters = StoryCharacter.find(StoryCharacter.class,
+                    "world = ?", String.valueOf(getId()));
+        }
+    }
+
+    public int getLocationCount()
+    {
+        generateLocations();
+        return allLocations.size();
+    }
+
+    public @Nullable StoryLocation getLocationAtIndex(long index)
+    {
+        generateLocations();
+        if (allLocations.size() == 0)
+        {
+            return null;
+        }
+        return allLocations.get((int) index);
+    }
+
+    private void generateLocations()
+    {
+        if (allLocations == null
+                || allLocations.size() != StoryLocation.count(StoryLocation.class)) {
+            allLocations = StoryLocation.find(StoryLocation.class,
+                    "world = ?", String.valueOf(getId()));
+        }
+    }
+
+    public int getItemCount()
+    {
+        generateItems();
+        return allItems.size();
+    }
+
+    public @Nullable StoryItem getItemAtIndex(long index)
+    {
+        generateItems();
+        if (allItems.size() == 0)
+        {
+            return null;
+        }
+        return allItems.get((int) index);
+    }
+
+    private void generateItems()
+    {
+        if (allItems == null
+                || allItems.size() != StoryItem.count(StoryItem.class)) {
+            allItems = StoryItem.find(StoryItem.class,
+                    "world = ?", String.valueOf(getId()));
+        }
+    }
+
+    public int getGroupCount()
+    {
+        generateGroups();
+        return allGroups.size();
+    }
+
+    public @Nullable StoryGroup getGroupAtIndex(long index)
+    {
+        generateGroups();
+        if (allGroups.size() == 0)
+        {
+            return null;
+        }
+        return allGroups.get((int) index);
+    }
+
+    private void generateGroups()
+    {
+        if (allGroups == null
+                || allGroups.size() != StoryGroup.count(StoryGroup.class)) {
+            allGroups = StoryGroup.find(StoryGroup.class,
+                    "world = ?", String.valueOf(getId()));
+        }
     }
 
     protected boolean checkElements()

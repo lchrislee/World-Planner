@@ -1,17 +1,13 @@
 package com.lchrislee.worldplanner.activities;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lchrislee.worldplanner.fragments.detail.LocationDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.EventDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.CharacterDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.CharacterTabFragment;
-import com.lchrislee.worldplanner.fragments.ToolbarSupportingFragment;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.detail.GroupDetailFragment;
@@ -22,29 +18,23 @@ import com.lchrislee.worldplanner.models.StoryElement;
 import com.lchrislee.worldplanner.utility.ToolbarState;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import timber.log.Timber;
 
-public class EntityDetailActivity extends WorldPlannerBaseActivity implements CharacterTabFragment.CharacterDetailTabChange{
+public class EntityDetailActivity
+        extends WorldPlannerBaseActivity
+        implements CharacterTabFragment.CharacterDetailTabChange{
 
     public static final String INDEX = EntityDetailActivity.class.getSimpleName() + "_INDEX";
     public static final String TYPE = EntityDetailActivity.class.getSimpleName() + "_TYPE";
-
-    private ToolbarSupportingFragment fragment;
-
-    private ActionBar actionBar;
-
-    private ToolbarState toolbarState;
-    private ToolbarState previousState;
 
     private boolean isNewModel;
     private int requestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entity_detail);
+        super.onCreate(savedInstanceState);
 
         Intent i = getIntent();
         requestCode = i.getIntExtra(TYPE, 100);
@@ -99,25 +89,15 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 break;
         }
 
-        getSupportFragmentManager().beginTransaction().add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment).commit();
-        setupToolbar();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.activity_entity_detail_fragment, (WorldPlannerBaseFragment)fragment)
+                .commit();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         updateToolbarTitle();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        ArrayList<Integer> hiddenIds = toolbarState.getHiddenIds();
-        for (int hideID : hiddenIds)
-        {
-            menu.findItem(hideID).setVisible(false);
-        }
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -164,21 +144,6 @@ public class EntityDetailActivity extends WorldPlannerBaseActivity implements Ch
                 ToolbarState.Edit_Delete
                 : ToolbarState.Empty;
         supportInvalidateOptionsMenu();
-    }
-
-    private void setupToolbar()
-    {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        actionBar = getSupportActionBar();
-        if (actionBar != null)
-        {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
-        }
     }
 
     private void updateToolbarTitle()

@@ -159,6 +159,34 @@ public class DataManager extends WorldPlannerBaseManager{
         return currentWorld.getElementAtIndex(index);
     }
 
+    @Nullable
+    public StoryElement getElementAtIndex(int type, long index)
+    {
+        if (index < 0)
+        {
+            return null;
+        }
+
+        StoryElement element = null;
+        switch(type)
+        {
+            case CHARACTER:
+                element = currentWorld.getCharacterAtIndex(index);
+                break;
+            case LOCATION:
+                element = currentWorld.getLocationAtIndex(index);
+                break;
+            case ITEM:
+                element = currentWorld.getItemAtIndex(index);
+                break;
+            case GROUP:
+                element = currentWorld.getGroupAtIndex(index);
+                break;
+        }
+
+        return element;
+    }
+
     public int getCountForEvents()
     {
         return currentWorld.getEventCount();
@@ -248,9 +276,25 @@ public class DataManager extends WorldPlannerBaseManager{
         }
     }
 
-    public int getCountForAllWorldElements()
+    public int getCountForElementsOfType(int type)
     {
-        return currentWorld.getElementsCount();
+        int count = 0;
+        switch(type)
+        {
+            case CHARACTER:
+                count = currentWorld.getCharacterCount();
+                break;
+            case LOCATION:
+                count = currentWorld.getLocationCount();
+                break;
+            case ITEM:
+                count = currentWorld.getItemCount();
+                break;
+            case GROUP:
+                count = currentWorld.getGroupCount();
+                break;
+        }
+        return count;
     }
 
     public int getElementTypeAtIndex(int index)

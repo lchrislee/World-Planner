@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/fragment_world_event_list_event_prompt"
         android:text="@string/fragment_detail_world_events_prompt"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:drawableRight="@android:drawable/ic_menu_add"
         android:drawableEnd="@android:drawable/ic_menu_add"
         android:layout_width="match_parent"
