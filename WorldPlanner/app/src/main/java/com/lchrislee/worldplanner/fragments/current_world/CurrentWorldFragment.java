@@ -20,7 +20,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
         void updateToolbarWorldTabChange(boolean editable);
     }
 
-    private WorldDetailFragment worldFragment;
+    private WorldDetailFragment detailFragment;
     private WorldElementsFragment tabFragment;
     private WorldEventsListFragment settingsFragment;
     private WorldTabChange tabChangeListener;
@@ -36,9 +36,9 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
         View v = inflater.inflate(R.layout.fragment_world_current, container, false);
         setupBottomNav(v);
 
-        worldFragment = WorldDetailFragment.newInstance(getContext());
+        detailFragment = WorldDetailFragment.newInstance(getContext());
         getChildFragmentManager().beginTransaction()
-                .replace(R.id.fragment_world_current_frame, worldFragment)
+                .replace(R.id.fragment_world_current_frame, detailFragment)
                 .commit();
 
         return v;
@@ -47,7 +47,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        tabChangeListener.updateToolbarWorldTabChange(true);
+        tabChangeListener.updateToolbarWorldTabChange(detailFragment.isVisible());
     }
 
     public void setTabChangeListener(WorldTabChange tabChangeListener) {
@@ -56,7 +56,7 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
 
     public void iconAction()
     {
-        worldFragment.editAction();
+        detailFragment.editAction();
     }
 
     private void setupBottomNav(@NonNull View v)
@@ -69,13 +69,13 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                 switch(item.getItemId())
                 {
                     case R.id.menu_bottom_world_details:
-                        if (worldFragment == null)
+                        if (detailFragment == null)
                         {
-                            worldFragment = WorldDetailFragment.newInstance(getContext());
+                            detailFragment = WorldDetailFragment.newInstance(getContext());
                         }
-                        frag = worldFragment;
+                        frag = detailFragment;
                         tabChangeListener.updateToolbarWorldTabChange(true);
-                        worldFragment.stopEditing();
+                        detailFragment.stopEditing();
                         break;
                     case R.id.menu_bottom_world_elements:
                         if (tabFragment == null)
@@ -84,9 +84,9 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                         }
                         frag = tabFragment;
                         tabChangeListener.updateToolbarWorldTabChange(false);
-                        if (worldFragment != null)
+                        if (detailFragment != null)
                         {
-                            worldFragment.stopEditing();
+                            detailFragment.stopEditing();
                         }
                         break;
                     case R.id.menu_bottom_world_events:
@@ -96,9 +96,9 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
                         }
                         frag = settingsFragment;
                         tabChangeListener.updateToolbarWorldTabChange(false);
-                        if (worldFragment != null)
+                        if (detailFragment != null)
                         {
-                            worldFragment.stopEditing();
+                            detailFragment.stopEditing();
                         }
                         break;
                 }
