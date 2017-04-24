@@ -147,8 +147,7 @@ public class EntityDetailActivity
 
     private void updateToolbarTitle()
     {
-        String title = fragment.getTitle() + " Details";
-        actionBar.setTitle(title);
+        actionBar.setTitle(getString(R.string.toolbar_detail, fragment.getTitle()));
     }
 
 }

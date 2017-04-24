@@ -54,6 +54,7 @@ public class WorldPlannerBaseActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         if (actionBar != null)
         {
+            actionBar.setTitle(R.string.app_name);
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);

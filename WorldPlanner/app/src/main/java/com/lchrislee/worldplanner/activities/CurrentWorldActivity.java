@@ -28,7 +28,7 @@ public class CurrentWorldActivity
 
         if (actionBar != null)
         {
-            actionBar.setTitle("Current World");
+            actionBar.setTitle(R.string.toolbar_current_world);
             actionBar.setHomeButtonEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setDisplayShowHomeEnabled(false);
@@ -38,12 +38,6 @@ public class CurrentWorldActivity
         currentWorldFragment.setTabChangeListener(this);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.activity_world_current_frame, currentWorldFragment).commit();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -71,7 +65,7 @@ public class CurrentWorldActivity
                 toolbarState = ToolbarState.Empty;
                 if (actionBar != null)
                 {
-                    actionBar.setTitle("Change Worlds");
+                    actionBar.setTitle(R.string.toolbar_change_world);
                 }
                 break;
             case R.id.menu_save:
@@ -117,7 +111,7 @@ public class CurrentWorldActivity
                 .addToBackStack(currentWorldFragment.getClass().getSimpleName())
                 .commit();
         toolbarState = ToolbarState.Edit_Change;
-        actionBar.setTitle("Current World");
+        actionBar.setTitle(R.string.toolbar_current_world);
         supportInvalidateOptionsMenu();
         DataManager.getInstance().retainSelectedWorld(this);
     }
@@ -125,7 +119,7 @@ public class CurrentWorldActivity
     @Override
     public void updateToolbarWorldTabChange(boolean editable) {
         toolbarState = editable ? ToolbarState.Edit_Change : ToolbarState.Empty;
-        actionBar.setTitle("Current World");
+        actionBar.setTitle(R.string.toolbar_current_world);
         supportInvalidateOptionsMenu();
     }
 }

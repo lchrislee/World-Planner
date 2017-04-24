@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">World Planner</string>
 
+    <!--Toolbar Titles-->
+    <string name="toolbar_current_world">Current World</string>
+
+    <string name="toolbar_change_world">Change World</string>
+
+    <string name="toolbar_list_characters">Characters</string>
+    <string name="toolbar_list_locations">Locations</string>
+    <string name="toolbar_list_items">Items</string>
+    <string name="toolbar_list_groups">Groups</string>
+
+    <string name="toolbar_detail">%1$s Details</string>
+
     <!--Menus-->
     <string name="menu_bottom_character_details">Details</string>
 

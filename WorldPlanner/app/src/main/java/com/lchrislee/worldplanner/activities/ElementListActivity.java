@@ -26,16 +26,16 @@ public class ElementListActivity extends WorldPlannerBaseActivity {
             switch(typeToDisplay)
             {
                 case DataManager.CHARACTER:
-                    actionBar.setTitle("Characters");
+                    actionBar.setTitle(R.string.toolbar_list_characters);
                     break;
                 case DataManager.LOCATION:
-                    actionBar.setTitle("Locations");
+                    actionBar.setTitle(R.string.toolbar_list_locations);
                     break;
                 case DataManager.ITEM:
-                    actionBar.setTitle("Items");
+                    actionBar.setTitle(R.string.toolbar_list_items);
                     break;
                 case DataManager.GROUP:
-                    actionBar.setTitle("Groups");
+                    actionBar.setTitle(R.string.toolbar_list_groups);
                     break;
             }
             actionBar.setHomeButtonEnabled(true);
