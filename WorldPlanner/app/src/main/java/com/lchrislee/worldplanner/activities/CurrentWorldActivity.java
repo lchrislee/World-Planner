@@ -41,8 +41,13 @@ public class CurrentWorldActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    protected void onResume() {
+        super.onResume();
+        supportInvalidateOptionsMenu();
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId())
         {
             case R.id.menu_edit:
@@ -59,8 +64,7 @@ public class CurrentWorldActivity
                     changeWorldFragment.setListener(this);
                 }
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.activity_element_list_frame, changeWorldFragment)
-                        .addToBackStack(changeWorldFragment.getClass().getSimpleName())
+                        .replace(R.id.activity_world_current_frame, changeWorldFragment)
                         .commit();
                 toolbarState = ToolbarState.Empty;
                 if (actionBar != null)
@@ -101,14 +105,29 @@ public class CurrentWorldActivity
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (currentWorldFragment.isVisible()) {
+            actionBar.setTitle(R.string.toolbar_current_world);
+            toolbarState = ToolbarState.Edit_Change;
+            supportInvalidateOptionsMenu();
+        }
+        else
+        {
+            actionBar.setTitle(R.string.toolbar_change_world);
+            toolbarState = ToolbarState.Empty;
+            supportInvalidateOptionsMenu();
+        }
+    }
+
+    @Override
     public void onWorldSwitch() {
         if (currentWorldFragment == null)
         {
             currentWorldFragment = new CurrentWorldFragment();
         }
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.activity_element_list_frame, currentWorldFragment)
-                .addToBackStack(currentWorldFragment.getClass().getSimpleName())
+                .replace(R.id.activity_world_current_frame, currentWorldFragment)
                 .commit();
         toolbarState = ToolbarState.Edit_Change;
         actionBar.setTitle(R.string.toolbar_current_world);

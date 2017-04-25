@@ -13,7 +13,6 @@ import com.github.clans.fab.FloatingActionButton;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.adapters.WorldListAdapter;
-import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.managers.DataManager;
 
 public class ChangeWorldFragment extends WorldPlannerBaseFragment implements WorldListAdapter.WorldSwitch {

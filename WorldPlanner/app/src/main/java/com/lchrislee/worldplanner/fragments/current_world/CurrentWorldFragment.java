@@ -47,7 +47,6 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        tabChangeListener.updateToolbarWorldTabChange(detailFragment.isVisible());
     }
 
     public void setTabChangeListener(WorldTabChange tabChangeListener) {
