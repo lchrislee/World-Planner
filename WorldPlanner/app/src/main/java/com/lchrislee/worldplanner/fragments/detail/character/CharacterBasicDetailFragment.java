@@ -37,7 +37,7 @@ public class CharacterBasicDetailFragment extends DetailFragment{
         Bundle bundle = new Bundle();
         bundle.putInt(DetailFragment.ENTITY_TYPE, DataManager.CHARACTER);
         bundle.putSerializable(DATA, object);
-        bundle.putInt(LAYOUT, R.layout.fragment_detail_character_basic);
+        bundle.putInt(LAYOUT, R.layout.fragment_character_basic);
         bundle.putString(TITLE, "Character");
         fragment.setArguments(bundle);
         return fragment;

@@ -1,0 +1,229 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lchrislee.worldplanner.fragments.detail.character.physical.CharacterLegDetailFragment"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        >
+
+        <TextView
+            android:text="@string/fragment_character_left_side"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginBottom="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            >
+
+            <TextView
+                android:text="@string/fragment_character_leg_upper_prompt"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                />
+
+            <EditText
+                android:id="@+id/fragment_character_notes_leg_uleft"
+                android:hint="@string/fragment_character_leg_upper_hint"
+                android:gravity="top"
+                android:maxLines="3"
+                android:minLines="3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:minWidth="280dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            >
+
+            <TextView
+                android:text="@string/fragment_character_leg_lower_prompt"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                />
+
+            <EditText
+                android:id="@+id/fragment_character_notes_leg_lleft"
+                android:hint="@string/fragment_character_leg_lower_hint"
+                android:gravity="top"
+                android:maxLines="3"
+                android:minLines="3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:minWidth="280dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            >
+
+            <TextView
+                android:text="@string/fragment_character_foot_prompt"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                />
+
+            <EditText
+                android:id="@+id/fragment_character_notes_foot_left"
+                android:hint="@string/fragment_character_foot_hint"
+                android:gravity="top"
+                android:maxLines="3"
+                android:minLines="3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:minWidth="280dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:text="@string/fragment_character_right_side"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            >
+
+            <TextView
+                android:text="@string/fragment_character_leg_upper_prompt"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                />
+
+            <EditText
+                android:id="@+id/fragment_character_notes_leg_uright"
+                android:hint="@string/fragment_character_leg_upper_hint"
+                android:gravity="top"
+                android:maxLines="3"
+                android:minLines="3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:minWidth="280dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            >
+
+            <TextView
+                android:text="@string/fragment_character_leg_lower_prompt"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                />
+
+            <EditText
+                android:id="@+id/fragment_character_notes_leg_lright"
+                android:hint="@string/fragment_character_leg_lower_hint"
+                android:gravity="top"
+                android:maxLines="3"
+                android:minLines="3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:minWidth="280dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            >
+
+            <TextView
+                android:text="@string/fragment_character_foot_prompt"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                />
+
+            <EditText
+                android:id="@+id/fragment_character_notes_foot_right"
+                android:hint="@string/fragment_character_foot_hint"
+                android:gravity="top"
+                android:maxLines="3"
+                android:minLines="3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:minWidth="280dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

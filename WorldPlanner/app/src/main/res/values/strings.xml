@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">World Planner</string>
+    <string name="hello_blank_fragment">Hellow World!</string>
 
     <!--Toolbar Titles-->
     <string name="toolbar_current_world">Current World</string>
@@ -50,16 +51,6 @@
     <string name="fragment_detail_name_prompt">Name:</string>
     <string name="fragment_detail_description_prompt">Description:</string>
 
-    <!--Character Detail-->
-    <string name="fragment_detail_character_name_hint">Eva</string>
-    <string name="fragment_detail_character_nickname_prompt">Nickname:</string>
-    <string name="fragment_detail_character_nickname_hint">Big Momma</string>
-    <string name="fragment_detail_character_gender_prompt">Gender:</string>
-    <string name="fragment_detail_character_gender_hint">Female</string>
-    <string name="fragment_detail_character_age_prompt">Age:</string>
-    <string name="fragment_detail_character_age_hint">78</string>
-    <string name="fragment_detail_character_description_hint">A brave woman who worked as a Chinese spy. Her past is a mystery. After an eventful encounter with a pair of soldiers from America, she dedicated her life to helping the man she loved.</string>
-
     <!--Event Detail-->
     <string name="fragment_detail_event_name_hint">Formation of the Fellowship</string>
     <string name="fragment_detail_event_location_prompt">Occurred at:</string>
@@ -91,5 +82,59 @@
 
     <!--World Events-->
     <string name="fragment_world_event_type_prompt">Types of Events</string>
+
+    <!--Character Detail-->
+    <string name="fragment_detail_character_name_hint">Eva</string>
+    <string name="fragment_detail_character_nickname_prompt">Nickname:</string>
+    <string name="fragment_detail_character_nickname_hint">Big Momma</string>
+    <string name="fragment_detail_character_gender_prompt">Gender:</string>
+    <string name="fragment_detail_character_gender_hint">Female</string>
+    <string name="fragment_detail_character_age_prompt">Age:</string>
+    <string name="fragment_detail_character_age_hint">78</string>
+    <string name="fragment_detail_character_description_hint">A brave woman who worked as a Chinese spy. Her past is a mystery. After an eventful encounter with a pair of soldiers from America, she dedicated her life to helping the man she loved.</string>
+
+    <!--Character Traits-->
+    <string name="fragment_character_left_side">Left Side</string>
+    <string name="fragment_character_right_side">Right Side</string>
+
+    <!--Character Head-->
+    <string name="fragment_character_head_hair_prompt">Hair Notes:</string>
+    <string name="fragment_character_head_hair_hint">A standard bob cut with no bangs. Her hair is a light brown.</string>
+    <string name="fragment_character_head_eye_prompt">Eye Notes:</string>
+    <string name="fragment_character_head_eye_hint">Both pupils are dark brown. The left eye brow is burnt off.</string>
+    <string name="fragment_character_head_ear_prompt">Ear Notes:</string>
+    <string name="fragment_character_head_ear_hint">Standard human ears, they are rounded and attached at he bottom.</string>
+    <string name="fragment_character_head_nose_prompt">Nose Notes:</string>
+    <string name="fragment_character_head_nose_hint">A small button nose. She has a keen sense of smell.</string>
+    <string name="fragment_character_head_mouth_prompt">Mouth Notes:</string>
+    <string name="fragment_character_head_mouth_hint">Full lips in a nice shade of dim red. Almost always in a smile.</string>
+    <string name="fragment_character_head_neck_prompt">Neck Notes:</string>
+    <string name="fragment_character_head_neck_hint">Just a normal neck. A bit on the short side.</string>
+
+    <!--Character Torso-->
+    <string name="fragment_character_torso_shoulder_prompt">Shoulder Notes:</string>
+    <string name="fragment_character_torso_shoulder_hint">Slim and often hunched.</string>
+    <string name="fragment_character_torso_chest_prompt">Chest Notes:</string>
+    <string name="fragment_character_torso_chest_hint">Average sized for a girl her age. There is a birth mark on her collarbone.</string>
+    <string name="fragment_character_torso_stomach_prompt">Stomach Notes:</string>
+    <string name="fragment_character_torso_stomach_hint">Relatively flat, it can grow three sizes after a satisfying meal.</string>
+    <string name="fragment_character_torso_back_prompt">Back Notes:</string>
+    <string name="fragment_character_torso_back_hint">A small scar covers her lower back. It appears to be an old cut.</string>
+
+    <!--Character Arm-->
+    <string name="fragment_character_arm_upper_prompt">Upper Arm Notes:</string>
+    <string name="fragment_character_arm_upper_hint">Well defined from years of labor on her family\'s small farm.</string>
+    <string name="fragment_character_arm_lower_prompt">Lower Arm Notes:</string>
+    <string name="fragment_character_arm_lower_hint">Very wide but not intimidating at all.</string>
+    <string name="fragment_character_hand_prompt">Hand Notes:</string>
+    <string name="fragment_character_hand_hint">Her palm has a few callouses from labor. They know the meaning of work.</string>
+
+    <!--Character Leg-->
+    <string name="fragment_character_leg_upper_prompt">Upper Leg Notes:</string>
+    <string name="fragment_character_leg_upper_hint">Pretty slim for someone who is always running around. Birthmark on inner thigh.</string>
+    <string name="fragment_character_leg_lower_prompt">Lower Leg Notes:</string>
+    <string name="fragment_character_leg_lower_hint">Strong calves give her great speed which she loves to show off.</string>
+    <string name="fragment_character_foot_prompt">Foot Notes:</string>
+    <string name="fragment_character_foot_hint">Pretty large for a young girl. They are often dirty and without shoes.</string>
 
 </resources>
