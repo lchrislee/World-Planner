@@ -9,9 +9,13 @@ import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
+import com.lchrislee.worldplanner.fragments.detail.character.SupportCharacterUpdate;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 
-public class CharacterMemoriesDetailFragment extends WorldPlannerBaseFragment {
+public class CharacterMemoriesDetailFragment
+        extends WorldPlannerBaseFragment
+        implements SupportCharacterUpdate
+{
 
     private static final String CHARACTER = "CHARACTER";
 
@@ -36,4 +40,8 @@ public class CharacterMemoriesDetailFragment extends WorldPlannerBaseFragment {
         return inflater.inflate(R.layout.fragment_character_memories, container, false);
     }
 
+    @Override
+    public void updateCharacter() {
+
+    }
 }

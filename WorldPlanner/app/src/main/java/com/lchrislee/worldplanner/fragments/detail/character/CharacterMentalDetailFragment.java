@@ -18,11 +18,15 @@ import com.lchrislee.worldplanner.fragments.detail.character.mental.CharacterBel
 import com.lchrislee.worldplanner.fragments.detail.character.mental.CharacterMemoriesDetailFragment;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 
-public class CharacterMentalDetailFragment extends WorldPlannerBaseFragment {
+public class CharacterMentalDetailFragment
+        extends WorldPlannerBaseFragment
+        implements SupportCharacterUpdate
+{
 
     private static final String CHARACTER = "CHARACTER";
 
     private StoryCharacter character;
+    private CharacterMentalPagerAdapter adapter;
 
     public CharacterMentalDetailFragment() {
 
@@ -47,7 +51,7 @@ public class CharacterMentalDetailFragment extends WorldPlannerBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_character_mental, container, false);
-        final CharacterMentalPagerAdapter adapter = new CharacterMentalPagerAdapter(getChildFragmentManager(), character);
+        adapter = new CharacterMentalPagerAdapter(getChildFragmentManager(), character);
         final TabLayout layout = (TabLayout) v.findViewById(R.id.fragment_detail_character_mental_tab);
         final ViewPager pager = (ViewPager) v.findViewById(R.id.fragment_detail_character_mental_pager);
         pager.setAdapter(adapter);
@@ -55,8 +59,21 @@ public class CharacterMentalDetailFragment extends WorldPlannerBaseFragment {
         return v;
     }
 
-    private class CharacterMentalPagerAdapter extends FragmentPagerAdapter
+    @Override
+    public void updateCharacter() {
+        adapter.updateCharacter();
+    }
+
+    public void setAdapterListener(@NonNull OnTabSelected l)
     {
+        adapter.setListener(l);
+    }
+
+    private class CharacterMentalPagerAdapter
+            extends FragmentPagerAdapter
+            implements SupportCharacterUpdate
+    {
+        private OnTabSelected listener;
 
         private static final int NUM_MENTAL_FRAGMENTS = 2;
 
@@ -75,12 +92,29 @@ public class CharacterMentalDetailFragment extends WorldPlannerBaseFragment {
 
         @Override
         public Fragment getItem(int position) {
+            if (listener != null)
+            {
+                listener.onTabSelected();
+            }
             return fragments[position];
         }
 
         @Override
         public int getCount() {
             return fragments.length;
+        }
+
+        @Override
+        public void updateCharacter() {
+            for (WorldPlannerBaseFragment fragment : fragments)
+            {
+                ((SupportCharacterUpdate) fragment).updateCharacter();
+            }
+        }
+
+        public void setListener(@NonNull OnTabSelected l)
+        {
+            listener = l;
         }
     }
 }

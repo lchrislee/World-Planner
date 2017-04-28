@@ -20,11 +20,15 @@ import com.lchrislee.worldplanner.fragments.detail.character.physical.CharacterL
 import com.lchrislee.worldplanner.fragments.detail.character.physical.CharacterTorsoDetailFragment;
 import com.lchrislee.worldplanner.models.StoryCharacter;
 
-public class CharacterPhysicalDetailFragment extends WorldPlannerBaseFragment {
+public class CharacterPhysicalDetailFragment
+        extends WorldPlannerBaseFragment
+        implements SupportCharacterUpdate
+{
 
     private static final String CHARACTER = "CHARACTER";
 
     private StoryCharacter character;
+    private CharacterPhysicalPagerAdapter adapter;
 
     public CharacterPhysicalDetailFragment() {
 
@@ -51,7 +55,7 @@ public class CharacterPhysicalDetailFragment extends WorldPlannerBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_character_physical, container, false);
-        final CharacterPhysicalPagerAdapter adapter = new CharacterPhysicalPagerAdapter(getChildFragmentManager(), character);
+        adapter = new CharacterPhysicalPagerAdapter(getChildFragmentManager(), character);
         final TabLayout layout = (TabLayout) v.findViewById(R.id.fragment_detail_character_physical_tab);
         final ViewPager pager = (ViewPager) v.findViewById(R.id.fragment_detail_character_physical_pager);
         pager.setAdapter(adapter);
@@ -59,12 +63,29 @@ public class CharacterPhysicalDetailFragment extends WorldPlannerBaseFragment {
         return v;
     }
 
-    private class CharacterPhysicalPagerAdapter extends FragmentPagerAdapter {
+    @Override
+    public void updateCharacter() {
+        adapter.updateCharacter();
+    }
+
+    void setAdapterListener(OnTabSelected listener)
+    {
+        adapter.setListener(listener);
+    }
+
+    private class CharacterPhysicalPagerAdapter extends FragmentPagerAdapter implements SupportCharacterUpdate
+    {
+        public void setListener(@NonNull OnTabSelected l)
+        {
+            listener = l;
+        }
 
         private static final int NUM_PHYSICAL_FRAGMENTS = 4;
 
         private WorldPlannerBaseFragment fragments[] = new WorldPlannerBaseFragment[NUM_PHYSICAL_FRAGMENTS];
         private String titles[] = {"Head", "Torso", "Arms", "Legs"};
+
+        private OnTabSelected listener;
 
         CharacterPhysicalPagerAdapter(FragmentManager fm, @NonNull StoryCharacter character) {
             super(fm);
@@ -81,12 +102,24 @@ public class CharacterPhysicalDetailFragment extends WorldPlannerBaseFragment {
 
         @Override
         public Fragment getItem(int position) {
+            if (listener != null)
+            {
+                listener.onTabSelected();
+            }
             return fragments[position];
         }
 
         @Override
         public int getCount() {
             return NUM_PHYSICAL_FRAGMENTS;
+        }
+
+        @Override
+        public void updateCharacter() {
+            for (WorldPlannerBaseFragment fragment : fragments)
+            {
+                ((SupportCharacterUpdate) fragment).updateCharacter();
+            }
         }
     }
 }
