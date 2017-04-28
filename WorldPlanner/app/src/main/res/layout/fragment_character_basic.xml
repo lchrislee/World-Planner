@@ -21,8 +21,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -151,6 +151,91 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        >
+
+        <TextView
+            android:text="@string/fragment_detail_character_height_prompt"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            />
+
+        <EditText
+            android:id="@+id/fragment_detail_character_height"
+            android:hint="@string/fragment_detail_character_height_hint"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:inputType="number"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:maxWidth="50dp"
+            android:minWidth="50dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            />
+
+        <TextView
+            android:text="@string/fragment_detail_character_height_scale"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            />
+
+        <TextView
+            android:text="@string/fragment_detail_character_weight_prompt"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            />
+
+        <EditText
+            android:id="@+id/fragment_detail_character_weight"
+            android:hint="@string/fragment_detail_character_weight_hint"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:inputType="number"
+            android:gravity="center_horizontal"
+            android:minWidth="50dp"
+            android:maxWidth="50dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            />
+
+        <TextView
+            android:text="@string/fragment_detail_character_weight_scale"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             />
 
     </LinearLayout>

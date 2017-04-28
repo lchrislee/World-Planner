@@ -91,6 +91,12 @@
     <string name="fragment_detail_character_gender_hint">Female</string>
     <string name="fragment_detail_character_age_prompt">Age:</string>
     <string name="fragment_detail_character_age_hint">78</string>
+    <string name="fragment_detail_character_height_prompt">Height:</string>
+    <string name="fragment_detail_character_height_hint">80</string>
+    <string name="fragment_detail_character_height_scale">inches</string>
+    <string name="fragment_detail_character_weight_prompt">Weight:</string>
+    <string name="fragment_detail_character_weight_hint">120</string>
+    <string name="fragment_detail_character_weight_scale">pounds</string>
     <string name="fragment_detail_character_description_hint">A brave woman who worked as a Chinese spy. Her past is a mystery. After an eventful encounter with a pair of soldiers from America, she dedicated her life to helping the man she loved.</string>
 
     <!--Character Traits-->
