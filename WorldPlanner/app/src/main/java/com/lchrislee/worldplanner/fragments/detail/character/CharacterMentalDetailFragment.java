@@ -27,6 +27,7 @@ public class CharacterMentalDetailFragment
 
     private StoryCharacter character;
     private CharacterMentalPagerAdapter adapter;
+    private OnTabSelected listener;
 
     public CharacterMentalDetailFragment() {
 
@@ -52,6 +53,7 @@ public class CharacterMentalDetailFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_character_mental, container, false);
         adapter = new CharacterMentalPagerAdapter(getChildFragmentManager(), character);
+        adapter.setListener(listener);
         final TabLayout layout = (TabLayout) v.findViewById(R.id.fragment_detail_character_mental_tab);
         final ViewPager pager = (ViewPager) v.findViewById(R.id.fragment_detail_character_mental_pager);
         pager.setAdapter(adapter);
@@ -66,7 +68,7 @@ public class CharacterMentalDetailFragment
 
     public void setAdapterListener(@NonNull OnTabSelected l)
     {
-        adapter.setListener(l);
+        listener = l;
     }
 
     private class CharacterMentalPagerAdapter

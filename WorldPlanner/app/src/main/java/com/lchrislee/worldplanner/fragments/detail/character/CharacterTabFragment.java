@@ -45,9 +45,11 @@ public class CharacterTabFragment
     private StoryCharacter model;
 
     private boolean isEditing;
+    private boolean showingDetails;
 
     public CharacterTabFragment() {
         isEditing = false;
+        showingDetails = false;
     }
 
     public static CharacterTabFragment newInstance(@NonNull Serializable object)
@@ -82,6 +84,7 @@ public class CharacterTabFragment
                         {
                             basicDetailFragment = CharacterBasicDetailFragment.newInstance(model);
                         }
+                        showingDetails = true;
                         getChildFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_tab_character_frame, basicDetailFragment)
                                 .addToBackStack(basicDetailFragment.getClass().getSimpleName())
@@ -91,8 +94,8 @@ public class CharacterTabFragment
                         if (physicalDetailFragment == null)
                         {
                             physicalDetailFragment = CharacterPhysicalDetailFragment.newInstance(model);
-                            physicalDetailFragment.setAdapterListener(CharacterTabFragment.this);
                         }
+                        showingDetails = true;
                         getChildFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_tab_character_frame, physicalDetailFragment)
                                 .addToBackStack(physicalDetailFragment.getClass().getSimpleName())
@@ -102,8 +105,8 @@ public class CharacterTabFragment
                         if (mentalDetailFragment == null)
                         {
                             mentalDetailFragment = CharacterMentalDetailFragment.newInstance(model);
-                            mentalDetailFragment.setAdapterListener(CharacterTabFragment.this);
                         }
+                        showingDetails = true;
                         getChildFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_tab_character_frame, mentalDetailFragment)
                                 .addToBackStack(mentalDetailFragment.getClass().getSimpleName())
@@ -123,8 +126,19 @@ public class CharacterTabFragment
         return v;
     }
 
+    @Override
+    public void onResume() {
+        if (physicalDetailFragment != null) {
+            physicalDetailFragment.setAdapterListener(this);
+        }
+        if (mentalDetailFragment != null) {
+            mentalDetailFragment.setAdapterListener(this);
+        }
+        super.onResume();
+    }
+
     public boolean isShowingDetails() {
-        return true;
+        return showingDetails;
     }
 
     public void setListener(CharacterDetailTabChange listener) {

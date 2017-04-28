@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.activities.EntityDetailActivity;
 import com.lchrislee.worldplanner.fragments.WorldPlannerBaseFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.physical.CharacterArmDetailFragment;
 import com.lchrislee.worldplanner.fragments.detail.character.physical.CharacterHeadDetailFragment;
@@ -29,6 +30,7 @@ public class CharacterPhysicalDetailFragment
 
     private StoryCharacter character;
     private CharacterPhysicalPagerAdapter adapter;
+    private OnTabSelected listener;
 
     public CharacterPhysicalDetailFragment() {
 
@@ -64,13 +66,19 @@ public class CharacterPhysicalDetailFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        adapter.setListener(listener);
+    }
+
+    @Override
     public void updateCharacter() {
         adapter.updateCharacter();
     }
 
-    void setAdapterListener(OnTabSelected listener)
+    void setAdapterListener(OnTabSelected l)
     {
-        adapter.setListener(listener);
+        listener = l;
     }
 
     private class CharacterPhysicalPagerAdapter extends FragmentPagerAdapter implements SupportCharacterUpdate
@@ -106,6 +114,7 @@ public class CharacterPhysicalDetailFragment
             {
                 listener.onTabSelected();
             }
+            ((EntityDetailActivity) getActivity()).onCharacterTabSwitch();
             return fragments[position];
         }
 
