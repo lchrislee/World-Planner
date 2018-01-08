@@ -1,60 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
     >
-
-    <LinearLayout
-        android:orientation="vertical"
+    <data>
+        <variable
+            name="event"
+            type="com.lchrislee.worldplanner.models.StoryEvent"/>
+    </data>
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        >
 
-        <TextView
-            android:id="@+id/list_entity_name"
-            tools:text="Uncle Ben's Death"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:layout_weight="1"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/list_event_location"
-            tools:text="New York City Neighborhood"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            />
+            <TextView
+                android:id="@+id/list_entity_name"
+                android:text=""
+                tools:text="Uncle Ben's Death"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                />
 
-        <TextView
-            android:id="@+id/list_entity_description"
-            tools:text="Peter learns the true meaning of Uncle Ben's message about responsibility."
-            android:maxLines="2"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            />
+            <TextView
+                android:id="@+id/list_event_location"
+                tools:text="New York City Neighborhood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/list_entity_description"
+                tools:text="Peter learns the true meaning of Uncle Ben's message about responsibility."
+                android:maxLines="2"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                />
 
-</android.support.v7.widget.CardView>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>

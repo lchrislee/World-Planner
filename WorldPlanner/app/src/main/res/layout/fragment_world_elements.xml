@@ -1,12 +1,17 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    tools:context="com.lchrislee.worldplanner.fragments.current_world.WorldElementsFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.lchrislee.worldplanner.fragments.current_world.WorldElementsFragment">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_world_elements_list"
+    >
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/list_element" />
-</RelativeLayout>
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_world_elements_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/list_element" />
+    </RelativeLayout>
+</layout>

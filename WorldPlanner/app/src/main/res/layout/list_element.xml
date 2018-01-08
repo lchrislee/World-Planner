@@ -1,30 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     >
-
-    <ImageView
-        android:background="@android:color/transparent"
-        android:src="@drawable/element_folder"
-        android:layout_width="172dp"
-        android:layout_height="172dp" />
-
-    <TextView
-        android:id="@+id/list_element_name"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
+    <data>
+        <variable
+            name="name"
+            type="String"/>
+    </data>
+    <RelativeLayout
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        >
 
-</RelativeLayout>
+        <ImageView
+            android:background="@android:color/transparent"
+            android:src="@drawable/element_folder"
+            android:layout_width="172dp"
+            android:layout_height="172dp" />
+
+        <TextView
+            android:id="@+id/list_element_name"
+            android:text="@{name}"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </RelativeLayout>
+</layout>

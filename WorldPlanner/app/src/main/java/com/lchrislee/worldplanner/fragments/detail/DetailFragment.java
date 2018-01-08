@@ -23,8 +23,6 @@ import com.lchrislee.worldplanner.managers.CameraManager;
 import com.lchrislee.worldplanner.managers.DataManager;
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.StoryElement;
-import com.lchrislee.worldplanner.models.StoryEvent;
-import com.lchrislee.worldplanner.models.StoryWorld;
 import com.orm.SugarRecord;
 
 import timber.log.Timber;
@@ -49,7 +47,7 @@ public abstract class DetailFragment
     private String title;
     private int layoutId;
     private int typeToDisplay;
-    private boolean haveCameraPermissions = false;
+    private boolean haveCameraPermissions;
     boolean isNew;
     protected boolean isEditing;
     protected StoryElement model;
@@ -71,6 +69,7 @@ public abstract class DetailFragment
         isEditing = isNew;
         layoutId = arguments.getInt(LAYOUT);
         title = arguments.getString(TITLE);
+        haveCameraPermissions = Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
         setupImageListener();
     }
 
@@ -88,24 +87,7 @@ public abstract class DetailFragment
             name.setText(model.getName());
             description.setText(model.getDescription());
         }
-        else {
-            DataManager dataManager = DataManager.getInstance();
-            StoryWorld currentWorld = dataManager.getCurrentWorld();
-            switch (typeToDisplay) {
-                case DataManager.EVENT:
-                    StoryEvent plot = new StoryEvent();
-                    plot.setWorld(currentWorld);
-                    model = plot;
-                    model.setName("");
-                    model.setDescription("");
-                    break;
-            }
-        }
         updateViews();
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            haveCameraPermissions = true;
-        }
 
         return mainView;
     }

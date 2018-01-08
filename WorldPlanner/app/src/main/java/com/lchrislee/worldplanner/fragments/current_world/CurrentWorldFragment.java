@@ -21,8 +21,8 @@ public class CurrentWorldFragment extends WorldPlannerBaseFragment {
     }
 
     private WorldDetailFragment detailFragment;
-    private WorldElementsFragment tabFragment;
     private WorldEventsListFragment settingsFragment;
+    private WorldElementsFragment tabFragment;
     private WorldTabChange tabChangeListener;
 
     public CurrentWorldFragment() {

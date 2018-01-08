@@ -143,4 +143,5 @@
     <string name="fragment_character_foot_prompt">Foot Notes:</string>
     <string name="fragment_character_foot_hint">Pretty large for a young girl. They are often dirty and without shoes.</string>
 
+    <!--Add hints to list items-->
 </resources>
