@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="navigation_title_size">32sp</dimen>
+    <dimen name="spacing_x0.5">4dp</dimen>
+    <dimen name="spacing_x1">8dp</dimen>
+    <dimen name="spacing_x2">16dp</dimen>
+    <dimen name="spacing_x4">32dp</dimen>
+    <dimen name="spacing_x8">64dp</dimen>
+    <dimen name="spacing_x16">128dp</dimen>
+    <dimen name="spacing_x32">256dp</dimen>
+</resources>
