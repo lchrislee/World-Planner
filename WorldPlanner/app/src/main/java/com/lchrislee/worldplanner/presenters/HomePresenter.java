@@ -5,13 +5,16 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+/**
+ * The main controller for {@link com.lchrislee.worldplanner.activities.HomeActivity}. This determines
+ * how to act and change visuals.
+ */
 public class HomePresenter
 {
     private static final String LOG_TAG = HomePresenter.class.getSimpleName();
@@ -27,6 +30,8 @@ public class HomePresenter
     private TabLayout homeTabs;
 
     private ActionBarDrawerToggle mDrawerToggle;
+
+    private FragmentStatePagerAdapter mPagerAdapter;
 
     private Fragment[] fragments = new Fragment[10];
 
@@ -54,7 +59,7 @@ public class HomePresenter
         for (int i = 0; i < fragments.length; ++i) {
             fragments[i] = new Fragment();
         }
-        homeViewPager.setAdapter(new FragmentStatePagerAdapter(activity.getSupportFragmentManager())
+        mPagerAdapter = new FragmentStatePagerAdapter(activity.getSupportFragmentManager())
         {
             @NonNull
             @Override
@@ -74,11 +79,8 @@ public class HomePresenter
             {
                 return "User world " + String.valueOf(position);
             }
-        });
+        };
+        homeViewPager.setAdapter(mPagerAdapter);
         homeTabs.setupWithViewPager(homeViewPager, true);
-    }
-
-    public void onHomeSelected() {
-        homeDrawer.openDrawer(GravityCompat.START);
     }
 }

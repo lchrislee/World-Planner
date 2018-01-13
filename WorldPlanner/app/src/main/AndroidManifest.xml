@@ -14,13 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/WorldPlannerTheme">
+
         <activity
-            android:name=".activities.HomeActivity_"
+            android:name=".activities.FrontActivity_"
+            android:noHistory="true"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activities.HomeActivity_"
+            android:screenOrientation="sensorPortrait">
+        </activity>
+
     </application>
 </manifest>
