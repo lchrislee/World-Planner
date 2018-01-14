@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Main content view -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,6 +23,7 @@
             android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/homeTabs"
                 app:tabGravity="fill"
@@ -30,14 +32,90 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
+
+            <!-- Fragment Tabs -->
         </android.support.v4.view.ViewPager>
 
     </RelativeLayout>
 
+    <!-- Navigation Drawer -->
     <android.support.design.widget.NavigationView
         android:id="@+id/homeNavigation"
         app:menu="@menu/home_navigation"
+        android:background="@color/colorPrimaryLight"
         android:layout_gravity="start"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <!-- Footer -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/spacing_x1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:background="@color/navigation_menu_divider"
+                android:paddingTop="@dimen/spacing_x1"
+                android:paddingBottom="@dimen/spacing_x1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/one"
+                />
+
+            <TextView
+                android:id="@+id/homeSettings"
+                android:text="Settings"
+                style="@style/navigation_menu_textview"
+                android:gravity="center_vertical|start"
+                android:layout_marginStart="@dimen/spacing_x2"
+                android:layout_height="@dimen/navigation_menu_height"
+                />
+
+            <View
+                android:background="@color/navigation_menu_divider"
+                android:paddingTop="@dimen/spacing_x1"
+                android:paddingBottom="@dimen/spacing_x1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/one"
+                />
+
+            <TextView
+                android:id="@+id/homeFeedback"
+                android:text="Send feedback"
+                style="@style/navigation_menu_textview"
+                android:gravity="center_vertical|start"
+                android:layout_marginStart="@dimen/spacing_x2"
+                android:layout_height="@dimen/navigation_menu_height"
+                />
+
+            <View
+                android:background="@color/navigation_menu_divider"
+                android:paddingTop="@dimen/spacing_x1"
+                android:paddingBottom="@dimen/spacing_x1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/one"
+                />
+
+            <TextView
+                android:id="@+id/homeAbout"
+                android:text="About this app"
+                style="@style/navigation_menu_textview"
+                android:gravity="center_vertical|start"
+                android:layout_marginStart="@dimen/spacing_x2"
+                android:layout_height="@dimen/navigation_menu_height"
+                />
+
+            <View
+                android:background="@color/navigation_menu_divider"
+                android:paddingTop="@dimen/spacing_x1"
+                android:paddingBottom="@dimen/spacing_x1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/one"
+                />
+
+        </LinearLayout>
+
+    </android.support.design.widget.NavigationView>
+
 </android.support.v4.widget.DrawerLayout>

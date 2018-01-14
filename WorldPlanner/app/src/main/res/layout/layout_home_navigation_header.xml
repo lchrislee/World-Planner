@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/colorPrimaryDark"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/spacing_x32">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:id="@+id/home_navigation_circle_image_wrapper"
@@ -33,13 +33,11 @@
     <TextView
         android:id="@+id/homeNavigationHeaderTitle"
         android:text="@string/app_title"
-        android:textSize="@dimen/navigation_title_size"
+        style="@style/base_textview"
+        android:textSize="@dimen/textSize_xlarge"
         android:layout_alignStart="@id/home_navigation_circle_image_wrapper"
         android:layout_below="@id/home_navigation_circle_image_wrapper"
-        android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/spacing_x1"
-        android:layout_marginBottom="@dimen/spacing_x4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_marginBottom="@dimen/spacing_x2"/>
 
 </RelativeLayout>

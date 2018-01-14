@@ -2,18 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home_navigation_jump"
-        android:title="Jump To World"
+        android:title="Jump to a world"
         />
     <item
         android:id="@+id/home_navigation_new_world"
-        android:title="Create New World"
-        />
-    <item
-        android:id="@+id/home_navigation_settings"
-        android:title="Settings"
-        />
-    <item
-        android:id="@+id/home_navigation_about"
-        android:title="About this app"
+        android:title="Create a new world"
         />
 </menu>

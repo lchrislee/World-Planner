@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="navigation_title_size">32sp</dimen>
+    <dimen name="textSize_small">11sp</dimen>
+    <dimen name="textSize_normal">14sp</dimen>
+    <dimen name="textSize_large">16sp</dimen>
+    <dimen name="textSize_xlarge">24sp</dimen>
+    <dimen name="textSize_xxlarge">32sp</dimen>
+    <dimen name="textSize_huge">48sp</dimen>
+
     <dimen name="spacing_x0.5">4dp</dimen>
     <dimen name="spacing_x1">8dp</dimen>
     <dimen name="spacing_x2">16dp</dimen>
@@ -8,4 +14,8 @@
     <dimen name="spacing_x8">64dp</dimen>
     <dimen name="spacing_x16">128dp</dimen>
     <dimen name="spacing_x32">256dp</dimen>
+
+    <dimen name="navigation_menu_height">48dp</dimen>
+
+    <dimen name="one">1dp</dimen>
 </resources>

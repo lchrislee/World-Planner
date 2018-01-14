@@ -14,4 +14,6 @@
     <color name="colorTextPrimaryInverse">#AAAAAA</color>
     <color name="colorTextSecondary">#2E4650</color>
     <color name="colorTextSecondaryInverse">#CCCCCC</color>
+
+    <color name="navigation_menu_divider">#33666666</color>
 </resources>
