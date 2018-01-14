@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -10,7 +11,6 @@
         android:id="@+id/home_navigation_circle_image_wrapper"
         android:layout_width="@dimen/spacing_x16"
         android:layout_height="@dimen/spacing_x16"
-        android:background="#ffffff"
         android:shape="ring"
         android:layout_marginStart="@dimen/spacing_x4"
         android:layout_marginTop="@dimen/spacing_x4"
@@ -21,7 +21,6 @@
 
         <ImageView
             android:id="@+id/homeNavigationHeaderImage"
-            android:src="@drawable/ic_launcher_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -32,7 +31,7 @@
 
     <TextView
         android:id="@+id/homeNavigationHeaderTitle"
-        android:text="@string/app_title"
+        tools:text="@string/app_title"
         style="@style/base_textview"
         android:textSize="@dimen/textSize_xlarge"
         android:layout_alignStart="@id/home_navigation_circle_image_wrapper"

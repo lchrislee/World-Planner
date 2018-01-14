@@ -65,7 +65,7 @@
 
             <TextView
                 android:id="@+id/homeSettings"
-                android:text="Settings"
+                android:text="@string/settings"
                 style="@style/navigation_menu_textview"
                 android:gravity="center_vertical|start"
                 android:layout_marginStart="@dimen/spacing_x2"
@@ -82,7 +82,7 @@
 
             <TextView
                 android:id="@+id/homeFeedback"
-                android:text="Send feedback"
+                android:text="@string/send_feedback"
                 style="@style/navigation_menu_textview"
                 android:gravity="center_vertical|start"
                 android:layout_marginStart="@dimen/spacing_x2"
@@ -99,7 +99,7 @@
 
             <TextView
                 android:id="@+id/homeAbout"
-                android:text="About this app"
+                android:text="@string/about_this_app"
                 style="@style/navigation_menu_textview"
                 android:gravity="center_vertical|start"
                 android:layout_marginStart="@dimen/spacing_x2"

@@ -1,10 +1,11 @@
 package com.lchrislee.worldplanner.fragments;
 
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.World;
+import com.lchrislee.worldplanner.views.WorldEntityHolder;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -23,11 +24,38 @@ public class HomeWorldFragment extends BaseFragment
 
     @ViewById TextView homeWorldDescription;
 
-    @ViewById RecyclerView homeWorldList;
+    @ViewById WorldEntityHolder homeWorldCharacters;
+
+    @ViewById WorldEntityHolder homeWorldLocations;
+
+    @ViewById WorldEntityHolder homeWorldItems;
 
     @AfterViews
     protected void viewDidLoad() {
         homeWorldDescription.setText(world.description());
+        homeWorldCharacters.setAddEntityDelegate(this::onAddEntity);
+        homeWorldLocations.setAddEntityDelegate(this::onAddEntity);
+        homeWorldItems.setAddEntityDelegate(this::onAddEntity);
     }
 
+    /**
+     * Decide what type of entity to add and launch the appropriate screen to create a new one.
+     *
+     * @param entityType The type requested to potentially create a new entity.
+     */
+    public void onAddEntity(final int entityType) {
+        switch(entityType) {
+            case R.id.homeWorldCharacters:
+                Log.d(LOG_TAG, "Request to create a Character.");
+                return;
+            case R.id.homeWorldLocations:
+                Log.d(LOG_TAG, "Request to create a Location.");
+                return;
+            case R.id.homeWorldItems:
+                Log.d(LOG_TAG, "Request to create an Item.");
+                return;
+            default:
+                break;
+        }
+    }
 }

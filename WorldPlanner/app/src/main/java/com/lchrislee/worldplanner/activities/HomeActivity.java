@@ -223,7 +223,7 @@ public class HomeActivity
      */
     private void switchToWorld(final int pagerPosition, final long worldId) {
         if (homeViewPager.getCurrentItem() != pagerPosition) {
-            homeViewPager.setCurrentItem(pagerPosition, true);
+            homeViewPager.setCurrentItem(pagerPosition, false);
         }
         headerTitle.setText(worlds.get(pagerPosition).name());
         headerImage.setImageDrawable(headerImage.getDrawable());
