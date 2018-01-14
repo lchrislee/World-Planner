@@ -13,6 +13,7 @@
     </style>
 
     <style name="base_textview">
+        <item name="android:textSize">@dimen/textSize_normal</item>
         <item name="android:gravity">start</item>
         <item name="android:textDirection">locale</item>
         <item name="android:layout_width">match_parent</item>

@@ -23,6 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lchrislee.worldplanner.R;
+import com.lchrislee.worldplanner.fragments.HomeWorldFragment;
+import com.lchrislee.worldplanner.fragments.HomeWorldFragment_;
+import com.lchrislee.worldplanner.models.World;
 import com.lchrislee.worldplanner.presenters.HomePresenter;
 
 import org.androidannotations.annotations.AfterViews;
@@ -34,7 +37,9 @@ import org.androidannotations.annotations.ViewById;
  * The main place for users. The user can view all their worlds and all entities in their worlds.
  */
 @EActivity(R.layout.activity_home)
-public class HomeActivity extends BaseFragmentActivity implements HomePresenter.HomeDelegate
+public class HomeActivity
+    extends BaseFragmentActivity
+    implements HomePresenter.HomeDelegate
 {
     private static final String LOG_TAG = HomeActivity.class.getSimpleName();
 
@@ -54,9 +59,8 @@ public class HomeActivity extends BaseFragmentActivity implements HomePresenter.
 
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private FragmentStatePagerAdapter mPagerAdapter;
-
-    private Fragment[] fragments = new Fragment[10];
+    private HomeWorldFragment[] fragments = new HomeWorldFragment[10];
+    private World[] worlds = new World[10];
 
     private HomePresenter mHomePresenter;
 
@@ -72,7 +76,7 @@ public class HomeActivity extends BaseFragmentActivity implements HomePresenter.
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(R.string.app_name);
+            actionBar.setTitle(R.string.app_title);
             actionBar.setHomeButtonEnabled(true);
         }
     }
@@ -91,9 +95,19 @@ public class HomeActivity extends BaseFragmentActivity implements HomePresenter.
 
     private void initializeTabs() {
         for (int i = 0; i < fragments.length; ++i) {
-            fragments[i] = new Fragment();
+            worlds[i] = new World();
+            worlds[i].updateName("World " + i);
+            if (i % 2 == 0)
+            {
+                worlds[i].updateDescription("This is world: " + i + "\nI hope you like it here.\nIt's such a nice place.");
+            } else {
+                worlds[i].updateDescription("This is world: " + i);
+            }
+            worlds[i].setId(i);
+            fragments[i] = HomeWorldFragment_.builder().world(worlds[i]).build();
         }
-        mPagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager())
+
+        homeViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager())
         {
             @NonNull
             @Override
@@ -111,10 +125,34 @@ public class HomeActivity extends BaseFragmentActivity implements HomePresenter.
             @Override
             public CharSequence getPageTitle (final int position)
             {
-                return "User world " + String.valueOf(position);
+                return worlds[position].name();
             }
-        };
-        homeViewPager.setAdapter(mPagerAdapter);
+        });
+
+        homeViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override
+            public void onPageScrolled (final int position,
+                                        final float positionOffset,
+                                        final int positionOffsetPixels)
+            {
+                // No actions taken.
+            }
+
+            @Override
+            public void onPageSelected (final int position)
+            {
+                Toast.makeText(HomeActivity.this,
+                    "Selected world: " + worlds[position].id(),
+                    Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPageScrollStateChanged (final int state)
+            {
+                // No actions taken.
+            }
+        });
         homeTabs.setupWithViewPager(homeViewPager, true);
     }
 
@@ -169,4 +207,5 @@ public class HomeActivity extends BaseFragmentActivity implements HomePresenter.
         Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
         homeDrawer.closeDrawer(GravityCompat.START);
     }
+
 }

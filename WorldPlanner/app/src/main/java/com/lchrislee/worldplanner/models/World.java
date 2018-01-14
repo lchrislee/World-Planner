@@ -2,18 +2,22 @@ package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * One collection of thought, characters, etc. for a story.
  */
-public class Universe implements BaseModel
+public class World implements BaseModel, Serializable
 {
     private String mName;
 
     private String mDescription;
 
-    public Universe() {
-        mName = "";
-        mDescription = "";
+    private long mId;
+
+    public World () {
+        mName = "world";
+        mDescription = "World!";
     }
 
     @NonNull
@@ -40,5 +44,15 @@ public class Universe implements BaseModel
     public void updateDescription (@NonNull final String description)
     {
         mDescription = description;
+    }
+
+    public long id ()
+    {
+        return mId;
+    }
+
+    public void setId (final long mId)
+    {
+        this.mId = mId;
     }
 }

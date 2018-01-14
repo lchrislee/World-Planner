@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home_navigation_jump"
-        android:title="Jump to a world"
+        android:title="Show world..."
         />
     <item
         android:id="@+id/home_navigation_new_world"

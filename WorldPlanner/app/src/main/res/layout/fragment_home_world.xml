@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/spacing_x2"
+    android:paddingEnd="@dimen/spacing_x2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="@dimen/spacing_x2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:padding="@dimen/spacing_x2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/homeWorldDescription"
+                tools:text="WORLD DESCRIPTION. This can be a little long so we should decide exactly how to display all this text! Who knows, it could really be as long as a book! But that would just be silly. Five lines seems good for now..."
+                android:textSize="@dimen/textSize_large"
+                style="@style/base_textview"
+                android:maxHeight="@dimen/spacing_x16"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/homeWorldList"
+        android:layout_marginTop="@dimen/spacing_x2"
+        android:layout_marginBottom="@dimen/spacing_x2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>
