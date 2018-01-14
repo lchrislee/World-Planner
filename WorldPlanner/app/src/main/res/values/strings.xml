@@ -12,4 +12,6 @@
     <string name="characters">Characters</string>
     <string name="locations">Locations</string>
     <string name="items">Items</string>
+
+    <string name="more">More</string>
 </resources>

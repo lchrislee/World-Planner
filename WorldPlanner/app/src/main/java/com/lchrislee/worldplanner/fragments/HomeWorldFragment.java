@@ -8,6 +8,7 @@ import com.lchrislee.worldplanner.models.World;
 import com.lchrislee.worldplanner.views.WorldEntityHolder;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
@@ -57,5 +58,10 @@ public class HomeWorldFragment extends BaseFragment
             default:
                 break;
         }
+    }
+
+    @Click({R.id.homeWorldDetails})
+    protected void onWorldDetailsClicked() {
+        Log.d(LOG_TAG, "View details for world: " + world.id());
     }
 }

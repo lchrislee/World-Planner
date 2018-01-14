@@ -14,17 +14,44 @@
         android:layout_height="wrap_content"
         >
 
-        <TextView
-            android:id="@+id/homeWorldDescription"
-            tools:text="WORLD DESCRIPTION. This can be a little long so we should decide exactly how to display all this text! Who knows, it could really be as long as a book! But that would just be silly. Five lines seems good for now..."
-            style="@style/base_textview"
-            android:textSize="@dimen/textSize_large"
-            android:maxHeight="@dimen/spacing_x16"
-            android:background="@android:color/white"
-            android:padding="@dimen/spacing_x2"
+        <android.support.v7.widget.CardView
             android:layout_marginTop="@dimen/spacing_x1"
             android:layout_marginBottom="@dimen/spacing_x1"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_x2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/homeWorldDescription"
+                    tools:text="WORLD DESCRIPTION. This can be a little long so we should decide exactly how to display all this text! Who knows, it could really be as long as a book! But that would just be silly. Five lines seems good for now..."
+                    style="@style/base_textview"
+                    android:textSize="@dimen/textSize_large"
+                    android:maxHeight="@dimen/spacing_x16"
+                    android:background="@android:color/white"
+                    android:layout_marginBottom="@dimen/spacing_x1"
+                    />
+
+                <TextView
+                    android:id="@+id/homeWorldDetails"
+                    android:text="@string/more"
+                    style="@style/base_textview"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:layout_gravity="end"
+                    android:textDirection="locale"
+                    android:layout_marginTop="@dimen/spacing_x1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
         <com.lchrislee.worldplanner.views.WorldEntityHolder
             android:id="@+id/homeWorldCharacters"
