@@ -30,5 +30,7 @@
         <attr name="title" format="string"/>
         <attr name="titleRes" format="reference"/>
         <attr name="srcRes" format="reference"/>
+        <attr name="spacing" format="integer"/>
+        <attr name="spacingRes" format="reference"/>
     </declare-styleable>
 </resources>

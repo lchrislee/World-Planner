@@ -180,13 +180,7 @@ public class HomeActivity
                                         final int positionOffsetPixels) { /* No actions taken. */ }
 
             @Override
-            public void onPageSelected (final int position)
-            {
-                // TODO 1/14/18: Update this when a persisted World model exists.
-                Toast.makeText(HomeActivity.this,
-                    "Selected world: " + worlds.get(position).id(),
-                    Toast.LENGTH_SHORT).show();
-                Log.d(LOG_TAG, "Selected world tab: " + position);
+            public void onPageSelected (final int position) {
                 switchToWorld(position, worlds.get(position).id());
             }
 
@@ -224,6 +218,11 @@ public class HomeActivity
     private void switchToWorld(final int pagerPosition, final long worldId) {
         if (homeViewPager.getCurrentItem() != pagerPosition) {
             homeViewPager.setCurrentItem(pagerPosition, false);
+            // TODO 1/14/18: Update this when a persisted World model exists.
+            Toast.makeText(HomeActivity.this,
+                "Selected world: " + worlds.get(pagerPosition).id(),
+                Toast.LENGTH_SHORT).show();
+            Log.d(LOG_TAG, "Selected world tab: " + pagerPosition);
         }
         headerTitle.setText(worlds.get(pagerPosition).name());
         headerImage.setImageDrawable(headerImage.getDrawable());

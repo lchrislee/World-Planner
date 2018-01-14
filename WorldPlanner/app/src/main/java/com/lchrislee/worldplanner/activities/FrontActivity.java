@@ -19,7 +19,8 @@ public class FrontActivity extends BaseFragmentActivity
     }
 
     private void goToHome() {
-        findViewById(android.R.id.content).postDelayed(() ->
-            HomeActivity_.intent(this).start(), MINIMUM_TRANSITION_TIME_MS);
+        HomeActivity_.intent(this).start();
+//        findViewById(android.R.id.content).postDelayed(() ->
+//            HomeActivity_.intent(this).start(), MINIMUM_TRANSITION_TIME_MS);
     }
 }

@@ -2,6 +2,7 @@ package com.lchrislee.worldplanner.fragments;
 
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lchrislee.worldplanner.R;
 import com.lchrislee.worldplanner.models.World;
@@ -17,7 +18,9 @@ import org.androidannotations.annotations.ViewById;
  * A fragment that displays the contents of a {@link World}.
  */
 @EFragment(R.layout.fragment_home_world)
-public class HomeWorldFragment extends BaseFragment
+public class HomeWorldFragment
+    extends BaseFragment
+    implements WorldEntityHolder.EntityInteractionDelegate
 {
     private static final String LOG_TAG = HomeWorldFragment.class.getSimpleName();
 
@@ -34,16 +37,15 @@ public class HomeWorldFragment extends BaseFragment
     @AfterViews
     protected void viewDidLoad() {
         homeWorldDescription.setText(world.description());
-        homeWorldCharacters.setAddEntityDelegate(this::onAddEntity);
-        homeWorldLocations.setAddEntityDelegate(this::onAddEntity);
-        homeWorldItems.setAddEntityDelegate(this::onAddEntity);
+        homeWorldCharacters.useList(world.getCharacters());
+        homeWorldCharacters.setAddEntityDelegate(this);
+        homeWorldLocations.useList(world.getLocations());
+        homeWorldLocations.setAddEntityDelegate(this);
+        homeWorldItems.useList(world.getItems());
+        homeWorldItems.setAddEntityDelegate(this);
     }
 
-    /**
-     * Decide what type of entity to add and launch the appropriate screen to create a new one.
-     *
-     * @param entityType The type requested to potentially create a new entity.
-     */
+    @Override
     public void onAddEntity(final int entityType) {
         switch(entityType) {
             case R.id.homeWorldCharacters:
@@ -58,6 +60,13 @@ public class HomeWorldFragment extends BaseFragment
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onEntityClicked (final long entityId)
+    {
+        // TODO 1/14/18: Figure out what entity this is and go to details.
+        Toast.makeText(getContext(), "Clicked on entity: " + entityId, Toast.LENGTH_SHORT).show();
     }
 
     @Click({R.id.homeWorldDetails})

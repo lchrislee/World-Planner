@@ -15,5 +15,9 @@
     <color name="colorTextSecondary">#2E4650</color>
     <color name="colorTextSecondaryInverse">#CCCCCC</color>
 
+    <color name="off_white">#eeeeee</color>
+
     <color name="navigation_menu_divider">#33666666</color>
+    <color name="background_world_entity_category">@android:color/white</color>
+    <color name="background_list_entity_small">@android:color/white</color>
 </resources>

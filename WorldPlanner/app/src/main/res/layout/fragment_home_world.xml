@@ -21,6 +21,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:background="@color/background_world_entity_category"
                 android:orientation="vertical"
                 android:padding="@dimen/spacing_x2"
                 android:layout_width="match_parent"
@@ -32,7 +33,6 @@
                     style="@style/base_textview"
                     android:textSize="@dimen/textSize_large"
                     android:maxHeight="@dimen/spacing_x16"
-                    android:background="@android:color/white"
                     android:layout_marginBottom="@dimen/spacing_x1"
                     />
 
@@ -57,28 +57,31 @@
             android:id="@+id/homeWorldCharacters"
             app:titleRes="@string/characters"
             app:srcRes="@android:drawable/ic_input_add"
+            app:spacingRes="@dimen/spacing_x0.5"
             android:layout_marginTop="@dimen/spacing_x1"
             android:layout_marginBottom="@dimen/spacing_x1"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/world_entity_card_height"/>
+            android:layout_height="wrap_content"/>
 
         <com.lchrislee.worldplanner.views.WorldEntityHolder
             android:id="@+id/homeWorldLocations"
             app:titleRes="@string/locations"
             app:srcRes="@android:drawable/ic_input_add"
+            app:spacingRes="@dimen/spacing_x0.5"
             android:layout_marginTop="@dimen/spacing_x1"
             android:layout_marginBottom="@dimen/spacing_x1"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/world_entity_card_height"/>
+            android:layout_height="wrap_content"/>
 
         <com.lchrislee.worldplanner.views.WorldEntityHolder
             android:id="@+id/homeWorldItems"
             app:titleRes="@string/items"
             app:srcRes="@android:drawable/ic_input_add"
+            app:spacingRes="@dimen/spacing_x0.5"
             android:layout_marginTop="@dimen/spacing_x1"
             android:layout_marginBottom="@dimen/spacing_x1"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/world_entity_card_height"/>
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

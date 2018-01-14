@@ -2,10 +2,12 @@ package com.lchrislee.worldplanner.models;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * The foundational information for all model types.
  */
-public interface BaseModel
+public interface BaseModel extends Serializable
 {
 
     /**
